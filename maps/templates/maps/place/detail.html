@@ -35,6 +35,7 @@
                 </div>
                 <h3>{{ place.name }}</h3>
                 {{ place|display_info }}
+                {{ place|display_dates }}
             </div>
             {% if person_table.data|length > 0 %}
                 <div class="tab-pane" id="persons">

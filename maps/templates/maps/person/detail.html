@@ -34,6 +34,7 @@
                     {% endif %}
                 {% endautoescape %}
                 {{ person|display_info }}
+                {{ person|display_dates }}
             </div>
             {% if map_table.data|length > 0 %}
                 <div class="tab-pane" id="maps">

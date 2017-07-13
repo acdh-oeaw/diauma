@@ -32,6 +32,7 @@
                     <p>Located at: {{ location_at|link }}</p>
                 {% endif %}
                 {{ institute|display_info }}
+                {{ institute|display_dates }}
             </div>
             {% if map_table.data|length > 0 %}
                 <div class="tab-pane" id="maps">

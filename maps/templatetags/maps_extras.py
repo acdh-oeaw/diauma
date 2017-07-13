@@ -14,6 +14,15 @@ def display_info(entity):
     return mark_safe('<h4>Info</h4><p class="info_content">%s</p>' % linebreaks(entity.info))
 
 
+@register.filter(name='display_dates')
+def display_dates(entity):
+    created = entity.created_date.strftime('%Y-%m-%d')
+    modified = entity.modified_date.strftime('%Y-%m-%d')
+    string = created
+    string += ' / ' + modified if created != modified else ''
+    return mark_safe(string)
+
+
 @register.filter(name='link')
 def link(entity):
     return util.link(entity)

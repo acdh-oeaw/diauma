@@ -2,8 +2,15 @@
 from django.db import models
 from vocabs.models import SkosConcept
 
+class BaseModel(models.Model):
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
-class Place(models.Model):
+    class Meta:
+        abstract = True
+
+
+class Place(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
 
@@ -11,7 +18,7 @@ class Place(models.Model):
         return self.name
 
 
-class Institute(models.Model):
+class Institute(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
     institute_location = models.ForeignKey(
@@ -24,7 +31,7 @@ class Institute(models.Model):
         return self.name
 
 
-class Person(models.Model):
+class Person(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
     person_location = models.ForeignKey(
@@ -41,7 +48,7 @@ class Person(models.Model):
         return self.name
 
 
-class Reference(models.Model):
+class Reference(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
 
@@ -49,7 +56,7 @@ class Reference(models.Model):
         return self.name
 
 
-class Map(models.Model):
+class Map(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
     map_places = models.ManyToManyField(Place, blank=True)

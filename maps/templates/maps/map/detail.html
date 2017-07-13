@@ -57,6 +57,7 @@
                     <p>Condition: {{ condition }}</p>
                 {% endif %}
                 {{ map|display_info }}
+                {{ map|display_dates }}
             </div>
             {% if copies_table.data|length > 0 %}
                 <div class="tab-pane" id="copies">
