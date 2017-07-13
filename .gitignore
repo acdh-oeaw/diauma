@@ -1,0 +1,29 @@
+# Byte-compiled
+__pycache__/
+*.pyc
+
+# test coverage
+.coverage
+cover/
+
+# IDE
+.idea
+
+# migrations
+maps/migrations/*
+webpage/migrations/*
+
+# sensitive data
+diauma/settings/server.py
+diauma/settings/dev_secret.py
+diauma/settings/postgres.py
+
+db.sqlite3
+
+vocabs/data/japbibthesaurus_03.rdf
+vocabs/data/thepro_rdf.xml
+
+
+# documentation build files
+
+docs/_*/*

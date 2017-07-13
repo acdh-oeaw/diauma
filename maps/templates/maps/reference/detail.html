@@ -1,0 +1,42 @@
+{% extends "webpage/layout.html" %}
+{% load django_bootstrap_breadcrumbs %}
+{% load maps_extras %}
+{% load render_table from django_tables2 %}
+{% block title %}Diauma - Reference{% endblock %}
+{% block content %}
+    {% block breadcrumbs %}
+        {% breadcrumb "Reference" "maps:reference" %}
+        {% breadcrumb reference "maps:reference-detail" reference.id %}
+    {% endblock %}
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+            {% if map_table.data|length > 0 %}
+                <li><a href="#maps" data-toggle="tab">Maps</a></li>
+            {% endif %}
+        </ul>
+        <div class="tab-content clearfix">
+            <div class="tab-pane active" id="overview">
+                <div class="button-bar">
+                    <a class="button" href="{% url 'maps:reference-update' reference.id %}">Update</a>
+                    <form method="POST" action="{% url 'maps:reference-delete' reference.id %}">
+                        {% csrf_token %}
+                        <input id="delete-reference" type="submit" value="Delete">
+                    </form>
+                </div>
+                <h3>{{ reference.name }}</h3>
+                {{ reference|display_info }}
+            </div>
+            {% if map_table.data|length > 0 %}
+                <div class="tab-pane" id="maps">
+                    {% render_table map_table %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        $(document).on('click', '#delete-reference', function(){
+            return confirm('Delete {{ reference.name }}?');
+        })
+    </script>
+{% endblock %}

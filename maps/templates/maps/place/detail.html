@@ -1,0 +1,66 @@
+{% extends "webpage/layout.html" %}
+{% load django_bootstrap_breadcrumbs %}
+{% load maps_extras %}
+{% load render_table from django_tables2 %}
+{% block title %}Diauma - Place{% endblock %}
+{% block content %}
+    {% block breadcrumbs %}
+        {% breadcrumb "Place" "maps:place" %}
+        {% breadcrumb place.name '' %}
+    {% endblock %}
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+            {% if person_table.data|length > 0 %}
+                <li><a href="#persons" data-toggle="tab">Persons</a></li>
+            {% endif %}
+            {% if institute_table.data|length > 0 %}
+                <li><a href="#institutes" data-toggle="tab">Institutes</a></li>
+            {% endif %}
+            {% if map_issued_table.data|length > 0 %}
+                <li><a href="#issued-maps" data-toggle="tab">Issued Maps</a></li>
+            {% endif %}
+            {% if map_location_table.data|length > 0 %}
+                <li><a href="#located-maps" data-toggle="tab">Located Maps</a></li>
+            {% endif %}
+        </ul>
+        <div class="tab-content clearfix">
+            <div class="tab-pane active" id="overview">
+                <div class="button-bar">
+                    <a class="button" href="{% url 'maps:place-update' place.id %}">Update</a>
+                    <form method="POST" action="{% url 'maps:place-delete' place.id %}">
+                        {% csrf_token %}
+                        <input id="delete-place" type="submit" value="Delete">
+                    </form>
+                </div>
+                <h3>{{ place.name }}</h3>
+                {{ place|display_info }}
+            </div>
+            {% if person_table.data|length > 0 %}
+                <div class="tab-pane" id="persons">
+                    {% render_table person_table %}
+                </div>
+            {% endif %}
+            {% if institute_table.data|length > 0 %}
+                <div class="tab-pane" id="institutes">
+                    {% render_table institute_table %}
+                </div>
+            {% endif %}
+            {% if map_issued_table.data|length > 0 %}
+                <div class="tab-pane" id="issued-maps">
+                    {% render_table map_issued_table %}
+                </div>
+            {% endif %}
+            {% if map_location_table.data|length > 0 %}
+                <div class="tab-pane" id="located-maps">
+                    {% render_table map_location_table %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        $(document).on('click', '#delete-place', function(){
+            return confirm('Delete {{ object.name }}?');
+        })
+    </script>
+{% endblock %}

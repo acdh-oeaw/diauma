@@ -1,0 +1,50 @@
+{% extends "webpage/layout.html" %}
+{% load django_bootstrap_breadcrumbs %}
+{% load maps_extras %}
+{% load render_table from django_tables2 %}
+{% block title %}Diauma - Person{% endblock %}
+{% block content %}
+    {% block breadcrumbs %}
+        {% breadcrumb "Person" "maps:person" %}
+        {% breadcrumb person.name '' %}
+    {% endblock %}
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+            {% if map_table.data|length > 0 %}
+                <li><a href="#maps" data-toggle="tab">Maps</a></li>
+            {% endif %}
+        </ul>
+        <div class="tab-content clearfix">
+            <div class="tab-pane active" id="overview">
+                <div class="button-bar">
+                    <a class="button" href="{% url 'maps:person-update' person.id %}">Update</a>
+                    <form method="POST" action="{% url 'maps:person-delete' person.id %}">
+                        {% csrf_token %}
+                        <input id="delete-person" type="submit" value="Delete">
+                    </form>
+                </div>
+                <h3>{{ person.name }}</h3>
+                {% if location_at %}
+                    <p>Located at: {{ location_at|link }}</p>
+                {% endif %}
+                {% autoescape off %}
+                    {% if institutes %}
+                        <p>Member of: {{ institutes|join:', ' }}</p>
+                    {% endif %}
+                {% endautoescape %}
+                {{ person|display_info }}
+            </div>
+            {% if map_table.data|length > 0 %}
+                <div class="tab-pane" id="maps">
+                    {% render_table map_table %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        $(document).on('click', '#delete-person', function(){
+            return confirm('Delete {{ object.name }}?');
+        })
+    </script>
+{% endblock %}

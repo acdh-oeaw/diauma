@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load webpage_extras %}
+{% load django_bootstrap_breadcrumbs %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% projects_metadata 'title' %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block metaDescription %}
+        <meta name="description" content="{{ metadata.description }}">
+    {% endblock %}
+    <meta name="author" content="{{ metadata.author }}">
+    <link rel="stylesheet" href="{% static 'webpage/libraries/bootstrap337/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'webpage/css/style.css' %}" />
+    <link rel="stylesheet/less" type="text/css" href="{% static 'webpage/css/style.less' %}" />
+    <link rel="stylesheet" href="{% static 'webpage/libraries/scroll-to-top/css/ap-scroll-top.min.css'%}" />
+    <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
+    <link rel="stylesheet" href="{% static 'webpage/css/diauma.css' %}" />
+    <script src="{% static 'webpage/libraries/less/less.min.js' %}"></script>
+    <script src="{% static 'webpage/libraries/jquery/jquery.js' %}"></script>
+    <script src="{% static 'webpage/libraries/scroll-to-top/js/ap-scroll-top.min.js'%}"></script>
+    <script>
+        window.cookieconsent_options = {
+            "message":"This website uses cookies to ensure you get the best experience on our website",
+            "dismiss":"Got it!",
+            "learnMore":"More info",
+            "link":"{% url 'webpage:imprint' %}",
+            "theme":"dark-bottom"};
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(["setCookieDomain", "*.diauma.acdh.oeaw.ac.at"]);
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="//clarin.oeaw.ac.at/piwik/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '{% projects_metadata 'piwik_id' %}']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    {% block scriptHeader %}
+    {% endblock %}
+</head>
+<body>
+<header class="page-header procustom-header">
+    <div class="container" id="procustom-affix">
+        <div style="float:left;margin-right:2em;">
+            <a href="{% url 'webpage:about' %}" class="navlink">
+                <img src="{% static 'webpage/img/logo.png' %}" id="pro-logo" alt="Diauma" style="width:200px" />
+            </a>
+        </div>
+        <div style="float:left;margin:1em;">
+            <span style="font-style:bold;font-size:2em;color:#efefef;">
+                DIAUMA - Digitizing Austrian Maps
+            </span>
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div id="login-logout">
+            <p>Version {% projects_metadata 'version' %}</p>
+            {% if user.is_authenticated %}
+                Hello {{ user.get_username }},
+                <a href="{% url 'webpage:logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'webpage:login' %}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+    <nav class="navbar navbar-default navbar-static-top procustom-navbar" id="top-procustom-navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation!</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="{% if 'about' in request.resolver_match.url_name %}active{% endif %}">
+                        <a href="{% url 'webpage:about' %}">About</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        {% with 'map reference person institute place' as list %}
+                            {% for item in list.split %}
+                                <li class="{% if item in request.resolver_match.url_name %}active{% endif %}">
+                                    <a href="{% url 'maps:'|add:item %}">{{ item|title }}</a>
+                                </li>
+                            {% endfor %}
+                        {% endwith %}
+                    {% endif %}
+                </ul>
+                <ul style="float:right;" class="nav navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Vocabs Curation
+                        </a>
+                        <ul class="dropdown-menu procustom-dropdown-menu">
+                            <li><a href="{% url 'vocabs:skosconceptscheme_list' %}">Concept Schemes</a></li>
+                            <li><a href="{% url 'vocabs:browse_vocabs' %}">Concepts</a></li>
+                            <li><a href="{% url 'vocabs:skoslabel_list' %}">Labels</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{% url 'vocabs:skos_import' %}">Import SKOS (RDF/XML)</a></li>
+                            <li><a href="{% url 'vocabs:skos_csv_import' %}">Import Vocabs from CSV</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    <li class="{% if 'model' in request.resolver_match.url_name %}active{% endif %}">
+                        <a href="{% url 'maps:model' %}">Model</a>
+                    </li>
+                    <li class="{% if 'imprint' in request.resolver_match.url_name %}active{% endif %}">
+                        <a href="{% url 'webpage:imprint' %}">Legal Notice</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<section class="main-content">
+    <div id="content" class="container">
+        {% block breadcrumbs %}
+            {% clear_breadcrumbs %}
+        {% endblock %}
+        {% render_breadcrumbs %}
+        {% block procustom-index %}{% endblock %}
+        {% block content %}{% endblock %}
+    </div>
+</section>
+<footer>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-4">
+                <a href="https://acdh.oeaw.ac.at/acdh/" class="navlink" target="_blank">
+                    <img src="{% static 'webpage/img/ACDH_kurz_Weiss.png' %}" id="acdh-logo" alt="ACDH" title="Austrian Centre for Digital Humanities"/>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a href="{% projects_metadata 'github' %}" class="navlink" target="_blank">
+                    <img src="{% static 'webpage/img/GitHub-Mark-Light-64px.png' %}" id="github-logo" alt="{{ metadata.github }}" title="Github source code"/>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+{% block scripts %}
+<script src="{% static 'webpage/libraries/bootstrap335/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'webpage/libraries/bootstrap335/js/bootstrap-tab.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $.apScrollTop({'onInit': function(evt) {console.log('apScrollTop: init');}});
+    });
+</script>
+{% endblock %}
+{% block scripts2 %}
+{% endblock scripts2 %}
+<noscript>
+    <img src="https://clarin.oeaw.ac.at/piwik/piwik.php?idsite={% projects_metadata 'piwik_id' %}&rec=1" style="border:0" alt="" />
+</noscript>
+</body>
+</html>

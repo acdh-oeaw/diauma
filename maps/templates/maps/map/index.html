@@ -1,0 +1,13 @@
+{% extends "webpage/layout.html" %}
+{% load maps_extras %}
+{% load static %}
+{% load django_bootstrap_breadcrumbs %}
+{% load render_table from django_tables2 %}
+{% block title %}Diauma - Map{% endblock %}
+{% block content %}
+    {% block breadcrumbs %}
+        {% breadcrumb "Map" "maps:map" %}
+    {% endblock %}
+    <div class="button-bar"><a class="button" href="{% url 'maps:map-create' %}">Map +</a></div>
+    {% render_table map_table %}
+{% endblock %}

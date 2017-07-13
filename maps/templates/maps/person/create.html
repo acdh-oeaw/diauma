@@ -1,0 +1,15 @@
+{% extends "webpage/layout.html" %}
+{% load django_bootstrap_breadcrumbs %}
+{% block title %}Diauma - Person{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+    {% block breadcrumbs %}
+        {% breadcrumb "Person" "maps:person" %}
+        {% breadcrumb "+" '' %}
+    {% endblock %}
+    <div class="panel-body">
+        {% crispy form %}
+    </div>
+</div>
+{% endblock %}

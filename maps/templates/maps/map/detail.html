@@ -1,0 +1,79 @@
+{% extends "webpage/layout.html" %}
+{% load django_bootstrap_breadcrumbs %}
+{% load maps_extras %}
+{% load render_table from django_tables2 %}
+{% block title %}Diauma - Map{% endblock %}
+{% block content %}
+    {% block breadcrumbs %}
+        {% breadcrumb "Map" "maps:map" %}
+        {% breadcrumb map.name '' %}
+    {% endblock %}
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+            {% if copies_table.data|length > 0 %}
+                <li><a href="#copies" data-toggle="tab">Copies</a></li>
+            {% endif %}
+            {% if base_for_table.data|length > 0 %}
+                <li><a href="#base-for" data-toggle="tab">Base for</a></li>
+            {% endif %}
+        </ul>
+        <div class="tab-content clearfix">
+            <div class="tab-pane active" id="overview">
+                <div class="button-bar">
+                    <a class="button" href="{% url 'maps:map-update' map.id %}">Update</a>
+                    <form method="POST" action="{% url 'maps:map-delete' map.id %}">
+                        {% csrf_token %}<input id="delete-map" type="submit" value="Delete">
+                    </form>
+                </div>
+                <h3>{{ map.name }}</h3>
+                {% autoescape off %}
+                    {% if authors %}
+                        <p>Created by: {{ authors|join:', ' }}</p>
+                    {% endif %}
+                    {% if references %}
+                        <p>Referenced by: {{ references|join:', ' }}</p>
+                    {% endif %}
+                    {% if colors %}
+                        <p>Colors: {{ colors|join:', ' }}</p>
+                    {% endif %}
+                {% endautoescape %}
+                {% if publisher %}
+                    <p>Publisher: {{ publisher|link }}</p>
+                {% endif %}
+                {% if issued_at %}
+                    <p>Issued at: {{ issued_at|link }}</p>
+                {% endif %}
+                {% if location_at %}
+                    <p>Located at: {{ location_at|link }}</p>
+                {% endif %}
+                {% if copy_of %}
+                    <p>Is a copy of: {{ copy_of|link }}</p>
+                {% endif %}
+                {% if has_base %}
+                    <p>Has base map: {{ has_base|link }}</p>
+                {% endif %}
+                {% if condition %}
+                    <p>Condition: {{ condition }}</p>
+                {% endif %}
+                {{ map|display_info }}
+            </div>
+            {% if copies_table.data|length > 0 %}
+                <div class="tab-pane" id="copies">
+                    {% render_table copies_table %}
+                </div>
+            {% endif %}
+            {% if base_for_table.data|length > 0 %}
+                <div class="tab-pane" id="base-for">
+                    {% render_table base_for_table %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        $(document).on('click', '#delete-map', function(){
+            return confirm('Delete {{ map.name }}?');
+        })
+    </script>
+{% endblock %}
+
