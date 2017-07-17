@@ -18,8 +18,9 @@ def display_info(entity):
 def display_dates(entity):
     created = entity.created_date.strftime('%Y-%m-%d')
     modified = entity.modified_date.strftime('%Y-%m-%d')
-    string = created
-    string += ' / ' + modified if created != modified else ''
+    string = '<div class="created">Created ' + created
+    string += ', modified ' + modified if created != modified else ''
+    string += '</div>'
     return mark_safe(string)
 
 

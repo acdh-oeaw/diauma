@@ -27,35 +27,50 @@
                     </form>
                 </div>
                 <h3>{{ map.name }}</h3>
-                {% autoescape off %}
-                    {% if authors %}
-                        <p>Created by: {{ authors|join:', ' }}</p>
+                <div style="float:left;margin-right:2em;">
+                    <p>Name: {{ map.name }}</p>
+                    {% if map.title %}
+                        <p>Title: {{ map.title }}</p>
                     {% endif %}
-                    {% if references %}
-                        <p>Referenced by: {{ references|join:', ' }}</p>
+                    {% if map.scale %}
+                        <p>Scale: 1:{{ map.scale }}</p>
                     {% endif %}
-                    {% if colors %}
-                        <p>Colors: {{ colors|join:', ' }}</p>
+                    {% if map.width %}
+                        <p>Width: {{ map.width }} cm</p>
                     {% endif %}
-                {% endautoescape %}
-                {% if publisher %}
-                    <p>Publisher: {{ publisher|link }}</p>
-                {% endif %}
-                {% if issued_at %}
-                    <p>Issued at: {{ issued_at|link }}</p>
-                {% endif %}
-                {% if location_at %}
-                    <p>Located at: {{ location_at|link }}</p>
-                {% endif %}
-                {% if copy_of %}
-                    <p>Is a copy of: {{ copy_of|link }}</p>
-                {% endif %}
-                {% if has_base %}
-                    <p>Has base map: {{ has_base|link }}</p>
-                {% endif %}
-                {% if condition %}
-                    <p>Condition: {{ condition }}</p>
-                {% endif %}
+                    {% if map.height %}
+                        <p>Height: {{ map.height }} cm</p>
+                    {% endif %}
+                </div>
+                <div style="float:left;">
+                    {% autoescape off %}
+                        {% if authors %}
+                            <p>Created by: {{ authors|join:', ' }}</p>
+                        {% endif %}
+                        {% if references %}
+                            <p>Referenced by: {{ references|join:', ' }}</p>
+                        {% endif %}
+                    {% endautoescape %}
+                    {% if publisher %}
+                        <p>Publisher: {{ publisher|link }}</p>
+                    {% endif %}
+                    {% if issued_at %}
+                        <p>Issued at: {{ issued_at|link }}</p>
+                    {% endif %}
+                    {% if location_at %}
+                        <p>Located at: {{ location_at|link }}</p>
+                    {% endif %}
+                    {% if copy_of %}
+                        <p>Is a copy of: {{ copy_of|link }}</p>
+                    {% endif %}
+                    {% if has_base %}
+                        <p>Has base map: {{ has_base|link }}</p>
+                    {% endif %}
+                    {% if condition %}
+                        <p>Condition: {{ condition }}</p>
+                    {% endif %}
+                </div>
+                <div style="clear:both;"></div>
                 {{ map|display_info }}
                 {{ map|display_dates }}
             </div>

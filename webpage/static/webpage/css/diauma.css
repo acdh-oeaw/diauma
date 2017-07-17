@@ -1,5 +1,21 @@
 @charset "UTF-8";
 
+div.form-float {
+    float: left;
+    margin-right: 2em;
+}
+
+div.form-header {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+
+div.created {
+    color: #999999;
+    font-size: 0.9em;
+}
+
 table.paleblue {
     font-size: 1.2em;
 }

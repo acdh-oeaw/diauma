@@ -58,7 +58,11 @@ class Reference(BaseModel):
 
 class Map(BaseModel):
     name = models.CharField(max_length=255)
+    title = models.CharField(blank=True, max_length=255)
     info = models.TextField(blank=True)
+    scale = models.IntegerField(null=True, blank=True)
+    width = models.FloatField(null=True, blank=True)
+    height = models.FloatField(null=True, blank=True)
     map_places = models.ManyToManyField(Place, blank=True)
     map_persons = models.ManyToManyField(Person, blank=True, related_name='author')
     map_institute = models.ForeignKey(Institute, blank=True, null=True, related_name='publisher')

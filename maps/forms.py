@@ -2,7 +2,7 @@
 from dal import autocomplete
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, Layout, Fieldset, HTML, MultiField, Div
 
 from .models import Map, Person, Institute, Place, Reference
 
@@ -11,7 +11,6 @@ class MapForm(forms.ModelForm):
 
     class Meta:
         model = Map
-
         fields = (
             'name',
             'map_persons',
@@ -22,7 +21,11 @@ class MapForm(forms.ModelForm):
             'map_copy',
             'map_base',
             'info',
-            'map_color')
+            'title',
+            'scale',
+            'width',
+            'height',
+        )
         widgets = {
             'map_persons': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:persons-autocomplete',
@@ -52,21 +55,44 @@ class MapForm(forms.ModelForm):
                 url='maps-ac:map-autocomplete',
                 attrs={'data-placeholder': 'Type for getting available maps'}
             ),
-            'map_color': autocomplete.ModelSelect2Multiple(
-                url='../../../vocabs-ac/skos-constraint-ac/?scheme=Condition'),
         }
 
     def __init__(self, *args, **kwargs):
+        super(MapForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
-        super(MapForm, self).__init__(*args, **kwargs)
-        self.fields['map_persons'].label = "Created by"
-        self.fields['map_institute'].label = "Published by"
-        self.fields['map_references'].label = "Referenced by"
-        self.fields['map_issued'].label = "Issued at"
-        self.fields['map_location'].label = "Has current location"
-        self.fields['map_copy'].label = "Is copy of"
-        self.fields['map_base'].label = "Has base map"
+        self.fields['map_persons'].label = 'Created by'
+        self.fields['map_institute'].label = 'Published by'
+        self.fields['map_references'].label = 'Referenced by'
+        self.fields['map_issued'].label = 'Issued at'
+        self.fields['map_location'].label = 'Has current location'
+        self.fields['map_copy'].label = 'Is copy of'
+        self.fields['map_base'].label = 'Has base map'
+        self.fields['width'].label = 'Width (cm)'
+        self.fields['height'].label = 'Height (cm)'
+        self.helper.layout = Layout(
+            Div(
+                HTML('<div class="form-header">Map data</div>'),
+                'name',
+                'title',
+                'scale',
+                'width',
+                'height',
+                css_class='form-float'
+            ),
+            Div(
+                HTML('<div class="form-header">Links</div>'),
+                'map_base',
+                'map_copy',
+                'map_persons',
+                'map_issued',
+                'map_location',
+                'map_institute',
+                'map_references',
+                css_class='form-float'
+            ),
+            HTML('<div style="clear:both;"></div>')
+        )
 
 
 class PersonForm(forms.ModelForm):
