@@ -52,7 +52,7 @@ class MapsTest(TestCase):
         person = Person.objects.create()
         rv = self.client.post(
             reverse('maps:person-update', kwargs={'pk': person.id}), {
-                'name': 'Laura',
+                'name': 'Laura', 'info': 'hello info'
             },
             follow=True)
         self.assertContains(rv, 'Laura')
@@ -71,7 +71,7 @@ class MapsTest(TestCase):
         place = Place.objects.create()
         rv = self.client.post(
             reverse('maps:place-update', kwargs={'pk': place.id}),
-            {'name': 'Newcastle'},
+            {'name': 'Newcastle', 'info': 'hello info'},
             follow=True)
         self.assertContains(rv, 'Newcastle')
         rv = self.client.get(reverse('maps:place'), follow=True)
@@ -86,7 +86,7 @@ class MapsTest(TestCase):
         reference = Reference.objects.create()
         rv = self.client.post(
             reverse('maps:reference-update', kwargs={'pk': reference.id}),
-            {'name': 'Necronomicon'},
+            {'name': 'Necronomicon', 'info': 'hello info'},
             follow=True)
         self.assertContains(rv, 'Necronomicon')
         rv = self.client.get(reverse('maps:reference'), follow=True)
@@ -96,6 +96,6 @@ class MapsTest(TestCase):
         rv = self.client.get('/admin/maps/map/', follow=True)
         self.assertContains(rv, 'Select map to change')
 
-    def test_admin(self):
-        rv = self.client.get('/admin/maps/map/', follow=True)
-        self.assertContains(rv, 'Select map to change')
+    def test_model(self):
+        rv = self.client.get(reverse('maps:model'), follow=True)
+        self.assertContains(rv, 'Model')

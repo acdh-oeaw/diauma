@@ -1,6 +1,5 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django.db import models
-from vocabs.models import SkosConcept
 
 class BaseModel(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
@@ -71,7 +70,6 @@ class Map(BaseModel):
     map_location = models.ForeignKey(Place, blank=True, null=True, related_name='map_location')
     map_copy = models.ForeignKey('self', blank=True, null=True, related_name='copy')
     map_base = models.ForeignKey('self', blank=True, null=True, related_name='base')
-    map_color = models.ManyToManyField(SkosConcept, blank=True, related_name="map_color")
 
     def __str__(self):
         return self.name

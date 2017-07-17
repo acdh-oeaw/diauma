@@ -23,8 +23,6 @@ USE_L10N = True
 USE_TZ = True
 
 INSTALLED_APPS = [
-    #'cms',
-    #'treebeard',
     'dal',
     'dal_select2',
     'django.contrib.admin',
@@ -34,15 +32,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    #'django_extensions',
     'django_filters',
     'django_tables2',
     'django.contrib.sites',
     'webpage',
     'maps',
     'django_bootstrap_breadcrumbs',
-    #'menus',
-    'vocabs',
 ]
 
 REST_FRAMEWORK = {

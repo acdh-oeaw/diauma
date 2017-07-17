@@ -20,10 +20,5 @@ diauma/settings/postgres.py
 
 db.sqlite3
 
-vocabs/data/japbibthesaurus_03.rdf
-vocabs/data/thepro_rdf.xml
-
-
 # documentation build files
-
 docs/_*/*
