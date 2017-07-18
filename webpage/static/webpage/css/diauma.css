@@ -5,6 +5,24 @@ div.form-float {
     margin-right: 2em;
 }
 
+div.changelogVersion {
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 0.3em;
+    width: 500px;
+    background-color: #4088c3;
+    color: #ffffff;
+}
+
+div.changelogDate {
+    font-size: 0.9em;
+    padding: 0.4em 0;
+}
+
+div.changelog {
+    margin: 1.5em 0 2em 0;
+}
+
 div.form-header {
     font-weight: bold;
     font-size: 1.2em;

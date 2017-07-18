@@ -99,3 +99,7 @@ class MapsTest(TestCase):
     def test_model(self):
         rv = self.client.get(reverse('maps:model'), follow=True)
         self.assertContains(rv, 'Model')
+
+    def test_changelog(self):
+        rv = self.client.get(reverse('maps:changelog'))
+        self.assertContains(rv, 'Feature')

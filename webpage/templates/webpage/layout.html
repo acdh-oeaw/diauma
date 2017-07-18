@@ -51,7 +51,10 @@
             {% endif %}
         </div>
         <div id="login-logout">
-            <p>Version {% projects_metadata 'version' %}</p>
+            <p>
+                Version {% projects_metadata 'version' %}
+                <a href="{% url 'maps:changelog' %}">Changelog</a>
+            </p>
             {% if user.is_authenticated %}
                 Hello {{ user.get_username }},
                 <a href="{% url 'webpage:logout' %}">Logout</a>
