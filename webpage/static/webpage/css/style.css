@@ -13,6 +13,10 @@ input.date {
     width: 8em;
 }
 
+label.error {
+    color: #a94442;
+}
+
 * {
   border-radius: 0 !important;
 }

@@ -6,6 +6,14 @@ $(document).ready(function () {
         dateFormat:'yy-mm-dd',
         firstDay:1
     });
+    $("form").each(function() {
+        $(this).validate({
+            errorClass: 'error',
+            rules: {
+                name: {required: true},
+            }
+        });
+    });
 })
 
 /* Piwik */
