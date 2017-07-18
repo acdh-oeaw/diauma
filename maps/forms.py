@@ -25,8 +25,16 @@ class MapForm(forms.ModelForm):
             'scale',
             'width',
             'height',
+            'date_created',
+            'date_created2',
+            'date_content',
+            'date_content2',
         )
         widgets = {
+            'date_created': forms.DateInput(attrs={'class': 'date', 'input_formats':'%Y-%m-%d'}),
+            'date_created2': forms.DateInput(attrs={'class': 'date', 'input_formats': '%Y-%m-%d'}),
+            'date_content': forms.DateInput(attrs={'class': 'date', 'input_formats': '%Y-%m-%d'}),
+            'date_content2': forms.DateInput(attrs={'class': 'date', 'input_formats': '%Y-%m-%d'}),
             'map_persons': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:persons-autocomplete',
                 attrs={'data-placeholder': 'Type for getting available persons'}
@@ -70,6 +78,7 @@ class MapForm(forms.ModelForm):
         self.fields['map_base'].label = 'Has base map'
         self.fields['width'].label = 'Width (cm)'
         self.fields['height'].label = 'Height (cm)'
+        forms.DateField(required=False, input_formats='%Y-%m-%d')
         self.helper.layout = Layout(
             Div(
                 HTML('<div class="form-header">Map data</div>'),
@@ -89,6 +98,14 @@ class MapForm(forms.ModelForm):
                 'map_location',
                 'map_institute',
                 'map_references',
+                css_class='form-float'
+            ),
+            Div(
+                HTML('<div class="form-header">Dates</div>'),
+                'date_created',
+                'date_created2',
+                'date_content',
+                'date_content2',
                 css_class='form-float'
             ),
             HTML('<div style="clear:both;"></div>')

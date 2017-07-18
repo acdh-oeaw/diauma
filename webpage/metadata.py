@@ -8,6 +8,6 @@ PROJECT_METADATA = {
     'author': 'Alexander Watzinger',
     'subtitle': 'Austrian Dialect Cartography 1924–1956. Digitalisation, Contextualisation, Visualisation',
     'description': '',
-    'github': 'https://github.com/acdh-oeaw/cbab',
+    'github': 'https://github.com/acdh-oeaw/diauma',
     'purpose_de': '',
     'purpose_en': ''}

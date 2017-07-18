@@ -9,6 +9,10 @@ body {
     font-family: 'Libre Franklin', sans-serif;
 }
 
+input.date {
+    width: 8em;
+}
+
 * {
   border-radius: 0 !important;
 }
