@@ -103,3 +103,7 @@ class MapsTest(TestCase):
     def test_changelog(self):
         rv = self.client.get(reverse('maps:changelog'))
         self.assertContains(rv, 'Feature')
+
+    def test_admin(self):
+        rv = self.client.post('/admin/maps/institute/add/', {'name': 'Test Institution'}, follow=True)
+        self.assertContains(rv, 'Test Institution')

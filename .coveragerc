@@ -1,2 +1,2 @@
 [report]
-    omit=maps/migrations/*,diauma/settings/base.py,maps/models.py
+    omit=maps/migrations/*,diauma/settings/base.py,maps/models.py,maps/admin.py
