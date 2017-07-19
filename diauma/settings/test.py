@@ -1,14 +1,11 @@
+# Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from .base import *
 
-SECRET_KEY = 'whatever'
+SECRET_KEY = 'test'
 DEBUG = True
 TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = ['*']
-
-INSTALLED_APPS + [
-    'django_nose',
-]
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 DATABASES = {
     'default': {
@@ -16,8 +13,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 NOSE_ARGS = [
     '--with-coverage',          # generate coverage
