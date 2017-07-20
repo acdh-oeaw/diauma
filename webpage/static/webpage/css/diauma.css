@@ -1,5 +1,30 @@
 @charset "UTF-8";
 
+/* hide spinner form number inputs */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input.date {
+    width: 9em;
+    float: left;
+}
+
+div.date-fields div.form-group {
+    float: left;
+    margin-right: 1em;
+}
+
+label.error {
+    color: #a94442;
+}
+
 div.form-float {
     float: left;
     margin-right: 2em;

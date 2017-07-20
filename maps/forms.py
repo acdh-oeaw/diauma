@@ -2,7 +2,7 @@
 from dal import autocomplete
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, HTML, MultiField, Div
+from crispy_forms.layout import Submit, Layout, HTML, Div
 
 from .models import Map, Person, Institute, Place, Reference
 
@@ -31,38 +31,35 @@ class MapForm(forms.ModelForm):
             'date_content2',
         )
         widgets = {
-            'date_created': forms.DateInput(attrs={'class': 'date', 'input_formats':'%Y-%m-%d'}),
-            'date_created2': forms.DateInput(attrs={'class': 'date', 'input_formats': '%Y-%m-%d'}),
-            'date_content': forms.DateInput(attrs={'class': 'date', 'input_formats': '%Y-%m-%d'}),
-            'date_content2': forms.DateInput(attrs={'class': 'date', 'input_formats': '%Y-%m-%d'}),
+            'date_created': forms.DateInput(
+                attrs={'class': 'date', 'input_formats':'%Y-%m-%d', 'placeholder':'YYYY-MM-DD'}),
+            'date_created2': forms.DateInput(
+                attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder':'YYYY-MM-DD'}),
+            'date_content': forms.DateInput(
+                attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder':'YYYY-MM-DD'}),
+            'date_content2': forms.DateInput(
+                attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder':'YYYY-MM-DD'}),
             'map_persons': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:persons-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available persons'}
-            ),
+                attrs={'data-placeholder': 'Type for available persons'}),
             'map_institute': autocomplete.ModelSelect2(
                 url='maps-ac:institute-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available institutes'}
-            ),
+                attrs={'data-placeholder': 'Type for available institutes'}),
             'map_references': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:references-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available references'}
-            ),
+                attrs={'data-placeholder': 'Type for available references'}),
             'map_issued': autocomplete.ModelSelect2(
                 url='maps-ac:place-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available places'}
-            ),
+                attrs={'data-placeholder': 'Type for available places'}),
             'map_location': autocomplete.ModelSelect2(
                 url='maps-ac:place-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available places'}
-            ),
+                attrs={'data-placeholder': 'Type for available places'}),
             'map_copy': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available maps'}
-            ),
+                attrs={'data-placeholder': 'Type for available maps'}),
             'map_base': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available maps'}
-            ),
+                attrs={'data-placeholder': 'Type for available maps'}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -78,6 +75,8 @@ class MapForm(forms.ModelForm):
         self.fields['map_base'].label = 'Has base map'
         self.fields['width'].label = 'Width (cm)'
         self.fields['height'].label = 'Height (cm)'
+        self.fields['date_created2'].label = '**'
+        self.fields['date_content2'].label = '**'
         forms.DateField(required=False, input_formats='%Y-%m-%d')
         self.helper.layout = Layout(
             Div(
@@ -87,8 +86,7 @@ class MapForm(forms.ModelForm):
                 'scale',
                 'width',
                 'height',
-                css_class='form-float'
-            ),
+                css_class='form-float'),
             Div(
                 HTML('<div class="form-header">Links</div>'),
                 'map_base',
@@ -98,17 +96,19 @@ class MapForm(forms.ModelForm):
                 'map_location',
                 'map_institute',
                 'map_references',
-                css_class='form-float'
-            ),
+                css_class='form-float'),
             Div(
                 HTML('<div class="form-header">Dates</div>'),
                 'date_created',
                 'date_created2',
+                HTML('<div style="clear:both;"></div>'),
                 'date_content',
                 'date_content2',
-                css_class='form-float'
-            ),
-            HTML('<div style="clear:both;"></div>')
+                HTML('<br /><p>Use ** fields to define a time span.</p>'),
+                HTML('<div style="clear:both;"></div>'),
+                css_class='form-float date-fields'),
+                HTML('<div style="clear:both;"></div>'),
+
         )
 
 
