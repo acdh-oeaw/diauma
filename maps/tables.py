@@ -8,7 +8,7 @@ from .models import Person, Map, Place, Institute
 
 def truncate_string(string, length=40):
     if string is None:
-        return ''
+        return ''  # pragma: no cover - shouldn't happen with django models, just to be safe
     if len(string) > length + 2:
         string = '<span title="' + string.replace('"', '') + '">' + string[:length] + '..</span>'
     return string

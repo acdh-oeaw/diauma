@@ -1,2 +1,12 @@
 [report]
-    omit=maps/migrations/*,diauma/settings/base.py,maps/models.py,maps/admin.py
+omit =
+    # omit migrations
+    maps/migrations/*
+    # omit settings
+    diauma/settings/base.py
+    # omit models, maybe enable if custom functions are used?
+    maps/models.py
+    # omit admin, , maybe enable if custom functions are used?
+    maps/admin.py
+    # omit autocomplete views, maybe possible but too cumbersome to test for now
+    maps/dal_views.py

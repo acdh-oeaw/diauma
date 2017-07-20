@@ -9,8 +9,7 @@ from maps.models import Map, Institute, Person, Place, Reference
 class MapsTest(TestCase):
     def setUp(self):
         self.client = Client()
-        # To do: better option than to go in as superuser?
-        User.objects.create_superuser('temporary', 'temp@gmail.com', 'temporary')
+        User.objects.create_user('temporary', 'temp@gmail.com', 'temporary')
         form_data = {'username': 'temporary', 'password': 'temporary'}
         self.client.post(reverse('webpage:login'), form_data, follow=True)
 
@@ -27,8 +26,11 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'Middle Earth')
         map_.map_persons.add(Person.objects.create(name='Hugo'))
         map_.map_references.add(Reference.objects.create())
+        map_.map_base = Map.objects.create(name='Base map')
+        map_.save()  # important for saving foreign keys
         rv = self.client.get(reverse('maps:map-detail', kwargs={'pk': map_.id}), follow=True)
         self.assertContains(rv, 'Hugo')
+        self.assertContains(rv, 'Base map')
 
     def test_institute(self):
         rv = self.client.post(reverse('maps:institute-create'), {'name': 'The Asylum'}, follow=True)
@@ -38,8 +40,8 @@ class MapsTest(TestCase):
             reverse(
                 'maps:institute-update',
                 kwargs={'pk': institute.id}),
-                {'name': 'Umbrella Corporation', 'info': '''Very long info indeed Very long info 
-                indeed Very long info indeed Very long info indeed Very long info indeed Very long 
+                {'name': 'Umbrella Corporation', 'info': '''Very long info indeed Very long info
+                indeed Very long info indeed Very long info indeed Very long info indeed Very long
                 info indeed Very long info indeed'''},
                 follow=True)
         self.assertContains(rv, 'Umbrella Corporation')
@@ -92,10 +94,6 @@ class MapsTest(TestCase):
         rv = self.client.get(reverse('maps:reference'), follow=True)
         self.assertContains(rv, 'Cryptonomicon')
 
-    def test_admin(self):
-        rv = self.client.get('/admin/maps/map/', follow=True)
-        self.assertContains(rv, 'Select map to change')
-
     def test_model(self):
         rv = self.client.get(reverse('maps:model'), follow=True)
         self.assertContains(rv, 'Model')
@@ -103,7 +101,3 @@ class MapsTest(TestCase):
     def test_changelog(self):
         rv = self.client.get(reverse('maps:changelog'))
         self.assertContains(rv, 'Feature')
-
-    def test_admin(self):
-        rv = self.client.post('/admin/maps/institute/add/', {'name': 'Test Institution'}, follow=True)
-        self.assertContains(rv, 'Test Institution')
