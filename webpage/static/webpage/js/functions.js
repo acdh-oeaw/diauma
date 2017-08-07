@@ -18,13 +18,13 @@ $(document).ready(function () {
 
 /* Piwik */
 var _paq = _paq || [];
-_paq.push(["setCookieDomain", "*.diauma.acdh.oeaw.ac.at"]);
+/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
 _paq.push(['trackPageView']);
 _paq.push(['enableLinkTracking']);
 (function() {
-    var u="//clarin.oeaw.ac.at/piwik/";
+    var u="//clarin.oeaw.ac.at/";
     _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', 64]);
+    _paq.push(['setSiteId', '64']);
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
 })();
