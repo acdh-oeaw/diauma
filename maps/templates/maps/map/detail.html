@@ -41,6 +41,22 @@
                     {% if map.height %}
                         <p>Height: {{ map.height }} cm</p>
                     {% endif %}
+                    {% if map.date_created %}
+                        <p>
+                            Creation date: {{ map.date_created|format_date }}
+                            {% if map.date_created2 %}
+                                - {{ map.date_created2|format_date }}
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                    {% if map.date_content %}
+                        <p>
+                            Content date: {{ map.date_content|format_date }}
+                            {% if map.date_content2 %}
+                                - {{ map.date_content2|format_date }}
+                            {% endif %}
+                        </p>
+                    {% endif %}
                 </div>
                 <div style="float:left;">
                     {% autoescape off %}

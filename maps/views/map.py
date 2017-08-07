@@ -30,6 +30,7 @@ def detail(request, pk):
     references = []
     for reference in Reference.objects.filter(reference=map_):
         references.append(link(reference))
+
     return render(request, 'maps/map/detail.html', {
         'map': map_,
         'authors': authors,

@@ -16,12 +16,17 @@ def display_info(entity):
 
 @register.filter(name='display_dates')
 def display_dates(entity):
-    created = entity.created_date.strftime('%Y-%m-%d')
-    modified = entity.modified_date.strftime('%Y-%m-%d')
+    created = format_date(entity.created_date)
+    modified = format_date(entity.modified_date)
     string = '<div class="created">Created ' + created
     string += ', modified ' + modified if created != modified else ''
     string += '</div>'
     return mark_safe(string)
+
+
+@register.filter(name='format_date')
+def format_date(date, format_='%Y-%m-%d'):
+    return date.strftime(format_)
 
 
 @register.filter(name='link')
