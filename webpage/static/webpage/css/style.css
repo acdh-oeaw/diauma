@@ -64,10 +64,8 @@ legend {
   padding: 10px;
 }
 
-/*custom css*/
-#pro-logo {
-    width: 15%;
-    height: auto;
+#logo {
+    width: 200px;
 }
 
 #acdh-logo {

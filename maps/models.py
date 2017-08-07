@@ -1,5 +1,15 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django.db import models
+from mptt.models import MPTTModel, TreeForeignKey
+
+
+class Type(MPTTModel):
+    name = models.CharField(max_length=250, unique=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
 
 class BaseModel(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)

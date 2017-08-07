@@ -23,6 +23,7 @@ USE_L10N = True
 USE_TZ = True
 
 INSTALLED_APPS = [
+    'crispy_forms',
     'dal',
     'dal_select2',
     'django.contrib.admin',
@@ -30,14 +31,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
-    'crispy_forms',
+    'django_bootstrap_breadcrumbs',
     'django_filters',
     'django_tables2',
-    'django.contrib.sites',
-    'webpage',
     'maps',
-    'django_bootstrap_breadcrumbs',
+    'mptt',
+    'webpage',
 ]
 
 REST_FRAMEWORK = {

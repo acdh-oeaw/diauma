@@ -1,6 +1,6 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django.conf.urls import url
-from .views import map, reference, person, institute, place, model, changelog
+from .views import map, reference, person, institute, place, model, changelog, type
 
 urlpatterns = [
     url(r'^changelog/$', changelog.index, name='changelog'),
@@ -35,4 +35,6 @@ urlpatterns = [
     url(r'^place/create/$', place.Create.as_view(), name='place-create'),
     url(r'^place/update/(?P<pk>\d+)/$', place.Update.as_view(), name='place-update'),
     url(r'^place/delete/(?P<pk>\d+)/$', place.Delete.as_view(), name='place-delete'),
+
+    url(r'^type/$', type.index, name='type'),
 ]
