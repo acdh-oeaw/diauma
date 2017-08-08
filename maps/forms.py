@@ -3,8 +3,9 @@ from dal import autocomplete
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, HTML, Div
+from mptt.forms import TreeNodeMultipleChoiceField
 
-from .models import Map, Person, Institute, Place, Reference
+from .models import Map, Person, Institute, Place, Reference, Type
 
 
 class MapForm(forms.ModelForm):
@@ -20,6 +21,7 @@ class MapForm(forms.ModelForm):
             'map_location',
             'map_copy',
             'map_base',
+            'map_type',
             'info',
             'title',
             'scale',
@@ -30,6 +32,7 @@ class MapForm(forms.ModelForm):
             'date_content',
             'date_content2',
         )
+
         widgets = {
             'date_created': forms.DateInput(
                 attrs={'class': 'date', 'input_formats':'%Y-%m-%d', 'placeholder':'YYYY-MM-DD'}),
@@ -64,6 +67,9 @@ class MapForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(MapForm, self).__init__(*args, **kwargs)
+
+
+
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
         self.fields['map_persons'].label = 'Created by'
@@ -78,6 +84,15 @@ class MapForm(forms.ModelForm):
         self.fields['date_created2'].label = '**'
         self.fields['date_content2'].label = '**'
         forms.DateField(required=False, input_formats='%Y-%m-%d')
+        for node in Type.objects.get(name='Map').get_children():
+            self.fields['map_type_' + node.name] = TreeNodeMultipleChoiceField(queryset=node.get_descendants())
+            self.fields['map_type_' + node.name].required = False
+
+        instance = kwargs.get('instance')
+        if instance:
+            for node in Type.objects.get(name='Map').get_children():
+                self.fields['map_type_' + node.name].initial = [o.id for o in instance.map_type.all()]
+
         self.helper.layout = Layout(
             Div(
                 HTML('<div class="form-header">Map data</div>'),
@@ -86,6 +101,14 @@ class MapForm(forms.ModelForm):
                 'scale',
                 'width',
                 'height',
+                HTML('<div class="form-header">Dates</div>'),
+                'date_created',
+                'date_created2',
+                HTML('<div style="clear:both;"></div><div class="form-float date-fields">'),
+                'date_content',
+                'date_content2',
+                HTML('<br /><p>Use ** fields to define a time span.</p>'),
+                HTML('</div><div style="clear:both;"></div>'),
                 css_class='form-float'),
             Div(
                 HTML('<div class="form-header">Links</div>'),
@@ -98,16 +121,12 @@ class MapForm(forms.ModelForm):
                 'map_references',
                 css_class='form-float'),
             Div(
-                HTML('<div class="form-header">Dates</div>'),
-                'date_created',
-                'date_created2',
+                HTML('<div class="form-header">Types</div>'),
+                'map_type',
+                'map_type_Material',
+                'map_type_Color',
                 HTML('<div style="clear:both;"></div>'),
-                'date_content',
-                'date_content2',
-                HTML('<br /><p>Use ** fields to define a time span.</p>'),
-                HTML('<div style="clear:both;"></div>'),
-                css_class='form-float date-fields'),
-                HTML('<div style="clear:both;"></div>'),
+            )
 
         )
 

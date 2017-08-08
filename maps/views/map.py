@@ -64,6 +64,8 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = 'An entry has been updated.'
 
     def dispatch(self, *args, **kwargs):
+        kwargs = super(UpdateView, self).get_form_kwargs()
+        kwargs['map_types_Material'] = kwargs.form
         return super(Update, self).dispatch(*args, **kwargs)
 
     def get_success_url(self):

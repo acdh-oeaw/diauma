@@ -7,8 +7,8 @@ class Type(MPTTModel):
     name = models.CharField(max_length=250, unique=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
 
-    class MPTTMeta:
-        order_insertion_by = ['name']
+    def __str__(self):
+        return self.name
 
 
 class BaseModel(models.Model):
@@ -84,6 +84,7 @@ class Map(BaseModel):
     map_location = models.ForeignKey(Place, blank=True, null=True, related_name='map_location')
     map_copy = models.ForeignKey('self', blank=True, null=True, related_name='copy')
     map_base = models.ForeignKey('self', blank=True, null=True, related_name='base')
+    map_type = models.ManyToManyField(Type, blank=True, related_name='type')
 
     def __str__(self):
         return self.name
