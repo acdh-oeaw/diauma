@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.sites',
     'django.contrib.staticfiles',
     'django_bootstrap_breadcrumbs',
     'django_filters',
@@ -83,3 +82,5 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGES = [
     ('en-us', 'English')
 ]
+
+MPTT_ADMIN_LEVEL_INDENT = 20
