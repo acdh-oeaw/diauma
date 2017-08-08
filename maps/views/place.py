@@ -5,7 +5,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django_tables2 import RequestConfig
 
 from maps.forms import PlaceForm
 from maps.models import Place, Person, Institute, Map
@@ -15,7 +14,7 @@ from maps.tables import PlaceTable, InstituteTable, PersonTable, MapTable
 @login_required
 def index(request):
     place_table = PlaceTable(Place.objects.all())
-    RequestConfig(request, paginate={'per_page': 20}).configure(place_table)
+    place_table.paginate(page=request.GET.get('page', 1), per_page=25)
     return render(request, 'maps/place/index.html', {'place_table': place_table})
 
 

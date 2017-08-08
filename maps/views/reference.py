@@ -5,7 +5,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django_tables2 import RequestConfig
 
 from maps.forms import ReferenceForm
 from maps.models import Reference, Map
@@ -15,7 +14,7 @@ from maps.tables import ReferenceTable, MapTable
 @login_required
 def index(request):
     reference_table = ReferenceTable(Reference.objects.all())
-    RequestConfig(request, paginate={'per_page': 20}).configure(reference_table)
+    reference_table.paginate(page=request.GET.get('page', 1), per_page=25)
     return render(request, 'maps/reference/index.html', {'reference_table': reference_table})
 
 

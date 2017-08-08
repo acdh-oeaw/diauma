@@ -6,7 +6,6 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from annoying.functions import get_object_or_None
-from django_tables2 import RequestConfig
 
 from maps.forms import PersonForm
 from maps.models import Person, Map, Place, Institute
@@ -17,7 +16,7 @@ from maps.util import link
 @login_required
 def index(request):
     person_table = PersonTable(Person.objects.all())
-    RequestConfig(request, paginate={'per_page': 20}).configure(person_table)
+    person_table.paginate(page=request.GET.get('page', 1), per_page=25)
     return render(request, 'maps/person/index.html', {'person_table': person_table})
 
 
