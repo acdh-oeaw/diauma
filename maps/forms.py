@@ -13,6 +13,7 @@ class MapForm(forms.ModelForm):
         model = Map
         fields = (
             'name',
+            'map_id',
             'map_persons',
             'map_institute',
             'map_references',
@@ -61,7 +62,7 @@ class MapForm(forms.ModelForm):
             'map_base': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
                 attrs={'data-placeholder': 'Type for available maps'}),
-            'map_type': forms.HiddenInput()
+            #'map_type': forms.HiddenInput()
         }
 
     def __init__(self, *args, **kwargs):
@@ -79,6 +80,7 @@ class MapForm(forms.ModelForm):
         self.fields['height'].label = 'Height (cm)'
         self.fields['date_created2'].label = '**'
         self.fields['date_content2'].label = '**'
+        self.fields['map_id'].required = False
         forms.DateField(required=False, input_formats='%Y-%m-%d')
 
         # add type fields
@@ -98,6 +100,7 @@ class MapForm(forms.ModelForm):
             Div(
                 HTML('<div class="form-header">Map data</div>'),
                 'name',
+                'map_id',
                 'title',
                 'scale',
                 'width',

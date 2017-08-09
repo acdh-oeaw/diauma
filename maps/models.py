@@ -67,6 +67,7 @@ class Reference(BaseModel):
 
 class Map(BaseModel):
     name = models.CharField(max_length=255)
+    map_id = models.CharField(max_length=255, blank=True)
     title = models.CharField(blank=True, max_length=255)
     info = models.TextField(blank=True)
     scale = models.IntegerField(null=True, blank=True)
