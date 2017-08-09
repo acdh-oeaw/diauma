@@ -4,7 +4,6 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, HTML, Div
 from mptt.forms import TreeNodeMultipleChoiceField
-
 from .models import Map, Person, Institute, Place, Reference, Type
 
 
@@ -32,16 +31,15 @@ class MapForm(forms.ModelForm):
             'date_content',
             'date_content2',
         )
-
         widgets = {
             'date_created': forms.DateInput(
-                attrs={'class': 'date', 'input_formats':'%Y-%m-%d', 'placeholder':'YYYY-MM-DD'}),
+                attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'date_created2': forms.DateInput(
-                attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder':'YYYY-MM-DD'}),
+                attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'date_content': forms.DateInput(
-                attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder':'YYYY-MM-DD'}),
+                attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'date_content2': forms.DateInput(
-                attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder':'YYYY-MM-DD'}),
+                attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'map_persons': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:persons-autocomplete',
                 attrs={'data-placeholder': 'Type for available persons'}),
@@ -63,13 +61,11 @@ class MapForm(forms.ModelForm):
             'map_base': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
                 attrs={'data-placeholder': 'Type for available maps'}),
+            'map_type': forms.HiddenInput()
         }
 
     def __init__(self, *args, **kwargs):
         super(MapForm, self).__init__(*args, **kwargs)
-
-
-
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
         self.fields['map_persons'].label = 'Created by'
@@ -84,14 +80,19 @@ class MapForm(forms.ModelForm):
         self.fields['date_created2'].label = '**'
         self.fields['date_content2'].label = '**'
         forms.DateField(required=False, input_formats='%Y-%m-%d')
-        for node in Type.objects.get(name='Map').get_children():
-            self.fields['map_type_' + node.name] = TreeNodeMultipleChoiceField(queryset=node.get_descendants())
-            self.fields['map_type_' + node.name].required = False
 
+        # add type fields
+        for node in Type.objects.get(name='Map').get_children():
+            field_name = 'map_type_' + node.name
+            self.fields[field_name] = TreeNodeMultipleChoiceField(queryset=node.get_descendants())
+            self.fields[field_name].required = False
+
+        # set values for type fields
         instance = kwargs.get('instance')
         if instance:
             for node in Type.objects.get(name='Map').get_children():
-                self.fields['map_type_' + node.name].initial = [o.id for o in instance.map_type.all()]
+                field_name = 'map_type_' + node.name
+                self.fields[field_name].initial = [o.id for o in instance.map_type.all()]
 
         self.helper.layout = Layout(
             Div(

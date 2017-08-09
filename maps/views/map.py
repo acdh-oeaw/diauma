@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from annoying.functions import get_object_or_None
 
 from maps.forms import MapForm
-from maps.models import Map, Person, Institute, Reference, Place
+from maps.models import Map, Person, Institute, Reference, Place, Type
 from maps.tables import MapTable
 from maps.util import link
 
@@ -63,9 +63,17 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = MapForm
     success_message = 'An entry has been updated.'
 
+    def post(self, request, **kwargs):
+        request.POST = request.POST.copy()
+        nodes = []
+        for node in Type.objects.get(name='Map').get_children():
+            field_name = 'map_type_' + node.name
+            if field_name in request.POST:
+                nodes += request.POST.getlist(field_name)
+        request.POST.setlist('map_type', nodes)
+        return super(Update, self).post(request, **kwargs)
+
     def dispatch(self, *args, **kwargs):
-        kwargs = super(UpdateView, self).get_form_kwargs()
-        kwargs['map_types_Material'] = kwargs.form
         return super(Update, self).dispatch(*args, **kwargs)
 
     def get_success_url(self):
