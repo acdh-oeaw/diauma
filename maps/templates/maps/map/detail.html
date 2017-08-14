@@ -3,6 +3,7 @@
 {% load maps_extras %}
 {% load render_table from django_tables2 %}
 {% block title %}Diauma - Map{% endblock %}
+{% load mptt_tags %}
 {% block content %}
     {% block breadcrumbs %}
         {% breadcrumb "Map" "maps:map" %}
@@ -26,9 +27,12 @@
                         {% csrf_token %}<input id="delete-map" type="submit" value="Delete">
                     </form>
                 </div>
-                <h3>{{ map.name }}</h3>
                 <div style="float:left;margin-right:2em;">
+                    <h3>{{ map.name }}</h3>
                     <p>Name: {{ map.name }}</p>
+                    {% if map.id %}
+                        <p>ID: {{ map.id }}</p>
+                    {% endif %}
                     {% if map.title %}
                         <p>Title: {{ map.title }}</p>
                     {% endif %}
@@ -59,6 +63,13 @@
                     {% endif %}
                 </div>
                 <div style="float:left;">
+                    <h3>Links</h3>
+                    {% if has_base %}
+                        <p>Has base map: {{ has_base|link }}</p>
+                    {% endif %}
+                    {% if copy_of %}
+                        <p>Is a copy of: {{ copy_of|link }}</p>
+                    {% endif %}
                     {% autoescape off %}
                         {% if authors %}
                             <p>Created by: {{ authors|join:', ' }}</p>
@@ -67,22 +78,29 @@
                             <p>Referenced by: {{ references|join:', ' }}</p>
                         {% endif %}
                     {% endautoescape %}
-                    {% if publisher %}
-                        <p>Publisher: {{ publisher|link }}</p>
-                    {% endif %}
                     {% if issued_at %}
                         <p>Issued at: {{ issued_at|link }}</p>
                     {% endif %}
                     {% if location_at %}
                         <p>Located at: {{ location_at|link }}</p>
                     {% endif %}
-                    {% if copy_of %}
-                        <p>Is a copy of: {{ copy_of|link }}</p>
-                    {% endif %}
-                    {% if has_base %}
-                        <p>Has base map: {{ has_base|link }}</p>
+                    {% if publisher %}
+                        <p>Published by: {{ publisher|link }}</p>
                     {% endif %}
                 </div>
+                {% if types %}
+                    <div style="float:left;margin-left:3em;">
+                        <h3>Types</h3>
+                        {% recursetree types %}
+                            <li>
+                                {{ node.get_ancestors|tree_path:" > " }} > {{ node.name }}
+                                {% if not node.is_leaf_node %}
+                                    <ul>{{ children }}</ul>
+                                 {% endif %}
+                            </li>
+                        {% endrecursetree %}
+                    </div>
+                {% endif %}
                 <div style="clear:both;"></div>
                 {{ map|display_info }}
                 {{ map|display_dates }}

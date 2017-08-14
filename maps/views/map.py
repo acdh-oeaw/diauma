@@ -29,7 +29,6 @@ def detail(request, pk):
     references = []
     for reference in Reference.objects.filter(reference=map_):
         references.append(link(reference))
-
     return render(request, 'maps/map/detail.html', {
         'map': map_,
         'authors': authors,
@@ -41,6 +40,7 @@ def detail(request, pk):
         'has_base': get_object_or_None(Map, base=map_),
         'copies_table': MapTable(Map.objects.filter(map_copy_id=map_)),
         'base_for_table': MapTable(Map.objects.filter(map_base_id=map_)),
+        'types': Type.objects.filter(map_type=map_)
     })
 
 
@@ -49,6 +49,16 @@ class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'maps/map/create.html'
     form_class = MapForm
     success_message = 'An entry has been created.'
+
+    def post(self, request, **kwargs):
+        request.POST = request.POST.copy()
+        nodes = []
+        for node in Type.objects.get(name='Map').get_children():
+            field_name = 'map_type_' + node.name
+            if field_name in request.POST:
+                nodes += request.POST.getlist(field_name)
+        request.POST.setlist('map_type', nodes)
+        return super(Create, self).post(request, **kwargs)
 
     def dispatch(self, *args, **kwargs):
         return super(Create, self).dispatch(*args, **kwargs)

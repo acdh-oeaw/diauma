@@ -61,8 +61,7 @@ class MapForm(forms.ModelForm):
                 attrs={'data-placeholder': 'Type for available maps'}),
             'map_base': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
-                attrs={'data-placeholder': 'Type for available maps'}),
-            #'map_type': forms.HiddenInput()
+                attrs={'data-placeholder': 'Type for available maps'})
         }
 
     def __init__(self, *args, **kwargs):
@@ -105,10 +104,10 @@ class MapForm(forms.ModelForm):
                 'scale',
                 'width',
                 'height',
-                HTML('<div class="form-header">Dates</div>'),
+                HTML('<div class="form-header">Dates</div><div class="form-float date-fields">'),
                 'date_created',
                 'date_created2',
-                HTML('<div style="clear:both;"></div><div class="form-float date-fields">'),
+                HTML('</div><div style="clear:both;"></div><div class="form-float date-fields">'),
                 'date_content',
                 'date_content2',
                 HTML('<br /><p>Use ** fields to define a time span.</p>'),
@@ -126,12 +125,13 @@ class MapForm(forms.ModelForm):
                 css_class='form-float'),
             Div(
                 HTML('<div class="form-header">Types</div>'),
-                'map_type',
                 'map_type_Material',
                 'map_type_Color',
                 HTML('<div style="clear:both;"></div>'),
+            ),
+            Div(
+                'map_type', css_class='hidden'
             )
-
         )
 
 
