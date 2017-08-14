@@ -11,7 +11,7 @@ register = template.Library()
 def display_info(entity):
     if not entity.info:
         return ''
-    return mark_safe('<h3>Info</h3><p class="info_content">%s</p>' % linebreaks(entity.info))
+    return mark_safe('<h3>Info</h3><div class="info_content">%s</div>' % linebreaks(entity.info))
 
 
 @register.filter(name='display_dates')
