@@ -8,8 +8,46 @@
         {% breadcrumb "Map" "maps:map" %}
         {% breadcrumb "+" '' %}
     {% endblock %}
+
+
+    <div id="eye_colorButton-label">
+        <label class="optional" for="eye_colorButton">Eye color</label>
+        <span class="tooltip" title="The options can be edited in Hierarchy.&#013;Color of eyes.">i</span>
+    </div>
+    <div class="tableCell">
+        <input type="hidden" name="eye_colorId" value="" id="eye_colorId" />
+        <span id="eye_colorButton" class="button">Change</span><br/>
+        <div style="text-align:left;" id="eye_colorSelection"></div>
+    </div>
+
+
     <div class="panel-body">
         {% crispy form %}
     </div>
+
+    <div id="eye_colorOverlay" class="overlay">
+        <div id="eye_colorDialog" class="overlayContainer">
+            <input class="treeFilter" id="eye_colorSearch" placeholder="Filter"/>
+            <div id="eye_colorTree"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            createTreeOverlay("eye_color", "Eye color", true);
+            $("#eye_colorTree").jstree({
+                "search": {"case_insensitive": true, "show_only_matches": true},
+                "plugins": ["search", "checkbox"],
+                "checkbox": { "three_state" : false },
+                "core": {
+                    'data':[{'text':'blue', 'id':'936',},{'text':'brown', 'id':'934',},{'text':'grey', 'id':'935',},{'text':'hazel', 'id':'937',},]
+                }
+            });
+            $("#eye_colorSearch").keyup(function () {
+                $("#eye_colorTree").jstree("search", $(this).val());
+            });
+        });
+    </script>
 </div>
+
 {% endblock %}

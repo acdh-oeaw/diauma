@@ -15,6 +15,10 @@ body {
   border-radius: 0 !important;
 }
 
+.navbar-static-top {
+    z-index: 0;
+}
+
 header {
     flex: 0 0 auto;
     background-color: #4088c3;

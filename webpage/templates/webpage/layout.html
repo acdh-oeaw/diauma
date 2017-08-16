@@ -18,15 +18,16 @@
     <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
     <link rel="stylesheet" href="{% static 'webpage/css/diauma.css' %}" />
     <link rel="stylesheet" href="{% static 'webpage/libraries/jquery/jquery-ui-1.12.1/jquery-ui.css' %}" />
+    <link rel="stylesheet" href="{% static 'webpage/libraries/jquery/jstree/themes/default/style.min.css' %}" />
     <script src="{% static 'webpage/libraries/less/less.min.js' %}"></script>
     <script src="{% static 'webpage/libraries/jquery/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'webpage/libraries/jquery/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
     <script src="{% static 'webpage/libraries/jquery/validate-1.16.0.min.js' %}"></script>
-    <script src="{% static 'webpage/libraries/scroll-to-top/js/ap-scroll-top.min.js'%}"></script>
-    <script src="{% static 'webpage/js/functions.js'%}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
-    {% block scriptHeader %}
-    {% endblock %}
+    <script src="{% static 'webpage/libraries/jquery/jstree/jstree.min.js' %}"></script>
+    <script src="{% static 'webpage/libraries/jquery/jstree/jstree.search.js' %}"></script>
+    <script src="{% static 'webpage/libraries/scroll-to-top/js/ap-scroll-top.min.js' %}"></script>
+    <script src="{% static 'webpage/js/cookieconsent.min.js' %}"></script>
+    <script src="{% static 'webpage/js/functions.js' %}"></script>
 </head>
 <body>
 <header class="page-header procustom-header">
@@ -144,6 +145,7 @@
 {% block scripts2 %}
 {% endblock scripts2 %}
 <noscript>
+    https://clarin.oeaw.ac.at/piwik/
     <img src="https://clarin.oeaw.ac.at/piwik/piwik.php?idsite={% projects_metadata 'piwik_id' %}&rec=1" style="border:0" alt="" />
 </noscript>
 </body>
