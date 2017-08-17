@@ -11,6 +11,7 @@ class MapForm(forms.ModelForm):
 
     class Meta:
         model = Map
+
         fields = (
             'name',
             'map_id',
@@ -95,6 +96,43 @@ class MapForm(forms.ModelForm):
                 field_name = 'map_type_' + node.name
                 self.fields[field_name].initial = [o.id for o in instance.map_type.all()]
 
+        for node in Type.objects.get(name='Map').get_children():
+            field_name = 'map_type2_' + node.name
+            types = """ 
+                <div id="{0}Button-label">
+                    <label class="optional" for="{0}Button">Eye color</label>
+                    <span class="tooltip" title="The options can be edited in Hierarchy.&#013;Color of eyes.">i</span>
+                </div>
+                <div class="tableCell">
+                    <input type="hidden" name="{0}Id" value="" id="{0}Id" />
+                    <span id="{0}Button" class="button">Change</span><br/>
+                    <div style="text-align:left;" id="{0}Selection"></div>
+                </div>
+    
+                <div id="{0}Overlay" class="overlay" style="display:none">
+                    <div id="{0}Dialog" class="overlayContainer">
+                        <input class="treeFilter" id="{0}Search" placeholder="Filter"/>
+                        <div id="{0}Tree"></div>
+                    </div>
+                </div>
+    
+                <script type="text/javascript">
+                    $(document).ready(function () {{
+                        createTreeOverlay("{0}", "Eye color", true);
+                        $("#{0}Tree").jstree({{
+                            "search": {{"case_insensitive": true, "show_only_matches": true}},
+                            "plugins": ["search", "checkbox"],
+                            "checkbox": {{ "three_state" : false }},
+                            "core": {{
+                                'data':[{{'text':'blue', 'id':'936',}},{{'text':'brown', 'id':'934',}},{{'text':'grey', 'id':'935',}},{{'text':'hazel', 'id':'937',}},]
+                            }}
+                        }});
+                        $("#{0}Search").keyup(function () {{
+                            $("#{0}Tree").jstree("search", $(this).val());
+                        }});
+                    }});
+                </script>""".format(field_name)
+
         self.helper.layout = Layout(
             Div(
                 HTML('<div class="form-header">Map data</div>'),
@@ -127,6 +165,7 @@ class MapForm(forms.ModelForm):
                 HTML('<div class="form-header">Types</div>'),
                 'map_type_Material',
                 'map_type_Color',
+                HTML(types),
                 HTML('<div style="clear:both;"></div>'),
             ),
             Div(
