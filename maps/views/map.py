@@ -54,9 +54,9 @@ class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         request.POST = request.POST.copy()
         nodes = []
         for node in Type.objects.get(name='Map').get_children():
-            field_name = 'map_type_' + node.name
+            field_name = 'map-type-' + node.name + '-id'
             if field_name in request.POST:
-                nodes += request.POST.getlist(field_name)
+                nodes += request.POST.get(field_name).split(',')
         request.POST.setlist('map_type', nodes)
         return super(Create, self).post(request, **kwargs)
 
@@ -77,9 +77,9 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         request.POST = request.POST.copy()
         nodes = []
         for node in Type.objects.get(name='Map').get_children():
-            field_name = 'map_type_' + node.name
-            if field_name in request.POST:
-                nodes += request.POST.getlist(field_name)
+            field_name = 'map-type-' + node.name + '-id'
+            if field_name in request.POST and request.POST.get(field_name).split(',') != ['']:
+                nodes += request.POST.get(field_name).split(',')
         request.POST.setlist('map_type', nodes)
         return super(Update, self).post(request, **kwargs)
 

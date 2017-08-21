@@ -3,7 +3,6 @@ from dal import autocomplete
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, HTML, Div
-from mptt.forms import TreeNodeMultipleChoiceField
 from .models import Map, Person, Institute, Place, Reference, Type
 
 
@@ -83,27 +82,22 @@ class MapForm(forms.ModelForm):
         self.fields['map_id'].required = False
         forms.DateField(required=False, input_formats='%Y-%m-%d')
 
-        # add type fields
-        for node in Type.objects.get(name='Map').get_children():
-            field_name = 'map_type_' + node.name
-            self.fields[field_name] = TreeNodeMultipleChoiceField(queryset=node.get_descendants())
-            self.fields[field_name].required = False
-
-        # set values for type fields
         instance = kwargs.get('instance')
-        if instance:
-            for node in Type.objects.get(name='Map').get_children():
-                field_name = 'map_type_' + node.name
-                self.fields[field_name].initial = [o.id for o in instance.map_type.all()]
-
-        types = ''
+        selected_ids = [o.id for o in instance.map_type.all()] if instance else []
+        types_html = ''
         for node in Type.objects.get(name='Map').get_children():
-            types += """
+            selected_ids_string = []
+            for child in node.get_children():
+                if child.id in selected_ids:
+                    selected_ids_string.append(str(child.id))
+            selected_ids_string = ','.join(selected_ids_string)
+            types_html += """
                 <div id="{field_name}-button-label">
                     <label class="optional" for="{field_name}-button">{node_name}</label>
                 </div>
                 <div class="table-cell">
-                    <input type="hidden" name="{field_name}-id" value="" id="{field_name}-id" />
+                    <input type="hidden" name="{field_name}-id"
+                        value="{selected_ids_string}" id="{field_name}-id" />
                     <span id="{field_name}-button" class="button">Change</span><br />
                     <div style="text-align:left;" id="{field_name}-selection"></div>
                 </div>
@@ -129,10 +123,9 @@ class MapForm(forms.ModelForm):
                 </script>""".format(
                     field_name='map-type-' + node.name,
                     node_name=node.name,
-                    tree_data=node.get_tree_data()
+                    tree_data=node.get_tree_data(selected_ids),
+                    selected_ids_string=selected_ids_string
                 )
-        for child in node.get_children():
-            types += child.name
 
         self.helper.layout = Layout(
             Div(
@@ -164,9 +157,7 @@ class MapForm(forms.ModelForm):
                 css_class='form-float'),
             Div(
                 HTML('<div class="form-header">Types</div>'),
-                'map_type_Material',
-                'map_type_Color',
-                HTML(types),
+                HTML(types_html),
                 HTML('<div style="clear:both;"></div>'),
             ),
             Div(

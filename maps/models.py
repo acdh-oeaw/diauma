@@ -10,10 +10,13 @@ class Type(MPTTModel):
     def __str__(self):
         return self.name
 
-    def get_tree_data(self):
-        return """ "core": {
-            'data':[{'text':'blue', 'id':'936',},{'text':'brown', 'id':'934',},{'text':'grey', 'id':'935',},{'text':'hazel', 'id':'937',},]
-        }"""
+    def get_tree_data(self, selected_ids=None):
+        html = '"core": {"data":['
+        for node in self.get_children():
+            selected = ', "state" : {"selected" : true}' if selected_ids and node.id in selected_ids else ''
+            html += '{"text":"' + node.name + '", "id":"' + str(node.id) + '"' + selected + '},'
+        html += ']}'
+        return html
 
 
 class BaseModel(models.Model):
