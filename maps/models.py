@@ -10,6 +10,11 @@ class Type(MPTTModel):
     def __str__(self):
         return self.name
 
+    def get_tree_data(self):
+        return """ "core": {
+            'data':[{'text':'blue', 'id':'936',},{'text':'brown', 'id':'934',},{'text':'grey', 'id':'935',},{'text':'hazel', 'id':'937',},]
+        }"""
+
 
 class BaseModel(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)

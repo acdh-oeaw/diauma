@@ -96,42 +96,43 @@ class MapForm(forms.ModelForm):
                 field_name = 'map_type_' + node.name
                 self.fields[field_name].initial = [o.id for o in instance.map_type.all()]
 
+        types = ''
         for node in Type.objects.get(name='Map').get_children():
-            field_name = 'map_type2_' + node.name
-            types = """ 
-                <div id="{0}Button-label">
-                    <label class="optional" for="{0}Button">Eye color</label>
-                    <span class="tooltip" title="The options can be edited in Hierarchy.&#013;Color of eyes.">i</span>
+            types += """
+                <div id="{field_name}-button-label">
+                    <label class="optional" for="{field_name}-button">{node_name}</label>
                 </div>
-                <div class="tableCell">
-                    <input type="hidden" name="{0}Id" value="" id="{0}Id" />
-                    <span id="{0}Button" class="button">Change</span><br/>
-                    <div style="text-align:left;" id="{0}Selection"></div>
+                <div class="table-cell">
+                    <input type="hidden" name="{field_name}-id" value="" id="{field_name}-id" />
+                    <span id="{field_name}-button" class="button">Change</span><br />
+                    <div style="text-align:left;" id="{field_name}-selection"></div>
                 </div>
-    
-                <div id="{0}Overlay" class="overlay" style="display:none">
-                    <div id="{0}Dialog" class="overlayContainer">
-                        <input class="treeFilter" id="{0}Search" placeholder="Filter"/>
-                        <div id="{0}Tree"></div>
+                <div id="{field_name}-overlay" class="overlay" style="display:none">
+                    <div id="{field_name}-dialog" class="overlay-container">
+                        <input class="tree-filter" id="{field_name}-search" placeholder="Filter"/>
+                        <div id="{field_name}-tree"></div>
                     </div>
                 </div>
-    
                 <script type="text/javascript">
                     $(document).ready(function () {{
-                        createTreeOverlay("{0}", "Eye color", true);
-                        $("#{0}Tree").jstree({{
+                        createTreeOverlay("{field_name}", "{node_name}", true);
+                        $("#{field_name}-tree").jstree({{
                             "search": {{"case_insensitive": true, "show_only_matches": true}},
                             "plugins": ["search", "checkbox"],
                             "checkbox": {{ "three_state" : false }},
-                            "core": {{
-                                'data':[{{'text':'blue', 'id':'936',}},{{'text':'brown', 'id':'934',}},{{'text':'grey', 'id':'935',}},{{'text':'hazel', 'id':'937',}},]
-                            }}
+                            {tree_data}
                         }});
-                        $("#{0}Search").keyup(function () {{
-                            $("#{0}Tree").jstree("search", $(this).val());
+                        $("#{field_name}-search").keyup(function () {{
+                            $("#{field_name}-tree").jstree("search", $(this).val());
                         }});
                     }});
-                </script>""".format(field_name)
+                </script>""".format(
+                    field_name='map-type-' + node.name,
+                    node_name=node.name,
+                    tree_data=node.get_tree_data()
+                )
+        for child in node.get_children():
+            types += child.name
 
         self.helper.layout = Layout(
             Div(

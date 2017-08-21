@@ -346,6 +346,7 @@ table.paleblue {
 .procustom-form {
     padding: 20px 0 20px 0;
 }
+
 .btn {
     font-weight: bold;
     font-variant: small-caps;
@@ -354,4 +355,15 @@ table.paleblue {
 
 .btn-default {
     margin-bottom: 10px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.overlay-container {
+    font-size: 0.9em;
 }
