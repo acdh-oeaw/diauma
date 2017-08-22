@@ -4,7 +4,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 
 class Type(MPTTModel):
-    name = models.CharField(max_length=250, unique=True)
+    name = models.CharField(max_length=250)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
 
     def __str__(self):
@@ -14,8 +14,18 @@ class Type(MPTTModel):
         html = '"core": {"data":['
         for node in self.get_children():
             selected = ', "state" : {"selected" : true}' if selected_ids and node.id in selected_ids else ''
-            html += '{"text":"' + node.name + '", "id":"' + str(node.id) + '"' + selected + '},'
+            html += '{"text":"' + node.name + '", "id":"' + str(node.id) + '"' + selected + ','
+            html += node.get_tree_data_children(selected_ids) + '},'
         html += ']}'
+        return html
+
+    def get_tree_data_children(self, selected_ids):
+        html = '"children" : ['
+        for node in self.get_children():
+            selected = ', "state" : {"selected" : true}' if selected_ids and node.id in selected_ids else ''
+            html += '{"text":"' + node.name + '", "id":"' + str(node.id) + '"' + selected + ','
+            html += node.get_tree_data_children(selected_ids) + '},'
+        html += '],'
         return html
 
 
@@ -62,6 +72,7 @@ class Person(BaseModel):
 class Reference(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
+    reference_type = models.ManyToManyField(Type, blank=True, related_name='reference_type')
 
     def __str__(self):
         return self.name

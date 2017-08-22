@@ -1,6 +1,7 @@
 {% extends "webpage/layout.html" %}
 {% load django_bootstrap_breadcrumbs %}
 {% load maps_extras %}
+{% load mptt_tags %}
 {% load render_table from django_tables2 %}
 {% block title %}Diauma - Reference{% endblock %}
 {% block content %}
@@ -25,6 +26,21 @@
                     </form>
                 </div>
                 <h3>{{ reference.name }}</h3>
+                {% if types %}
+                    <div>
+                        <h3>Types</h3>
+                        <ul>
+                        {% recursetree types %}
+                            <li>
+                                {{ node.get_ancestors|tree_path:" > " }} > {{ node.name }}
+                                {% if not node.is_leaf_node %}
+                                    <ul>{{ children }}</ul>
+                                 {% endif %}
+                            </li>
+                        {% endrecursetree %}
+                        </ul>
+                    </div>
+                {% endif %}
                 {{ reference|display_info }}
                 {{ reference|display_dates }}
             </div>

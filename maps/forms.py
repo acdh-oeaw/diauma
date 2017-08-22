@@ -53,7 +53,7 @@ class BaseForm(forms.ModelForm):
                         }});
                     }});
                 </script>""".format(
-                    field='map-type-' + node.name,
+                    field='map-type-' + node.name.replace(' ', ''),
                     node_name=node.name,
                     tree_data=node.get_tree_data(selected_ids),
                     selected_ids_string=selected_ids_string,
@@ -203,7 +203,9 @@ class PersonForm(BaseForm):
         self.helper.add_input(Submit('submit', 'Submit'))
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.person_type.all()] if instance else []
-        nodes_html = self.get_nodes_html(Type.objects.get(name='Person').get_children(), selected_ids)
+        nodes_html = self.get_nodes_html(
+            Type.objects.get(name='Person').get_children(),
+            selected_ids)
         self.helper.layout = Layout(
             Div(
                 HTML('<div class="form-header">Person data</div>'),
@@ -216,12 +218,11 @@ class PersonForm(BaseForm):
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>'),
             ),
-
-            Div( 'person_type', css_class='hidden')
+            Div('person_type', css_class='hidden')
         )
 
 
-class InstituteForm(forms.ModelForm):
+class InstituteForm(BaseForm):
 
     class Meta:
         model = Institute
@@ -239,7 +240,7 @@ class InstituteForm(forms.ModelForm):
         super(InstituteForm, self).__init__(*args, **kwargs)
 
 
-class PlaceForm(forms.ModelForm):
+class PlaceForm(BaseForm):
 
     class Meta:
         model = Place
@@ -251,13 +252,23 @@ class PlaceForm(forms.ModelForm):
         super(PlaceForm, self).__init__(*args, **kwargs)
 
 
-class ReferenceForm(forms.ModelForm):
+class ReferenceForm(BaseForm):
 
     class Meta:
         model = Reference
-        fields = ('name', 'info')
+        fields = ('name', 'info', 'reference_type')
 
     def __init__(self, *args, **kwargs):
+        super(ReferenceForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
-        super(ReferenceForm, self).__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
+        selected_ids = [o.id for o in instance.reference_type.all()] if instance else []
+        nodes_html = self.get_nodes_html(
+            Type.objects.get(name='Reference').get_children(),
+            selected_ids)
+        self.helper.layout = Layout(
+            Div('name'),
+            Div(HTML(nodes_html)),
+            Div('reference_type', css_class='hidden')
+        )

@@ -7,8 +7,9 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from maps.forms import ReferenceForm
-from maps.models import Reference, Map
+from maps.models import Reference, Map, Type
 from maps.tables import ReferenceTable, MapTable
+from maps.util import get_selected_nodes
 
 
 @login_required
@@ -24,6 +25,7 @@ def detail(request, pk):
     return render(request, 'maps/reference/detail.html', {
         'reference': reference,
         'map_table': MapTable(Map.objects.filter(map_references=reference)),
+        'types': Type.objects.filter(reference_type=reference)
     })
 
 
@@ -32,6 +34,11 @@ class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'maps/reference/create.html'
     form_class = ReferenceForm
     success_message = 'An entry has been created.'
+
+    def post(self, request, **kwargs):
+        request.POST = request.POST.copy()
+        request.POST.setlist('reference_type', get_selected_nodes('Reference', request))
+        return super(Create, self).post(request, **kwargs)
 
     def dispatch(self, *args, **kwargs):
         return super(Create, self).dispatch(*args, **kwargs)
@@ -45,6 +52,11 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'maps/reference/update.html'
     form_class = ReferenceForm
     success_message = 'An entry has been updated.'
+
+    def post(self, request, **kwargs):
+        request.POST = request.POST.copy()
+        request.POST.setlist('reference_type', get_selected_nodes('Reference', request))
+        return super(Update, self).post(request, **kwargs)
 
     def dispatch(self, *args, **kwargs):
         return super(Update, self).dispatch(*args, **kwargs)
