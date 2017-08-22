@@ -6,7 +6,63 @@ from crispy_forms.layout import Submit, Layout, HTML, Div
 from .models import Map, Person, Institute, Place, Reference, Type
 
 
-class MapForm(forms.ModelForm):
+class BaseForm(forms.ModelForm):
+
+    @staticmethod
+    def get_nodes_html(nodes, selected_ids):
+        html = ''
+        for node in nodes:
+            selected_ids_string = []
+            selected_name_string = ''
+            for child in node.get_children():
+                if child.id in selected_ids:
+                    selected_ids_string.append(str(child.id))
+                    selected_name_string += child.name + '<br />'
+            selected_ids_string = ','.join(selected_ids_string)
+            html += """
+                <div class="table-row">
+                    <div class="table-cell">
+                        <label class="optional" for="{field}-button">{node_name}</label>
+                    </div>
+                    <div class="table-cell">
+                        <input type="hidden" name="{field}-id"
+                            value="{selected_ids_string}" id="{field}-id" />
+                        <span id="{field}-button" class="button">Change</span><br />
+                        <div style="text-align:left;" id="{field}-selection">
+                            {selected_name_string}
+                        </div>
+                    </div>
+                    <div id="{field}-overlay" class="overlay" style="display:none">
+                        <div id="{field}-dialog" class="overlay-container">
+                            <input class="tree-filter" id="{field}-search" placeholder="Filter"/>
+                            <div id="{field}-tree"></div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {{
+                        createTreeOverlay("{field}", "{node_name}", true);
+                        $("#{field}-tree").jstree({{
+                            "search": {{"case_insensitive": true, "show_only_matches": true}},
+                            "plugins": ["search", "checkbox"],
+                            "checkbox": {{ "three_state" : false }},
+                            {tree_data}
+                        }});
+                        $("#{field}-search").keyup(function () {{
+                            $("#{field}-tree").jstree("search", $(this).val());
+                        }});
+                    }});
+                </script>""".format(
+                    field='map-type-' + node.name,
+                    node_name=node.name,
+                    tree_data=node.get_tree_data(selected_ids),
+                    selected_ids_string=selected_ids_string,
+                    selected_name_string=selected_name_string
+                )
+        return html
+
+
+class MapForm(BaseForm):
 
     class Meta:
         model = Map
@@ -84,55 +140,7 @@ class MapForm(forms.ModelForm):
 
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.map_type.all()] if instance else []
-        types_html = ''
-        for node in Type.objects.get(name='Map').get_children():
-            selected_ids_string = []
-            selected_name_string = ''
-            for child in node.get_children():
-                if child.id in selected_ids:
-                    selected_ids_string.append(str(child.id))
-                    selected_name_string += child.name + '<br />'
-            selected_ids_string = ','.join(selected_ids_string)
-            types_html += """
-                <div class="table-row">
-                    <div class="table-cell">
-                        <label class="optional" for="{field_name}-button">{node_name}</label>
-                    </div>
-                    <div class="table-cell">
-                        <input type="hidden" name="{field_name}-id"
-                            value="{selected_ids_string}" id="{field_name}-id" />
-                        <span id="{field_name}-button" class="button">Change</span><br />
-                        <div style="text-align:left;" id="{field_name}-selection">
-                            {selected_name_string}
-                        </div>
-                    </div>
-                    <div id="{field_name}-overlay" class="overlay" style="display:none">
-                        <div id="{field_name}-dialog" class="overlay-container">
-                            <input class="tree-filter" id="{field_name}-search" placeholder="Filter"/>
-                            <div id="{field_name}-tree"></div>
-                        </div>
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    $(document).ready(function () {{
-                        createTreeOverlay("{field_name}", "{node_name}", true);
-                        $("#{field_name}-tree").jstree({{
-                            "search": {{"case_insensitive": true, "show_only_matches": true}},
-                            "plugins": ["search", "checkbox"],
-                            "checkbox": {{ "three_state" : false }},
-                            {tree_data}
-                        }});
-                        $("#{field_name}-search").keyup(function () {{
-                            $("#{field_name}-tree").jstree("search", $(this).val());
-                        }});
-                    }});
-                </script>""".format(
-                    field_name='map-type-' + node.name,
-                    node_name=node.name,
-                    tree_data=node.get_tree_data(selected_ids),
-                    selected_ids_string=selected_ids_string,
-                    selected_name_string=selected_name_string
-                )
+        nodes_html = self.get_nodes_html(Type.objects.get(name='Map').get_children(), selected_ids)
 
         self.helper.layout = Layout(
             Div(
@@ -164,7 +172,7 @@ class MapForm(forms.ModelForm):
                 css_class='form-float'),
             Div(
                 HTML('<div class="form-header">Types</div>'),
-                HTML(types_html),
+                HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>'),
             ),
             Div(
@@ -173,11 +181,11 @@ class MapForm(forms.ModelForm):
         )
 
 
-class PersonForm(forms.ModelForm):
+class PersonForm(BaseForm):
 
     class Meta:
         model = Person
-        fields = ('name', 'info', 'person_location', 'person_institutes')
+        fields = ('name', 'info', 'person_location', 'person_institutes', 'person_type')
         widgets = {
             'person_location': autocomplete.ModelSelect2(
                 url='maps-ac:place-autocomplete',
@@ -190,9 +198,27 @@ class PersonForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        super(PersonForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
-        super(PersonForm, self).__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
+        selected_ids = [o.id for o in instance.person_type.all()] if instance else []
+        nodes_html = self.get_nodes_html(Type.objects.get(name='Person').get_children(), selected_ids)
+        self.helper.layout = Layout(
+            Div(
+                HTML('<div class="form-header">Person data</div>'),
+                'name',
+                'person_location',
+                'person_institutes',
+                css_class='form-float'),
+            Div(
+                HTML('<div class="form-header">Types</div>'),
+                HTML(nodes_html),
+                HTML('<div style="clear:both;"></div>'),
+            ),
+
+            Div( 'person_type', css_class='hidden')
+        )
 
 
 class InstituteForm(forms.ModelForm):

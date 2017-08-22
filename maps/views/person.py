@@ -8,9 +8,9 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from annoying.functions import get_object_or_None
 
 from maps.forms import PersonForm
-from maps.models import Person, Map, Place, Institute
+from maps.models import Person, Map, Place, Institute, Type
 from maps.tables import PersonTable, MapTable
-from maps.util import link
+from maps.util import link, get_selected_nodes
 
 
 @login_required
@@ -31,6 +31,7 @@ def detail(request, pk):
         'institutes': institutes,
         'map_table': MapTable(Map.objects.filter(map_persons=person)),
         'location_at': get_object_or_None(Place, person_location=person),
+        'types': Type.objects.filter(person_type=person)
     })
 
 
@@ -39,6 +40,11 @@ class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'maps/person/create.html'
     form_class = PersonForm
     success_message = 'An entry has been created.'
+
+    def post(self, request, **kwargs):
+        request.POST = request.POST.copy()
+        request.POST.setlist('person_type', get_selected_nodes('Person', request))
+        return super(Create, self).post(request, **kwargs)
 
     def dispatch(self, *args, **kwargs):
         return super(Create, self).dispatch(*args, **kwargs)
@@ -52,6 +58,11 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'maps/person/update.html'
     form_class = PersonForm
     success_message = 'An entry has been updated.'
+
+    def post(self, request, **kwargs):
+        request.POST = request.POST.copy()
+        request.POST.setlist('person_type', get_selected_nodes('Person', request))
+        return super(Update, self).post(request, **kwargs)
 
     def dispatch(self, *args, **kwargs):
         return super(Update, self).dispatch(*args, **kwargs)

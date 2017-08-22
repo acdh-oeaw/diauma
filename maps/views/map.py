@@ -10,7 +10,7 @@ from annoying.functions import get_object_or_None
 from maps.forms import MapForm
 from maps.models import Map, Person, Institute, Reference, Place, Type
 from maps.tables import MapTable
-from maps.util import link
+from maps.util import link, get_selected_nodes
 
 
 @login_required
@@ -52,12 +52,7 @@ class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def post(self, request, **kwargs):
         request.POST = request.POST.copy()
-        nodes = []
-        for node in Type.objects.get(name='Map').get_children():
-            field_name = 'map-type-' + node.name + '-id'
-            if field_name in request.POST:
-                nodes += request.POST.get(field_name).split(',')
-        request.POST.setlist('map_type', nodes)
+        request.POST.setlist('map_type', get_selected_nodes('Map', request))
         return super(Create, self).post(request, **kwargs)
 
     def dispatch(self, *args, **kwargs):
@@ -75,12 +70,7 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def post(self, request, **kwargs):
         request.POST = request.POST.copy()
-        nodes = []
-        for node in Type.objects.get(name='Map').get_children():
-            field_name = 'map-type-' + node.name + '-id'
-            if field_name in request.POST and request.POST.get(field_name).split(',') != ['']:
-                nodes += request.POST.get(field_name).split(',')
-        request.POST.setlist('map_type', nodes)
+        request.POST.setlist('map_type', get_selected_nodes('Map', request))
         return super(Update, self).post(request, **kwargs)
 
     def dispatch(self, *args, **kwargs):
