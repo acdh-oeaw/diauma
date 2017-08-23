@@ -1,6 +1,7 @@
 {% extends "webpage/layout.html" %}
 {% load django_bootstrap_breadcrumbs %}
 {% load maps_extras %}
+{% load mptt_tags %}
 {% load render_table from django_tables2 %}
 {% block title %}Diauma - Institute{% endblock %}
 {% block content %}
@@ -27,10 +28,28 @@
                         <input id="delete-institute" type="submit" value="Delete">
                     </form>
                 </div>
-                <h3>{{ institute.name }}</h3>
-                {% if location_at %}
-                    <p>Located at: {{ location_at|link }}</p>
+                <div style="float:left;margin-right:2em;">
+                    <h3>{{ institute.name }}</h3>
+                    {% if location_at %}
+                        <p>Located at: {{ location_at|link }}</p>
+                    {% endif %}
+                </div>
+                {% if types %}
+                    <div style="float:left;margin-left:1em;">
+                        <h3>Types</h3>
+                        <ul>
+                        {% recursetree types %}
+                            <li>
+                                {{ node.get_ancestors|tree_path:" > " }} > {{ node.name }}
+                                {% if not node.is_leaf_node %}
+                                    <ul>{{ children }}</ul>
+                                 {% endif %}
+                            </li>
+                        {% endrecursetree %}
+                        </ul>
+                    </div>
                 {% endif %}
+                <div style="clear:both;"></div>
                 {{ institute|display_info }}
                 {{ institute|display_dates }}
             </div>

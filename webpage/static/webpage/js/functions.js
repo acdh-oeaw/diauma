@@ -36,6 +36,12 @@ function createTreeOverlay(name, title, multiple=false) {
                     selectFromTreeMulti(name);
                 }
                 $('#' + name + '-overlay').css('display', 'none');
+            },
+            open: function() {
+                $(this).closest(".ui-dialog")
+                    .find(".ui-dialog-titlebar-close")
+                    .removeClass("ui-dialog-titlebar-close")
+                    .html("<span style='float:right;'>X</span>");
             }
         });
     });

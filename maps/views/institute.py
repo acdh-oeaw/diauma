@@ -8,8 +8,9 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from maps.forms import InstituteForm
-from maps.models import Institute, Map, Place, Person
+from maps.models import Institute, Map, Place, Person, Type
 from maps.tables import InstituteTable, MapTable, PersonTable
+from maps.util import get_selected_nodes
 
 
 @login_required
@@ -27,6 +28,7 @@ def detail(request, pk):
         'map_table': MapTable(Map.objects.filter(map_institute=institute)),
         'member_table': PersonTable(Person.objects.filter(person_institutes=institute)),
         'location_at': get_object_or_None(Place, institute_location=institute),
+        'types': Type.objects.filter(institute_type=institute),
     })
 
 
@@ -35,6 +37,11 @@ class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'maps/institute/create.html'
     form_class = InstituteForm
     success_message = 'An entry has been created.'
+
+    def post(self, request, **kwargs):
+        request.POST = request.POST.copy()
+        request.POST.setlist('institute_type', get_selected_nodes('Institute', request))
+        return super(Create, self).post(request, **kwargs)
 
     def dispatch(self, *args, **kwargs):
         return super(Create, self).dispatch(*args, **kwargs)
@@ -48,6 +55,11 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'maps/institute/update.html'
     form_class = InstituteForm
     success_message = 'An entry has been updated.'
+
+    def post(self, request, **kwargs):
+        request.POST = request.POST.copy()
+        request.POST.setlist('institute_type', get_selected_nodes('Institute', request))
+        return super(Update, self).post(request, **kwargs)
 
     def dispatch(self, *args, **kwargs):
         return super(Update, self).dispatch(*args, **kwargs)

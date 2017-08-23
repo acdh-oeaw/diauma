@@ -250,6 +250,17 @@ table.paleblue {
     font-size: 1.2em;
 }
 
+div.ui-dialog-titlebar button {
+    float: right;
+    margin-right: 0;
+    padding: 0.1em 0.5em;
+}
+
+.ui-dialog .ui-dialog-title {
+    font-size: 1.1em;
+    float: none;
+}
+
 div.table-row {
     display: table-row;
 }
@@ -266,9 +277,10 @@ div.table-row div {
 }
 
 
-div.table-cell {
+div.table-row div.table-cell {
     display: table-cell;
     width: inherit;
+    text-align: left;
 }
 
 .navbar-nav.nav > li > a {

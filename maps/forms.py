@@ -3,6 +3,7 @@ from dal import autocomplete
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, HTML, Div
+from maps.util import sanitize
 from .models import Map, Person, Institute, Place, Reference, Type
 
 
@@ -21,22 +22,21 @@ class BaseForm(forms.ModelForm):
             selected_ids_string = ','.join(selected_ids_string)
             html += """
                 <div class="table-row">
-                    <div class="table-cell">
+                    <div>
                         <label class="optional" for="{field}-button">{node_name}</label>
                     </div>
                     <div class="table-cell">
-                        <input type="hidden" name="{field}-id"
-                            value="{selected_ids_string}" id="{field}-id" />
+                        <input type="hidden" name="{field}-id" value="{selected_ids_string}" id="{field}-id" />
                         <span id="{field}-button" class="button">Change</span><br />
                         <div style="text-align:left;" id="{field}-selection">
                             {selected_name_string}
                         </div>
                     </div>
-                    <div id="{field}-overlay" class="overlay" style="display:none">
-                        <div id="{field}-dialog" class="overlay-container">
-                            <input class="tree-filter" id="{field}-search" placeholder="Filter"/>
-                            <div id="{field}-tree"></div>
-                        </div>
+                </div>
+                <div id="{field}-overlay" class="overlay" style="display:none">
+                    <div id="{field}-dialog" class="overlay-container">
+                        <input class="tree-filter" id="{field}-search" placeholder="Filter"/>
+                        <div id="{field}-tree"></div>
                     </div>
                 </div>
                 <script type="text/javascript">
@@ -53,12 +53,12 @@ class BaseForm(forms.ModelForm):
                         }});
                     }});
                 </script>""".format(
-                    field='map-type-' + node.name.replace(' ', ''),
+                    field='map-type-' + sanitize(node.name),
                     node_name=node.name,
+                    node_name_sanitized=sanitize(node.name),
                     tree_data=node.get_tree_data(selected_ids),
                     selected_ids_string=selected_ids_string,
-                    selected_name_string=selected_name_string
-                )
+                    selected_name_string=selected_name_string)
         return html
 
 
@@ -66,7 +66,6 @@ class MapForm(BaseForm):
 
     class Meta:
         model = Map
-
         fields = (
             'name',
             'map_id',
@@ -86,8 +85,7 @@ class MapForm(BaseForm):
             'date_created',
             'date_created2',
             'date_content',
-            'date_content2',
-        )
+            'date_content2')
         widgets = {
             'date_created': forms.DateInput(
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
@@ -137,14 +135,12 @@ class MapForm(BaseForm):
         self.fields['date_content2'].label = '**'
         self.fields['map_id'].required = False
         forms.DateField(required=False, input_formats='%Y-%m-%d')
-
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.map_type.all()] if instance else []
         nodes_html = self.get_nodes_html(Type.objects.get(name='Map').get_children(), selected_ids)
-
         self.helper.layout = Layout(
-            Div(
-                HTML('<div class="form-header">Map data</div>'),
+            Div(HTML(
+                '<div class="form-header">Map data</div>'),
                 'name',
                 'map_id',
                 'title',
@@ -160,8 +156,8 @@ class MapForm(BaseForm):
                 HTML('<br /><p>Use ** fields to define a time span.</p>'),
                 HTML('</div><div style="clear:both;"></div>'),
                 css_class='form-float'),
-            Div(
-                HTML('<div class="form-header">Links</div>'),
+            Div(HTML(
+                '<div class="form-header">Links</div>'),
                 'map_base',
                 'map_copy',
                 'map_persons',
@@ -173,11 +169,8 @@ class MapForm(BaseForm):
             Div(
                 HTML('<div class="form-header">Types</div>'),
                 HTML(nodes_html),
-                HTML('<div style="clear:both;"></div>'),
-            ),
-            Div(
-                'map_type', css_class='hidden'
-            )
+                HTML('<div style="clear:both;"></div>')),
+            Div('map_type', css_class='hidden')
         )
 
 
@@ -189,12 +182,10 @@ class PersonForm(BaseForm):
         widgets = {
             'person_location': autocomplete.ModelSelect2(
                 url='maps-ac:place-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available places'}
-            ),
+                attrs={'data-placeholder': 'Type for getting available places'}),
             'person_institutes': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:institute-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available references'}
-            ),
+                attrs={'data-placeholder': 'Type for getting available references'}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -203,9 +194,7 @@ class PersonForm(BaseForm):
         self.helper.add_input(Submit('submit', 'Submit'))
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.person_type.all()] if instance else []
-        nodes_html = self.get_nodes_html(
-            Type.objects.get(name='Person').get_children(),
-            selected_ids)
+        nodes_html = self.get_nodes_html(Type.objects.get(name='Person').get_children(), selected_ids)
         self.helper.layout = Layout(
             Div(
                 HTML('<div class="form-header">Person data</div>'),
@@ -216,8 +205,7 @@ class PersonForm(BaseForm):
             Div(
                 HTML('<div class="form-header">Types</div>'),
                 HTML(nodes_html),
-                HTML('<div style="clear:both;"></div>'),
-            ),
+                HTML('<div style="clear:both;"></div>')),
             Div('person_type', css_class='hidden')
         )
 
@@ -226,30 +214,58 @@ class InstituteForm(BaseForm):
 
     class Meta:
         model = Institute
-        fields = ('name', 'info', 'institute_location')
+        fields = ('name', 'info', 'institute_location', 'institute_type')
         widgets = {
             'institute_location': autocomplete.ModelSelect2(
                 url='maps-ac:place-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available places'}
-            ),
+                attrs={'data-placeholder': 'Type for getting available places'}),
         }
 
     def __init__(self, *args, **kwargs):
+        super(InstituteForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
-        super(InstituteForm, self).__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
+        selected_ids = [o.id for o in instance.institute_type.all()] if instance else []
+        nodes_html = self.get_nodes_html(Type.objects.get(name='Institute').get_children(), selected_ids)
+        self.helper.layout = Layout(
+            Div(
+                HTML('<div class="form-header">Institute data</div>'),
+                'name',
+                'institute_location',
+                css_class='form-float'),
+            Div(
+                HTML('<div class="form-header">Types</div>'),
+                HTML(nodes_html),
+                HTML('<div style="clear:both;"></div>')),
+            Div('institute_type', css_class='hidden')
+        )
 
 
 class PlaceForm(BaseForm):
 
     class Meta:
         model = Place
-        fields = ('name', 'info')
+        fields = ('name', 'info', 'place_type')
 
     def __init__(self, *args, **kwargs):
+        super(PlaceForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
-        super(PlaceForm, self).__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
+        selected_ids = [o.id for o in instance.place_type.all()] if instance else []
+        nodes_html = self.get_nodes_html(Type.objects.get(name='Place').get_children(), selected_ids)
+        self.helper.layout = Layout(
+            Div(
+                HTML('<div class="form-header">Place data</div>'),
+                'name',
+                css_class='form-float'),
+            Div(
+                HTML('<div class="form-header">Types</div>'),
+                HTML(nodes_html),
+                HTML('<div style="clear:both;"></div>')),
+            Div('place_type', css_class='hidden')
+        )
 
 
 class ReferenceForm(BaseForm):
@@ -264,11 +280,15 @@ class ReferenceForm(BaseForm):
         self.helper.add_input(Submit('submit', 'Submit'))
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.reference_type.all()] if instance else []
-        nodes_html = self.get_nodes_html(
-            Type.objects.get(name='Reference').get_children(),
-            selected_ids)
+        nodes_html = self.get_nodes_html(Type.objects.get(name='Reference').get_children(), selected_ids)
         self.helper.layout = Layout(
-            Div('name'),
-            Div(HTML(nodes_html)),
+            Div(
+                HTML('<div class="form-header">Reference data</div>'),
+                'name',
+                css_class='form-float'),
+            Div(
+                HTML('<div class="form-header">Types</div>'),
+                HTML(nodes_html),
+                HTML('<div style="clear:both;"></div>')),
             Div('reference_type', css_class='hidden')
         )

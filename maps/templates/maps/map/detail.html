@@ -1,9 +1,9 @@
 {% extends "webpage/layout.html" %}
 {% load django_bootstrap_breadcrumbs %}
 {% load maps_extras %}
+{% load mptt_tags %}
 {% load render_table from django_tables2 %}
 {% block title %}Diauma - Map{% endblock %}
-{% load mptt_tags %}
 {% block content %}
     {% block breadcrumbs %}
         {% breadcrumb "Map" "maps:map" %}
@@ -62,32 +62,34 @@
                         </p>
                     {% endif %}
                 </div>
-                <div style="float:left;">
-                    <h3>Links</h3>
-                    {% if has_base %}
-                        <p>Has base map: {{ has_base|link }}</p>
-                    {% endif %}
-                    {% if copy_of %}
-                        <p>Is a copy of: {{ copy_of|link }}</p>
-                    {% endif %}
-                    {% autoescape off %}
-                        {% if authors %}
-                            <p>Created by: {{ authors|join:', ' }}</p>
+                {% if has_base or copy_of or authors or references or issued_at or location_at or publisher %}
+                    <div style="float:left;">
+                        <h3>Links</h3>
+                        {% if has_base %}
+                            <p>Has base map: {{ has_base|link }}</p>
                         {% endif %}
-                        {% if references %}
-                            <p>Referenced by: {{ references|join:', ' }}</p>
+                        {% if copy_of %}
+                            <p>Is a copy of: {{ copy_of|link }}</p>
                         {% endif %}
-                    {% endautoescape %}
-                    {% if issued_at %}
-                        <p>Issued at: {{ issued_at|link }}</p>
-                    {% endif %}
-                    {% if location_at %}
-                        <p>Located at: {{ location_at|link }}</p>
-                    {% endif %}
-                    {% if publisher %}
-                        <p>Published by: {{ publisher|link }}</p>
-                    {% endif %}
-                </div>
+                        {% autoescape off %}
+                            {% if authors %}
+                                <p>Created by: {{ authors|join:', ' }}</p>
+                            {% endif %}
+                            {% if references %}
+                                <p>Referenced by: {{ references|join:', ' }}</p>
+                            {% endif %}
+                        {% endautoescape %}
+                        {% if issued_at %}
+                            <p>Issued at: {{ issued_at|link }}</p>
+                        {% endif %}
+                        {% if location_at %}
+                            <p>Located at: {{ location_at|link }}</p>
+                        {% endif %}
+                        {% if publisher %}
+                            <p>Published by: {{ publisher|link }}</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
                 {% if types %}
                     <div style="float:left;margin-left:1em;">
                         <h3>Types</h3>

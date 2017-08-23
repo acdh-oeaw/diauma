@@ -14,7 +14,7 @@ class Type(MPTTModel):
         html = '"core": {"data":['
         for node in self.get_children():
             selected = ', "state" : {"selected" : true}' if selected_ids and node.id in selected_ids else ''
-            html += '{"text":"' + node.name + '", "id":"' + str(node.id) + '"' + selected + ','
+            html += '{"text":"' + node.name.replace('"', '') + '", "id":"' + str(node.id) + '"' + selected + ','
             html += node.get_tree_data_children(selected_ids) + '},'
         html += ']}'
         return html
@@ -23,7 +23,7 @@ class Type(MPTTModel):
         html = '"children" : ['
         for node in self.get_children():
             selected = ', "state" : {"selected" : true}' if selected_ids and node.id in selected_ids else ''
-            html += '{"text":"' + node.name + '", "id":"' + str(node.id) + '"' + selected + ','
+            html += '{"text":"' + node.name.replace('"', '') + '", "id":"' + str(node.id) + '"' + selected + ','
             html += node.get_tree_data_children(selected_ids) + '},'
         html += '],'
         return html
@@ -40,6 +40,7 @@ class BaseModel(models.Model):
 class Place(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
+    place_type = models.ManyToManyField(Type, blank=True, related_name='place_type')
 
     def __str__(self):
         return self.name
@@ -48,11 +49,8 @@ class Place(BaseModel):
 class Institute(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
-    institute_location = models.ForeignKey(
-        Place,
-        blank=True,
-        null=True,
-        related_name='institute_location')
+    institute_location = models.ForeignKey(Place, blank=True, null=True, related_name='institute_location')
+    institute_type = models.ManyToManyField(Type, blank=True, related_name='institute_type')
 
     def __str__(self):
         return self.name
