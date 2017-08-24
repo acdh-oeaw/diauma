@@ -20,6 +20,7 @@ class PersonTable(tables.Table):
         model = Person
         attrs = {'class': 'paleblue'}
         fields = ['name', 'info']
+        order_by = 'name'
 
     @staticmethod
     def render_name(record):
@@ -36,6 +37,7 @@ class PlaceTable(tables.Table):
         model = Place
         attrs = {'class': 'paleblue'}
         fields = ['name', 'info']
+        order_by = 'name'
 
     @staticmethod
     def render_name(record):
@@ -52,6 +54,7 @@ class MapTable(tables.Table):
         model = Map
         attrs = {'class': 'paleblue'}
         fields = ['name', 'info']
+        order_by = 'name'
 
     @staticmethod
     def render_name(record):
@@ -68,6 +71,7 @@ class ReferenceTable(tables.Table):
         model = Map
         attrs = {'class': 'paleblue'}
         fields = ['name', 'info']
+        order_by = 'name'
 
     @staticmethod
     def render_name(record):
@@ -84,6 +88,7 @@ class InstituteTable(tables.Table):
         model = Institute
         attrs = {'class': 'paleblue'}
         fields = ['name', 'info']
+        order_by = 'name'
 
     @staticmethod
     def render_name(record):
