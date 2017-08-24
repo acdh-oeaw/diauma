@@ -1,26 +1,13 @@
 {% extends "webpage/layout.html" %}
 {% load crispy_forms_tags %}
+{% load maps_extras %}
 {% load django_bootstrap_breadcrumbs %}
 {% block title %}Diauma - Map{% endblock %}
 {% block content %}
 <div class="container">
-    {% if form.errors %}
-        {% for field in form %}
-            {% for error in field.errors %}
-                <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-        {% endfor %}
-        {% for error in form.non_field_errors %}
-            <div class="alert alert-danger">
-                <strong>{{ error|escape }}</strong>
-            </div>
-        {% endfor %}
-    {% endif %}
     {% block breadcrumbs %}
         {% breadcrumb "Map" "maps:map" %}
-        {% breadcrumb object "maps:map-detail" object.id %}
+        {% breadcrumb_safe object.name|truncate_string "maps:map-detail" object.id %}
         {% breadcrumb "Update" "" %}
     {% endblock %}
     <h2>{{ object.name }}</h2>

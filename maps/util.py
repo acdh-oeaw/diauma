@@ -7,7 +7,7 @@ from maps.models import Type
 
 def link(entity):
     url = reverse(entity._meta.db_table.replace('_', ':') + '-detail', kwargs={'pk': entity.id})
-    return Markup('<a href = "' + url + '">' + entity.name + '</a>')
+    return Markup('<a href = "' + url + '">' + truncate_string(entity.name) + '</a>')
 
 
 def get_selected_nodes(name, request):
@@ -21,3 +21,11 @@ def get_selected_nodes(name, request):
 
 def sanitize(string):
     return re.sub('[^A-Za-z0-9]+', '', string)
+
+
+def truncate_string(string, length=40):
+    if string is None:
+        return ''  # pragma: no cover
+    if len(string) > length + 2:
+        string = '<span title="' + string.replace('"', '') + '">' + string[:length] + '..</span>'
+    return string

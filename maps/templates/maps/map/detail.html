@@ -6,7 +6,7 @@
 {% block content %}
     {% block breadcrumbs %}
         {% breadcrumb "Map" "maps:map" %}
-        {% breadcrumb map.name '' %}
+        {% breadcrumb_safe map.name|truncate_string '' %}
     {% endblock %}
     <div class="container">
         <ul class="nav nav-tabs">

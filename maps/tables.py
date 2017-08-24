@@ -2,16 +2,8 @@
 import django_tables2 as tables
 from django.utils.safestring import mark_safe
 
-from maps.util import link
+from maps.util import link, truncate_string
 from .models import Person, Map, Place, Institute
-
-
-def truncate_string(string, length=40):
-    if string is None:
-        return ''  # pragma: no cover - shouldn't happen with django models, just to be safe
-    if len(string) > length + 2:
-        string = '<span title="' + string.replace('"', '') + '">' + string[:length] + '..</span>'
-    return string
 
 
 class PersonTable(tables.Table):

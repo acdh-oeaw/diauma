@@ -32,3 +32,8 @@ def format_date(date, format_='%Y-%m-%d'):
 @register.filter(name='link')
 def link(entity):
     return util.link(entity)
+
+
+@register.filter(name='truncate_string')
+def truncate_string(string, length=40):
+    return util.truncate_string(string, length)

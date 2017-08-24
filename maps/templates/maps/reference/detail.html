@@ -6,7 +6,7 @@
 {% block content %}
     {% block breadcrumbs %}
         {% breadcrumb "Reference" "maps:reference" %}
-        {% breadcrumb reference "maps:reference-detail" reference.id %}
+        {% breadcrumb_safe reference.name|truncate_string '' %}
     {% endblock %}
     <div class="container">
         <ul class="nav nav-tabs">

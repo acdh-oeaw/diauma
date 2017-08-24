@@ -2,11 +2,12 @@
 {% load crispy_forms_tags %}
 {% load django_bootstrap_breadcrumbs %}
 {% block title %}Diauma - Institute{% endblock %}
+{% load maps_extras %}
 {% block content %}
 <div class="container">
     {% block breadcrumbs %}
         {% breadcrumb "Institute" "maps:institute" %}
-        {% breadcrumb object "maps:institute-detail" object.id %}
+        {% breadcrumb_safe object.name|truncate_string "maps:institute-detail" object.id %}
         {% breadcrumb "Update" "" %}
     {% endblock %}
     <h2>{{ object.name }}</h2>
