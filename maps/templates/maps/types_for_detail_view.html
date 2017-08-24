@@ -2,15 +2,8 @@
 {% if types %}
     <div class="detail-column">
         <h3>Types</h3>
-        <ul>
-        {% recursetree types %}
-            <li>
-                {{ node.get_ancestors|tree_path:" > " }} > {{ node.name }}
-                {% if not node.is_leaf_node %}
-                    <ul>{{ children }}</ul>
-                 {% endif %}
-            </li>
-        {% endrecursetree %}
-        </ul>
+        {% for node in types %}
+            <span title="{{ node.get_family|tree_path:' > ' }}">{{ node }}</span><br />
+        {% endfor %}
     </div>
 {% endif %}

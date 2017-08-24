@@ -15,7 +15,7 @@ class BaseForm(forms.ModelForm):
         for node in nodes:
             selected_ids_string = []
             selected_name_string = ''
-            for child in node.get_children():
+            for child in node.get_descendants():
                 if child.id in selected_ids:
                     selected_ids_string.append(str(child.id))
                     selected_name_string += child.name + '<br />'
