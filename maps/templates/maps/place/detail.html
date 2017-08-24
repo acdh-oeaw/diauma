@@ -33,7 +33,11 @@
                         <input id="delete-place" type="submit" value="Delete">
                     </form>
                 </div>
-                <h3>{{ place.name }}</h3>
+                <div class="detail-column">
+                    <h3>{{ place.name }}</h3>
+                </div>
+                {% include "../types_for_detail_view.html" %}
+                <div style="clear:both;"></div>
                 {{ place|display_info }}
                 {{ place|display_dates }}
             </div>

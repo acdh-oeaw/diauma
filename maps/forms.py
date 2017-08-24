@@ -133,6 +133,8 @@ class MapForm(BaseForm):
         self.fields['height'].label = 'Height (cm)'
         self.fields['date_created2'].label = '**'
         self.fields['date_content2'].label = '**'
+        self.fields['scale'].label = 'Scale (1:)'
+        self.fields['scale'].widget.attrs['placeholder'] = '1000'
         self.fields['map_id'].required = False
         forms.DateField(required=False, input_formats='%Y-%m-%d')
         instance = kwargs.get('instance')

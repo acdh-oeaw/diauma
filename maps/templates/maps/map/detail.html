@@ -1,7 +1,6 @@
 {% extends "webpage/layout.html" %}
 {% load django_bootstrap_breadcrumbs %}
 {% load maps_extras %}
-{% load mptt_tags %}
 {% load render_table from django_tables2 %}
 {% block title %}Diauma - Map{% endblock %}
 {% block content %}
@@ -27,7 +26,7 @@
                         {% csrf_token %}<input id="delete-map" type="submit" value="Delete">
                     </form>
                 </div>
-                <div style="float:left;margin-right:2em;">
+                <div class="detail-column">
                     <h3>{{ map.name }}</h3>
                     <p>Name: {{ map.name }}</p>
                     {% if map.id %}
@@ -63,7 +62,7 @@
                     {% endif %}
                 </div>
                 {% if has_base or copy_of or authors or references or issued_at or location_at or publisher %}
-                    <div style="float:left;">
+                    <div class="detail-column">
                         <h3>Links</h3>
                         {% if has_base %}
                             <p>Has base map: {{ has_base|link }}</p>
@@ -90,21 +89,7 @@
                         {% endif %}
                     </div>
                 {% endif %}
-                {% if types %}
-                    <div style="float:left;margin-left:1em;">
-                        <h3>Types</h3>
-                        <ul>
-                        {% recursetree types %}
-                            <li>
-                                {{ node.get_ancestors|tree_path:" > " }} > {{ node.name }}
-                                {% if not node.is_leaf_node %}
-                                    <ul>{{ children }}</ul>
-                                 {% endif %}
-                            </li>
-                        {% endrecursetree %}
-                        </ul>
-                    </div>
-                {% endif %}
+                {% include "../types_for_detail_view.html" %}
                 <div style="clear:both;"></div>
                 {{ map|display_info }}
                 {{ map|display_dates }}

@@ -1,0 +1,16 @@
+{% load mptt_tags %}
+{% if types %}
+    <div class="detail-column">
+        <h3>Types</h3>
+        <ul>
+        {% recursetree types %}
+            <li>
+                {{ node.get_ancestors|tree_path:" > " }} > {{ node.name }}
+                {% if not node.is_leaf_node %}
+                    <ul>{{ children }}</ul>
+                 {% endif %}
+            </li>
+        {% endrecursetree %}
+        </ul>
+    </div>
+{% endif %}

@@ -25,6 +25,11 @@ header {
     color: #ffffff;
 }
 
+div.detail-column {
+    float:left;
+    margin-right: 3em;
+}
+
 .main-content {
     flex: 1 0 auto;
 }
