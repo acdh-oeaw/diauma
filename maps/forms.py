@@ -293,3 +293,14 @@ class ReferenceForm(BaseForm):
                 HTML('<div style="clear:both;"></div>')),
             Div('reference_type', css_class='hidden')
         )
+
+class TypeForm(forms.ModelForm):
+
+    class Meta:
+        model = Type
+        fields = ('name', 'parent')
+
+    def __init__(self, *args, **kwargs):
+        super(TypeForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', 'Submit'))

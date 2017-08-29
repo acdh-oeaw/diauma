@@ -1,0 +1,18 @@
+{% extends "webpage/layout.html" %}
+{% load crispy_forms_tags %}
+{% load django_bootstrap_breadcrumbs %}
+{% block title %}Diauma - Type{% endblock %}
+{% load maps_extras %}
+{% block content %}
+<div class="container">
+    {% block breadcrumbs %}
+        {% breadcrumb "Type" "maps:type" %}
+        {% breadcrumb_safe node.name|truncate_string "maps:type-detail" node.id %}
+        {% breadcrumb "Update" "" %}
+    {% endblock %}
+    <h2>{{ object.name }}</h2>
+    <div class="panel-body">
+        {% crispy form %}
+    </div>
+</div>
+{% endblock %}
