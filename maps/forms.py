@@ -168,8 +168,7 @@ class MapForm(BaseForm):
                 'map_institute',
                 'map_references',
                 css_class='form-float'),
-            Div(
-                HTML('<div class="form-header">Types</div>'),
+            Div(HTML('<div class="form-header">Types</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>')),
             Div('map_type', css_class='hidden')

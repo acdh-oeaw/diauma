@@ -1,4 +1,5 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
+from django.core.exceptions import ValidationError
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -100,3 +101,12 @@ class Map(BaseModel):
 
     def __str__(self):
         return self.name
+
+    def validate_unique(self, *args, **kwargs):
+        super(Map, self).validate_unique(*args, **kwargs)
+        if self.map_id:  # only test if map_id is not empty
+            qs = self.__class__._default_manager.filter(map_id=self.map_id)
+            if not self._state.adding and self.pk is not None:  # exclude if updating with same value
+                qs = qs.exclude(pk=self.pk)
+            if qs.exists():
+                raise ValidationError({'map_id': 'Map-ID already in use.'})
