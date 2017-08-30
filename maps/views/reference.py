@@ -67,5 +67,5 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 class Delete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Reference
-    success_url = reverse_lazy('maps    :reference')
+    success_url = reverse_lazy('maps:reference')
     success_message = 'An entry has been deleted.'
