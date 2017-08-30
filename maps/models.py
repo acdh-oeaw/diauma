@@ -91,7 +91,7 @@ class Map(BaseModel):
     date_content2 = models.DateField(null=True, blank=True)
     map_places = models.ManyToManyField(Place, blank=True)
     map_persons = models.ManyToManyField(Person, blank=True, related_name='author')
-    map_institute = models.ForeignKey(Institute, blank=True, null=True, related_name='publisher')
+    map_institute = models.ManyToManyField(Institute, blank=True, related_name='publisher')
     map_references = models.ManyToManyField(Reference, blank=True, related_name='reference')
     map_issued = models.ForeignKey(Place, blank=True, null=True, related_name='issued')
     map_location = models.ForeignKey(Place, blank=True, null=True, related_name='map_location')

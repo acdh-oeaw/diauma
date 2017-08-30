@@ -29,18 +29,21 @@ def detail(request, pk):
     references = []
     for reference in Reference.objects.filter(reference=map_):
         references.append(link(reference))
+    publishers = []
+    for publisher in Institute.objects.filter(publisher=map_):
+        publishers.append(link(publisher))
     return render(request, 'maps/map/detail.html', {
         'map': map_,
         'authors': authors,
         'references': references,
+        'publishers': publishers,
         'issued_at': get_object_or_None(Place, issued=map_),
         'location_at': get_object_or_None(Place, map_location=map_),
-        'publisher': get_object_or_None(Institute, publisher=map_),
         'copy_of': get_object_or_None(Map, copy=map_),
         'has_base': get_object_or_None(Map, base=map_),
         'copies_table': MapTable(Map.objects.filter(map_copy_id=map_)),
         'base_for_table': MapTable(Map.objects.filter(map_base_id=map_)),
-        'types': Type.objects.filter(map_type=map_)
+        'types': Type.objects.filter(map_type=map_),
     })
 
 

@@ -98,7 +98,7 @@ class MapForm(BaseForm):
             'map_persons': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:persons-autocomplete',
                 attrs={'data-placeholder': 'Type for available persons'}),
-            'map_institute': autocomplete.ModelSelect2(
+            'map_institute': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:institute-autocomplete',
                 attrs={'data-placeholder': 'Type for available institutes'}),
             'map_references': autocomplete.ModelSelect2Multiple(
