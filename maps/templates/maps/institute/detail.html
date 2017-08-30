@@ -27,8 +27,8 @@
                         <input id="delete-institute" type="submit" value="Delete">
                     </form>
                 </div>
+                <h3>{{ institute.name }}</h3>
                 <div class="detail-column">
-                    <h3>{{ institute.name }}</h3>
                     {% if location_at %}
                         <p>Located at: {{ location_at|link }}</p>
                     {% endif %}

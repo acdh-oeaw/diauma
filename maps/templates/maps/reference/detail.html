@@ -24,9 +24,7 @@
                         <input id="delete-reference" type="submit" value="Delete">
                     </form>
                 </div>
-                <div class="detail-column">
-                    <h3>{{ reference.name }}</h3>
-                </div>
+                <h3>{{ reference.name }}</h3>
                 {% include "../types_for_detail_view.html" %}
                 <div style="clear:both;"></div>
                 {{ reference|display_info }}

@@ -26,14 +26,14 @@
                         {% csrf_token %}<input id="delete-map" type="submit" value="Delete">
                     </form>
                 </div>
+                <h3>{{ map.name }}</h3>
                 <div class="detail-column">
-                    <h3>{{ map.name }}</h3>
-                    <p>Name: {{ map.name }}</p>
-                    {% if map.id %}
-                        <p>ID: {{ map.id }}</p>
-                    {% endif %}
+                    <h3>Information</h3>
                     {% if map.title %}
                         <p>Title: {{ map.title }}</p>
+                    {% endif %}
+                    {% if map.map_id %}
+                        <p>Map ID: {{ map.map_id }}</p>
                     {% endif %}
                     {% if map.scale %}
                         <p>Scale: 1:{{ map.scale }}</p>
@@ -75,7 +75,7 @@
                                 <p>Created by: {{ authors|join:', ' }}</p>
                             {% endif %}
                             {% if references %}
-                                <p>Referenced by: {{ references|join:', ' }}</p>
+                                <p>Reference: {{ references|join:', ' }}</p>
                             {% endif %}
                         {% endautoescape %}
                         {% if issued_at %}

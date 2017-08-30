@@ -17,7 +17,7 @@
     <ul>
         {% recursetree descendants %}
             <li>
-                {{ node|link }} ({{ node.get_children|length }})
+                {{ node|link }}
                 {% if not node.is_leaf_node %}
                     <ul class="children">
                         {{ children }}
