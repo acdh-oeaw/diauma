@@ -9,16 +9,31 @@
     {% block breadcrumbs %}
         {% breadcrumb "Types" "maps:type" %}
     {% endblock %}
-    <ul>
-        {% recursetree nodes %}
-            <li>
-                {{ node|link }} ({{ node.get_children|length }})
-                {% if not node.is_leaf_node %}
-                    <ul class="children">
-                        {{ children }}
-                    </ul>
+    <div class="container">
+        <ul class="nav nav-tabs">
+            {{ nav_tabs|safe }}
+        </ul>
+        <div class="tab-content clearfix">
+            {% for root in roots %}
+                {% if root.name == 'Map' %}
+                    <div class="tab-pane active" id="{{ root.name }}">
+                {% else %}
+                    <div class="tab-pane" id="{{ root.name }}">
                 {% endif %}
-            </li>
-        {% endrecursetree %}
-    </ul>
+                    <ul>
+                        {% recursetree root.get_descendants %}
+                            <li>
+                                {{ node|link }}
+                                {% if not node.is_leaf_node %}
+                                    <ul class="children">
+                                        {{ children }}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endrecursetree %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

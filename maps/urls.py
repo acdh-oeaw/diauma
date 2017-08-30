@@ -38,7 +38,7 @@ urlpatterns = [
 
     url(r'^type/$', type.index, name='type'),
     url(r'^type/detail/(?P<pk>\d+)/$', type.detail, name='type-detail'),
-    url(r'^type/create/(?P<pk>\d+)/$', type.Create.as_view(), { 'node_id': 1} , name='type-create'),
+    url(r'^type/create/(?P<pk>\d+)/$', type.create , name='type-create'),
     url(r'^type/update/(?P<pk>\d+)/$', type.Update.as_view(), name='type-update'),
     url(r'^type/delete/(?P<pk>\d+)/$', type.Delete.as_view(), name='type-delete'),
 

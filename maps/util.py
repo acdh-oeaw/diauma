@@ -12,7 +12,7 @@ def link(entity):
 
 def get_selected_nodes(name, request):
     nodes = []
-    for node in Type.objects.get(name=name).get_children():
+    for node in Type.objects.get(name=name, parent=None).get_children():
         field_name = 'map-type-' + sanitize(node.name) + '-id'
         if field_name in request.POST and request.POST.get(field_name).split(',') != ['']:
             nodes += request.POST.get(field_name).split(',')

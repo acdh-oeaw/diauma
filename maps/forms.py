@@ -139,7 +139,7 @@ class MapForm(BaseForm):
         forms.DateField(required=False, input_formats='%Y-%m-%d')
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.map_type.all()] if instance else []
-        nodes_html = self.get_nodes_html(Type.objects.get(name='Map').get_children(), selected_ids)
+        nodes_html = self.get_nodes_html(Type.objects.get(name='Map', parent=None).get_children(), selected_ids)
         self.helper.layout = Layout(
             Div(HTML(
                 '<div class="form-header">Map data</div>'),
@@ -195,7 +195,7 @@ class PersonForm(BaseForm):
         self.helper.add_input(Submit('submit', 'Submit'))
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.person_type.all()] if instance else []
-        nodes_html = self.get_nodes_html(Type.objects.get(name='Person').get_children(), selected_ids)
+        nodes_html = self.get_nodes_html(Type.objects.get(name='Person', parent=None).get_children(), selected_ids)
         self.helper.layout = Layout(
             Div(
                 HTML('<div class="form-header">Person data</div>'),
@@ -228,7 +228,7 @@ class InstituteForm(BaseForm):
         self.helper.add_input(Submit('submit', 'Submit'))
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.institute_type.all()] if instance else []
-        nodes_html = self.get_nodes_html(Type.objects.get(name='Institute').get_children(), selected_ids)
+        nodes_html = self.get_nodes_html(Type.objects.get(name='Institute', parent=None).get_children(), selected_ids)
         self.helper.layout = Layout(
             Div(
                 HTML('<div class="form-header">Institute data</div>'),
@@ -255,7 +255,7 @@ class PlaceForm(BaseForm):
         self.helper.add_input(Submit('submit', 'Submit'))
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.place_type.all()] if instance else []
-        nodes_html = self.get_nodes_html(Type.objects.get(name='Place').get_children(), selected_ids)
+        nodes_html = self.get_nodes_html(Type.objects.get(name='Place', parent=None).get_children(), selected_ids)
         self.helper.layout = Layout(
             Div(
                 HTML('<div class="form-header">Place data</div>'),
@@ -281,7 +281,7 @@ class ReferenceForm(BaseForm):
         self.helper.add_input(Submit('submit', 'Submit'))
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.reference_type.all()] if instance else []
-        nodes_html = self.get_nodes_html(Type.objects.get(name='Reference').get_children(), selected_ids)
+        nodes_html = self.get_nodes_html(Type.objects.get(name='Reference', parent=None).get_children(), selected_ids)
         self.helper.layout = Layout(
             Div(
                 HTML('<div class="form-header">Reference data</div>'),
@@ -294,6 +294,7 @@ class ReferenceForm(BaseForm):
             Div('reference_type', css_class='hidden')
         )
 
+
 class TypeForm(forms.ModelForm):
 
     class Meta:
@@ -304,3 +305,6 @@ class TypeForm(forms.ModelForm):
         super(TypeForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.layout = Layout(
+            Div('parent', css_class='hidden')
+        )

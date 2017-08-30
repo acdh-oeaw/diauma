@@ -7,7 +7,7 @@
 <div class="container">
     {% block breadcrumbs %}
         {% breadcrumb "Type" "maps:type" %}
-        {% breadcrumb_safe node.name|truncate_string "maps:type-detail" node.id %}
+        {% breadcrumb_safe object.name|truncate_string "maps:type-detail" object.id %}
         {% breadcrumb "Update" "" %}
     {% endblock %}
     <h2>{{ object.name }}</h2>
