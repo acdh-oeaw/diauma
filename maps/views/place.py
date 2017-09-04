@@ -1,4 +1,5 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -15,7 +16,7 @@ from maps.util import get_selected_nodes
 @login_required
 def index(request):
     place_table = PlaceTable(Place.objects.all())
-    place_table.paginate(page=request.GET.get('page', 1), per_page=25)
+    place_table.paginate(page=request.GET.get('page', 1), per_page=settings.TABLE_ITEMS_PER_PAGE)
     return render(request, 'maps/place/index.html', {'place_table': place_table})
 
 

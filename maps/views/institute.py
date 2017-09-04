@@ -1,5 +1,6 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from annoying.functions import get_object_or_None
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -16,7 +17,7 @@ from maps.util import get_selected_nodes
 @login_required
 def index(request):
     institute_table = InstituteTable(Institute.objects.all())
-    institute_table.paginate(page=request.GET.get('page', 1), per_page=25)
+    institute_table.paginate(page=request.GET.get('page', 1), per_page=settings.TABLE_ITEMS_PER_PAGE)
     return render(request, 'maps/institute/index.html', {'institute_table': institute_table})
 
 
