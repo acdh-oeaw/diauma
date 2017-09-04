@@ -4,10 +4,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import UpdateView, DeleteView
 
 from maps.forms import TypeForm
-from maps.models import Type
+from maps.models import Type, Map, Person, Reference, Place, Institute
+
+from itertools import chain
 
 
 @login_required
@@ -23,7 +25,17 @@ def index(request):
 @login_required
 def detail(request, pk):
     node = Type.objects.get(pk=pk)
-    return render(request, 'maps/type/detail.html', {'node': node, 'descendants': node.get_descendants()})
+    # To do: refactor to only get relevant types below
+    items_place = Place.objects.filter(place_type=node)
+    items_reference = Reference.objects.filter(reference_type=node)
+    items_institute = Institute.objects.filter(institute_type=node)
+    items_map = Map.objects.filter(map_type=node)
+    items_person = Person.objects.filter(person_type=node)
+    related_items = list(chain(items_map, items_person, items_institute, items_reference, items_place))
+    return render(request, 'maps/type/detail.html', {
+        'node': node,
+        'descendants': node.get_descendants(),
+        'related_items': related_items})
 
 
 @login_required

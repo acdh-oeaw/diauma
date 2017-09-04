@@ -8,22 +8,34 @@
 {% block content %}
     {% block breadcrumbs %}
         {% breadcrumb "Types" "maps:type" %}
+        {% for item in node.get_ancestors %}
+            {% breadcrumb item|link|safe '' %}
+        {% endfor %}
         {% breadcrumb node.name "" %}
     {% endblock %}
     <div class="button-bar">
         <a class="button" href="{% url 'maps:type-update' node.id %}">Update</a>
         <a class="button" href="{% url 'maps:type-create' node.id %}">Type +</a>
     </div>
-    <ul>
-        {% recursetree descendants %}
-            <li>
-                {{ node|link }}
-                {% if not node.is_leaf_node %}
-                    <ul class="children">
-                        {{ children }}
-                    </ul>
-                {% endif %}
-            </li>
-        {% endrecursetree %}
-    </ul>
+    {% if descendants %}
+        <h3>Sub types</h3>
+        <ul>
+            {% recursetree descendants %}
+                <li>
+                    {{ node|link }}
+                    {% if not node.is_leaf_node %}
+                        <ul class="children">
+                            {{ children }}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endrecursetree %}
+        </ul>
+    {% endif %}
+    {% if related_items %}
+        <h3>Related entries</h3>
+        {% for item in related_items %}
+            {{ item|link }}<br/>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

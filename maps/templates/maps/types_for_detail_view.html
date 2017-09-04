@@ -1,9 +1,10 @@
 {% load mptt_tags %}
+{% load maps_extras %}
 {% if types %}
     <div class="detail-column">
         <h3>Types</h3>
         {% for node in types %}
-            <span title="{{ node.get_family|tree_path:' > ' }}">{{ node }}</span><br />
+            <span title="{{ node.get_ancestors|tree_path:' > ' }}">{{ node|link }}</span><br />
         {% endfor %}
     </div>
 {% endif %}
