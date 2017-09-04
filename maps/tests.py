@@ -7,6 +7,9 @@ from maps.models import Map, Institute, Person, Place, Reference
 
 
 class MapsTest(TestCase):
+
+    fixtures = ['types.json']
+
     def setUp(self):
         self.client = Client()
         User.objects.create_user('temporary', 'temp@gmail.com', 'temporary')
