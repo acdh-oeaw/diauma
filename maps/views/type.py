@@ -36,16 +36,6 @@ def create(request, pk):
     return render(request, 'maps/type/create.html', {'parent': parent, 'form': form})
 
 
-class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = Type
-    template_name = 'maps/type/create.html'
-    form_class = TypeForm
-    success_message = 'An entry has been created.'
-
-    def get_success_url(self):
-        return reverse('maps:type-detail', kwargs={'pk': self.object.pk})
-
-
 class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Type
     template_name = 'maps/type/update.html'

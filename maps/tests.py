@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from maps.models import Map, Institute, Person, Place, Reference
+from maps.models import Map, Institute, Person, Place, Reference, Type
 
 
 class MapsTest(TestCase):
@@ -21,14 +21,17 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'Middle Earth')
         map_ = Map.objects.create()
         rv = self.client.post(
-            reverse('maps:map-update', kwargs={'pk': map_.id}),
-            {'name': 'Event Horizon', 'info': 'You\'ll never come back.'},
+            reverse('maps:map-update', kwargs={'pk': map_.id}), {
+                'name': 'Event Horizon',
+                'info': 'You\'ll never come back.'
+            },
             follow=True)
         self.assertContains(rv, 'Event Horizon')
         rv = self.client.get(reverse('maps:map'), follow=True)
         self.assertContains(rv, 'Middle Earth')
         map_.map_persons.add(Person.objects.create(name='Hugo'))
         map_.map_references.add(Reference.objects.create())
+        map_.map_institute.add(Institute.objects.create())
         map_.map_base = Map.objects.create(name='Base map')
         map_.save()  # important for saving foreign keys
         rv = self.client.get(reverse('maps:map-detail', kwargs={'pk': map_.id}), follow=True)
@@ -39,14 +42,12 @@ class MapsTest(TestCase):
         rv = self.client.post(reverse('maps:institute-create'), {'name': 'The Asylum'}, follow=True)
         self.assertContains(rv, 'The Asylum')
         institute = Institute.objects.create()
-        rv = self.client.post(
-            reverse(
-                'maps:institute-update',
-                kwargs={'pk': institute.id}),
-                {'name': 'Umbrella Corporation', 'info': '''Very long info indeed Very long info
-                indeed Very long info indeed Very long info indeed Very long info indeed Very long
-                info indeed Very long info indeed'''},
-                follow=True)
+        rv = self.client.post(reverse('maps:institute-update', kwargs={'pk': institute.id}), {
+                'name': 'Umbrella Corporation',
+                'info': '''Very long info indeed Very long info
+                    indeed Very long info indeed Very long info indeed Very long info indeed Very long
+                    info indeed Very long info indeed'''
+            }, follow=True)
         self.assertContains(rv, 'Umbrella Corporation')
         rv = self.client.get(reverse('maps:institute'), follow=True)
         self.assertContains(rv, 'The Asylum')
@@ -57,10 +58,14 @@ class MapsTest(TestCase):
         person = Person.objects.create()
         rv = self.client.post(
             reverse('maps:person-update', kwargs={'pk': person.id}), {
-                'name': 'Laura', 'info': 'hello info'
+                'name': 'Laura',
+                'map-type-Sex-id': Type.objects.get(name="Female").id,
+                'info': "It's a fine day, people open windows. They leave the houses, just for a short while.",
             },
             follow=True)
         self.assertContains(rv, 'Laura')
+        rv = self.client.get(reverse('maps:person-update', kwargs={'pk': person.id}), follow=True)
+        self.assertContains(rv, 'open windows')
         rv = self.client.get(reverse('maps:person'), follow=True)
         self.assertContains(rv, 'Carina')
         person.person_institutes.add(Institute.objects.create(name="The second Asylum"))
@@ -96,6 +101,23 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'Necronomicon')
         rv = self.client.get(reverse('maps:reference'), follow=True)
         self.assertContains(rv, 'Cryptonomicon')
+
+    def test_types(self):
+        rv = self.client.get(reverse('maps:type'), follow=True)
+        self.assertContains(rv, 'Female')
+        node = Type.objects.all().filter(parent=None)[0]
+        self.client.get(reverse('maps:type-create', kwargs={'pk': node.id}))
+        rv = self.client.post(
+            reverse('maps:type-create', kwargs={'pk': node.id}),
+            {'name': 'My type of drink.', 'parent': node.id},
+            follow=True)
+        self.assertContains(rv, 'My type of drink.')
+        new_type = Type.objects.get(name="My type of drink.")
+        rv = self.client.post(
+            reverse('maps:type-update', kwargs={'pk': new_type.id}),
+            {'name': 'My type of drink, too.', 'parent': node.id},
+            follow=True)
+        self.assertContains(rv, 'My type of drink, too.')
 
     def test_model(self):
         rv = self.client.get(reverse('maps:model'), follow=True)
