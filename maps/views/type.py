@@ -1,4 +1,5 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -7,9 +8,9 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import UpdateView, DeleteView
 
 from maps.forms import TypeForm
-from maps.models import Type, Map, Person, Reference, Place, Institute
+from maps.models import Type
 
-from itertools import chain
+from maps.util import get_related_items
 
 
 @login_required
@@ -25,17 +26,10 @@ def index(request):
 @login_required
 def detail(request, pk):
     node = Type.objects.get(pk=pk)
-    # To do: refactor to only get relevant types below
-    items_place = Place.objects.filter(place_type=node)
-    items_reference = Reference.objects.filter(reference_type=node)
-    items_institute = Institute.objects.filter(institute_type=node)
-    items_map = Map.objects.filter(map_type=node)
-    items_person = Person.objects.filter(person_type=node)
-    related_items = list(chain(items_map, items_person, items_institute, items_reference, items_place))
     return render(request, 'maps/type/detail.html', {
         'node': node,
         'descendants': node.get_descendants(),
-        'related_items': related_items})
+        'related_items': get_related_items(node)})
 
 
 @login_required
@@ -60,5 +54,13 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 class Delete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Type
-    success_url = reverse_lazy('maps:person')
-    success_message = 'An entry has been deleted.'
+    success_message = 'The type has been deleted.'
+    success_url = reverse_lazy('maps:type')
+
+    def delete(self, request, *args, **kwargs):
+        node = self.get_object()
+        if get_related_items(node) or node.get_descendants():
+            messages.error(request, "A type can't be delete, as long as there are related entities or sub types.")
+            return redirect('maps:type-detail', pk=node.id)
+        messages.success(self.request, self.success_message)
+        return super(Delete, self).delete(request, *args, **kwargs)

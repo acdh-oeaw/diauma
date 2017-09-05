@@ -158,7 +158,8 @@ textarea, input[type="password"], select {
     color: #4088c3;
 }
 
-label.error {
+.error {
+    background-color: #ffffff;
     color: #a94442;
 }
 

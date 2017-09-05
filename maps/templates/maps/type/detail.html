@@ -16,6 +16,11 @@
     <div class="button-bar">
         <a class="button" href="{% url 'maps:type-update' node.id %}">Update</a>
         <a class="button" href="{% url 'maps:type-create' node.id %}">Type +</a>
+        {% if not descendants and not related_items %}
+            <form method="POST" action="{% url 'maps:type-delete' node.id %}">
+                {% csrf_token %}<input id="delete-type" type="submit" value="Delete">
+            </form>
+        {% endif %}
     </div>
     {% if descendants %}
         <h3>Sub types</h3>
@@ -38,4 +43,9 @@
             {{ item|link }}<br/>
         {% endfor %}
     {% endif %}
+    <script>
+        $(document).on('click', '#delete-type', function(){
+            return confirm('Delete {{ node.name }}?');
+        })
+    </script>
 {% endblock %}
