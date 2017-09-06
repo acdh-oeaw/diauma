@@ -1,5 +1,6 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -89,3 +90,6 @@ class Delete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy('maps:map')
     success_message = 'An entry has been deleted.'
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(Delete, self).delete(request, *args, **kwargs)

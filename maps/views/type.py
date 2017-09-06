@@ -54,7 +54,7 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 class Delete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Type
-    success_message = 'The type has been deleted.'
+    success_message = 'An entry has been deleted.'
     success_url = reverse_lazy('maps:type')
 
     def delete(self, request, *args, **kwargs):

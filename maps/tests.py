@@ -37,6 +37,9 @@ class MapsTest(TestCase):
         rv = self.client.get(reverse('maps:map-detail', kwargs={'pk': map_.id}), follow=True)
         self.assertContains(rv, 'Hugo')
         self.assertContains(rv, 'Base map')
+        rv = self.client.post(reverse('maps:map-delete', kwargs={'pk': map_.id}), follow=True)
+        self.assertContains(rv, 'An entry has been deleted.')
+
 
     def test_institute(self):
         rv = self.client.post(reverse('maps:institute-create'), {'name': 'The Asylum'}, follow=True)
@@ -51,6 +54,8 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'Umbrella Corporation')
         rv = self.client.get(reverse('maps:institute'), follow=True)
         self.assertContains(rv, 'The Asylum')
+        rv = self.client.post(reverse('maps:institute-delete', kwargs={'pk': institute.id}), follow=True)
+        self.assertContains(rv, 'An entry has been deleted.')
 
     def test_person(self):
         rv = self.client.post(reverse('maps:person-create'), {'name': 'Carina'}, follow=True)
@@ -69,11 +74,11 @@ class MapsTest(TestCase):
         rv = self.client.get(reverse('maps:person'), follow=True)
         self.assertContains(rv, 'Carina')
         person.person_institutes.add(Institute.objects.create(name="The second Asylum"))
-        person.person_location = Place.objects.create(name='Wiesen')
         rv = self.client.get(reverse('maps:person-detail', kwargs={'pk': person.id}), follow=True)
         self.assertContains(rv, 'Laura')
         self.assertContains(rv, 'The second Asylum')
-        # self.assertContains(rv, 'Wiesen')
+        rv = self.client.post(reverse('maps:person-delete', kwargs={'pk': person.id}), follow=True)
+        self.assertContains(rv, 'An entry has been deleted.')
 
     def test_place(self):
         rv = self.client.post(reverse('maps:place-create'), {'name': 'Atlantis'}, follow=True)
@@ -86,6 +91,8 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'Newcastle')
         rv = self.client.get(reverse('maps:place'), follow=True)
         self.assertContains(rv, 'Atlantis')
+        rv = self.client.post(reverse('maps:place-delete', kwargs={'pk': place.id}), follow=True)
+        self.assertContains(rv, 'An entry has been deleted.')
 
     def test_reference(self):
         rv = self.client.post(
@@ -101,6 +108,8 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'Necronomicon')
         rv = self.client.get(reverse('maps:reference'), follow=True)
         self.assertContains(rv, 'Cryptonomicon')
+        rv = self.client.post(reverse('maps:reference-delete', kwargs={'pk': reference.id}), follow=True)
+        self.assertContains(rv, 'An entry has been deleted.')
 
     def test_types(self):
         rv = self.client.get(reverse('maps:type'), follow=True)
@@ -112,12 +121,18 @@ class MapsTest(TestCase):
             {'name': 'My type of drink.', 'parent': node.id},
             follow=True)
         self.assertContains(rv, 'My type of drink.')
-        new_type = Type.objects.get(name="My type of drink.")
+        new_node = Type.objects.get(name="My type of drink.")
         rv = self.client.post(
-            reverse('maps:type-update', kwargs={'pk': new_type.id}),
+            reverse('maps:type-update', kwargs={'pk': new_node.id}),
             {'name': 'My type of drink, too.', 'parent': node.id},
             follow=True)
         self.assertContains(rv, 'My type of drink, too.')
+        rv = self.client.post(reverse('maps:type-delete', kwargs={'pk': node.id}), follow=True)
+        self.assertContains(rv, "as long as there are related entities or sub types")
+        rv = self.client.post(reverse('maps:type-delete', kwargs={'pk': new_node.id}), follow=True)
+        self.assertContains(rv, 'An entry has been deleted.')
+
+
 
     def test_model(self):
         rv = self.client.get(reverse('maps:model'), follow=True)
