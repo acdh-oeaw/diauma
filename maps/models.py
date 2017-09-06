@@ -39,6 +39,7 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ['name']
 
 
 class Place(BaseModel):
