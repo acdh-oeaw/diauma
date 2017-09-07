@@ -25,6 +25,15 @@ header {
     color: #ffffff;
 }
 
+#goto {
+    width: auto;
+    float: left;
+}
+
+.pagination {
+    margin: 0.5em 0;
+}
+
 div.detail-column {
     float:left;
     margin-right: 3em;
