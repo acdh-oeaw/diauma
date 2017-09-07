@@ -1,5 +1,6 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import django_tables2 as tables
+import itertools
 from django.utils.safestring import mark_safe
 
 from maps.util import link, truncate_string

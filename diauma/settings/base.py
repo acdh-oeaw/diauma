@@ -96,3 +96,4 @@ DATABASES = {
 
 MPTT_ADMIN_LEVEL_INDENT = 20
 TABLE_ITEMS_PER_PAGE = 20
+DJANGO_TABLES2_TEMPLATE = BASE_DIR + '/webpage/templates/webpage/table.html'

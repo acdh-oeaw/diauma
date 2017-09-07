@@ -15,19 +15,6 @@ body {
   border-radius: 0 !important;
 }
 
-table.paleblue + ul.pagination > li.next {
-    float: right;
-}
-
-table.paleblue + ul.pagination > li.cardinality {
-    float: left;
-}
-
-table.paleblue + ul.pagination {
-    background: none;
-    border: none;
-}
-
 .navbar-static-top {
     z-index: 0;
 }
