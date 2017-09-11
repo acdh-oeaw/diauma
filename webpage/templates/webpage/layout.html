@@ -90,9 +90,11 @@
                     {% endif %}
                 </ul>
                 <ul style="float:right;" class="nav navbar-nav">
-                    <li class="{% if 'type' in request.resolver_match.url_name %}active{% endif %}">
-                        <a href="{% url 'maps:type' %}">Types</a>
-                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="{% if 'type' in request.resolver_match.url_name %}active{% endif %}">
+                            <a href="{% url 'maps:type' %}">Types</a>
+                        </li>
+                    {% endif %}
                     <li class="{% if 'model' in request.resolver_match.url_name %}active{% endif %}">
                         <a href="{% url 'maps:model' %}">Model</a>
                     </li>
