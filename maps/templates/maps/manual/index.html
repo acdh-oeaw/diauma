@@ -1,0 +1,131 @@
+{% extends "webpage/layout.html" %}
+{% load maps_extras %}
+{% load django_bootstrap_breadcrumbs %}
+{% load render_table from django_tables2 %}
+{% block title %}Diauma - Manual{% endblock %}
+{% block content %}
+    {% block breadcrumbs %}
+        {% breadcrumb "Manual" "" %}
+    {% endblock %}
+
+    <p>Diauma is a web application to manage maps and associated data.</p>
+    <p>
+        In the menu you'll find the main entities: Map, Reference, Person, Institute and Place which
+        are described in detail below.
+    </p>
+    <p>Fields marked with an * are mandatory</p>
+    <p>
+        <a href="#map">Map</a><br />
+        <a href="#reference">Reference</a><br />
+        <a href="#person">Person</a><br />
+        <a href="#institute">Institute</a><br />
+        <a href="#place">Place</a><br />
+        <a href="#type">Types</a><br />
+    </p>
+
+    <div id="manual">
+
+        <h2 id="map">Map</h2>
+
+        <p> These are the core elements of the application, a map can have following information:</p>
+        <h3>Name *</h3>
+        <p>The name is used for display in tables and can be searched.</p>
+        <h3>Map id</h3>
+        <p>This field can be used for an unique identifier.</p>
+        <h3>Title</h3>
+        <p>This field can be used for the whole title e.g. in case there was chosen a smaller <b>Name</b> for display.</p>
+        <h3>Scale</h3>
+        <p>If known the scale of the map can be entered here.</p>
+        <h3>Width and height</h3>
+        <p>These values are for the physical dimensions of a map. The default is in centimeter.</p>
+        <h3>Date created</h3>
+        <p>
+            The date when the map was created. Either only the first value is used or you can enter a time span
+            using the second field, too.
+        </p>
+        <h3>Date content</h3>
+        <p>
+            The date of the map content. Either only the first value is used or you can enter a time span
+            using the second field, too.
+        </p>
+        <h3>Info</h3>
+        <p>Additional information can be entered here.</p>
+        <h3>Types</h3>
+        <p>Please see <a href="#type">Types</a> for more information.<p>
+        <h3>Has base map</h3>
+        <p>You can chose one existing map which this map is based on.</p>
+        <h3>Is copy of</h3>
+        <p>If this map is a copy you can chose one existing map as the original.</p>
+        <h3>Created by</h3>
+        <p>Multiple <a href="#person">Persons</a> can entered as creator of the map.</p>
+        <h3>Issued at, Has current location</h3>
+        <p>You can select a <a href="#place">Place</a> where the map was issued and where the map is currently located.</p>
+        <h3>Published by</h3>
+        <p>Multiple <a href="#institute">Institutes</a> which participated in publishing the map can be selected.</p>
+        <h3>Referenced by</h3>
+        <p>Multiple <a href="#reference">References</a> which the map is part of can be selected.</p>
+
+        <h2 id="reference">Reference</h2>
+
+        <p>References are collection of maps e.g. an atlas or an scientific anthology.</p>
+        <h3>Name *</h3>
+        <p>The name is used for display in tables and can be searched.</p>
+        <h3>Info</h3>
+        <p>Additional information can be entered here.</p>
+        <h3>Types</h3>
+        <p>Please see <a href="#type">Types</a> for more information.<p>
+
+        <h2 id="person">Person</h2>
+
+        <p>Persons can be chosen as a creator of a map.</p>
+        <h3>Name *</h3>
+        <p>The name is used for display in tables and can be searched.</p>
+        <h3>Info</h3>
+        <p>Additional information can be entered here.</p>
+        <h3>Person location</h3>
+        <p>A <a href="#place">Place</a> can be chosen as the main location of a person</p>
+        <h3>Person institutes</h3>
+        <p>Multiple <a href="#institute">Institutes</a> that the person is associated with can be selected.</p>
+        <h3>Types</h3>
+        <p>Please see <a href="#type">Types</a> for more information.<p>
+
+        <h2 id="institute">Institute</h2>
+
+        <p>
+            Institutes can be the publisher of maps. Also <a href="#person">Persons</a> can be associated with institutions.
+        </p>
+        <h3>Name *</h3>
+        <p>The name is used for display in tables and can be searched.</p>
+        <h3>Info</h3>
+        <p>Additional information can be entered here.</p>
+        <h3>Institute location</h3>
+        <p>A <a href="#place">Place</a> can be chosen as location of an institute</p>
+        <h3>Types</h3>
+        <p>Please see <a href="#type">Types</a> for more information.<p>
+
+        <h2 id="place">Place</h2>
+
+        <p>Places can be the location of <a href="#institute">Institutes</a>, <a href="#person">Persons</a> and maps.</p>
+        <h3>Name *</h3>
+        <p>The name is used for display in tables and can be searched.</p>
+        <h3>Info</h3>
+        <p>Additional information can be entered here.</p>
+        <h3>Types</h3>
+        <p>Please see <a href="#type">Types</a> for more information.<p>
+
+        <h2 id="type">Types</h2>
+
+        <p>
+            Types are used to track information which entities have in common. E.g. there is a type "Features" for maps
+            which can include items like "Legend", "Stamp" and so on. They are hierarchic, meaning the type "Stamp"
+            can have sub types e.g. 'Royal stamp' and 'Unknown stamp'. Also it is possible the select multiple types so a
+            map can feature a "Royal stamp" and an "Unknown stamp".
+        </p>
+        <p>
+            Existing type hierarchies can be edited and extended by every user but can only be deleted, if they have
+            no subtypes and no associated entries.
+        </p>
+        <p>Admins can add new type hierarchies in the backend.</p>
+    </div>
+
+{% endblock %}

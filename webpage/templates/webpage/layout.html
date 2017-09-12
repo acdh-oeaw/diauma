@@ -98,6 +98,9 @@
                     <li class="{% if 'imprint' in request.resolver_match.url_name %}active{% endif %}">
                         <a href="{% url 'webpage:imprint' %}">Legal Notice</a>
                     </li>
+                    <li class="{% if 'manual' in request.resolver_match.url_name %}active{% endif %}">
+                        <a href="{% url 'maps:manual' %}">?</a>
+                    </li>
                 </ul>
             </div>
         </div>

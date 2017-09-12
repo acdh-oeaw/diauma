@@ -1,11 +1,12 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django.conf.urls import url
-from .views import map, reference, person, institute, place, model, changelog, type, search
+from .views import map, reference, person, institute, place, model, changelog, type, search, manual
 
 urlpatterns = [
     url(r'^changelog/$', changelog.index, name='changelog'),
     url(r'^model/$', model.index, name='model'),
     url(r'^search/$', search.index, name='search'),
+    url(r'^manual/$', manual.index, name='manual'),
 
     url(r'^map/$', map.index, name='map'),
     url(r'^map/detail/(?P<pk>\d+)/$', map.detail, name='map-detail'),
