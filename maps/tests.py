@@ -132,7 +132,26 @@ class MapsTest(TestCase):
         rv = self.client.post(reverse('maps:type-delete', kwargs={'pk': new_node.id}), follow=True)
         self.assertContains(rv, 'An entry has been deleted.')
 
+    def test_search(self):
+        self.client.post(reverse('maps:search'), follow=True)
+        rv = self.client.post(reverse('maps:search'), {'search-term': 'never_find_me'}, follow=True)
+        self.assertContains(rv, 'No entries')
 
+        Map.objects.create(name="Atlantis")
+        Place.objects.create(name="Valhalla")
+        Institute.objects.create(name="Umbrella Corporation")
+        Person.objects.create(name="Alice")
+        Reference.objects.create(name="Grimoire A")
+        rv = self.client.post(reverse('maps:search'), {'search-term': 'a'}, follow=True)
+        self.assertContains(rv, 'Atlantis')
+        self.assertContains(rv, 'Valhalla')
+        self.assertContains(rv, 'Umbrella')
+        self.assertContains(rv, 'Alice')
+        self.assertContains(rv, 'Grimoire')
+
+    def test_manual(self):
+        rv = self.client.get(reverse('maps:manual'))
+        self.assertContains(rv, 'information')
 
     def test_model(self):
         rv = self.client.get(reverse('maps:model'), follow=True)
