@@ -11,16 +11,37 @@
             <table>
                 <tr>
                     <td><label for="id_username">Username</label></td>
-                    <td><input id="id_username" name="username" type="text" class="form-control"></td>
+                    <td>
+                        <input id="id_username" name="username" type="text" class="form-control" value="Demolina">
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="id_password">Password</label></td>
-                    <td><input id="id_password" name="password" type="password" class="form-control"></td>
+                    <td>
+                        <input id="id_password" name="password" type="password" class="form-control" value="diaumademo">
+                    </td>
                 </tr>
             </table>
-
             <input type="submit" value="Login" class="btn btn-primary pull-right" />
             <input type="hidden" name="next" value="{{ next }}" />
         </form>
     </div>
+    <h2>Information for tester</h2>
+    <p>
+        Thank you for taking a look at the Diauma project. Click on <strong>Login</strong> to enter the website.
+    </p>
+    <p>
+        At the <strong>?</strong> in the menu you'll find a short <a href="{% url 'maps:manual' %}">description</a>
+        of the user interface.
+    </p>
+    <p>
+        Diauma is a young project, some key features like file upload, advanced search and export functionality
+        are still in development but already implemented features
+        (see <a href="{% url 'maps:changelog' %}">Changelog</a>) should be fully functional.
+    </p>
+    <p>
+        Your feedback is welcome and very import for us. If you have suggestions or find any problems feel free to
+        add them to the <a target="_blank" href="https://redmine.acdh.oeaw.ac.at/issues/9457">Redmine Feedback Ticket</a>.
+    </p>
+
 {% endblock %}
