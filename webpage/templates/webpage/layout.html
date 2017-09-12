@@ -56,18 +56,17 @@
                 <a href="{% url 'maps:changelog' %}">Changelog</a>
             </p>
             {% if user.is_authenticated %}
-                Hello {{ user.get_username }},
-                <a href="{% url 'webpage:logout' %}">Logout</a>
+                <p>Hello {{ user.get_username }}, <a href="{% url 'webpage:logout' %}">Logout</a></p>
+                <form id="search-form" action="{% url 'maps:search' %}" method="post">
+                    {% csrf_token %}
+                    <input id="search-term" name="search-term" type="text" placeholder="Search" style="color:black;width: 10em;" />
+                    <button class="searchbutton" type="submit" style="margin-right:0;">
+                        Search
+                    </button>
+                </form>
             {% else %}
                 <a href="{% url 'webpage:login' %}">Login</a>
             {% endif %}
-            <form id="searchform" action="{% url 'maps:search' %}" method="post" style="margin-top:1em;">
-                {% csrf_token %}
-                <input id="search-term" name="search-term" type="text" placeholder="Search term" style="color:black;width: 10em;" />
-                <button class="searchbutton" type="submit" style="margin-right:0;">
-                    Search
-                </button>
-            </form>
         </div>
     </div>
     <nav class="navbar navbar-default navbar-static-top procustom-navbar" id="top-procustom-navbar">

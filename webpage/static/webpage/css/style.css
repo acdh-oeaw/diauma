@@ -19,6 +19,14 @@ body {
     z-index: 0;
 }
 
+#search-form {
+    margin-top: 1.8em;
+}
+
+#search-form button, #search-form input {
+    padding: 0 0.2em;
+}
+
 header {
     flex: 0 0 auto;
     background-color: #4088c3;
