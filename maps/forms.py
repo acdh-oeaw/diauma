@@ -12,6 +12,7 @@ class BaseForm(forms.ModelForm):
     @staticmethod
     def get_nodes_html(root, selected_ids):
         html = ''
+        overlay_html = ''
         for node in root.get_children():
             selected_ids_string = []
             selected_name_string = ''
@@ -32,7 +33,12 @@ class BaseForm(forms.ModelForm):
                             {selected_name_string}
                         </div>
                     </div>
-                </div>
+                </div>""".format(
+                    field='map-type-' + sanitize(node.name),
+                    node_name=node.name,
+                    selected_ids_string=selected_ids_string,
+                    selected_name_string=selected_name_string)
+            overlay_html += """
                 <div id="{field}-overlay" class="overlay" style="display:none">
                     <div id="{field}-dialog" class="overlay-container">
                         <input class="tree-filter" id="{field}-search" placeholder="Filter"/>
@@ -55,11 +61,8 @@ class BaseForm(forms.ModelForm):
                 </script>""".format(
                     field='map-type-' + sanitize(node.name),
                     node_name=node.name,
-                    node_name_sanitized=sanitize(node.name),
-                    tree_data=node.get_tree_data(selected_ids),
-                    selected_ids_string=selected_ids_string,
-                    selected_name_string=selected_name_string)
-        return html
+                    tree_data=node.get_tree_data(selected_ids))
+        return html + overlay_html
 
 
 class MapForm(BaseForm):
