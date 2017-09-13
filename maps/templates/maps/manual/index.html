@@ -33,7 +33,9 @@
         <h3>Map id</h3>
         <p>This field can be used for an unique identifier.</p>
         <h3>Title</h3>
-        <p>This field can be used for the whole title e.g. in case there was chosen a smaller <b>Name</b> for display.</p>
+        <p>
+            This field can be used for the whole title e.g. in case there was chosen a shorter <b>Name</b> for display.
+        </p>
         <h3>Scale</h3>
         <p>If known the scale of the map can be entered here.</p>
         <h3>Width and height</h3>
@@ -59,7 +61,9 @@
         <h3>Created by</h3>
         <p>Multiple <a href="#person">Persons</a> can entered as creator of the map.</p>
         <h3>Issued at, Has current location</h3>
-        <p>You can select a <a href="#place">Place</a> where the map was issued and where the map is currently located.</p>
+        <p>
+            You can select a <a href="#place">Place</a> where the map was issued and where the map is currently located.
+        </p>
         <h3>Published by</h3>
         <p>Multiple <a href="#institute">Institutes</a> which participated in publishing the map can be selected.</p>
         <h3>Referenced by</h3>
@@ -92,7 +96,8 @@
         <h2 id="institute">Institute</h2>
 
         <p>
-            Institutes can be the publisher of maps. Also <a href="#person">Persons</a> can be associated with institutions.
+            Institutes can be the publisher of maps.
+            Also <a href="#person">Persons</a> can be associated with institutions.
         </p>
         <h3>Name *</h3>
         <p>The name is used for display in tables and can be searched.</p>
@@ -105,7 +110,9 @@
 
         <h2 id="place">Place</h2>
 
-        <p>Places can be the location of <a href="#institute">Institutes</a>, <a href="#person">Persons</a> and maps.</p>
+        <p>
+            Places can be the location of <a href="#institute">Institutes</a>, <a href="#person">Persons</a> and maps.
+        </p>
         <h3>Name *</h3>
         <p>The name is used for display in tables and can be searched.</p>
         <h3>Info</h3>
@@ -118,8 +125,8 @@
         <p>
             Types are used to track information which entities have in common. E.g. there is a type "Features" for maps
             which can include items like "Legend", "Stamp" and so on. They are hierarchic, meaning the type "Stamp"
-            can have sub types e.g. 'Royal stamp' and 'Unknown stamp'. Also it is possible the select multiple types so a
-            map can feature a "Royal stamp" and an "Unknown stamp".
+            can have sub types e.g. 'Royal stamp' and 'Unknown stamp'. Also it is possible the select multiple types
+            so a map can feature a "Royal stamp" and an "Unknown stamp".
         </p>
         <p>
             Existing type hierarchies can be edited and extended by every user but can only be deleted, if they have
@@ -127,5 +134,4 @@
         </p>
         <p>Admins can add new type hierarchies in the backend.</p>
     </div>
-
 {% endblock %}
