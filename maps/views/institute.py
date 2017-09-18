@@ -8,6 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django_tables2 import RequestConfig
 
 from maps.forms import InstituteForm
 from maps.models import Institute, Map, Place, Person, Type
@@ -17,9 +18,10 @@ from maps.util import get_selected_nodes
 
 @login_required
 def index(request):
-    institute_table = InstituteTable(Institute.objects.all())
-    institute_table.paginate(page=request.GET.get('page', 1), per_page=settings.TABLE_ITEMS_PER_PAGE)
-    return render(request, 'maps/institute/index.html', {'institute_table': institute_table})
+    table = InstituteTable(Institute.objects.all())
+    table.paginate(page=request.GET.get('page', 1), per_page=settings.TABLE_ITEMS_PER_PAGE)
+    RequestConfig(request).configure(table)
+    return render(request, 'maps/institute/index.html', {'institute_table': table})
 
 
 @login_required

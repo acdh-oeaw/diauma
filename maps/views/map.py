@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from annoying.functions import get_object_or_None
+from django_tables2 import RequestConfig
 
 from maps.forms import MapForm
 from maps.models import Map, Person, Institute, Reference, Place, Type
@@ -17,9 +18,10 @@ from maps.util import link, get_selected_nodes
 
 @login_required
 def index(request):
-    map_table = MapTable(Map.objects.all())
-    map_table.paginate(page=request.GET.get('page', 1), per_page=settings.TABLE_ITEMS_PER_PAGE)
-    return render(request, 'maps/map/index.html', {'map_table': map_table})
+    table = MapTable(Map.objects.all())
+    table.paginate(page=request.GET.get('page', 1), per_page=settings.TABLE_ITEMS_PER_PAGE)
+    RequestConfig(request).configure(table)
+    return render(request, 'maps/map/index.html', {'map_table': table})
 
 
 @login_required

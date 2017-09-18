@@ -47,7 +47,7 @@
                     {% endif %}
                     {% if map.date_created %}
                         <p>
-                            Creation date: {{ map.date_created|format_date }}
+                            Creation date: {{ map.date_created|format_date:'%Y' }}
                             {% if map.date_created2 %}
                                 - {{ map.date_created2|format_date }}
                             {% endif %}
@@ -55,9 +55,9 @@
                     {% endif %}
                     {% if map.date_content %}
                         <p>
-                            Content date: {{ map.date_content|format_date }}
+                            Content date: {{ map.date_content|format_date:'%Y' }}
                             {% if map.date_content2 %}
-                                - {{ map.date_content2|format_date }}
+                                - {{ map.date_content2|format_date:'%Y' }}
                             {% endif %}
                         </p>
                     {% endif %}
