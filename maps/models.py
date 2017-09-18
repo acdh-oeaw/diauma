@@ -64,6 +64,8 @@ class Institute(BaseModel):
 class Person(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
+    date_begin = models.DateField(null=True, blank=True)
+    date_end = models.DateField(null=True, blank=True)
     person_location = models.ForeignKey(Place, blank=True, null=True, related_name='person_location')
     person_institutes = models.ManyToManyField(Institute, blank=True, related_name='person_institutes')
     person_type = models.ManyToManyField(Type, blank=True, related_name='person_type')

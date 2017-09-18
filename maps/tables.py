@@ -12,8 +12,13 @@ class PersonTable(tables.Table):
     class Meta:
         model = Person
         attrs = {'class': 'paleblue'}
-        fields = ['name', 'info']
+        fields = ['name', 'date_begin', 'date_end', 'info']
         order_by = 'name'
+
+    def __init__(self, *args, c1_name="", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.base_columns['date_begin'].verbose_name = 'Begin'
+        self.base_columns['date_end'].verbose_name = 'End'
 
     @staticmethod
     def render_name(record):
@@ -22,6 +27,20 @@ class PersonTable(tables.Table):
     @staticmethod
     def render_info(record):
         return mark_safe(truncate_string(record.info, 16))
+
+    @staticmethod
+    def render_date_begin(record):
+        html = '-'
+        if record.date_begin:
+            html = format_date(record.date_begin, '%Y')
+        return html
+
+    @staticmethod
+    def render_date_end(record):
+        html = '-'
+        if record.date_end:
+            html = format_date(record.date_end, '%Y')
+        return html
 
 
 class PlaceTable(tables.Table):
@@ -49,7 +68,7 @@ class MapTable(tables.Table):
         fields = ['name', 'date_created', 'date_content', 'info']
         order_by = 'name'
 
-    def __init__(self, *args, c1_name="", **kwargs):  # will get the c1_name from where the the class will be called.
+    def __init__(self, *args, c1_name="", **kwargs):
         super().__init__(*args, **kwargs)
         self.base_columns['date_created'].verbose_name = 'Created'
         self.base_columns['date_content'].verbose_name = 'Content'

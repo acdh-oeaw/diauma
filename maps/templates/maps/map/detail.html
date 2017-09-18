@@ -27,7 +27,7 @@
                         {% csrf_token %}<input id="delete-map" type="submit" value="Delete">
                     </form>
                 </div>
-                <h3>{{ map.name }}</h3>
+                <h2>{{ map.name }}</h2>
                 {% if map.title %}
                     <p>Title: {{ map.title }}</p>
                 {% endif %}

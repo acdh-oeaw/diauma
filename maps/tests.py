@@ -23,12 +23,17 @@ class MapsTest(TestCase):
         rv = self.client.post(
             reverse('maps:map-update', kwargs={'pk': map_.id}), {
                 'name': 'Event Horizon',
+                'date_created': '1999-12-31',
+                'date_created2': '1999-12-31',
+                'date_content': '1999-12-31',
+                'date_content2': '1999-12-31',
                 'info': 'You\'ll never come back.'
             },
             follow=True)
         self.assertContains(rv, 'Event Horizon')
         rv = self.client.get(reverse('maps:map'), follow=True)
         self.assertContains(rv, 'Middle Earth')
+        self.assertContains(rv, '1999')
         map_.map_persons.add(Person.objects.create(name='Hugo'))
         map_.map_references.add(Reference.objects.create())
         map_.map_institute.add(Institute.objects.create())
@@ -39,7 +44,6 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'Base map')
         rv = self.client.post(reverse('maps:map-delete', kwargs={'pk': map_.id}), follow=True)
         self.assertContains(rv, 'An entry has been deleted.')
-
 
     def test_institute(self):
         rv = self.client.post(reverse('maps:institute-create'), {'name': 'The Asylum'}, follow=True)
@@ -65,6 +69,8 @@ class MapsTest(TestCase):
             reverse('maps:person-update', kwargs={'pk': person.id}), {
                 'name': 'Laura',
                 'map-type-Sex-id': Type.objects.get(name="Female").id,
+                'date_begin': '2000-02-02',
+                'date_end': '2140-02-02',
                 'info': "It's a fine day, people open windows. They leave the houses, just for a short while.",
             },
             follow=True)
@@ -73,6 +79,7 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'open windows')
         rv = self.client.get(reverse('maps:person'), follow=True)
         self.assertContains(rv, 'Carina')
+        self.assertContains(rv, '2140')
         person.person_institutes.add(Institute.objects.create(name="The second Asylum"))
         rv = self.client.get(reverse('maps:person-detail', kwargs={'pk': person.id}), follow=True)
         self.assertContains(rv, 'Laura')
