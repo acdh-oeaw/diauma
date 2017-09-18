@@ -24,8 +24,9 @@
                         <input id="delete-person" type="submit" value="Delete">
                     </form>
                 </div>
+                <h2>{{ person.name }}</h2>
                 <div class="detail-column">
-                    <h3>{{ person.name }}</h3>
+                    <h3>Information</h3>
                     {% if location_at %}
                         <p>Located at: {{ location_at|link }}</p>
                     {% endif %}
@@ -34,6 +35,18 @@
                             <p>Member of: {{ institutes|join:', ' }}</p>
                         {% endif %}
                     {% endautoescape %}
+                    {% if person.date_begin or person.date_end %}
+                        <p>
+                            Dates:
+                            {% if person.date_begin %}
+                                {{ person.date_begin|format_date:'%Y' }}
+                            {% endif %}
+                            -
+                            {% if person.date_end %}
+                                {{ person.date_end|format_date:'%Y' }}
+                            {% endif %}
+                        </p>
+                    {% endif %}
                 </div>
                 {% include "../types_for_detail_view.html" %}
                 <div style="clear:both;"></div>

@@ -11,8 +11,9 @@ body {
     font-family: sans-serif;
 }
 
-* {
-  border-radius: 0 !important;
+
+td, th {
+    white-space: nowrap;
 }
 
 .navbar-static-top {
