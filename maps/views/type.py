@@ -18,8 +18,7 @@ def index(request):
     roots = Type.objects.all().filter(parent=None)
     nav_tabs = ''
     for root in roots:
-        class_ = ' class="active"' if root.name == 'Institute' else ''
-        nav_tabs += '<li' + class_ + '><a href="#' + root.name + '" data-toggle="tab">' + root.name + '</a></li>'
+        nav_tabs += '<li><a href="#' + root.name + '" data-toggle="tab">' + root.name + '</a></li>'
     return render(request, 'maps/type/index.html', {'roots': roots, 'nav_tabs': nav_tabs})
 
 
