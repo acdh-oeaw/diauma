@@ -9,14 +9,14 @@
         {% breadcrumb_safe reference.name|truncate_string '' %}
     {% endblock %}
     <div class="container">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+        <ul id="tabs" class="nav nav-tabs">
+            <li id="overview-tab-header"><a href="#overview" data-toggle="tab">Overview</a></li>
             {% if map_table.data|length > 0 %}
-                <li><a href="#maps" data-toggle="tab">Maps</a></li>
+                <li id="maps-tab-header"><a href="#maps" data-toggle="tab">Maps</a></li>
             {% endif %}
         </ul>
         <div class="tab-content clearfix">
-            <div class="tab-pane active" id="overview">
+            <div id="overview" class="tab-pane">
                 <div class="button-bar">
                     <a class="button" href="{% url 'maps:reference-update' reference.id %}">Update</a>
                     <form method="POST" action="{% url 'maps:reference-delete' reference.id %}">

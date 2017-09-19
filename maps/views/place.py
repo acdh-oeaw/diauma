@@ -18,20 +18,31 @@ from maps.util import get_selected_nodes
 @login_required
 def index(request):
     table = PlaceTable(Place.objects.all())
-    table.paginate(page=request.GET.get('page', 1), per_page=settings.TABLE_ITEMS_PER_PAGE)
-    RequestConfig(request).configure(table)
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     return render(request, 'maps/place/index.html', {'place_table': table})
 
 
 @login_required
 def detail(request, pk):
     place = Place.objects.get(pk=pk)
+    person_table = PersonTable(Person.objects.filter(person_location=place))
+    person_table.tab = '#persons'
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(person_table)
+    institute_table = InstituteTable(Institute.objects.filter(institute_location=place))
+    institute_table.tab = '#institutes'
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(institute_table)
+    issue_table = MapTable(Map.objects.filter(map_issued=place))
+    issue_table.tab = '#issues'
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(issue_table)
+    location_table = MapTable(Map.objects.filter(map_location=place))
+    location_table.tab = '#locations'
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(location_table)
     return render(request, 'maps/place/detail.html', {
         'place': place,
-        'person_table': PersonTable(Person.objects.filter(person_location=place)),
-        'institute_table': InstituteTable(Institute.objects.filter(institute_location=place)),
-        'map_issued_table': MapTable(Map.objects.filter(map_issued=place)),
-        'map_location_table': MapTable(Map.objects.filter(map_location=place)),
+        'person_table': person_table,
+        'institute_table': institute_table,
+        'issue_table': issue_table,
+        'location_table': location_table,
         'types': Type.objects.filter(place_type=place),
     })
 

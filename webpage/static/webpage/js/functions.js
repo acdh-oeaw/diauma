@@ -1,4 +1,13 @@
 $(document).ready(function () {
+    /* workaround for bootstraps inability to open tabs with a direct link */
+    var hash = window.location.hash;
+    if (hash) {
+        $(hash).addClass('active');
+        $(hash + '-tab-header').addClass('active');
+    } else {
+        $('#tabs a:first').tab('show')
+    }
+    /* end bootstrap workaround */
     $('.date').datepicker({
         showOn: 'button',
         buttonImageOnly: true,

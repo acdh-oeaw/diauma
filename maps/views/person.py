@@ -19,8 +19,7 @@ from maps.util import link, get_selected_nodes
 @login_required
 def index(request):
     table = PersonTable(Person.objects.all())
-    table.paginate(page=request.GET.get('page', 1), per_page=settings.TABLE_ITEMS_PER_PAGE)
-    RequestConfig(request).configure(table)
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     return render(request, 'maps/person/index.html', {'person_table': table})
 
 
@@ -30,10 +29,13 @@ def detail(request, pk):
     institutes = []
     for institute in Institute.objects.filter(person_institutes=person):
         institutes.append(link(institute))
+    map_table = MapTable(Map.objects.filter(map_persons=person))
+    map_table.tab = '#maps'
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(map_table)
     return render(request, 'maps/person/detail.html', {
         'person': person,
         'institutes': institutes,
-        'map_table': MapTable(Map.objects.filter(map_persons=person)),
+        'map_table': map_table,
         'location_at': get_object_or_None(Place, person_location=person),
         'types': Type.objects.filter(person_type=person)
     })

@@ -9,17 +9,17 @@
         {% breadcrumb_safe institute.name|truncate_string '' %}
     {% endblock %}
     <div class="container">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+        <ul id="tabs" class="nav nav-tabs">
+            <li id="overview-tab-header"><a href="#overview" data-toggle="tab">Overview</a></li>
             {% if map_table.data|length > 0 %}
-                <li><a href="#maps" data-toggle="tab">Maps</a></li>
+                <li id="maps-tab-header"><a href="#maps" data-toggle="tab">Maps</a></li>
             {% endif %}
             {% if member_table.data|length > 0 %}
-                <li><a href="#members" data-toggle="tab">Members</a></li>
+                <li id="members-tab-header"><a href="#members" data-toggle="tab">Members</a></li>
             {% endif %}
         </ul>
         <div class="tab-content clearfix">
-            <div class="tab-pane active" id="overview">
+            <div class="tab-pane" id="overview">
                 <div class="button-bar">
                     <a class="button" href="{% url 'maps:institute-update' institute.id %}">Update</a>
                     <form method="POST" action="{% url 'maps:institute-delete' institute.id %}">

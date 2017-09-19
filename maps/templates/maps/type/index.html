@@ -10,16 +10,12 @@
         {% breadcrumb "Types" "maps:type" %}
     {% endblock %}
     <div class="container">
-        <ul class="nav nav-tabs">
+        <ul id="tabs" class="nav nav-tabs">
             {{ nav_tabs|safe }}
         </ul>
         <div class="tab-content clearfix">
             {% for root in roots %}
-                {% if root.name == 'Map' %}
-                    <div class="tab-pane active" id="{{ root.name }}">
-                {% else %}
-                    <div class="tab-pane" id="{{ root.name }}">
-                {% endif %}
+                <div class="tab-pane" id="{{ root.name }}">
                     <ul>
                         {% recursetree root.get_descendants %}
                             <li>
