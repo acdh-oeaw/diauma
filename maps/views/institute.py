@@ -19,18 +19,23 @@ from maps.util import get_selected_nodes
 @login_required
 def index(request):
     table = InstituteTable(Institute.objects.all())
-    table.paginate(page=request.GET.get('page', 1), per_page=settings.TABLE_ITEMS_PER_PAGE)
-    RequestConfig(request).configure(table)
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     return render(request, 'maps/institute/index.html', {'institute_table': table})
 
 
 @login_required
 def detail(request, pk):
     institute = Institute.objects.get(pk=pk)
+    map_table = MapTable(Map.objects.filter(map_institute=institute))
+    map_table.tab = '#maps'
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(map_table)
+    member_table = PersonTable(Person.objects.filter(person_institutes=institute))
+    member_table.tab = '#members'
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(member_table)
     return render(request, 'maps/institute/detail.html', {
         'institute': institute,
-        'map_table': MapTable(Map.objects.filter(map_institute=institute)),
-        'member_table': PersonTable(Person.objects.filter(person_institutes=institute)),
+        'map_table': map_table,
+        'member_table': member_table,
         'location_at': get_object_or_None(Place, institute_location=institute),
         'types': Type.objects.filter(institute_type=institute),
     })

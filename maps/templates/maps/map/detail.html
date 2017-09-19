@@ -10,17 +10,17 @@
         {% breadcrumb_safe map.name|truncate_string '' %}
     {% endblock %}
     <div class="container">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+        <ul id="tabs" class="nav nav-tabs">
+            <li id="overview-tab-header"><a href="#overview" data-toggle="tab">Overview</a></li>
             {% if copies_table.data|length > 0 %}
-                <li><a href="#copies" data-toggle="tab">Copies</a></li>
+                <li id="copies-tab-header"><a href="#copies" data-toggle="tab">Copies</a></li>
             {% endif %}
-            {% if base_for_table.data|length > 0 %}
-                <li><a href="#base-for" data-toggle="tab">Base for</a></li>
+            {% if base_table.data|length > 0 %}
+                <li id="base-tab-header"><a href="#base" data-toggle="tab">Base for</a></li>
             {% endif %}
         </ul>
         <div class="tab-content clearfix">
-            <div class="tab-pane active" id="overview">
+            <div class="tab-pane" id="overview">
                 <div class="button-bar">
                     <a class="button" href="{% url 'maps:map-update' map.id %}">Update</a>
                     <form method="POST" action="{% url 'maps:map-delete' map.id %}">
@@ -100,9 +100,9 @@
                     {% render_table copies_table %}
                 </div>
             {% endif %}
-            {% if base_for_table.data|length > 0 %}
-                <div class="tab-pane" id="base-for">
-                    {% render_table base_for_table %}
+            {% if base_table.data|length > 0 %}
+                <div class="tab-pane" id="base">
+                    {% render_table base_table %}
                 </div>
             {% endif %}
         </div>
@@ -113,4 +113,3 @@
         })
     </script>
 {% endblock %}
-

@@ -18,17 +18,19 @@ from maps.util import get_selected_nodes
 @login_required
 def index(request):
     table = ReferenceTable(Reference.objects.all())
-    table.paginate(page=request.GET.get('page', 1), per_page=settings.TABLE_ITEMS_PER_PAGE)
-    RequestConfig(request).configure(table)
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     return render(request, 'maps/reference/index.html', {'reference_table': table})
 
 
 @login_required
 def detail(request, pk):
     reference = Reference.objects.get(pk=pk)
+    table = MapTable(Map.objects.filter(map_references=reference))
+    table.tab = '#maps'
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     return render(request, 'maps/reference/detail.html', {
         'reference': reference,
-        'map_table': MapTable(Map.objects.filter(map_references=reference)),
+        'map_table': table,
         'types': Type.objects.filter(reference_type=reference)
     })
 

@@ -94,9 +94,9 @@ class MapTable(tables.Table):
     def render_date_content(record):
         html = '-'
         if record.date_content:
-            html = format_date(record.date_content, '%Y') + ' - '
+            html = format_date(record.date_content, '%Y')
             if record.date_content2:
-                html += format_date(record.date_content2, '%Y')
+                html += ' - ' + format_date(record.date_content2, '%Y')
         return html
 
 

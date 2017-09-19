@@ -9,23 +9,23 @@
         {% breadcrumb place.name|truncate_string '' %}
     {% endblock %}
     <div class="container">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+        <ul id="tabs" class="nav nav-tabs">
+            <li id="overview-tab-header"><a href="#overview" data-toggle="tab">Overview</a></li>
             {% if person_table.data|length > 0 %}
-                <li><a href="#persons" data-toggle="tab">Persons</a></li>
+                <li id="persons-tab-header"><a href="#persons" data-toggle="tab">Persons</a></li>
             {% endif %}
             {% if institute_table.data|length > 0 %}
-                <li><a href="#institutes" data-toggle="tab">Institutes</a></li>
+                <li id="institutes-tab-header"><a href="#institutes" data-toggle="tab">Institutes</a></li>
             {% endif %}
-            {% if map_issued_table.data|length > 0 %}
-                <li><a href="#issued-maps" data-toggle="tab">Issued Maps</a></li>
+            {% if issue_table.data|length > 0 %}
+                <li id="issues-tab-header"><a href="#issues" data-toggle="tab">Issued Maps</a></li>
             {% endif %}
-            {% if map_location_table.data|length > 0 %}
-                <li><a href="#located-maps" data-toggle="tab">Located Maps</a></li>
+            {% if location_table.data|length > 0 %}
+                <li id="locations-tab-header"><a href="#locations" data-toggle="tab">Located Maps</a></li>
             {% endif %}
         </ul>
         <div class="tab-content clearfix">
-            <div class="tab-pane active" id="overview">
+            <div class="tab-pane" id="overview">
                 <div class="button-bar">
                     <a class="button" href="{% url 'maps:place-update' place.id %}">Update</a>
                     <form method="POST" action="{% url 'maps:place-delete' place.id %}">
@@ -51,14 +51,14 @@
                     {% render_table institute_table %}
                 </div>
             {% endif %}
-            {% if map_issued_table.data|length > 0 %}
-                <div class="tab-pane" id="issued-maps">
-                    {% render_table map_issued_table %}
+            {% if issue_table.data|length > 0 %}
+                <div class="tab-pane" id="issues">
+                    {% render_table issue_table %}
                 </div>
             {% endif %}
-            {% if map_location_table.data|length > 0 %}
-                <div class="tab-pane" id="located-maps">
-                    {% render_table map_location_table %}
+            {% if location_table.data|length > 0 %}
+                <div class="tab-pane" id="locations">
+                    {% render_table location_table %}
                 </div>
             {% endif %}
         </div>

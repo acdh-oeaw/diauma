@@ -19,8 +19,7 @@ from maps.util import link, get_selected_nodes
 @login_required
 def index(request):
     table = MapTable(Map.objects.all())
-    table.paginate(page=request.GET.get('page', 1), per_page=settings.TABLE_ITEMS_PER_PAGE)
-    RequestConfig(request).configure(table)
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     return render(request, 'maps/map/index.html', {'map_table': table})
 
 
@@ -36,6 +35,12 @@ def detail(request, pk):
     publishers = []
     for publisher in Institute.objects.filter(publisher=map_):
         publishers.append(link(publisher))
+    copies_table = MapTable(Map.objects.filter(map_copy_id=map_))
+    copies_table.tab = '#copies'
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(copies_table)
+    base_table = MapTable(Map.objects.filter(map_base_id=map_))
+    base_table.tab = '#base'
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(base_table)
     return render(request, 'maps/map/detail.html', {
         'map': map_,
         'authors': authors,
@@ -45,8 +50,8 @@ def detail(request, pk):
         'location_at': get_object_or_None(Place, map_location=map_),
         'copy_of': get_object_or_None(Map, copy=map_),
         'has_base': get_object_or_None(Map, base=map_),
-        'copies_table': MapTable(Map.objects.filter(map_copy_id=map_)),
-        'base_for_table': MapTable(Map.objects.filter(map_base_id=map_)),
+        'copies_table': copies_table,
+        'base_table': base_table,
         'types': Type.objects.filter(map_type=map_),
     })
 
