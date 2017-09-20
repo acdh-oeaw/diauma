@@ -12,7 +12,7 @@ class PersonTable(tables.Table):
     class Meta:
         model = Person
         attrs = {'class': 'paleblue'}
-        fields = ['name', 'date_begin', 'date_end', 'info']
+        fields = ['name', 'date_begin', 'date_end', 'types', 'info']
         order_by = 'name'
 
     def __init__(self, *args, c1_name="", **kwargs):

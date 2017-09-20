@@ -74,6 +74,15 @@ class Person(BaseModel):
     def __str__(self):
         return self.name
 
+    # small, inelegant hack to show types without the type 'sex'
+    @property
+    def types(self):
+        types = []
+        for type_ in self.person_type.all():
+            if type_.name not in ['Male', 'Female']:
+                types.append(type_)
+        return ', '.join([x.name for x in types])
+
 
 class Reference(BaseModel):
     name = models.CharField(max_length=255)
