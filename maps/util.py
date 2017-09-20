@@ -25,11 +25,14 @@ def sanitize(string):
     return re.sub('[^A-Za-z0-9]+', '', string)
 
 
-def truncate_string(string, length=40):
+def truncate_string(string, length=40, title=True):
     if string is None:
         return ''  # pragma: no cover
+
     if len(string) > length + 2:
-        string = '<span title="' + string.replace('"', '') + '">' + string[:length] + '..</span>'
+        string = string[:length] + '..'
+        if title:
+            string = '<span title="' + string.replace('"', '') + '">' + string + '</span>'
     return string
 
 
