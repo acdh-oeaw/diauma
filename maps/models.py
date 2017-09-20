@@ -44,6 +44,7 @@ class BaseModel(models.Model):
 
 class Place(BaseModel):
     name = models.CharField(max_length=255)
+    modern_name = models.CharField(blank=True, max_length=255)
     info = models.TextField(blank=True)
     place_type = models.ManyToManyField(Type, blank=True, related_name='place_type')
 
