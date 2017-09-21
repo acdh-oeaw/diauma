@@ -6,10 +6,9 @@
     {% block breadcrumbs %}
         {% breadcrumb "Network" "maps:network" %}
     {% endblock %}
-    <h1>Network</h1>
     <link rel="stylesheet" href="{% static 'webpage/css/d3.css' %}" />
     <script src="{% static 'webpage/libraries/d3/d3-3.5.17.min.js' %}"></script>
-    <svg style="float:left;"></svg>
+    <svg id="network-svg"></svg>
     <script>
         function dragstarted(d) {
             d3.event.sourceEvent.stopPropagation();
