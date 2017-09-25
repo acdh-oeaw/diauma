@@ -118,8 +118,7 @@ class MapForm(BaseForm):
                 attrs={'data-placeholder': 'Type for available maps'}),
             'map_base': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
-                attrs={'data-placeholder': 'Type for available maps'})
-        }
+                attrs={'data-placeholder': 'Type for available maps'})}
 
     def __init__(self, *args, **kwargs):
         super(MapForm, self).__init__(*args, **kwargs)
@@ -174,8 +173,7 @@ class MapForm(BaseForm):
             Div(HTML('<div class="form-header">Types</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>')),
-            Div('map_type', css_class='hidden')
-        )
+            Div('map_type', css_class='hidden'))
 
 
 class PersonForm(BaseForm):
@@ -193,8 +191,7 @@ class PersonForm(BaseForm):
                 attrs={'data-placeholder': 'Type for getting available places'}),
             'person_institutes': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:institute-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available references'}),
-        }
+                attrs={'data-placeholder': 'Type for getting available references'})}
 
     def __init__(self, *args, **kwargs):
         super(PersonForm, self).__init__(*args, **kwargs)
@@ -220,8 +217,7 @@ class PersonForm(BaseForm):
                 HTML('<div class="form-header">Types</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>')),
-            Div('person_type', css_class='hidden')
-        )
+            Div('person_type', css_class='hidden'))
 
 
 class InstituteForm(BaseForm):
@@ -232,8 +228,7 @@ class InstituteForm(BaseForm):
         widgets = {
             'institute_location': autocomplete.ModelSelect2(
                 url='maps-ac:place-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available places'}),
-        }
+                attrs={'data-placeholder': 'Type for getting available places'})}
 
     def __init__(self, *args, **kwargs):
         super(InstituteForm, self).__init__(*args, **kwargs)
@@ -252,8 +247,7 @@ class InstituteForm(BaseForm):
                 HTML('<div class="form-header">Types</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>')),
-            Div('institute_type', css_class='hidden')
-        )
+            Div('institute_type', css_class='hidden'))
 
 
 class PlaceForm(BaseForm):
@@ -278,8 +272,7 @@ class PlaceForm(BaseForm):
                 HTML('<div class="form-header">Types</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>')),
-            Div('place_type', css_class='hidden')
-        )
+            Div('place_type', css_class='hidden'))
 
 
 class ReferenceForm(BaseForm):
@@ -304,8 +297,7 @@ class ReferenceForm(BaseForm):
                 HTML('<div class="form-header">Types</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>')),
-            Div('reference_type', css_class='hidden')
-        )
+            Div('reference_type', css_class='hidden'))
 
 
 class TypeForm(forms.ModelForm):
@@ -319,5 +311,4 @@ class TypeForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
         self.helper.layout = Layout(
-            Div('parent', css_class='hidden')
-        )
+            Div('parent', css_class='hidden'))

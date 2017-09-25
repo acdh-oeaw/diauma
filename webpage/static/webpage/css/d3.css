@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+#network-svg {
+    border: 1px solid #000000;
+    background-color: #ffffff;
+}
+
+svg .node circle {
+    cursor: pointer;
+}
+
+svg .node > text {
+    pointer-events: none;
+    font-family: sans-serif;
+    text-anchor: middle;
+}
+
+svg .link {
+    stroke-width: 2px;
+    stroke: lightgrey;
+}
+

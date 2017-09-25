@@ -52,13 +52,14 @@ class MapsTest(TestCase):
         rv = self.client.post(reverse('maps:institute-update', kwargs={'pk': institute.id}), {
                 'name': 'Umbrella Corporation',
                 'info': '''Very long info indeed Very long info
-                    indeed Very long info indeed Very long info indeed Very long info indeed Very long
-                    info indeed Very long info indeed'''
+                    indeed Very long info indeed Very long info indeed Very long info indeed Very
+                    long info indeed Very long info indeed'''
             }, follow=True)
         self.assertContains(rv, 'Umbrella Corporation')
         rv = self.client.get(reverse('maps:institute'), follow=True)
         self.assertContains(rv, 'The Asylum')
-        rv = self.client.post(reverse('maps:institute-delete', kwargs={'pk': institute.id}), follow=True)
+        rv = self.client.post(reverse(
+            'maps:institute-delete', kwargs={'pk': institute.id}), follow=True)
         self.assertContains(rv, 'An entry has been deleted.')
 
     def test_person(self):
@@ -71,7 +72,8 @@ class MapsTest(TestCase):
                 'map-type-Sex-id': Type.objects.get(name="Female").id,
                 'date_begin': '2000-02-02',
                 'date_end': '2140-02-02',
-                'info': "It's a fine day, people open windows. They leave the houses, just for a short while.",
+                'info': "It's a fine day, people open windows. "
+                        "They leave the houses, just for a short while.",
             },
             follow=True)
         self.assertContains(rv, 'Laura')
@@ -115,7 +117,8 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'Necronomicon')
         rv = self.client.get(reverse('maps:reference'), follow=True)
         self.assertContains(rv, 'Cryptonomicon')
-        rv = self.client.post(reverse('maps:reference-delete', kwargs={'pk': reference.id}), follow=True)
+        rv = self.client.post(reverse(
+            'maps:reference-delete', kwargs={'pk': reference.id}), follow=True)
         self.assertContains(rv, 'An entry has been deleted.')
 
     def test_types(self):
@@ -143,7 +146,6 @@ class MapsTest(TestCase):
         self.client.post(reverse('maps:search'), follow=True)
         rv = self.client.post(reverse('maps:search'), {'search-term': 'never_find_me'}, follow=True)
         self.assertContains(rv, 'No entries')
-
         Map.objects.create(name="Atlantis")
         Place.objects.create(name="Valhalla")
         Institute.objects.create(name="Umbrella Corporation")
@@ -167,3 +169,13 @@ class MapsTest(TestCase):
     def test_changelog(self):
         rv = self.client.get(reverse('maps:changelog'))
         self.assertContains(rv, 'Feature')
+
+    def test_network(self):
+        map_ = Map.objects.create(name="Atlantis")
+        person = Person.objects.create(name="Alice")
+        map_.map_persons.add(person)
+        Place.objects.create(name="Valhalla")
+        Institute.objects.create(name="Umbrella Corporation")
+        Reference.objects.create(name="Grimoire A")
+        rv = self.client.get(reverse('maps:network'))
+        self.assertContains(rv, 'Network')
