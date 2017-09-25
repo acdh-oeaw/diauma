@@ -15,22 +15,26 @@ class Type(MPTTModel):
         return self.name
 
     def get_tree_data(self, selected_ids=None):
-        html = '"core": {"data":['
+        html = ''
+        selected = ', "state" : {"selected" : true}'
         for node in self.get_children():
-            selected = ', "state" : {"selected" : true}' if selected_ids and node.id in selected_ids else ''
-            html += '{"text":"' + node.name.replace('"', '') + '", "id":"' + str(node.id) + '"' + selected + ','
-            html += node.get_tree_data_children(selected_ids) + '},'
-        html += ']}'
-        return html
+            html += """{{"text":"{name}", "id":"{id_}" {selected}, {children} }},""".format(
+                id_=node.id,
+                name=node.name.replace('"', ''),
+                selected=selected if selected_ids and node.id in selected_ids else '',
+                children=node.get_tree_data_children(selected_ids))
+        return '"core": {"data":[' + html + ']}'
 
     def get_tree_data_children(self, selected_ids):
-        html = '"children" : ['
+        html = ''
+        selected = ', "state" : {"selected" : true}'
         for node in self.get_children():
-            selected = ', "state" : {"selected" : true}' if selected_ids and node.id in selected_ids else ''
-            html += '{"text":"' + node.name.replace('"', '') + '", "id":"' + str(node.id) + '"' + selected + ','
-            html += node.get_tree_data_children(selected_ids) + '},'
-        html += '],'
-        return html
+            html += """{{"text":"{name}", "id":"{id_}" {selected}, {children} }},""".format(
+                id_=node.id,
+                name=node.name.replace('"', ''),
+                selected=selected if selected_ids and node.id in selected_ids else '',
+                children=node.get_tree_data_children(selected_ids))
+        return '"children" : [' + html + '],'
 
 
 class BaseModel(models.Model):
@@ -55,7 +59,8 @@ class Place(BaseModel):
 class Institute(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
-    institute_location = models.ForeignKey(Place, blank=True, null=True, related_name='institute_location')
+    institute_location = models.ForeignKey(
+        Place, blank=True, null=True, related_name='institute_location')
     institute_type = models.ManyToManyField(Type, blank=True, related_name='institute_type')
 
     def __str__(self):
@@ -67,8 +72,10 @@ class Person(BaseModel):
     info = models.TextField(blank=True)
     date_begin = models.DateField(null=True, blank=True)
     date_end = models.DateField(null=True, blank=True)
-    person_location = models.ForeignKey(Place, blank=True, null=True, related_name='person_location')
-    person_institutes = models.ManyToManyField(Institute, blank=True, related_name='person_institutes')
+    person_location = models.ForeignKey(
+        Place, blank=True, null=True, related_name='person_location')
+    person_institutes = models.ManyToManyField(
+        Institute, blank=True, related_name='person_institutes')
     person_type = models.ManyToManyField(Type, blank=True, related_name='person_type')
 
     def __str__(self):
@@ -113,7 +120,7 @@ class Map(BaseModel):
         super(Map, self).validate_unique(*args, **kwargs)
         if self.map_id:  # only test if map_id is not empty
             qs = self.__class__._default_manager.filter(map_id=self.map_id)
-            if not self._state.adding and self.pk is not None:  # exclude if updating with same value
+            if not self._state.adding and self.pk is not None:  # exclude if update with same value
                 qs = qs.exclude(pk=self.pk)
             if qs.exists():
                 raise ValidationError({'map_id': 'Map-ID already in use.'})

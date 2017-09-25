@@ -11,8 +11,7 @@ def index(request):
         'width': '1140',
         'height': '800',
         'link_distance': '80',
-        'charge': '-800'
-    }
+        'charge': '-800'}
     nodes = ''
     edges = ''
     for entity in Map.objects.all():
@@ -41,7 +40,10 @@ def index(request):
         nodes += add_node(entity, '#4088c3')
 
     network_data = "graph = {'nodes': [" + nodes + "], links: [" + edges + "]};"
-    return render(request, 'maps/network.html', {'network_data': mark_safe(network_data), 'network_options': options})
+    return render(
+        request,
+        'maps/network.html',
+        {'network_data': mark_safe(network_data), 'network_options': options})
 
 
 def add_node(entity, color):
@@ -58,6 +60,5 @@ def add_edge(source, targets):
     for target in targets:
         string += "{{'source': '{source}', 'target': '{target}' }},".format(
             source = source.__class__.__name__ + '-' + str(source.id),
-            target = target.__class__.__name__ + '-' + str(target.id),
-        )
+            target = target.__class__.__name__ + '-' + str(target.id))
     return string
