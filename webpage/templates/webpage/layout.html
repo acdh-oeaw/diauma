@@ -13,7 +13,7 @@
     <meta name="author" content="{{ metadata.author }}">
     <link rel="stylesheet" href="{% static 'webpage/libraries/bootstrap337/css/bootstrap.min.css' %}" />
     <link rel="stylesheet/less" type="text/css" href="{% static 'webpage/css/style.less' %}" />
-    <link rel="stylesheet" href="{% static 'webpage/libraries/scroll-to-top/css/ap-scroll-top.min.css'%}" />
+    <link rel="stylesheet" href="{% static 'webpage/libraries/scroll-to-top/css/ap-scroll-top.min.css' %}" />
     <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
     <link rel="stylesheet" href="{% static 'webpage/libraries/jquery/jquery-ui-1.12.1/jquery-ui.css' %}" />
     <link rel="stylesheet" href="{% static 'webpage/libraries/jquery/jstree/themes/default/style.min.css' %}" />
@@ -91,6 +91,9 @@
                     {% if user.is_authenticated %}
                         <li class="{% if 'type' in request.resolver_match.url_name %}active{% endif %}">
                             <a href="{% url 'maps:type' %}">Types</a>
+                        </li>
+                        <li class="{% if 'network' in request.resolver_match.url_name %}active{% endif %}">
+                            <a href="{% url 'maps:network' %}">Network</a>
                         </li>
                     {% endif %}
                     <li class="{% if 'model' in request.resolver_match.url_name %}active{% endif %}">

@@ -122,7 +122,7 @@ class InstituteTable(tables.Table):
     class Meta:
         model = Institute
         attrs = {'class': 'paleblue'}
-        fields = ['name', 'info']
+        fields = ['name', 'institute_location', 'info']
         order_by = 'name'
 
     @staticmethod

@@ -33,8 +33,12 @@
                         <input id="delete-place" type="submit" value="Delete">
                     </form>
                 </div>
+                <h2>{{ place.name }}</h2>
                 <div class="detail-column">
-                    <h3>{{ place.name }}</h3>
+                    <h3>Information</h3>
+                    {% if place.modern_name %}
+                        <p>Modern name: {{ place.modern_name }}</p>
+                    {% endif %}
                 </div>
                 {% include "../types_for_detail_view.html" %}
                 <div style="clear:both;"></div>
