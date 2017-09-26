@@ -1,6 +1,8 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
-from django.conf.urls import url
-from .views import map, reference, person, institute, place, model, changelog, type, search, manual, network
+from django.conf.urls import url, include
+
+from .views import (map, reference, person, institute, place, model, changelog, type, search,
+                    manual, network)
 
 urlpatterns = [
     url(r'^changelog/$', changelog.index, name='changelog'),
