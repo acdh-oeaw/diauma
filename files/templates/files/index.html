@@ -5,8 +5,11 @@
 {% load crispy_forms_tags %}
 <div class="container">
     {% block breadcrumbs %}
-        {% breadcrumb "Files" "files:index" %}
+        {% breadcrumb "Files" "files:files-index" %}
     {% endblock %}
-    Hello you file!
+    <div class="button-bar">
+        <a class="button" href="{% url 'files:file-create' %}">File +</a>
+        <a class="button" href="{% url 'files:scan-create' %}">Scan +</a>
+    </div>
 </div>
 {% endblock %}

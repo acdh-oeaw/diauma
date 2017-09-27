@@ -1,0 +1,15 @@
+{% extends "webpage/layout.html" %}
+{% load django_bootstrap_breadcrumbs %}
+{% load crispy_forms_tags %}
+{% block title %}Diauma - Files{% endblock %}
+{% block content %}
+    <div class="container">
+        {% block breadcrumbs %}
+            {% breadcrumb "Files" "files:files-index" %}
+            {% breadcrumb "File +" '' %}
+        {% endblock %}
+        <div class="panel-body">
+            {% crispy form %}
+        </div>
+    </div>
+{% endblock %}

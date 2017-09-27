@@ -37,10 +37,12 @@ def detail(request, pk):
         publishers.append(link(publisher))
     copies_table = MapTable(Map.objects.filter(map_copy_id=map_))
     copies_table.tab = '#copies'
-    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(copies_table)
+    RequestConfig(request,
+                  paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(copies_table)
     base_table = MapTable(Map.objects.filter(map_base_id=map_))
     base_table.tab = '#base'
-    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(base_table)
+    RequestConfig(request,
+                  paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(base_table)
     return render(request, 'maps/map/detail.html', {
         'map': map_,
         'authors': authors,
