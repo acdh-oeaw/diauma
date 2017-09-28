@@ -1,14 +1,13 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django.db import models
-from maps.models import Map, Person, Type
+from maps.models import Map, Person, Type, BaseModel
 
 
-class File(models.Model):
+class File(BaseModel):
     name = models.CharField(max_length=255)
-    document = models.FileField(upload_to='documents/')
-    document_type = models.ManyToManyField(Type, blank=True, related_name='document_type')
+    file = models.FileField(upload_to='file/')
+    file_type = models.ManyToManyField(Type, blank=True, related_name='file_type')
     info = models.TextField(blank=True)
-    created_date = models.DateTimeField(auto_now_add=True)
 
 
 class Scan(File):

@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from annoying.functions import get_object_or_None
 from django_tables2 import RequestConfig
 
@@ -54,8 +54,7 @@ def detail(request, pk):
         'has_base': get_object_or_None(Map, base=map_),
         'copies_table': copies_table,
         'base_table': base_table,
-        'types': Type.objects.filter(map_type=map_),
-    })
+        'types': Type.objects.filter(map_type=map_)})
 
 
 class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
