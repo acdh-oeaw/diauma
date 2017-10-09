@@ -1,5 +1,6 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import django_tables2 as tables
+from django.template.defaultfilters import filesizeformat
 from django.utils.safestring import mark_safe
 
 from maps.templatetags.maps_extras import truncate_string, format_date
@@ -12,12 +13,17 @@ class FileTable(tables.Table):
     class Meta:
         model = Type
         attrs = {'class': 'paleblue'}
-        fields = ['name', 'created_date', 'info']
+        fields = ['name', 'file', 'created_date', 'info']
         order_by = 'name'
 
     def __init__(self, *args, c1_name="", **kwargs):
         super().__init__(*args, **kwargs)
         self.base_columns['created_date'].verbose_name = 'Uploaded'
+        self.base_columns['file'].verbose_name = 'Size'
+
+    @staticmethod
+    def render_file(record):
+        return filesizeformat(record.file.size)
 
     @staticmethod
     def render_name(record):

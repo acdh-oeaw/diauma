@@ -21,13 +21,15 @@
         <div class="tab-content clearfix">
             <div class="tab-pane" id="overview">
                 <div class="button-bar">
-                    <a class="button" href="{% url 'maps:institute-update' institute.id %}">Update</a>
+                    <a class="button" href="{% url 'maps:institute-update' institute.id %}">
+                        Update
+                    </a>
                     <form method="POST" action="{% url 'maps:institute-delete' institute.id %}">
                         {% csrf_token %}
                         <input id="delete-institute" type="submit" value="Delete">
                     </form>
                 </div>
-                <h3>{{ institute.name }}</h3>
+                <h2>{{ institute.name }}</h2>
                 <div class="detail-column">
                     <h3>Information</h3>
                     {% if location_at %}

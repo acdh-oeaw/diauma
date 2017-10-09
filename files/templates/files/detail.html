@@ -9,11 +9,29 @@
     {% breadcrumb_safe file.name|truncate_string '' %}
 {% endblock %}
 <div class="container">
-    <div class="button-bar">
-        <a class="button" href="{% url 'files:file-update' file.id %}">Update</a>
-        <form method="POST" action="{% url 'files:file-delete' file.id %}">
-            {% csrf_token %}<input id="delete-file" type="submit" value="Delete">
-        </form>
+    <ul id="tabs" class="nav nav-tabs">
+        <li id="overview-tab-header">
+            <a href="#overview" data-toggle="tab">Overview</a>
+        </li>
+    </ul>
+    <div class="tab-content clearfix">
+        <div class="tab-pane" id="overview">
+            <div class="button-bar">
+                <a class="button" href="{% url 'files:file-update' file.id %}">Update</a>
+                <form method="POST" action="{% url 'files:file-delete' file.id %}">
+                    {% csrf_token %}<input id="delete-file" type="submit" value="Delete">
+                </form>
+            </div>
+            <h2>{{ file.name }}</h2>
+            <div class="detail-column">
+                <h3>Information</h3>
+                File size: {{ file.file.size|filesizeformat }}
+            </div>
+            {% include "maps/types_for_detail_view.html" %}
+            <div style="clear:both;"></div>
+            {{ file|display_info }}
+            {{ file|display_dates }}
+        </div>
     </div>
 </div>
 <script>
