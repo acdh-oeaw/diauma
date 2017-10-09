@@ -5,6 +5,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__
 
 SITE_ID = 1
 
+ALLOWED_UPLOAD_EXTENSIONS = ['jp2', 'jpeg', 'jpg', 'pdf', 'png', 'tiff', 'zip']
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
