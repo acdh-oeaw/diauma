@@ -4,7 +4,7 @@ from django.template.defaultfilters import filesizeformat
 from django.utils.safestring import mark_safe
 
 from maps.templatetags.maps_extras import truncate_string, format_date
-from maps.util import link
+from maps.util import link, get_mime_type
 from .models import Type
 
 
@@ -13,13 +13,18 @@ class FileTable(tables.Table):
     class Meta:
         model = Type
         attrs = {'class': 'paleblue'}
-        fields = ['name', 'file', 'created_date', 'info']
-        order_by = 'name'
+        fields = ['created_date', 'name', 'file', 'modified_date', 'info']
+        order_by = '-created_date'
 
     def __init__(self, *args, c1_name="", **kwargs):
         super().__init__(*args, **kwargs)
         self.base_columns['created_date'].verbose_name = 'Uploaded'
         self.base_columns['file'].verbose_name = 'Size'
+        self.base_columns['modified_date'].verbose_name = 'Type'
+
+    @staticmethod
+    def render_modified_date(record):
+        return get_mime_type(record.file.name)
 
     @staticmethod
     def render_file(record):

@@ -38,3 +38,8 @@ def link(entity):
 @register.filter(name='truncate_string')
 def truncate_string(string, length=40):
     return util.truncate_string(string, length)
+
+
+@register.filter(name='mime_type')
+def mime_type(file_name):
+    return util.get_mime_type(file_name)

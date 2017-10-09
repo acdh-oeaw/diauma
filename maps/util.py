@@ -1,9 +1,15 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import re
+from mimetypes import guess_type
+
 from django.urls import reverse
 from itertools import chain
 from markupsafe import Markup
 from maps.models import Type, Place, Reference, Institute, Map, Person
+
+
+def get_mime_type(file_name):
+    return guess_type(file_name)[0]
 
 
 def link(entity):

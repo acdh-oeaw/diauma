@@ -6,6 +6,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__
 SITE_ID = 1
 
 ALLOWED_UPLOAD_EXTENSIONS = ['jp2', 'jpeg', 'jpg', 'pdf', 'png', 'tiff', 'zip']
+ALLOWED_UPLOAD_SIZE = 2 * 1024 * 1024  # in bytes, e.g for 2 MB: 2 * 1024 * 1024
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 STATIC_URL = '/static/'

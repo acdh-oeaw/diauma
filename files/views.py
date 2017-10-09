@@ -31,10 +31,9 @@ def detail(request, pk):
         'types': Type.objects.filter(file_type=file)})
 
 
-@login_required
 class FileDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = File
-    success_url = reverse_lazy('files:file')
+    success_url = reverse_lazy('files:files-index')
     success_message = 'An entry has been deleted.'
 
     def delete(self, request, *args, **kwargs):

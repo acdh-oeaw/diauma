@@ -25,7 +25,8 @@
             <h2>{{ file.name }}</h2>
             <div class="detail-column">
                 <h3>Information</h3>
-                File size: {{ file.file.size|filesizeformat }}
+                <p>File size: {{ file.file.size|filesizeformat }}</p>
+                <p>File type: {{ file.file.name|mime_type }}<p>
             </div>
             {% include "maps/types_for_detail_view.html" %}
             <div style="clear:both;"></div>
