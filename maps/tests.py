@@ -27,8 +27,7 @@ class MapsTest(TestCase):
                 'date_created2': '1999-12-31',
                 'date_content': '1999-12-31',
                 'date_content2': '1999-12-31',
-                'info': 'You\'ll never come back.'
-            },
+                'info': 'You\'ll never come back.'},
             follow=True)
         self.assertContains(rv, 'Event Horizon')
         rv = self.client.get(reverse('maps:map'), follow=True)
@@ -53,13 +52,13 @@ class MapsTest(TestCase):
                 'name': 'Umbrella Corporation',
                 'info': '''Very long info indeed Very long info
                     indeed Very long info indeed Very long info indeed Very long info indeed Very
-                    long info indeed Very long info indeed'''
-            }, follow=True)
+                    long info indeed Very long info indeed'''}, follow=True)
         self.assertContains(rv, 'Umbrella Corporation')
         rv = self.client.get(reverse('maps:institute'), follow=True)
         self.assertContains(rv, 'The Asylum')
         rv = self.client.post(reverse(
-            'maps:institute-delete', kwargs={'pk': institute.id}), follow=True)
+            'maps:institute-delete', kwargs={'pk': institute.id}),
+            follow=True)
         self.assertContains(rv, 'An entry has been deleted.')
 
     def test_person(self):
@@ -73,8 +72,7 @@ class MapsTest(TestCase):
                 'date_begin': '2000-02-02',
                 'date_end': '2140-02-02',
                 'info': "It's a fine day, people open windows. "
-                        "They leave the houses, just for a short while.",
-            },
+                        "They leave the houses, just for a short while."},
             follow=True)
         self.assertContains(rv, 'Laura')
         rv = self.client.get(reverse('maps:person-update', kwargs={'pk': person.id}), follow=True)

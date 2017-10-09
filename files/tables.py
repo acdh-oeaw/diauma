@@ -3,8 +3,9 @@ import django_tables2 as tables
 from django.template.defaultfilters import filesizeformat
 from django.utils.safestring import mark_safe
 
+from files.util import get_mime_type
 from maps.templatetags.maps_extras import truncate_string, format_date
-from maps.util import link, get_mime_type
+from maps.util import link
 from .models import Type
 
 

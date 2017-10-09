@@ -204,6 +204,12 @@ footer {
     margin-top: 10px;
 }
 
+img.preview {
+    max-width: 600px;
+    max-height: 400px;
+    margin-top: 1em;
+}
+
 legend {
   background-color: #efefef;
   padding: 10px;

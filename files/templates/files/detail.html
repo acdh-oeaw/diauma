@@ -1,5 +1,6 @@
 {% extends "webpage/layout.html" %}
 {% load django_bootstrap_breadcrumbs %}
+{% load files_extras %}
 {% load maps_extras %}
 {% block title %}Diauma - Files{% endblock %}
 {% block content %}
@@ -21,17 +22,23 @@
                 <form method="POST" action="{% url 'files:file-delete' file.id %}">
                     {% csrf_token %}<input id="delete-file" type="submit" value="Delete">
                 </form>
+                <a class="button" download target="_blank" href="{{ file.file.url }}">Download</a>
             </div>
             <h2>{{ file.name }}</h2>
-            <div class="detail-column">
-                <h3>Information</h3>
-                <p>File size: {{ file.file.size|filesizeformat }}</p>
-                <p>File type: {{ file.file.name|mime_type }}<p>
+            <div>
+                <div class="detail-column">
+                    <h3>Information</h3>
+                    <p>File size: {{ file.file.size|filesizeformat }}</p>
+                    <p>File type: {{ file.file.name|mime_type }}</p>
+                    {% include "maps/types_for_detail_view.html" %}
+                </div>
+                <div class="detail-column">
+                    {{ file|display_image }}
+                </div>
+                <div style="clear:both;"></div>
+                {{ file|display_info }}
+                {{ file|display_dates }}
             </div>
-            {% include "maps/types_for_detail_view.html" %}
-            <div style="clear:both;"></div>
-            {{ file|display_info }}
-            {{ file|display_dates }}
         </div>
     </div>
 </div>

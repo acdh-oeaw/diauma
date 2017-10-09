@@ -16,7 +16,7 @@ DATABASES = {
 
 NOSE_ARGS = [
     '--with-coverage',          # generate coverage
-    '--cover-package=diauma,webpage,maps',
+    '--cover-package=diauma,webpage,maps,files',
     '--cover-html',             # generate a html cover report
     '--nocapture',              # needed to show print output in console
     '--nologcapture',           # needed to show print output in console
