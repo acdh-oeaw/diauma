@@ -1,6 +1,8 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div, HTML
+from django.conf import settings
+from django.template.defaultfilters import filesizeformat
 
 from maps.forms import BaseForm
 from maps.models import Type
@@ -22,12 +24,11 @@ class FileForm(BaseForm):
         selected_ids = [o.id for o in instance.file_type.all()] if instance else []
         nodes_html = self.get_nodes_html(Type.objects.get(name='File', parent=None), selected_ids)
 
-        # To do: better way to exclude fields at update (file in this case) than a long if/else
+        # Todo: better way to exclude fields at update (file in this case) than a long if/else
         if instance and instance.pk:
             self.fields['file'].widget.attrs['disabled'] = True
             self.helper.layout = Layout(
-                Div(
-                    HTML('<div class="form-header">File data</div>'),
+                Div(HTML('<div class="form-header">File data</div>'),
                     'name',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">Types</div>'),
@@ -36,9 +37,13 @@ class FileForm(BaseForm):
                 Div('file_type', 'file', css_class='hidden'))
         else:
             self.helper.layout = Layout(
-                Div(
-                    HTML('<div class="form-header">File data</div>'),
+                Div(HTML('<div class="form-header">File data</div>'),
                     'file',
+                    HTML(
+                        '<p>Max file size: ' + filesizeformat(settings.ALLOWED_UPLOAD_SIZE) +
+                        '<br />' + 'Allowed files: ' +
+                        ', '.join(settings.ALLOWED_UPLOAD_EXTENSIONS) + '</p>'
+                    ),
                     'name',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">Types</div>'),
@@ -47,7 +52,7 @@ class FileForm(BaseForm):
                 Div('file_type', css_class='hidden'))
 
 
-# To do: inherit from FileForm?
+# Todo: inherit from FileForm?
 class ScanForm(FileForm):
 
     class Meta:
@@ -62,8 +67,7 @@ class ScanForm(FileForm):
         selected_ids = [o.id for o in instance.file_type.all()] if instance else []
         nodes_html = self.get_nodes_html(Type.objects.get(name='File', parent=None), selected_ids)
         self.helper.layout = Layout(
-            Div(
-                HTML('<div class="form-header">File data</div>'),
+            Div(HTML('<div class="form-header">File data</div>'),
                 'file' if instance and instance.pk else '',
                 'name',
                 css_class='form-float'),

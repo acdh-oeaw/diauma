@@ -37,7 +37,7 @@ def truncate_string(string, length=40, title=True):
 
 
 def get_related_items(node):
-    # To do: refactor to only get relevant entities and not search everywhere
+    # Todo: refactor to only get relevant entities and not search everywhere
     items_place = Place.objects.filter(place_type=node)
     items_reference = Reference.objects.filter(reference_type=node)
     items_institute = Institute.objects.filter(institute_type=node)
