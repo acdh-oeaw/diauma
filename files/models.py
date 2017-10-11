@@ -28,7 +28,18 @@ class File(BaseModel):
         return self.name
 
 
-class Scan(File):
+class Scan(BaseModel):
+    name = models.CharField(max_length=255)
+    scan = models.ImageField(
+        upload_to='scan/',
+        validators=[
+            file_size,
+            FileExtensionValidator(allowed_extensions=settings.ALLOWED_SCAN_EXTENSIONS)])
+    scan_type = models.ManyToManyField(Type, blank=True, related_name='scan_type')
+    info = models.TextField(blank=True)
     scan_person = models.ManyToManyField(Person, blank=True, related_name='scan_creator')
     scan_map = models.ForeignKey(Map, blank=True, null=True, related_name='scan_map')
     scan_date = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name

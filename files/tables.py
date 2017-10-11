@@ -45,3 +45,41 @@ class FileTable(tables.Table):
         if record.created_date:
             html = format_date(record.created_date, '%Y-%m-%d')
         return html
+
+
+class ScanTable(tables.Table):
+
+    class Meta:
+        model = Type
+        attrs = {'class': 'paleblue'}
+        fields = ['created_date', 'name', 'scan', 'modified_date', 'info']
+        order_by = '-created_date'
+
+    def __init__(self, *args, c1_name="", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.base_columns['created_date'].verbose_name = 'Uploaded'
+        self.base_columns['scan'].verbose_name = 'Size'
+        self.base_columns['modified_date'].verbose_name = 'Type'
+
+    @staticmethod
+    def render_modified_date(record):
+        return get_mime_type(record.scan.name)
+
+    @staticmethod
+    def render_scan(record):
+        return filesizeformat(record.scan.size)
+
+    @staticmethod
+    def render_name(record):
+        return link(record)
+
+    @staticmethod
+    def render_info(record):
+        return mark_safe(truncate_string(record.info, 16))
+
+    @staticmethod
+    def render_created_date(record):
+        html = '-'
+        if record.created_date:
+            html = format_date(record.created_date, '%Y-%m-%d')
+        return html

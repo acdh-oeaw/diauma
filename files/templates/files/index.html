@@ -12,6 +12,7 @@
         <a class="button" href="{% url 'files:file-create' %}">File +</a>
         <a class="button" href="{% url 'files:scan-create' %}">Scan +</a>
     </div>
-    {% render_table file_table %}
+    {% render_table tables.files %}
+    {% render_table tables.scans %}
 </div>
 {% endblock %}

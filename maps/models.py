@@ -113,6 +113,7 @@ class Map(BaseModel):
     map_base = models.ForeignKey('self', blank=True, null=True, related_name='base')
     map_type = models.ManyToManyField(Type, blank=True, related_name='map_type')
     map_file = models.ManyToManyField('files.File', blank=True, related_name='map_file')
+    map_scan = models.ManyToManyField('files.Scan', blank=True, related_name='map_scan')
 
     def __str__(self):
         return self.name

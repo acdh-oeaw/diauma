@@ -1,0 +1,25 @@
+{% extends "webpage/layout.html" %}
+{% load django_bootstrap_breadcrumbs %}
+{% load crispy_forms_tags %}
+{% block title %}Diauma - Files{% endblock %}
+{% block content %}
+    <div class="container">
+        {% block breadcrumbs %}
+            {% breadcrumb "Files" "files:files-index" %}
+            {% breadcrumb_safe object.name|truncate_string "files:file-detail" object.id %}
+            {% breadcrumb "Update" '' %}
+        {% endblock %}
+        <div class="panel-body">
+            {% crispy form %}
+        </div>
+    </div>
+    <script>
+        $('#id_file').on("change", function() {
+            /* if name is empty, fill with filename without the extension */
+            if ($('#id_name').val() == '') {
+                var filename = $('#id_file')[0].files.length ? $('#id_file')[0].files[0].name : '';
+                $('#id_name').val(filename.replace(/\.[^/.]+$/, ""));
+            }
+        });
+    </script>
+{% endblock %}
