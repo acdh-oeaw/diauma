@@ -1,6 +1,7 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from dal import autocomplete
 from .models import Person, Institute, Reference, Place, Map
+from files.models import File
 
 
 class PersonsAutocomplete(autocomplete.Select2QuerySetView):
@@ -9,7 +10,6 @@ class PersonsAutocomplete(autocomplete.Select2QuerySetView):
         queryset = Person.objects.all()
         if self.q:
             queryset = queryset.filter(name__icontains=self.q)
-
         return queryset
 
 
@@ -19,7 +19,6 @@ class ReferencesAutocomplete(autocomplete.Select2QuerySetView):
         queryset = Reference.objects.all()
         if self.q:
             queryset = queryset.filter(name__icontains=self.q)
-
         return queryset
 
 
@@ -29,7 +28,6 @@ class InstituteAutocomplete(autocomplete.Select2QuerySetView):
         queryset = Institute.objects.all()
         if self.q:
             queryset = queryset.filter(name__icontains=self.q)
-
         return queryset
 
 
@@ -39,7 +37,6 @@ class PlaceAutocomplete(autocomplete.Select2QuerySetView):
         queryset = Place.objects.all()
         if self.q:
             queryset = queryset.filter(name__icontains=self.q)
-
         return queryset
 
 
@@ -49,5 +46,13 @@ class MapAutocomplete(autocomplete.Select2QuerySetView):
         queryset = Map.objects.all()
         if self.q:
             queryset = queryset.filter(name__icontains=self.q)
+        return queryset
 
+
+class FileAutocomplete(autocomplete.Select2QuerySetView):
+
+    def get_queryset(self):
+        queryset = File.objects.all()
+        if self.q:
+            queryset = queryset.filter(name__icontains=self.q)
         return queryset

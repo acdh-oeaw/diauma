@@ -24,6 +24,9 @@ class File(BaseModel):
     file_type = models.ManyToManyField(Type, blank=True, related_name='file_type')
     info = models.TextField(blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Scan(File):
     scan_person = models.ManyToManyField(Person, blank=True, related_name='scan_creator')

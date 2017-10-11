@@ -27,7 +27,8 @@ class BaseForm(forms.ModelForm):
                         <label class="optional" for="{field}-button">{node_name}</label>
                     </div>
                     <div class="table-cell">
-                        <input type="hidden" name="{field}-id" value="{selected_ids_string}" id="{field}-id" />
+                        <input type="hidden" name="{field}-id"
+                            value="{selected_ids_string}" id="{field}-id" />
                         <span id="{field}-button" class="button">Change</span><br />
                         <div style="text-align:left;" id="{field}-selection">
                             {selected_name_string}
@@ -80,6 +81,7 @@ class MapForm(BaseForm):
             'map_copy',
             'map_base',
             'map_type',
+            'map_file',
             'info',
             'title',
             'scale',
@@ -116,6 +118,9 @@ class MapForm(BaseForm):
             'map_copy': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
                 attrs={'data-placeholder': 'Type for available maps'}),
+            'map_file': autocomplete.ModelSelect2Multiple(
+                url='maps-ac:file-autocomplete',
+                attrs={'data-placeholder': 'Type for available files'}),
             'map_base': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
                 attrs={'data-placeholder': 'Type for available maps'})}
@@ -124,6 +129,7 @@ class MapForm(BaseForm):
         super(MapForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
+        self.fields['map_file'].label = 'Files'
         self.fields['map_persons'].label = 'Created by'
         self.fields['map_institute'].label = 'Published by'
         self.fields['map_references'].label = 'Referenced by'
@@ -143,8 +149,7 @@ class MapForm(BaseForm):
         selected_ids = [o.id for o in instance.map_type.all()] if instance else []
         nodes_html = self.get_nodes_html(Type.objects.get(name='Map', parent=None), selected_ids)
         self.helper.layout = Layout(
-            Div(HTML(
-                '<div class="form-header">Map data</div>'),
+            Div(HTML('<div class="form-header">Map data</div>'),
                 'name',
                 'map_id',
                 'title',
@@ -160,8 +165,8 @@ class MapForm(BaseForm):
                 HTML('<br /><p>Use ** fields to define a time span.</p>'),
                 HTML('</div><div style="clear:both;"></div>'),
                 css_class='form-float'),
-            Div(HTML(
-                '<div class="form-header">Links</div>'),
+            Div(HTML('<div class="form-header">Links</div>'),
+                'map_file',
                 'map_base',
                 'map_copy',
                 'map_persons',
@@ -180,7 +185,8 @@ class PersonForm(BaseForm):
 
     class Meta:
         model = Person
-        fields = ('name', 'info', 'date_begin', 'date_end', 'person_location', 'person_institutes', 'person_type')
+        fields = ('name', 'info', 'date_begin', 'date_end', 'person_location',
+                  'person_institutes', 'person_type')
         widgets = {
             'date_begin': forms.DateInput(
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
@@ -236,7 +242,8 @@ class InstituteForm(BaseForm):
         self.helper.add_input(Submit('submit', 'Submit'))
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.institute_type.all()] if instance else []
-        nodes_html = self.get_nodes_html(Type.objects.get(name='Institute', parent=None), selected_ids)
+        nodes_html = self.get_nodes_html(
+            Type.objects.get(name='Institute', parent=None), selected_ids)
         self.helper.layout = Layout(
             Div(
                 HTML('<div class="form-header">Institute data</div>'),
@@ -287,7 +294,8 @@ class ReferenceForm(BaseForm):
         self.helper.add_input(Submit('submit', 'Submit'))
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.reference_type.all()] if instance else []
-        nodes_html = self.get_nodes_html(Type.objects.get(name='Reference', parent=None), selected_ids)
+        nodes_html = self.get_nodes_html(
+            Type.objects.get(name='Reference', parent=None), selected_ids)
         self.helper.layout = Layout(
             Div(
                 HTML('<div class="form-header">Reference data</div>'),
