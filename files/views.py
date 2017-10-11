@@ -12,7 +12,8 @@ from django_tables2 import RequestConfig
 from files.forms import FileForm, ScanForm
 from files.models import File, Scan
 from files.tables import FileTable
-from maps.models import Type
+from maps.models import Type, Map
+from maps.tables import MapTable
 from maps.util import get_selected_nodes
 
 
@@ -26,8 +27,12 @@ def index(request):
 @login_required
 def detail(request, pk):
     file = File.objects.get(pk=pk)
+    tables = {}
+    tables['maps'] = MapTable(Map.objects.filter(map_file=file))
+    tables['maps'].tab = '#maps'
     return render(request, 'files/detail.html', {
         'file': file,
+        'tables': tables,
         'types': Type.objects.filter(file_type=file)})
 
 

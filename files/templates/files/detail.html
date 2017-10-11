@@ -2,6 +2,7 @@
 {% load django_bootstrap_breadcrumbs %}
 {% load files_extras %}
 {% load maps_extras %}
+{% load render_table from django_tables2 %}
 {% block title %}Diauma - Files{% endblock %}
 {% block content %}
 {% load crispy_forms_tags %}
@@ -14,6 +15,11 @@
         <li id="overview-tab-header">
             <a href="#overview" data-toggle="tab">Overview</a>
         </li>
+        {% if tables.maps.data|length > 0 %}
+            <li id="maps-tab-header">
+                <a href="#maps" data-toggle="tab">Maps</a>
+            </li>
+        {% endif %}
     </ul>
     <div class="tab-content clearfix">
         <div class="tab-pane" id="overview">
@@ -40,6 +46,11 @@
                 {{ file|display_dates }}
             </div>
         </div>
+        {% if tables.maps.data|length > 0 %}
+            <div class="tab-pane" id="maps">
+                {% render_table tables.maps %}
+            </div>
+        {% endif %}
     </div>
 </div>
 <script>
