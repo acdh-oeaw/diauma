@@ -63,11 +63,11 @@ class ScanTable(tables.Table):
 
     @staticmethod
     def render_modified_date(record):
-        return get_mime_type(record.scan.name)
+        return get_mime_type(record.file.name)
 
     @staticmethod
     def render_scan(record):
-        return filesizeformat(record.scan.size)
+        return filesizeformat(record.file.size)
 
     @staticmethod
     def render_name(record):

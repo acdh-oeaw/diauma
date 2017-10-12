@@ -9,10 +9,16 @@
         {% breadcrumb "Files" "files:files-index" %}
     {% endblock %}
     <div class="button-bar">
-        <a class="button" href="{% url 'files:file-create' %}">File +</a>
         <a class="button" href="{% url 'files:scan-create' %}">Scan +</a>
+        <a class="button" href="{% url 'files:file-create' %}">File +</a>
     </div>
-    {% render_table tables.files %}
-    {% render_table tables.scans %}
+    {% if tables.scans.data %}
+        <h3>Scans</h3>
+        {% render_table tables.scans %}
+    {% endif %}
+    {% if tables.files.data %}
+        <h3>Files</h3>
+        {% render_table tables.files %}
+    {% endif %}
 </div>
 {% endblock %}

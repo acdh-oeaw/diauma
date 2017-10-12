@@ -10,8 +10,8 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from annoying.functions import get_object_or_None
 from django_tables2 import RequestConfig
 
-from files.models import File
-from files.tables import FileTable
+from files.models import File, Scan
+from files.tables import FileTable, ScanTable
 from maps.forms import MapForm
 from maps.models import Map, Person, Institute, Reference, Place, Type
 from maps.tables import MapTable
@@ -40,10 +40,12 @@ def detail(request, pk):
     tables = {}
     tables['copies'] = MapTable(Map.objects.filter(map_copy_id=map_))
     tables['copies'].tab = '#copies'
-    tables['base_table'] = MapTable(Map.objects.filter(map_base_id=map_))
-    tables['base_table'].tab = '#base'
+    tables['base'] = MapTable(Map.objects.filter(map_base_id=map_))
+    tables['base'].tab = '#base'
     tables['files'] = FileTable(File.objects.filter(map_file=map_))
     tables['files'].tab = '#files'
+    tables['scans'] = ScanTable(Scan.objects.filter(map_scan=map_))
+    tables['scans'].tab = '#files'
     for name, table in tables.items():
         RequestConfig(request,
             paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)

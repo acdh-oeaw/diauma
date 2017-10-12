@@ -82,6 +82,7 @@ class MapForm(BaseForm):
             'map_base',
             'map_type',
             'map_file',
+            'map_scan',
             'info',
             'title',
             'scale',
@@ -121,6 +122,9 @@ class MapForm(BaseForm):
             'map_file': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:file-autocomplete',
                 attrs={'data-placeholder': 'Type for available files'}),
+            'map_scan': autocomplete.ModelSelect2Multiple(
+                url='maps-ac:scan-autocomplete',
+                attrs={'data-placeholder': 'Type for available files'}),
             'map_base': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
                 attrs={'data-placeholder': 'Type for available maps'})}
@@ -130,6 +134,7 @@ class MapForm(BaseForm):
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
         self.fields['map_file'].label = 'Files'
+        self.fields['map_scan'].label = 'Scans'
         self.fields['map_persons'].label = 'Created by'
         self.fields['map_institute'].label = 'Published by'
         self.fields['map_references'].label = 'Referenced by'
@@ -167,6 +172,7 @@ class MapForm(BaseForm):
                 css_class='form-float'),
             Div(HTML('<div class="form-header">Links</div>'),
                 'map_file',
+                'map_scan',
                 'map_base',
                 'map_copy',
                 'map_persons',

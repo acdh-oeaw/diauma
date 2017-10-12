@@ -84,7 +84,7 @@ class ScanForm(BaseForm):
 
     class Meta:
         model = Scan
-        fields = ('name', 'info', 'scan_type', 'scan', 'maps')
+        fields = ('name', 'info', 'scan_type', 'file', 'maps')
 
     def __init__(self, *args, **kwargs):
         super(ScanForm, self).__init__(*args, **kwargs)
@@ -98,7 +98,7 @@ class ScanForm(BaseForm):
         nodes_html = self.get_nodes_html(Type.objects.get(name='Scan', parent=None), selected_ids)
 
         if instance and instance.pk:
-            self.fields['scan'].widget.attrs['disabled'] = True
+            self.fields['file'].widget.attrs['disabled'] = True
             self.helper.layout = Layout(
                 Div(HTML('<div class="form-header">Scan data</div>'),
                     'name',
@@ -110,7 +110,7 @@ class ScanForm(BaseForm):
         else:
             self.helper.layout = Layout(
                 Div(HTML('<div class="form-header">Scan data</div>'),
-                    'scan',
+                    'file',
                     HTML(
                         '<p>Max file size: ' + filesizeformat(settings.ALLOWED_SCAN_SIZE) +
                         '<br />' + 'Allowed files: ' +

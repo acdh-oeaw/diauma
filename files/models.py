@@ -30,7 +30,7 @@ class File(BaseModel):
 
 class Scan(BaseModel):
     name = models.CharField(max_length=255)
-    scan = models.ImageField(
+    file = models.ImageField(
         upload_to='scan/',
         validators=[
             file_size,

@@ -2,8 +2,7 @@
 from django.conf.urls import url
 from . import dal_views
 from .models import Person, Institute, Reference, Place, Map
-from files.models import File
-
+from files.models import File, Scan
 
 urlpatterns = [
     url(r'^persons-autocomplete/$',
@@ -24,4 +23,6 @@ urlpatterns = [
     url(r'^file-autocomplete/$',
         dal_views.FileAutocomplete.as_view(model=File),
         name='file-autocomplete'),
-]
+    url(r'^scan-autocomplete/$',
+        dal_views.ScanAutocomplete.as_view(model=Scan),
+        name='scan-autocomplete')]

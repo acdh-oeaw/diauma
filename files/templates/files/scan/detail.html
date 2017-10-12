@@ -7,7 +7,7 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% block breadcrumbs %}
-    {% breadcrumb "Scans" "files:files-index" %}
+    {% breadcrumb "Files" "files:files-index" %}
     {% breadcrumb_safe scan.name|truncate_string '' %}
 {% endblock %}
 <div class="container">
@@ -34,8 +34,8 @@
             <div>
                 <div class="detail-column">
                     <h3>Information</h3>
-                    <p>File size: {{ scan.scan.size|filesizeformat }}</p>
-                    <p>File type: {{ scan.scan.name|mime_type }}</p>
+                    <p>File size: {{ scan.file.size|filesizeformat }}</p>
+                    <p>File type: {{ scan.file.name|mime_type }}</p>
                     {% include "maps/types_for_detail_view.html" %}
                 </div>
                 <div class="detail-column">

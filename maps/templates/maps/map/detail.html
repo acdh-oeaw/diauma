@@ -14,21 +14,19 @@
             <li id="overview-tab-header">
                 <a href="#overview" data-toggle="tab">Overview</a>
             </li>
-            {% if tables.copies.data|length > 0 %}
+            {% if tables.copies.data %}
                 <li id="copies-tab-header">
                     <a href="#copies" data-toggle="tab">Copies</a>
                 </li>
             {% endif %}
-            {% if tables.base.data|length > 0 %}
+            {% if tables.base.data %}
                 <li id="base-tab-header">
                     <a href="#base" data-toggle="tab">Base for</a>
                 </li>
             {% endif %}
-            {% if tables.files.data|length > 0 %}
-                <li id="files-tab-header">
-                    <a href="#files" data-toggle="tab">Files</a>
-                </li>
-            {% endif %}
+            <li id="files-tab-header">
+                <a href="#files" data-toggle="tab">Files</a>
+            </li>
         </ul>
         <div class="tab-content clearfix">
             <div class="tab-pane" id="overview">
@@ -104,21 +102,26 @@
                 {{ map|display_info }}
                 {{ map|display_dates }}
             </div>
-            {% if tables.copies.data|length > 0 %}
+            {% if tables.copies.data %}
                 <div class="tab-pane" id="copies">
                     {% render_table tables.copies %}
                 </div>
             {% endif %}
-            {% if tables.base.data|length > 0 %}
+            {% if tables.base.data %}
                 <div class="tab-pane" id="base">
                     {% render_table tables.base %}
                 </div>
             {% endif %}
-            {% if tables.files.data|length > 0 %}
-                <div class="tab-pane" id="files">
+            <div class="tab-pane" id="files">
+                {% if tables.scans.data %}
+                    <h3>Scans</h3>
+                    {% render_table tables.scans %}
+                {% endif %}
+                {% if tables.files.data %}
+                    <h3>Files</h3>
                     {% render_table tables.files %}
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
     </div>
     <script>
