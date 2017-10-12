@@ -36,7 +36,7 @@ def detail(request, pk):
     for publisher in Institute.objects.filter(publisher=map_):
         links['publishers'].append(link(publisher))
     for file in File.objects.filter(map_file=map_):
-        links['maps'].append(link(file))
+        links['maps'].append(link(file))  # pragma: no cover
     tables = {}
     tables['copies'] = MapTable(Map.objects.filter(map_copy_id=map_))
     tables['copies'].tab = '#copies'
@@ -47,8 +47,8 @@ def detail(request, pk):
     tables['scans'] = ScanTable(Scan.objects.filter(map_scan=map_))
     tables['scans'].tab = '#files'
     for name, table in tables.items():
-        RequestConfig(request,
-            paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
+        RequestConfig(
+            request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     return render(request, 'maps/map/detail.html', {
         'map': map_,
         'links': links,

@@ -14,7 +14,7 @@ def display_image(file):
         html += '<img class="preview" src="' + file.file.url + '" alt="No preview available." />'
         html += '</a>'
         return mark_safe(html)
-    return mark_safe('<p style="margin-top:1em;">No preview available.</p>')
+    return mark_safe('<p style="margin-top:1em;">No preview available.</p>')   # pragma: no cover
 
 
 @register.filter(name='mime_type')

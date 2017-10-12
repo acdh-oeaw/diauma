@@ -24,6 +24,10 @@ class File(BaseModel):
     file_type = models.ManyToManyField(Type, blank=True, related_name='file_type')
     info = models.TextField(blank=True)
 
+    def delete(self, using=None, keep_parents=False):
+        self.file.delete()
+        super(File, self).delete(using, keep_parents)
+
     def __str__(self):
         return self.name
 
@@ -40,6 +44,10 @@ class Scan(BaseModel):
     scan_person = models.ManyToManyField(Person, blank=True, related_name='scan_creator')
     scan_map = models.ForeignKey(Map, blank=True, null=True, related_name='scan_map')
     scan_date = models.DateField(blank=True, null=True)
+
+    def delete(self, using=None, keep_parents=False):
+        self.file.delete()
+        super(Scan, self).delete(using, keep_parents)
 
     def __str__(self):
         return self.name

@@ -52,13 +52,13 @@ class ScanTable(tables.Table):
     class Meta:
         model = Type
         attrs = {'class': 'paleblue'}
-        fields = ['created_date', 'name', 'scan', 'modified_date', 'info']
+        fields = ['created_date', 'name', 'file', 'modified_date', 'info']
         order_by = '-created_date'
 
     def __init__(self, *args, c1_name="", **kwargs):
         super().__init__(*args, **kwargs)
         self.base_columns['created_date'].verbose_name = 'Uploaded'
-        self.base_columns['scan'].verbose_name = 'Size'
+        self.base_columns['file'].verbose_name = 'Size'
         self.base_columns['modified_date'].verbose_name = 'Type'
 
     @staticmethod
@@ -66,7 +66,7 @@ class ScanTable(tables.Table):
         return get_mime_type(record.file.name)
 
     @staticmethod
-    def render_scan(record):
+    def render_file(record):
         return filesizeformat(record.file.size)
 
     @staticmethod
