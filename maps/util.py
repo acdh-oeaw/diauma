@@ -1,8 +1,8 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import re
-from itertools import chain
 
 from django.urls import reverse
+from itertools import chain
 from markupsafe import Markup
 from maps.models import Type, Place, Reference, Institute, Map, Person
 
@@ -37,11 +37,12 @@ def truncate_string(string, length=40, title=True):
 
 
 def get_related_items(node):
-    # To do: refactor to only get relevant entities and not search everywhere
+    # Todo: refactor to only get relevant entities and not search everywhere
     items_place = Place.objects.filter(place_type=node)
     items_reference = Reference.objects.filter(reference_type=node)
     items_institute = Institute.objects.filter(institute_type=node)
     items_map = Map.objects.filter(map_type=node)
     items_person = Person.objects.filter(person_type=node)
-    related_items = list(chain(items_map, items_person, items_institute, items_reference, items_place))
+    related_items = list(
+        chain(items_map, items_person, items_institute, items_reference, items_place))
     return related_items

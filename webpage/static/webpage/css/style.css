@@ -143,7 +143,8 @@ input[type='number'] {
     -moz-appearance:textfield;
 }
 
-input[type="submit"], button, .submit, a.button, span.button, #buttonBar a, .buttonBar a, #breadcrumb {
+input[type="submit"], button, .submit, a.button, span.button,
+#buttonBar a, .buttonBar a, #breadcrumb {
     background-color: #4088c3;
 }
 
@@ -189,7 +190,6 @@ textarea, input[type="password"], select {
 h3 {
     font-size: 1.2em;
     font-weight: bold;
-    margin-bottom: 1em;
 }
 
 footer {
@@ -202,6 +202,12 @@ footer {
     right: 0;
     width: 100%;
     margin-top: 10px;
+}
+
+img.preview {
+    max-width: 600px;
+    max-height: 400px;
+    margin-top: 1em;
 }
 
 legend {

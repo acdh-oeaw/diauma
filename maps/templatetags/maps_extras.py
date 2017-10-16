@@ -1,3 +1,4 @@
+# Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django import template
 from django.utils.html import linebreaks
 from django.utils.safestring import mark_safe

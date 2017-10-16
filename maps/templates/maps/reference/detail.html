@@ -18,13 +18,15 @@
         <div class="tab-content clearfix">
             <div id="overview" class="tab-pane">
                 <div class="button-bar">
-                    <a class="button" href="{% url 'maps:reference-update' reference.id %}">Update</a>
+                    <a class="button" href="{% url 'maps:reference-update' reference.id %}">
+                        Update
+                    </a>
                     <form method="POST" action="{% url 'maps:reference-delete' reference.id %}">
                         {% csrf_token %}
                         <input id="delete-reference" type="submit" value="Delete">
                     </form>
                 </div>
-                <h3>{{ reference.name }}</h3>
+                <h2>{{ reference.name }}</h2>
                 {% include "../types_for_detail_view.html" %}
                 <div style="clear:both;"></div>
                 {{ reference|display_info }}

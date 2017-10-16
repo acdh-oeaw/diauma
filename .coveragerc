@@ -4,9 +4,11 @@ omit =
     maps/migrations/*
     # omit settings
     diauma/settings/base.py
-    # omit models, maybe enable if custom functions are used?
-    maps/models.py
-    # omit admin, , maybe enable if custom functions are used?
+    # omit admin, models and forms because it messes up coverage (Django is inapt with this things)
     maps/admin.py
+    maps/forms.py
+    maps/models.py
+    files/forms.py
+    files/models.py
     # omit autocomplete views, maybe possible but too cumbersome to test for now
     maps/dal_views.py

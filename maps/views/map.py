@@ -6,10 +6,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from annoying.functions import get_object_or_None
 from django_tables2 import RequestConfig
 
+from files.models import File, Scan
+from files.tables import FileTable, ScanTable
 from maps.forms import MapForm
 from maps.models import Map, Person, Institute, Reference, Place, Type
 from maps.tables import MapTable
@@ -26,34 +28,36 @@ def index(request):
 @login_required
 def detail(request, pk):
     map_ = Map.objects.get(pk=pk)
-    authors = []
+    links = {'authors': [], 'references': [], 'publishers': [], 'maps': []}
     for author in Person.objects.filter(author=map_):
-        authors.append(link(author))
-    references = []
+        links['authors'].append(link(author))
     for reference in Reference.objects.filter(reference=map_):
-        references.append(link(reference))
-    publishers = []
+        links['references'].append(link(reference))
     for publisher in Institute.objects.filter(publisher=map_):
-        publishers.append(link(publisher))
-    copies_table = MapTable(Map.objects.filter(map_copy_id=map_))
-    copies_table.tab = '#copies'
-    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(copies_table)
-    base_table = MapTable(Map.objects.filter(map_base_id=map_))
-    base_table.tab = '#base'
-    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(base_table)
+        links['publishers'].append(link(publisher))
+    for file in File.objects.filter(map_file=map_):
+        links['maps'].append(link(file))  # pragma: no cover
+    tables = {}
+    tables['copies'] = MapTable(Map.objects.filter(map_copy_id=map_))
+    tables['copies'].tab = '#copies'
+    tables['base'] = MapTable(Map.objects.filter(map_base_id=map_))
+    tables['base'].tab = '#base'
+    tables['files'] = FileTable(File.objects.filter(map_file=map_))
+    tables['files'].tab = '#files'
+    tables['scans'] = ScanTable(Scan.objects.filter(map_scan=map_))
+    tables['scans'].tab = '#files'
+    for name, table in tables.items():
+        RequestConfig(
+            request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     return render(request, 'maps/map/detail.html', {
         'map': map_,
-        'authors': authors,
-        'references': references,
-        'publishers': publishers,
+        'links': links,
+        'tables': tables,
         'issued_at': get_object_or_None(Place, issued=map_),
         'location_at': get_object_or_None(Place, map_location=map_),
         'copy_of': get_object_or_None(Map, copy=map_),
         'has_base': get_object_or_None(Map, base=map_),
-        'copies_table': copies_table,
-        'base_table': base_table,
-        'types': Type.objects.filter(map_type=map_),
-    })
+        'types': Type.objects.filter(map_type=map_)})
 
 
 class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
