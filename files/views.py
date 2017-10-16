@@ -31,8 +31,7 @@ def index(request):
 @login_required
 def file_detail(request, pk):
     file = File.objects.get(pk=pk)
-    tables = {}
-    tables['maps'] = MapTable(Map.objects.filter(map_file=file))
+    tables = {'maps': MapTable(Map.objects.filter(map_file=file))}
     tables['maps'].tab = '#maps'
     return render(request, 'files/file/detail.html', {
         'file': file,
@@ -43,8 +42,7 @@ def file_detail(request, pk):
 @login_required
 def scan_detail(request, pk):
     scan = Scan.objects.get(pk=pk)
-    tables = {}
-    tables['maps'] = MapTable(Map.objects.filter(map_scan=scan))
+    tables = {'maps': MapTable(Map.objects.filter(map_scan=scan))}
     tables['maps'].tab = '#maps'
     return render(request, 'files/scan/detail.html', {
         'scan': scan,

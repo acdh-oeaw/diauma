@@ -1,5 +1,6 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import django_tables2 as tables
+from django.core.files.storage import default_storage
 from django.template.defaultfilters import filesizeformat
 from django.utils.safestring import mark_safe
 
@@ -29,7 +30,9 @@ class FileTable(tables.Table):
 
     @staticmethod
     def render_file(record):
-        return filesizeformat(record.file.size)
+        if default_storage.exists(record.file):
+            return filesizeformat(record.file.size)
+        return mark_safe('<span class="error">Missing file!</span>')
 
     @staticmethod
     def render_name(record):
@@ -67,7 +70,9 @@ class ScanTable(tables.Table):
 
     @staticmethod
     def render_file(record):
-        return filesizeformat(record.file.size)
+        if default_storage.exists(record.file):
+            return filesizeformat(record.file.size)
+        return mark_safe('<span class="error">Missing file!</span>')
 
     @staticmethod
     def render_name(record):

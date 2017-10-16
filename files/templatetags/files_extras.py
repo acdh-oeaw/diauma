@@ -1,5 +1,6 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django import template
+from django.core.files.storage import default_storage
 from django.utils.safestring import mark_safe
 
 from files import util
@@ -20,3 +21,10 @@ def display_image(file):
 @register.filter(name='mime_type')
 def mime_type(file_name):
     return util.get_mime_type(file_name)
+
+
+@register.filter(name='file_exists')
+def file_exists(path):
+    if default_storage.exists(path):
+        return True
+    return False
