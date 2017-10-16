@@ -19,8 +19,8 @@ def index(request):
         edges += add_edge(entity, Person.objects.filter(author=entity))
         edges += add_edge(entity, Institute.objects.filter(publisher=entity))
         edges += add_edge(entity, Reference.objects.filter(reference=entity))
-        edges += add_edge(entity, Place.objects.filter(issued=entity))
-        edges += add_edge(entity, Place.objects.filter(map_location=entity))
+        # edges += add_edge(entity, Place.objects.filter(issued=entity))
+        # edges += add_edge(entity, Place.objects.filter(map_location=entity))
         edges += add_edge(entity, Map.objects.filter(copy=entity))
         edges += add_edge(entity, Map.objects.filter(base=entity))
 
@@ -29,15 +29,15 @@ def index(request):
 
     for entity in Person.objects.all():
         nodes += add_node(entity, '#ffa500')
-        edges += add_edge(entity, Place.objects.filter(person_location=entity))
+        # edges += add_edge(entity, Place.objects.filter(person_location=entity))
         edges += add_edge(entity, Institute.objects.filter(person_institutes=entity))
 
     for entity in Institute.objects.all():
         nodes += add_node(entity, '#ee82ee')
-        edges += add_edge(entity, Place.objects.filter(institute_location=entity))
+        # edges += add_edge(entity, Place.objects.filter(institute_location=entity))
 
-    for entity in Place.objects.all():
-        nodes += add_node(entity, '#4088c3')
+    # for entity in Place.objects.all():
+    #    nodes += add_node(entity, '#4088c3')
 
     network_data = "graph = {'nodes': [" + nodes + "], links: [" + edges + "]};"
     return render(
