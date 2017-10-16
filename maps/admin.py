@@ -5,12 +5,12 @@ from mptt.admin import DraggableMPTTAdmin
 from .models import Map, Institute, Place, Person, Reference, Type
 from files.models import File
 
-# from files.forms import FileForm
+from files.forms import FileForm
 
 
-# class FileAdmin(admin.ModelAdmin):
-#     form = FileForm
-#    fieldsets = ((None, {'fields': ('name', 'info', 'file_type', 'file', 'maps')}),)
+class FileAdmin(admin.ModelAdmin):
+    form = FileForm
+    fieldsets = ((None, {'fields': ('name', 'info', 'file_type', 'file', 'maps')}),)
 
 
 class DiaumaDraggableMPTTAdmin(DraggableMPTTAdmin):
@@ -25,7 +25,7 @@ class DiaumaDraggableMPTTAdmin(DraggableMPTTAdmin):
             instance.name,)
 
 
-# admin.site.register(File, FileAdmin)
+admin.site.register(File, FileAdmin)
 admin.site.register([Map, Institute, Place, Person, Reference])
 admin.site.register(
     Type,
