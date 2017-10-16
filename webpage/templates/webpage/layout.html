@@ -57,10 +57,13 @@
                 <a href="{% url 'maps:changelog' %}">Changelog</a>
             </p>
             {% if user.is_authenticated %}
-                <p>Hello {{ user.get_username }}, <a href="{% url 'webpage:logout' %}">Logout</a></p>
+                <p>
+                    Hello {{ user.get_username }}, <a href="{% url 'webpage:logout' %}">Logout</a>
+                </p>
                 <form id="search-form" action="{% url 'maps:search' %}" method="post">
                     {% csrf_token %}
-                    <input id="search-term" name="search-term" type="text" placeholder="Search" style="color:black;width: 10em;" />
+                    <input id="search-term" name="search-term" type="text" placeholder="Search"
+                           style="color:black;width: 10em;" />
                     <button class="searchbutton" type="submit" style="margin-right:0;">
                         Search
                     </button>
@@ -89,6 +92,9 @@
                 </ul>
                 <ul style="float:right;" class="nav navbar-nav">
                     {% if user.is_authenticated %}
+                        <li class="{% if 'file' in request.resolver_match.url_name %}active{% endif %}">
+                            <a href="{% url 'files:files-index' %}">Files</a>
+                        </li>
                         <li class="{% if 'type' in request.resolver_match.url_name %}active{% endif %}">
                             <a href="{% url 'maps:type' %}">Types</a>
                         </li>

@@ -10,18 +10,28 @@
     {% endblock %}
     <div class="container">
         <ul id="tabs" class="nav nav-tabs">
-            <li id="overview-tab-header"><a href="#overview" data-toggle="tab">Overview</a></li>
+            <li id="overview-tab-header">
+                <a href="#overview" data-toggle="tab">Overview</a>
+            </li>
             {% if person_table.data|length > 0 %}
-                <li id="persons-tab-header"><a href="#persons" data-toggle="tab">Persons</a></li>
+                <li id="persons-tab-header">
+                    <a href="#persons" data-toggle="tab">Persons</a>
+                </li>
             {% endif %}
             {% if institute_table.data|length > 0 %}
-                <li id="institutes-tab-header"><a href="#institutes" data-toggle="tab">Institutes</a></li>
+                <li id="institutes-tab-header">
+                    <a href="#institutes" data-toggle="tab">Institutes</a>
+                </li>
             {% endif %}
             {% if issue_table.data|length > 0 %}
-                <li id="issues-tab-header"><a href="#issues" data-toggle="tab">Issued Maps</a></li>
+                <li id="issues-tab-header">
+                    <a href="#issues" data-toggle="tab">Issued Maps</a>
+                </li>
             {% endif %}
             {% if location_table.data|length > 0 %}
-                <li id="locations-tab-header"><a href="#locations" data-toggle="tab">Located Maps</a></li>
+                <li id="locations-tab-header">
+                    <a href="#locations" data-toggle="tab">Located Maps</a>
+                </li>
             {% endif %}
         </ul>
         <div class="tab-content clearfix">

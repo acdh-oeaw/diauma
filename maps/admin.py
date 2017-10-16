@@ -3,8 +3,14 @@ from django.contrib import admin
 from django.utils.html import format_html
 from mptt.admin import DraggableMPTTAdmin
 from .models import Map, Institute, Place, Person, Reference, Type
+from files.models import File
 
-admin.site.register([Map, Institute, Place, Person, Reference])
+from files.forms import FileForm
+
+
+class FileAdmin(admin.ModelAdmin):
+    form = FileForm
+    fieldsets = ((None, {'fields': ('name', 'info', 'file_type', 'file', 'maps')}),)
 
 
 class DiaumaDraggableMPTTAdmin(DraggableMPTTAdmin):
@@ -17,12 +23,12 @@ class DiaumaDraggableMPTTAdmin(DraggableMPTTAdmin):
             '<div style="text-indent:{}px">{}</div>',
             instance._mpttfield('level') * self.mptt_level_indent,
             instance.name,)
-        indented_name.short_description = 'Name'
 
 
+admin.site.register(File, FileAdmin)
+admin.site.register([Map, Institute, Place, Person, Reference])
 admin.site.register(
     Type,
     DiaumaDraggableMPTTAdmin,
     list_display=('tree_actions', 'indented_name'),
-    list_display_links=('indented_name',),
-)
+    list_display_links=('indented_name',))

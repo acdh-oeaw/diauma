@@ -11,13 +11,22 @@
     {% endblock %}
     <div class="container">
         <ul id="tabs" class="nav nav-tabs">
-            <li id="overview-tab-header"><a href="#overview" data-toggle="tab">Overview</a></li>
-            {% if copies_table.data|length > 0 %}
-                <li id="copies-tab-header"><a href="#copies" data-toggle="tab">Copies</a></li>
+            <li id="overview-tab-header">
+                <a href="#overview" data-toggle="tab">Overview</a>
+            </li>
+            {% if tables.copies.data %}
+                <li id="copies-tab-header">
+                    <a href="#copies" data-toggle="tab">Copies</a>
+                </li>
             {% endif %}
-            {% if base_table.data|length > 0 %}
-                <li id="base-tab-header"><a href="#base" data-toggle="tab">Base for</a></li>
+            {% if tables.base.data %}
+                <li id="base-tab-header">
+                    <a href="#base" data-toggle="tab">Base for</a>
+                </li>
             {% endif %}
+            <li id="files-tab-header">
+                <a href="#files" data-toggle="tab">Files</a>
+            </li>
         </ul>
         <div class="tab-content clearfix">
             <div class="tab-pane" id="overview">
@@ -62,49 +71,57 @@
                         </p>
                     {% endif %}
                 </div>
-                {% if has_base or copy_of or authors or references or issued_at or location_at or publisher %}
-                    <div class="detail-column">
-                        <h3>Links</h3>
-                        {% if has_base %}
-                            <p>Has base map: {{ has_base|link }}</p>
+                <div class="detail-column">
+                    <h3>Links</h3>
+                    {% if has_base %}
+                        <p>Has base map: {{ has_base|link }}</p>
+                    {% endif %}
+                    {% if copy_of %}
+                        <p>Is a copy of: {{ copy_of|link }}</p>
+                    {% endif %}
+                    {% autoescape off %}
+                        {% if links.authors %}
+                            <p>Created by: {{ links.authors|join:', ' }}</p>
                         {% endif %}
-                        {% if copy_of %}
-                            <p>Is a copy of: {{ copy_of|link }}</p>
+                        {% if links.publishers %}
+                            <p>Published by: {{ links.publishers|join:', ' }}</p>
                         {% endif %}
-                        {% autoescape off %}
-                            {% if authors %}
-                                <p>Created by: {{ authors|join:', ' }}</p>
-                            {% endif %}
-                            {% if publishers %}
-                                <p>Published by: {{ publishers|join:', ' }}</p>
-                            {% endif %}
-                            {% if references %}
-                                <p>Reference: {{ references|join:', ' }}</p>
-                            {% endif %}
-                        {% endautoescape %}
-                        {% if issued_at %}
-                            <p>Issued at: {{ issued_at|link }}</p>
+                        {% if links.references %}
+                            <p>Reference: {{ links.references|join:', ' }}</p>
                         {% endif %}
-                        {% if location_at %}
-                            <p>Located at: {{ location_at|link }}</p>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                    {% endautoescape %}
+                    {% if issued_at %}
+                        <p>Issued at: {{ issued_at|link }}</p>
+                    {% endif %}
+                    {% if location_at %}
+                        <p>Located at: {{ location_at|link }}</p>
+                    {% endif %}
+                </div>
                 {% include "../types_for_detail_view.html" %}
                 <div style="clear:both;"></div>
                 {{ map|display_info }}
                 {{ map|display_dates }}
             </div>
-            {% if copies_table.data|length > 0 %}
+            {% if tables.copies.data %}
                 <div class="tab-pane" id="copies">
-                    {% render_table copies_table %}
+                    {% render_table tables.copies %}
                 </div>
             {% endif %}
-            {% if base_table.data|length > 0 %}
+            {% if tables.base.data %}
                 <div class="tab-pane" id="base">
-                    {% render_table base_table %}
+                    {% render_table tables.base %}
                 </div>
             {% endif %}
+            <div class="tab-pane" id="files">
+                {% if tables.scans.data %}
+                    <h3>Scans</h3>
+                    {% render_table tables.scans %}
+                {% endif %}
+                {% if tables.files.data %}
+                    <h3>Files</h3>
+                    {% render_table tables.files %}
+                {% endif %}
+            </div>
         </div>
     </div>
     <script>

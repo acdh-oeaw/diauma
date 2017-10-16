@@ -1,0 +1,65 @@
+{% extends "webpage/layout.html" %}
+{% load django_bootstrap_breadcrumbs %}
+{% load files_extras %}
+{% load maps_extras %}
+{% load render_table from django_tables2 %}
+{% block title %}Diauma - Files{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% block breadcrumbs %}
+    {% breadcrumb "Files" "files:files-index" %}
+    {% breadcrumb_safe file.name|truncate_string '' %}
+{% endblock %}
+<div class="container">
+    <ul id="tabs" class="nav nav-tabs">
+        <li id="overview-tab-header">
+            <a href="#overview" data-toggle="tab">Overview</a>
+        </li>
+        {% if tables.maps.data|length > 0 %}
+            <li id="maps-tab-header">
+                <a href="#maps" data-toggle="tab">Maps</a>
+            </li>
+        {% endif %}
+    </ul>
+    <div class="tab-content clearfix">
+        <div class="tab-pane" id="overview">
+            <div class="button-bar">
+                <a class="button" href="{% url 'files:file-update' file.id %}">Update</a>
+                <form method="POST" action="{% url 'files:file-delete' file.id %}">
+                    {% csrf_token %}<input id="delete-file" type="submit" value="Delete">
+                </form>
+                <a class="button" download target="_blank" href="{{ file.file.url }}">Download</a>
+            </div>
+            <h2>{{ file.name }}</h2>
+            <div>
+                <div class="detail-column">
+                    <h3>Information</h3>
+                    {% if file.file|file_exists %}
+                        <p>File size: {{ file.file.size|filesizeformat }}</p>
+                    {% else %}
+                        <p class="error">This file don't seem to exist!</p>
+                    {% endif %}
+                    <p>File type: {{ file.file.name|mime_type }}</p>
+                    {% include "maps/types_for_detail_view.html" %}
+                </div>
+                <div class="detail-column">
+                    {{ file|display_image }}
+                </div>
+                <div style="clear:both;"></div>
+                {{ file|display_info }}
+                {{ file|display_dates }}
+            </div>
+        </div>
+        {% if tables.maps.data|length > 0 %}
+            <div class="tab-pane" id="maps">
+                {% render_table tables.maps %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+<script>
+    $(document).on('click', '#delete-file', function(){
+        return confirm('Delete {{ file.name }}?');
+    })
+</script>
+{% endblock %}

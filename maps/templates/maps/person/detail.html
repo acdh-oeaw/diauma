@@ -10,9 +10,13 @@
     {% endblock %}
     <div class="container">
         <ul id="tabs" class="nav nav-tabs">
-            <li id="overview-tab-header"><a href="#overview" data-toggle="tab">Overview</a></li>
+            <li id="overview-tab-header">
+                <a href="#overview" data-toggle="tab">Overview</a>
+            </li>
             {% if map_table.data|length > 0 %}
-                <li id="maps-tab-header"><a href="#maps" data-toggle="tab">Maps</a></li>
+                <li id="maps-tab-header">
+                    <a href="#maps" data-toggle="tab">Maps</a>
+                </li>
             {% endif %}
         </ul>
         <div class="tab-content clearfix">
