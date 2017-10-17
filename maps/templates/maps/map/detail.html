@@ -113,12 +113,17 @@
                 </div>
             {% endif %}
             <div class="tab-pane" id="files">
+                <a href="{% url 'files:scan-create' class_name='map' origin_id=map.id %}"
+                    class="button">Scan +</a>
+                <a href="{% url 'files:file-create' class_name='map' origin_id=map.id %}"
+                    class="button">File +</a>
                 {% if tables.scans.data %}
                     <h3>Scans</h3>
                     {% render_table tables.scans %}
                 {% endif %}
                 {% if tables.files.data %}
                     <h3>Files</h3>
+
                     {% render_table tables.files %}
                 {% endif %}
             </div>

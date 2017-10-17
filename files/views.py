@@ -112,6 +112,13 @@ class FileCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = FileForm
     success_message = 'An entry has been created.'
 
+    def get_form(self):
+        form = super(FileCreate, self).get_form(FileForm)
+        if 'origin_id' in self.kwargs and 'class_name' in self.kwargs:
+            if self.kwargs['class_name'] == 'map':
+                form.fields['maps'].initial = Map.objects.get(pk=self.kwargs['origin_id'])
+        return form
+
     def post(self, request, **kwargs):
         request.POST = request.POST.copy()
         request.POST.setlist('file_type', get_selected_nodes('Map', request))
@@ -129,6 +136,13 @@ class ScanCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'files/scan/create.html'
     form_class = ScanForm
     success_message = 'An entry has been created.'
+
+    def get_form(self):
+        form = super(ScanCreate, self).get_form(ScanForm)
+        if 'origin_id' in self.kwargs and 'class_name' in self.kwargs:
+            if self.kwargs['class_name'] == 'map':
+                form.fields['maps'].initial = Map.objects.get(pk=self.kwargs['origin_id'])
+        return form
 
     def post(self, request, **kwargs):
         request.POST = request.POST.copy()
