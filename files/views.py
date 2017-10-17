@@ -19,12 +19,12 @@ from maps.util import get_selected_nodes
 
 @login_required
 def index(request):
-    tables = {}
-    tables['files'] = FileTable(File.objects.all())
-    tables['scans'] = ScanTable(Scan.objects.all())
+    tables = {
+        'files': FileTable(File.objects.all()),
+        'scans': ScanTable(Scan.objects.all())}
     for name, table in tables.items():
-        RequestConfig(request,
-            paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
+        RequestConfig(
+            request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     return render(request, 'files/index.html', {'tables': tables})
 
 
