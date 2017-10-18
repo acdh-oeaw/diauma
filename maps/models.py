@@ -1,7 +1,26 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
-from django.core.exceptions import ValidationError
+
 from django.db import models
+from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator
+from django.template.defaultfilters import filesizeformat
 from mptt.models import MPTTModel, TreeForeignKey
+
+
+def file_size(value):
+    limit = settings.ALLOWED_UPLOAD_SIZE
+    if value.size > limit:
+        raise ValidationError('File size exceeded. Allowed are: ' + filesizeformat(limit))
+
+
+class BaseModel(models.Model):
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+        ordering = ['name']
 
 
 class Type(MPTTModel):
@@ -35,15 +54,6 @@ class Type(MPTTModel):
                 selected=selected if selected_ids and node.id in selected_ids else '',
                 children=node.get_tree_data_children(selected_ids))
         return '"children" : [' + html + '],'
-
-
-class BaseModel(models.Model):
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-        ordering = ['name']
 
 
 class Place(BaseModel):
@@ -121,8 +131,6 @@ class Map(BaseModel):
     map_copy = models.ForeignKey('self', blank=True, null=True, related_name='copy')
     map_base = models.ForeignKey('self', blank=True, null=True, related_name='base')
     map_type = models.ManyToManyField(Type, blank=True, related_name='map_type')
-    map_file = models.ManyToManyField('files.File', blank=True, related_name='map_file')
-    map_scan = models.ManyToManyField('files.Scan', blank=True, related_name='map_scan')
 
     def __str__(self):
         return self.name
@@ -135,3 +143,43 @@ class Map(BaseModel):
                 qs = qs.exclude(pk=self.pk)
             if qs.exists():
                 raise ValidationError({'map_id': 'Map-ID already in use.'})
+
+
+class File(BaseModel):
+    name = models.CharField(max_length=255)
+    file = models.FileField(
+        upload_to='file/',
+        validators=[
+            file_size,
+            FileExtensionValidator(allowed_extensions=settings.ALLOWED_UPLOAD_EXTENSIONS)])
+    file_type = models.ManyToManyField(Type, blank=True, related_name='file_type')
+    file_map = models.ManyToManyField(Map, blank=True, related_name='file_map')
+    info = models.TextField(blank=True)
+
+    def delete(self, using=None, keep_parents=False):
+        self.file.delete()
+        super(File, self).delete(using, keep_parents)
+
+    def __str__(self):
+        return self.name
+
+
+class Scan(BaseModel):
+    name = models.CharField(max_length=255)
+    file = models.ImageField(
+        upload_to='scan/',
+        validators=[
+            file_size,
+            FileExtensionValidator(allowed_extensions=settings.ALLOWED_SCAN_EXTENSIONS)])
+    scan_type = models.ManyToManyField(Type, blank=True, related_name='scan_type')
+    info = models.TextField(blank=True)
+    scan_person = models.ManyToManyField(Person, blank=True, related_name='scan_creator')
+    scan_map = models.ManyToManyField(Map, blank=True, related_name='scan_map')
+    scan_date = models.DateField(blank=True, null=True)
+
+    def delete(self, using=None, keep_parents=False):
+        self.file.delete()
+        super(Scan, self).delete(using, keep_parents)
+
+    def __str__(self):
+        return self.name

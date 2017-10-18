@@ -1,14 +1,12 @@
 {% extends "webpage/layout.html" %}
 {% load django_bootstrap_breadcrumbs %}
 {% load crispy_forms_tags %}
-{% load maps_extras %}
 {% block title %}Diauma - Files{% endblock %}
 {% block content %}
     <div class="container">
         {% block breadcrumbs %}
-            {% breadcrumb "Files" "files:files-index" %}
-            {% breadcrumb_safe object.name|truncate_string "files:file-detail" object.id %}
-            {% breadcrumb "Update" '' %}
+            {% breadcrumb "Files" "maps:files-index" %}
+            {% breadcrumb "File +" '' %}
         {% endblock %}
         <div class="panel-body">
             {% crispy form %}

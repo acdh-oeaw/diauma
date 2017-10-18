@@ -4,7 +4,9 @@ import re
 from django.urls import reverse
 from itertools import chain
 from markupsafe import Markup
-from maps.models import Type, Place, Reference, Institute, Map, Person
+from mimetypes import guess_type
+
+from .models import Type, Place, Reference, Institute, Map, Person
 
 
 def link(entity):
@@ -46,3 +48,7 @@ def get_related_items(node):
     related_items = list(
         chain(items_map, items_person, items_institute, items_reference, items_place))
     return related_items
+
+
+def get_mime_type(file_name):
+    return guess_type(file_name)[0]

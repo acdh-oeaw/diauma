@@ -10,11 +10,9 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from annoying.functions import get_object_or_None
 from django_tables2 import RequestConfig
 
-from files.models import File, Scan
-from files.tables import FileTable, ScanTable
 from maps.forms import MapForm
-from maps.models import Map, Person, Institute, Reference, Place, Type
-from maps.tables import MapTable
+from maps.models import Map, Person, Institute, Reference, Place, Type, File, Scan
+from maps.tables import MapTable, FileTable, ScanTable
 from maps.util import link, get_selected_nodes
 
 
@@ -35,16 +33,16 @@ def detail(request, pk):
         links['references'].append(link(reference))
     for publisher in Institute.objects.filter(publisher=map_):
         links['publishers'].append(link(publisher))
-    for file in File.objects.filter(map_file=map_):
+    for file in File.objects.filter(file_map=map_):
         links['maps'].append(link(file))  # pragma: no cover
     tables = {}
     tables['copies'] = MapTable(Map.objects.filter(map_copy_id=map_))
     tables['copies'].tab = '#copies'
     tables['base'] = MapTable(Map.objects.filter(map_base_id=map_))
     tables['base'].tab = '#base'
-    tables['files'] = FileTable(File.objects.filter(map_file=map_))
+    tables['files'] = FileTable(File.objects.filter(file_map=map_))
     tables['files'].tab = '#files'
-    tables['scans'] = ScanTable(Scan.objects.filter(map_scan=map_))
+    tables['scans'] = ScanTable(Scan.objects.filter(scan_map=map_))
     tables['scans'].tab = '#files'
     for name, table in tables.items():
         RequestConfig(

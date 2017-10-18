@@ -1,10 +1,13 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from dal import autocomplete
 from django import forms
+from django.conf import settings
+from django.template.defaultfilters import filesizeformat
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, HTML, Div
-from maps.util import sanitize
-from .models import Map, Person, Institute, Place, Reference, Type
+
+from .util import sanitize
+from .models import Map, Person, Institute, Place, Reference, Type, File, Scan
 
 
 class BaseForm(forms.ModelForm):
@@ -68,6 +71,31 @@ class BaseForm(forms.ModelForm):
 
 class MapForm(BaseForm):
 
+    file_map = forms.ModelMultipleChoiceField(
+        File.objects.all(),
+        widget=autocomplete.ModelSelect2Multiple(
+            url='maps-ac:file-autocomplete',
+            attrs={'data-placeholder': 'Type for getting available files'}),
+        required=False)
+    
+    scan_map = forms.ModelMultipleChoiceField(
+        Scan.objects.all(),
+        widget=autocomplete.ModelSelect2Multiple(
+            url='maps-ac:scan-autocomplete',
+            attrs={'data-placeholder': 'Type for getting available scans'}),
+        required=False)
+
+    def save(self, *args, **kwargs):
+        instance = super(MapForm, self).save(*args, **kwargs)
+        if instance.pk:  # remove maps which have been unselected
+            for file_ in instance.file_map.all():
+                if file_ not in self.cleaned_data['file_map']:
+                    instance.file_map.remove(file_)
+        for file_ in self.cleaned_data['file_map']:
+            if file_ not in instance.file_map.all():
+                instance.file_map.add(file_)  # add newly selected maps
+        return instance
+
     class Meta:
         model = Map
         fields = (
@@ -81,8 +109,8 @@ class MapForm(BaseForm):
             'map_copy',
             'map_base',
             'map_type',
-            'map_file',
-            'map_scan',
+            'file_map',
+            'scan_map',
             'info',
             'title',
             'scale',
@@ -119,22 +147,21 @@ class MapForm(BaseForm):
             'map_copy': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
                 attrs={'data-placeholder': 'Type for available maps'}),
-            'map_file': autocomplete.ModelSelect2Multiple(
-                url='maps-ac:file-autocomplete',
-                attrs={'data-placeholder': 'Type for available files'}),
-            'map_scan': autocomplete.ModelSelect2Multiple(
-                url='maps-ac:scan-autocomplete',
-                attrs={'data-placeholder': 'Type for available files'}),
             'map_base': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
                 attrs={'data-placeholder': 'Type for available maps'})}
 
     def __init__(self, *args, **kwargs):
         super(MapForm, self).__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
+        if instance:
+            self.initial['file_map'] = instance.file_map.values_list('pk', flat=True)
+            self.initial['scan_map'] = instance.scan_map.values_list('pk', flat=True)
+
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
-        self.fields['map_file'].label = 'Files'
-        self.fields['map_scan'].label = 'Scans'
+        self.fields['file_map'].label = 'Files'
+        self.fields['scan_map'].label = 'Scans'
         self.fields['map_persons'].label = 'Created by'
         self.fields['map_institute'].label = 'Published by'
         self.fields['map_references'].label = 'Referenced by'
@@ -150,7 +177,6 @@ class MapForm(BaseForm):
         self.fields['scale'].widget.attrs['placeholder'] = '1000'
         self.fields['map_id'].required = False
         forms.DateField(required=False, input_formats='%Y-%m-%d')
-        instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.map_type.all()] if instance else []
         nodes_html = self.get_nodes_html(Type.objects.get(name='Map', parent=None), selected_ids)
         self.helper.layout = Layout(
@@ -171,8 +197,8 @@ class MapForm(BaseForm):
                 HTML('</div><div style="clear:both;"></div>'),
                 css_class='form-float'),
             Div(HTML('<div class="form-header">Links</div>'),
-                'map_file',
-                'map_scan',
+                'file_map',
+                'scan_map',
                 'map_base',
                 'map_copy',
                 'map_persons',
@@ -326,3 +352,105 @@ class TypeForm(forms.ModelForm):
         self.helper.add_input(Submit('submit', 'Submit'))
         self.helper.layout = Layout(
             Div('parent', css_class='hidden'))
+        
+
+class FileForm(BaseForm):
+
+    file_map = forms.ModelMultipleChoiceField(
+        Map.objects.all(),
+        widget=autocomplete.ModelSelect2Multiple(
+            url='maps-ac:map-autocomplete',
+            attrs={'data-placeholder': 'Type for getting available maps'}),
+        required=False)
+
+    class Meta:
+        model = File
+        fields = ('name', 'info', 'file_type', 'file', 'file_map')
+
+    def __init__(self, *args, **kwargs):
+        super(FileForm, self).__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', 'Submit'))
+        selected_ids = [o.id for o in instance.file_type.all()] if instance else []
+        nodes_html = self.get_nodes_html(Type.objects.get(name='File', parent=None), selected_ids)
+
+        # Todo: better way to exclude fields at update (file in this case) than a long if/else
+        if instance and instance.pk:
+            self.fields['file'].widget.attrs['disabled'] = True
+            self.helper.layout = Layout(
+                Div(HTML('<div class="form-header">File data</div>'),
+                    'name',
+                    css_class='form-float'),
+                Div(HTML('<div class="form-header">Types</div>'),
+                    HTML(nodes_html),
+                    HTML('<div style="clear:both;"></div>')),
+                Div('file_type', 'file', css_class='hidden'))
+        else:
+            self.helper.layout = Layout(
+                Div(HTML('<div class="form-header">File data</div>'),
+                    'file',
+                    HTML(
+                        '<p>Max file size: ' + filesizeformat(settings.ALLOWED_UPLOAD_SIZE) +
+                        '<br />' + 'Allowed files: ' +
+                        ', '.join(settings.ALLOWED_UPLOAD_EXTENSIONS) + '</p>'),
+                    'name',
+                    css_class='form-float'),
+                Div(HTML('<div class="form-header">Types</div>'),
+                    HTML(nodes_html),
+                    HTML('<div style="clear:both;"></div>')),
+                Div('file_type', css_class='hidden'))
+
+
+class ScanForm(BaseForm):
+
+    scan_map = forms.ModelMultipleChoiceField(
+        Map.objects.all(),
+        widget=autocomplete.ModelSelect2Multiple(
+            url='maps-ac:map-autocomplete',
+            attrs={'data-placeholder': 'Type for getting available maps'}),
+        required=False)
+
+    scan_person = forms.ModelMultipleChoiceField(
+        Person.objects.all(),
+        widget=autocomplete.ModelSelect2Multiple(
+            url='maps-ac:persons-autocomplete',
+            attrs={'data-placeholder': 'Type for getting available persons'}),
+        required=False)
+
+    class Meta:
+        model = Scan
+        fields = ('name', 'info', 'scan_type', 'file', 'scan_map', 'scan_person')
+
+    def __init__(self, *args, **kwargs):
+        super(ScanForm, self).__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', 'Submit'))
+        selected_ids = [o.id for o in instance.scan_type.all()] if instance else []
+        nodes_html = self.get_nodes_html(Type.objects.get(name='Scan', parent=None), selected_ids)
+
+        if instance and instance.pk:
+            self.fields['file'].widget.attrs['disabled'] = True
+            self.helper.layout = Layout(
+                Div(HTML('<div class="form-header">Scan data</div>'),
+                    'name',
+                    css_class='form-float'),
+                Div(HTML('<div class="form-header">Types</div>'),
+                    HTML(nodes_html),
+                    HTML('<div style="clear:both;"></div>')),
+                Div('scan_type', 'file', css_class='hidden'))
+        else:
+            self.helper.layout = Layout(
+                Div(HTML('<div class="form-header">Scan data</div>'),
+                    'file',
+                    HTML(
+                        '<p>Max file size: ' + filesizeformat(settings.ALLOWED_SCAN_SIZE) +
+                        '<br />' + 'Allowed files: ' +
+                        ', '.join(settings.ALLOWED_SCAN_EXTENSIONS) + '</p>'),
+                    'name',
+                    css_class='form-float'),
+                Div(HTML('<div class="form-header">Types</div>'),
+                    HTML(nodes_html),
+                    HTML('<div style="clear:both;"></div>')),
+                Div('scan_type', css_class='hidden'))
