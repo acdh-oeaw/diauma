@@ -6,11 +6,11 @@
 {% load crispy_forms_tags %}
 <div class="container">
     {% block breadcrumbs %}
-        {% breadcrumb "Files" "files:files-index" %}
+        {% breadcrumb "Files" "maps:files-index" %}
     {% endblock %}
     <div class="button-bar">
-        <a class="button" href="{% url 'files:scan-create' %}">Scan +</a>
-        <a class="button" href="{% url 'files:file-create' %}">File +</a>
+        <a class="button" href="{% url 'maps:scan-create' %}">Scan +</a>
+        <a class="button" href="{% url 'maps:file-create' %}">File +</a>
     </div>
     {% if tables.scans.data %}
         <h3>Scans</h3>

@@ -1,8 +1,7 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django.conf.urls import url
 from . import dal_views
-from .models import Person, Institute, Reference, Place, Map
-from files.models import File, Scan
+from .models import Person, Institute, Reference, Place, Map, File, Scan
 
 urlpatterns = [
     url(r'^persons-autocomplete/$',

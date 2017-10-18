@@ -5,8 +5,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from django.conf import settings
 
-from files.models import File, Scan
-from maps.models import Map, Institute, Person, Place, Reference, Type
+from maps.models import Map, Institute, Person, Place, Reference, Type, File, Scan
 
 
 class MapsTest(TestCase):
@@ -183,44 +182,44 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'Network')
 
     def test_files(self):
-        rv = self.client.get(reverse('files:files-index'))
+        rv = self.client.get(reverse('maps:files-index'))
         self.assertContains(rv, 'Scan +')
 
-        rv = self.client.get(reverse('files:scan-create'))
+        rv = self.client.get(reverse('maps:scan-create'))
         self.assertContains(rv, 'Scan +')
         with open(settings.MEDIA_ROOT + '../maps/test.tiff', 'rb') as tiff_file:
             rv = self.client.post(
-                reverse('files:scan-create'),
+                reverse('maps:scan-create'),
                 {'name': 'American Gothic', 'file': tiff_file},
                 follow=True)
         self.assertContains(rv, 'American Gothic')
         scan = Scan.objects.all()[0]
         rv = self.client.post(reverse(
-            'files:scan-update',
+            'maps:scan-update',
             kwargs={'pk': scan.id}),
             {'name': 'American Update', 'info': 'info'},
             follow=True)
         self.assertContains(rv, 'American Update')
-        rv = self.client.get(reverse('files:file-create'))
+        rv = self.client.get(reverse('maps:file-create'))
         self.assertContains(rv, 'File +')
         jp2_file = SimpleUploadedFile('file.jp2', b'file_content', content_type='image/jp2')
         rv = self.client.post(
-            reverse('files:file-create'),
+            reverse('maps:file-create'),
             {'name': 'Mona Lisa', 'file': jp2_file},
             follow=True)
         self.assertContains(rv, 'Mona Lisa')
         file = File.objects.all()[0]
         rv = self.client.post(reverse(
-            'files:file-update',
+            'maps:file-update',
             kwargs={'pk': scan.id}),
             {'name': 'Mona Lisa Overdrive', 'info': 'info'},
             follow=True)
         self.assertContains(rv, 'Mona Lisa Overdrive')
 
-        rv = self.client.get(reverse('files:files-index'))
+        rv = self.client.get(reverse('maps:files-index'))
         self.assertContains(rv, 'Mona Lisa Overdrive')
 
-        rv = self.client.post(reverse('files:scan-delete', kwargs={'pk': scan.id}), follow=True)
+        rv = self.client.post(reverse('maps:scan-delete', kwargs={'pk': scan.id}), follow=True)
         self.assertContains(rv, 'An entry has been deleted.')
-        rv = self.client.post(reverse('files:file-delete', kwargs={'pk': file.id}), follow=True)
+        rv = self.client.post(reverse('maps:file-delete', kwargs={'pk': file.id}), follow=True)
         self.assertContains(rv, 'An entry has been deleted.')

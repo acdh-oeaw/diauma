@@ -1,11 +1,34 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django import template
+from django.core.files.storage import default_storage
 from django.utils.html import linebreaks
 from django.utils.safestring import mark_safe
 
 from maps import util
 
 register = template.Library()
+
+
+@register.filter(name='display_image')
+def display_image(file):
+    if util.get_mime_type(file.file.name).startswith('image'):
+        html = '<a href="' + file.file.url + '">'
+        html += '<img class="preview" src="' + file.file.url + '" alt="No preview available." />'
+        html += '</a>'
+        return mark_safe(html)
+    return mark_safe('<p style="margin-top:1em;">No preview available.</p>')   # pragma: no cover
+
+
+@register.filter(name='mime_type')
+def mime_type(file_name):
+    return util.get_mime_type(file_name)
+
+
+@register.filter(name='file_exists')
+def file_exists(path):
+    if default_storage.exists(path):
+        return True
+    return False
 
 
 @register.filter(name='display_info')
