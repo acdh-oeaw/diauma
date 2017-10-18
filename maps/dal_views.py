@@ -1,7 +1,6 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from dal import autocomplete
-from .models import Person, Institute, Reference, Place, Map
-from files.models import File, Scan
+from .models import Person, Institute, Reference, Place, Map, File, Scan
 
 
 class PersonsAutocomplete(autocomplete.Select2QuerySetView):

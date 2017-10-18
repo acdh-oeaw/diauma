@@ -3,9 +3,9 @@ from django.contrib import admin
 from django.utils.html import format_html
 from mptt.admin import DraggableMPTTAdmin
 from .models import Map, Institute, Place, Person, Reference, Type
-from files.models import File
+from .models import File
 
-from files.forms import FileForm
+from .forms import FileForm
 
 
 class FileAdmin(admin.ModelAdmin):

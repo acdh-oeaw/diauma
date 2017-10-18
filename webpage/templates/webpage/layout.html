@@ -92,7 +92,7 @@
                 <ul style="float:right;" class="nav navbar-nav">
                     {% if user.is_authenticated %}
                         <li class="{% if 'file' in request.resolver_match.url_name %}active{% endif %}">
-                            <a href="{% url 'files:files-index' %}">Files</a>
+                            <a href="{% url 'maps:files-index' %}">Files</a>
                         </li>
                         <li class="{% if 'type' in request.resolver_match.url_name %}active{% endif %}">
                             <a href="{% url 'maps:type' %}">Types</a>
