@@ -8,7 +8,7 @@ Diauma is a web application to manage maps and associated data.
 In the menu you'll find the main entities: Map, Reference, Person, Institute and Place which
 are described in detail below.
 
-Fields marked with  an * are mandatory
+Fields marked with an * are mandatory
 
 Map
 ===
