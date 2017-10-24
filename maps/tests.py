@@ -159,14 +159,6 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'Alice')
         self.assertContains(rv, 'Grimoire')
 
-    def test_manual(self):
-        rv = self.client.get(reverse('maps:manual'))
-        self.assertContains(rv, 'information')
-
-    def test_model(self):
-        rv = self.client.get(reverse('maps:model'), follow=True)
-        self.assertContains(rv, 'Model')
-
     def test_changelog(self):
         rv = self.client.get(reverse('maps:changelog'))
         self.assertContains(rv, 'Feature')
