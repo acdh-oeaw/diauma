@@ -19,7 +19,7 @@
                     <ul>
                         {% recursetree root.get_descendants %}
                             <li>
-                                {{ node|link }}
+                                {{ node|link }} ({{ node|display_node_count:root.name }})
                                 {% if not node.is_leaf_node %}
                                     <ul class="children">
                                         {{ children }}
@@ -29,6 +29,7 @@
                         {% endrecursetree %}
                     </ul>
                 </div>
+
             {% endfor %}
         </div>
     </div>

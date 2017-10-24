@@ -1,12 +1,22 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django import template
 from django.core.files.storage import default_storage
+from django.db.models import Count
 from django.utils.html import linebreaks
 from django.utils.safestring import mark_safe
 
 from maps import util
+from maps.models import Type
 
 register = template.Library()
+
+
+@register.filter(name='display_node_count')
+def display_node_count(node, root_name):
+    types = Type.objects.annotate(count=Count(root_name.lower() + '_type'))
+    for type_ in types:
+        if type_.id == node.id:
+            return type_.count
 
 
 @register.filter(name='display_image')
