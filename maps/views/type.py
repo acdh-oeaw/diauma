@@ -1,4 +1,5 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -6,9 +7,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import UpdateView, DeleteView
+from django_tables2 import RequestConfig
 
 from maps.forms import TypeForm
 from maps.models import Type
+from maps.tables import TypeRelatedTable
 
 from maps.util import get_related_items
 
@@ -25,10 +28,18 @@ def index(request):
 @login_required
 def detail(request, pk):
     node = Type.objects.get(pk=pk)
+    table = TypeRelatedTable(get_related_items(node))
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
+    node_root = node
+    for item in node.get_ancestors():
+        if item.level == 0:
+            node_root = item
+
     return render(request, 'maps/type/detail.html', {
         'node': node,
+        'node_root': node_root,
         'descendants': node.get_descendants(),
-        'related_items': get_related_items(node)})
+        'table': table})
 
 
 @login_required
@@ -59,7 +70,9 @@ class Delete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         node = self.get_object()
         if get_related_items(node) or node.get_descendants():
-            messages.error(request, "A type can't be delete, as long as there are related entities or sub types.")
+            messages.error(
+                request,
+                "A type can't be deleted if there are related entities or sub types.")
             return redirect('maps:type-detail', pk=node.id)
         messages.success(self.request, self.success_message)
         return super(Delete, self).delete(request, *args, **kwargs)
