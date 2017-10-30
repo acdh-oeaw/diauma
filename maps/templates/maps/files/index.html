@@ -20,5 +20,12 @@
         <h3>Files</h3>
         {% render_table tables.files %}
     {% endif %}
+    {% if orphans %}
+        <h3>Orphans</h3>
+        <p>These files exist on the file system but have no related database entries.</p>
+        {% for file in orphans %}
+            {{ file }}<br/>
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}
