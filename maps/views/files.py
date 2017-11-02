@@ -133,6 +133,7 @@ class FileCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return form
 
     def post(self, request, **kwargs):
+        # add types
         request.POST = request.POST.copy()
         request.POST.setlist('file_type', get_selected_nodes('File', request))
         return super(FileCreate, self).post(request, **kwargs)
@@ -158,6 +159,7 @@ class ScanCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return form
 
     def post(self, request, **kwargs):
+        # add types
         request.POST = request.POST.copy()
         request.POST.setlist('scan_type', get_selected_nodes('Scan', request))
         return super(ScanCreate, self).post(request, **kwargs)
