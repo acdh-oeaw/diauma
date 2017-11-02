@@ -8,24 +8,45 @@
     {% block breadcrumbs %}
         {% breadcrumb "Files" "maps:files-index" %}
     {% endblock %}
-    <div class="button-bar">
-        <a class="button" href="{% url 'maps:scan-create' %}">Scan +</a>
-        <a class="button" href="{% url 'maps:file-create' %}">File +</a>
+    <ul id="tabs" class="nav nav-tabs">
+        <li id="overview-tab-header">
+            <a href="#tab-scan" data-toggle="tab">Scans ({{ tables.scans.data|length }})</a>
+        </li>
+        <li id="maps-tab-header">
+            <a href="#tab-file" data-toggle="tab">Files ({{ tables.files.data|length }})</a>
+        </li>
+        <li id="members-tab-header">
+            <a href="#tab-orphans" data-toggle="tab">Orphans ({{ orphans|length }})</a>
+        </li>
+    </ul>
+    <div class="tab-content clearfix">
+        <div class="tab-pane" id="tab-scan">
+            <div class="button-bar">
+                <a class="button" href="{% url 'maps:scan-create' %}">Scan +</a>
+            </div>
+            {% if tables.scans.data %}
+                {% render_table tables.scans %}
+            {% endif %}
+        </div>
+        <div class="tab-pane" id="tab-file">
+            <div class="button-bar">
+                <a class="button" href="{% url 'maps:file-create' %}">File +</a>
+            </div>
+            {% if tables.files.data %}
+                {% render_table tables.files %}
+            {% endif %}
+        </div>
+        <div class="tab-pane" id="tab-orphans">
+            <h3>Orphans</h3>
+            {% if orphans %}
+                <p>These files exist on the file system but have no related database entries.</p>
+                {% for file in orphans %}
+                    {{ file }}<br/>
+                {% endfor %}
+            {% else %}
+                Congratulation, no orphaned files found.
+            {% endif %}
+        </div>
     </div>
-    {% if tables.scans.data %}
-        <h3>Scans</h3>
-        {% render_table tables.scans %}
-    {% endif %}
-    {% if tables.files.data %}
-        <h3>Files</h3>
-        {% render_table tables.files %}
-    {% endif %}
-    {% if orphans %}
-        <h3>Orphans</h3>
-        <p>These files exist on the file system but have no related database entries.</p>
-        {% for file in orphans %}
-            {{ file }}<br/>
-        {% endfor %}
-    {% endif %}
 </div>
 {% endblock %}
