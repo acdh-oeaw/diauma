@@ -10,6 +10,7 @@ from .models import Type, Place, Reference, Institute, Map, Person
 
 
 def link(entity):
+    """Returning an HTML link for an entity."""
     url = reverse(entity._meta.db_table.replace('_', ':') + '-detail', kwargs={'pk': entity.id})
     return Markup('<a href = "' + url + '">' + truncate_string(entity.name) + '</a>')
 

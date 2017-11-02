@@ -9,6 +9,8 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
+import os
+
 from maps.forms import FileForm, ScanForm
 from maps.models import File, Scan, Type, Map
 from maps.tables import FileTable, ScanTable, MapTable
@@ -17,13 +19,26 @@ from maps.util import get_selected_nodes
 
 @login_required
 def index(request):
+    orphans = []
+    # get scan orphaned files
+    path = settings.MEDIA_ROOT + 'scan/'
+    files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+    for file in files:
+        if not Scan.objects.filter(file='scan/' + file):
+            orphans.append('Scan: ' + file)
+    # get file orphaned files
+    path = settings.MEDIA_ROOT + 'file/'
+    files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+    for file in files:
+        if not File.objects.filter(file='file/' + file):
+            orphans.append('File: ' + file)
     tables = {
         'files': FileTable(File.objects.all()),
         'scans': ScanTable(Scan.objects.all())}
     for name, table in tables.items():
         RequestConfig(
             request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
-    return render(request, 'maps/files/index.html', {'tables': tables})
+    return render(request, 'maps/files/index.html', {'tables': tables, 'orphans': orphans})
 
 
 @login_required
@@ -118,6 +133,7 @@ class FileCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return form
 
     def post(self, request, **kwargs):
+        # add types
         request.POST = request.POST.copy()
         request.POST.setlist('file_type', get_selected_nodes('File', request))
         return super(FileCreate, self).post(request, **kwargs)
@@ -143,6 +159,7 @@ class ScanCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return form
 
     def post(self, request, **kwargs):
+        # add types
         request.POST = request.POST.copy()
         request.POST.setlist('scan_type', get_selected_nodes('Scan', request))
         return super(ScanCreate, self).post(request, **kwargs)

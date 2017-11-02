@@ -148,6 +148,7 @@ class File(BaseModel):
     info = models.TextField(blank=True)
 
     def delete(self, using=None, keep_parents=False):
+        # Delete the file from disk because Django doesn't do it
         self.file.delete()
         super(File, self).delete(using, keep_parents)
 
@@ -169,6 +170,7 @@ class Scan(BaseModel):
     scan_date = models.DateField(blank=True, null=True)
 
     def delete(self, using=None, keep_parents=False):
+        # Delete the file from disk because Django doesn't do it
         self.file.delete()
         super(Scan, self).delete(using, keep_parents)
 

@@ -1,14 +1,12 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django.conf.urls import url
 
-from .views import (map, reference, person, institute, place, model, changelog, type, search,
-                    manual, network, files)
+from .views import (map, reference, person, institute, place, changelog, type, search,
+                    network, files)
 
 urlpatterns = [
     url(r'^changelog/$', changelog.index, name='changelog'),
-    url(r'^model/$', model.index, name='model'),
     url(r'^search/$', search.index, name='search'),
-    url(r'^manual/$', manual.index, name='manual'),
     url(r'^network/$', network.index, name='network'),
 
     url(r'^map/$', map.index, name='map'),
@@ -60,5 +58,4 @@ urlpatterns = [
     url(r'^files/scan-update/(?P<pk>\d+)/$', files.ScanUpdate.as_view(), name='scan-update'),
     url(r'^files/file-delete/(?P<pk>\d+)/$', files.FileDelete.as_view(), name='file-delete'),
     url(r'^files/scan-delete/(?P<pk>\d+)/$', files.ScanDelete.as_view(), name='scan-delete')
-
 ]
