@@ -148,7 +148,7 @@ class File(BaseModel):
     info = models.TextField(blank=True)
 
     def delete(self, using=None, keep_parents=False):
-        # delete the file from disk because Django doesn't do it
+        # Delete the file from disk because Django doesn't do it
         self.file.delete()
         super(File, self).delete(using, keep_parents)
 
@@ -170,17 +170,9 @@ class Scan(BaseModel):
     scan_date = models.DateField(blank=True, null=True)
 
     def delete(self, using=None, keep_parents=False):
-        # delete the file from disk because Django doesn't do it
+        # Delete the file from disk because Django doesn't do it
         self.file.delete()
         super(Scan, self).delete(using, keep_parents)
-
-    def save(self, *args, **kwargs):
-        insert = self.pk is None  # Check if it is an insert
-        super(Scan, self).save(*args, **kwargs)
-        # Make a copy for the IIIF folder if it is an insert. After super to get the right filename.
-        if insert:
-            import shutil
-            shutil.copy2(str(self.file.file), settings.MEDIA_ROOT + 'IIIF/')
 
     def __str__(self):
         return self.name
