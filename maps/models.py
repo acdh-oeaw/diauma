@@ -14,6 +14,12 @@ def file_size(value):
         raise ValidationError('File size exceeded. Allowed are: ' + filesizeformat(limit))
 
 
+def scan_size(value):
+    limit = settings.ALLOWED_SCAN_SIZE
+    if value.size > limit:
+        raise ValidationError('Scan size exceeded. Allowed are: ' + filesizeformat(limit))
+
+
 class BaseModel(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -161,7 +167,7 @@ class Scan(BaseModel):
     file = models.ImageField(
         upload_to='scan/',
         validators=[
-            file_size,
+            scan_size,
             FileExtensionValidator(allowed_extensions=settings.ALLOWED_SCAN_EXTENSIONS)])
     scan_type = models.ManyToManyField(Type, blank=True, related_name='scan_type')
     info = models.TextField(blank=True)
