@@ -175,7 +175,9 @@ class FileTable(tables.Table):
     def render_file(record):
         if default_storage.exists(record.file):
             return filesizeformat(record.file.size)
-        return mark_safe('<span class="error">Missing file!</span>')
+        return mark_safe('<span class="error">Missing file!</span>')  # pragma: no cover
+
+
 
     @staticmethod
     def render_name(record):
@@ -215,7 +217,7 @@ class ScanTable(tables.Table):
     def render_file(record):
         if default_storage.exists(record.file):
             return filesizeformat(record.file.size)
-        return mark_safe('<span class="error">Missing file!</span>')
+        return mark_safe('<span class="error">Missing file!</span>')  # pragma: no cover
 
     @staticmethod
     def render_name(record):
