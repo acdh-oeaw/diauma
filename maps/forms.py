@@ -157,23 +157,10 @@ class MapForm(BaseForm):
         if instance:
             self.initial['file_map'] = instance.file_map.values_list('pk', flat=True)
             self.initial['scan_map'] = instance.scan_map.values_list('pk', flat=True)
-
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
         self.fields['file_map'].label = 'Files'
         self.fields['scan_map'].label = 'Scans'
-        self.fields['map_persons'].label = 'Created by'
-        self.fields['map_institute'].label = 'Published by'
-        self.fields['map_references'].label = 'Referenced by'
-        self.fields['map_issued'].label = 'Issued at'
-        self.fields['map_location'].label = 'Has current location'
-        self.fields['map_copy'].label = 'Is copy of'
-        self.fields['map_base'].label = 'Has base map'
-        self.fields['width'].label = 'Width (cm)'
-        self.fields['height'].label = 'Height (cm)'
-        self.fields['date_created2'].label = '**'
-        self.fields['date_content2'].label = '**'
-        self.fields['scale'].label = 'Scale (1:)'
         self.fields['scale'].widget.attrs['placeholder'] = '1000'
         self.fields['map_id'].required = False
         forms.DateField(required=False, input_formats='%Y-%m-%d')
@@ -235,8 +222,6 @@ class PersonForm(BaseForm):
         super(PersonForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
-        self.fields['date_begin'].label = 'Begin'
-        self.fields['date_end'].label = 'End'
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.person_type.all()] if instance else []
         nodes_html = self.get_nodes_html(Type.objects.get(name='Person', parent=None), selected_ids)
