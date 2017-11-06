@@ -101,14 +101,11 @@
                             <a href="{% url 'maps:network' %}">Network</a>
                         </li>
                     {% endif %}
-                    <li class="{% if 'model' in request.resolver_match.url_name %}active{% endif %}">
-                        <a href="{% url 'maps:model' %}">Model</a>
-                    </li>
                     <li class="{% if 'imprint' in request.resolver_match.url_name %}active{% endif %}">
                         <a href="{% url 'webpage:imprint' %}">Legal Notice</a>
                     </li>
-                    <li class="{% if 'manual' in request.resolver_match.url_name %}active{% endif %}">
-                        <a href="{% url 'maps:manual' %}">?</a>
+                    <li>
+                        <a target='blank_' href="/docs/index.html">?</a>
                     </li>
                 </ul>
             </div>

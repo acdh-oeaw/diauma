@@ -14,6 +14,12 @@ def file_size(value):
         raise ValidationError('File size exceeded. Allowed are: ' + filesizeformat(limit))
 
 
+def scan_size(value):
+    limit = settings.ALLOWED_SCAN_SIZE
+    if value.size > limit:
+        raise ValidationError('Scan size exceeded. Allowed are: ' + filesizeformat(limit))
+
+
 class BaseModel(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -80,8 +86,8 @@ class Institute(BaseModel):
 class Person(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
-    date_begin = models.DateField(null=True, blank=True)
-    date_end = models.DateField(null=True, blank=True)
+    date_begin = models.DateField(null=True, blank=True, verbose_name='Begin')
+    date_end = models.DateField(null=True, blank=True, verbose_name='End')
     person_location = models.ForeignKey(
         Place, blank=True, null=True, related_name='person_location')
     person_institutes = models.ManyToManyField(
@@ -115,21 +121,31 @@ class Map(BaseModel):
     map_id = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(blank=True, max_length=255)
     info = models.TextField(blank=True)
-    scale = models.IntegerField(null=True, blank=True)
-    width = models.FloatField(null=True, blank=True)
-    height = models.FloatField(null=True, blank=True)
+    scale = models.IntegerField('Scale (1:)', null=True, blank=True)
+    width = models.FloatField('Width (cm)', null=True, blank=True)
+    height = models.FloatField('Height (cm)', null=True, blank=True)
     date_created = models.DateField(null=True, blank=True)
-    date_created2 = models.DateField(null=True, blank=True)
-    date_content = models.DateField(null=True, blank=True)
-    date_content2 = models.DateField(null=True, blank=True)
+    date_created2 = models.DateField('**', null=True, blank=True)
+    date_content = models.DateField( null=True, blank=True)
+    date_content2 = models.DateField('**', null=True, blank=True)
     map_places = models.ManyToManyField(Place, blank=True)
-    map_persons = models.ManyToManyField(Person, blank=True, related_name='author')
-    map_institute = models.ManyToManyField(Institute, blank=True, related_name='publisher')
-    map_references = models.ManyToManyField(Reference, blank=True, related_name='reference')
-    map_issued = models.ForeignKey(Place, blank=True, null=True, related_name='issued')
-    map_location = models.ForeignKey(Place, blank=True, null=True, related_name='map_location')
-    map_copy = models.ForeignKey('self', blank=True, null=True, related_name='copy')
-    map_base = models.ForeignKey('self', blank=True, null=True, related_name='base')
+    map_persons = models.ManyToManyField(
+        Person, blank=True, related_name='author', verbose_name='Created by')
+    map_institute = models.ManyToManyField(
+        Institute, blank=True, related_name='publisher', verbose_name='Published by')
+    map_references = models.ManyToManyField(
+        Reference, blank=True, related_name='reference', verbose_name='Referenced by')
+    map_issued = models.ForeignKey(
+        Place, blank=True, null=True, related_name='issued', verbose_name='Issued at')
+    map_location = models.ForeignKey(
+        Place, blank=True,
+        null=True,
+        related_name='map_location',
+        verbose_name='Has current location')
+    map_copy = models.ForeignKey(
+        'self', blank=True, null=True, related_name='copy', verbose_name='Is copy of')
+    map_base = models.ForeignKey(
+        'self', blank=True, null=True, related_name='base', verbose_name='Has base map')
     map_type = models.ManyToManyField(Type, blank=True, related_name='map_type')
 
     def __str__(self):
@@ -157,6 +173,7 @@ class File(BaseModel):
     info = models.TextField(blank=True)
 
     def delete(self, using=None, keep_parents=False):
+        # Delete the file from disk because Django doesn't do it
         self.file.delete()
         super(File, self).delete(using, keep_parents)
 
@@ -169,7 +186,7 @@ class Scan(BaseModel):
     file = models.ImageField(
         upload_to='scan/',
         validators=[
-            file_size,
+            scan_size,
             FileExtensionValidator(allowed_extensions=settings.ALLOWED_SCAN_EXTENSIONS)])
     scan_type = models.ManyToManyField(Type, blank=True, related_name='scan_type')
     info = models.TextField(blank=True)
@@ -178,6 +195,7 @@ class Scan(BaseModel):
     scan_date = models.DateField(blank=True, null=True)
 
     def delete(self, using=None, keep_parents=False):
+        # Delete the file from disk because Django doesn't do it
         self.file.delete()
         super(Scan, self).delete(using, keep_parents)
 

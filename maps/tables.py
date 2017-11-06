@@ -6,7 +6,24 @@ from django.utils.safestring import mark_safe
 
 from .templatetags.maps_extras import format_date
 from .util import link, truncate_string, get_mime_type
-from .models import Person, Map, Place, Institute, File, Scan
+from .models import Person, Map, Place, Institute, File, Scan, BaseModel
+
+
+class TypeRelatedTable(tables.Table):
+
+    class Meta:
+        model = BaseModel
+        attrs = {'class': 'paleblue'}
+        fields = ['name', 'info']
+        order_by = 'name'
+
+    @staticmethod
+    def render_name(record):
+        return link(record)
+
+    @staticmethod
+    def render_info(record):
+        return mark_safe(truncate_string(record.info, 16))
 
 
 class PersonTable(tables.Table):
@@ -158,7 +175,9 @@ class FileTable(tables.Table):
     def render_file(record):
         if default_storage.exists(record.file):
             return filesizeformat(record.file.size)
-        return mark_safe('<span class="error">Missing file!</span>')
+        return mark_safe('<span class="error">Missing file!</span>')  # pragma: no cover
+
+
 
     @staticmethod
     def render_name(record):
@@ -198,7 +217,7 @@ class ScanTable(tables.Table):
     def render_file(record):
         if default_storage.exists(record.file):
             return filesizeformat(record.file.size)
-        return mark_safe('<span class="error">Missing file!</span>')
+        return mark_safe('<span class="error">Missing file!</span>')  # pragma: no cover
 
     @staticmethod
     def render_name(record):
@@ -214,4 +233,3 @@ class ScanTable(tables.Table):
         if record.created_date:
             html = format_date(record.created_date, '%Y-%m-%d')
         return html
-

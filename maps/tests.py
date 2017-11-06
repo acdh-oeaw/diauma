@@ -139,7 +139,7 @@ class MapsTest(TestCase):
             follow=True)
         self.assertContains(rv, 'My type of drink, too.')
         rv = self.client.post(reverse('maps:type-delete', kwargs={'pk': node.id}), follow=True)
-        self.assertContains(rv, "as long as there are related entities or sub types")
+        self.assertContains(rv, "if there are related entities or sub types.")
         rv = self.client.post(reverse('maps:type-delete', kwargs={'pk': new_node.id}), follow=True)
         self.assertContains(rv, 'An entry has been deleted.')
 
@@ -159,14 +159,6 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'Alice')
         self.assertContains(rv, 'Grimoire')
 
-    def test_manual(self):
-        rv = self.client.get(reverse('maps:manual'))
-        self.assertContains(rv, 'information')
-
-    def test_model(self):
-        rv = self.client.get(reverse('maps:model'), follow=True)
-        self.assertContains(rv, 'Model')
-
     def test_changelog(self):
         rv = self.client.get(reverse('maps:changelog'))
         self.assertContains(rv, 'Feature')
@@ -184,12 +176,12 @@ class MapsTest(TestCase):
     def test_files(self):
         rv = self.client.get(reverse('maps:files-index'))
         self.assertContains(rv, 'Scan +')
-
         rv = self.client.get(reverse('maps:scan-create'))
         self.assertContains(rv, 'Scan +')
+        new_map = Map.objects.create(name="Atlantis")
         with open(settings.MEDIA_ROOT + '../maps/test.tiff', 'rb') as tiff_file:
             rv = self.client.post(
-                reverse('maps:scan-create'),
+                reverse('maps:scan-create', kwargs={'class_name': 'map', 'origin_id': new_map.id}),
                 {'name': 'American Gothic', 'file': tiff_file},
                 follow=True)
         self.assertContains(rv, 'American Gothic')
@@ -204,7 +196,7 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'File +')
         jp2_file = SimpleUploadedFile('file.jp2', b'file_content', content_type='image/jp2')
         rv = self.client.post(
-            reverse('maps:file-create'),
+            reverse('maps:file-create', kwargs={'class_name': 'map', 'origin_id': new_map.id}),
             {'name': 'Mona Lisa', 'file': jp2_file},
             follow=True)
         self.assertContains(rv, 'Mona Lisa')

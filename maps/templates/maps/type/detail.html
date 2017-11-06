@@ -30,6 +30,9 @@
             {% recursetree descendants %}
                 <li>
                     {{ node|link }}
+                    {% if node.level > 1 %}
+                        ({{ node|display_node_count:node_root.name }})
+                    {% endif %}
                     {% if not node.is_leaf_node %}
                         <ul class="children">
                             {{ children }}
@@ -39,12 +42,11 @@
             {% endrecursetree %}
         </ul>
     {% endif %}
-    {% if related_items %}
+    {% if table.data %}
         <h3>Related entries</h3>
-        {% for item in related_items %}
-            {{ item|link }}<br/>
-        {% endfor %}
+        {% render_table table %}
     {% endif %}
+
     <script>
         $(document).on('click', '#delete-type', function(){
             return confirm('Delete {{ node.name }}?');
