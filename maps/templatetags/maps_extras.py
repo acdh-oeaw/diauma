@@ -40,7 +40,7 @@ def mime_type(file_name):
 def file_exists(path):
     if default_storage.exists(path):
         return True
-    return False
+    return False   # pragma: no cover
 
 
 @register.filter(name='display_info')
