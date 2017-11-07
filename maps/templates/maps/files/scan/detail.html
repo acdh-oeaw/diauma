@@ -1,6 +1,7 @@
 {% extends "webpage/layout.html" %}
 {% load django_bootstrap_breadcrumbs %}
 {% load maps_extras %}
+{% load staticfiles %}
 {% load render_table from django_tables2 %}
 {% block title %}Diauma - Files{% endblock %}
 {% block content %}
@@ -42,7 +43,23 @@
                     {% include "maps/types_for_detail_view.html" %}
                 </div>
                 <div class="detail-column">
-                    {{ scan|display_image }}
+                    {% if iiif %}
+                        <div id="openseadragon1" style="width: 800px; height: 600px;"></div>
+                        <script src="{{ iiif.library_path }}"></script>
+                        <script>
+                            var viewer = OpenSeadragon({
+                                id: "openseadragon1",
+                                prefixUrl: "{{ iiif.prefix_url }}",
+                                zoomInButton:   "zoom-in",
+                                tileSources: "{{ iiif.tile_sources }}",
+                                zoomOutButton:  "zoom-out",
+                                homeButton:     "home",
+                                fullPageButton: "full-page",
+                            });
+                        </script>
+                    {% else %}
+                        {{ scan|display_image }}
+                    {% endif %}
                 </div>
                 <div style="clear:both;"></div>
                 {{ scan|display_info }}
