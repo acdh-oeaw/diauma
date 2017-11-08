@@ -52,7 +52,7 @@
                                 id: "seadragon",
                                 prefixUrl: "{{ iiif.library_path|add:'images/'  }}",
                                 toolbar: "seadragon-toolbar",
-                                tileSources: "https://diauma-demo-iiif.hephaistos.arz.oeaw.ac.at/Colton/info.json",
+                                tileSources: "{{ iiif.tile_sources }}",
                             });
                         </script>
                     {% else %}
