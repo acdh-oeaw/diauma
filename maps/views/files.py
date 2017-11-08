@@ -1,4 +1,6 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
+from os.path import basename, splitext
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -8,7 +10,6 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
-
 import os
 
 from maps.forms import FileForm, ScanForm
@@ -22,8 +23,8 @@ def index(request):
     orphans = []
     # get scan orphaned files
     path = settings.MEDIA_ROOT + 'scan/'
-    files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
-    for file in files:
+    scans = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+    for file in scans:
         if not Scan.objects.filter(file='scan/' + file):
             orphans.append('Scan: ' + file)
     # get file orphaned files
@@ -57,8 +58,16 @@ def scan_detail(request, pk):
     scan = Scan.objects.get(pk=pk)
     tables = {'maps': MapTable(Map.objects.filter(scan_map=scan))}
     tables['maps'].tab = '#maps'
+    # Todo: implement for production
+    file_name = splitext(basename(scan.file.name))[0]  # basename without extension
+    image_server = 'https://diauma-demo-iiif.hephaistos.arz.oeaw.ac.at/'
+    iiif = {
+        'file_path': settings.MEDIA_ROOT + 'IIIF/' + file_name,
+        'tile_sources': image_server + file_name + '/info.json',
+        'library_path': '/static/webpage/libraries/openseadragon/'}
     return render(request, 'maps/files/scan/detail.html', {
         'scan': scan,
+        'iiif': iiif if os.path.isfile(iiif['file_path'] + '.jp2') else None,
         'tables': tables,
         'types': Type.objects.filter(scan_type=scan)})
 
