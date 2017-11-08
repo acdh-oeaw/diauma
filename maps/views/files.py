@@ -60,13 +60,11 @@ def scan_detail(request, pk):
     tables['maps'].tab = '#maps'
     # Todo: implement for production
     file_name = splitext(basename(scan.file.name))[0]  # basename without extension
-    library_path = '/static/webpage/libraries/openseadragon-bin-2.3.1/'
     image_server = 'https://diauma-demo-iiif.hephaistos.arz.oeaw.ac.at/'
     iiif = {
         'file_path': settings.MEDIA_ROOT + 'IIIF/' + file_name,
-        'prefix_url': library_path + 'images/',
         'tile_sources': image_server + file_name + '/info.json',
-        'library_path': library_path + 'openseadragon.min.js'}
+        'library_path': '/static/webpage/libraries/openseadragon/'}
     return render(request, 'maps/files/scan/detail.html', {
         'scan': scan,
         'iiif': iiif if os.path.isfile(iiif['file_path'] + '.jp2') else None,

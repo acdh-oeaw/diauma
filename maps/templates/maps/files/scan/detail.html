@@ -43,18 +43,16 @@
                     {% include "maps/types_for_detail_view.html" %}
                 </div>
                 <div class="detail-column">
+                    <div id="seadragon-toolbar"></div>
                     {% if iiif %}
-                        <div id="openseadragon1" style="width: 800px; height: 600px;"></div>
-                        <script src="{{ iiif.library_path }}"></script>
+                        <div id="seadragon"></div>
+                        <script src="{{ iiif.library_path|add:'openseadragon.min.js' }}"></script>
                         <script>
                             var viewer = OpenSeadragon({
-                                id: "openseadragon1",
-                                prefixUrl: "{{ iiif.prefix_url }}",
-                                zoomInButton:   "zoom-in",
-                                tileSources: "{{ iiif.tile_sources }}",
-                                zoomOutButton:  "zoom-out",
-                                homeButton:     "home",
-                                fullPageButton: "full-page",
+                                id: "seadragon",
+                                prefixUrl: "{{ iiif.library_path|add:'images/'  }}",
+                                toolbar: "seadragon-toolbar",
+                                tileSources: "https://diauma-demo-iiif.hephaistos.arz.oeaw.ac.at/Colton/info.json",
                             });
                         </script>
                     {% else %}
