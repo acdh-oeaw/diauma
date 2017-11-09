@@ -8,6 +8,8 @@ from django.template.defaultfilters import filesizeformat
 from mptt.models import MPTTModel, TreeForeignKey
 from os.path import splitext, basename
 
+import maps
+
 
 def file_size(value):
     limit = settings.ALLOWED_UPLOAD_SIZE
@@ -61,6 +63,17 @@ class Type(MPTTModel):
                 selected=selected if selected_ids and node.id in selected_ids else '',
                 children=node.get_tree_data_children(selected_ids))
         return '"children" : [' + html + '],'
+
+    def get_related_items(self):
+        """
+            Get related items dynamically. The last line does something like:
+            return Place.objects.filter(place_type=node)
+        """
+        ancestors = self.get_ancestors()
+        root = ancestors[0] if ancestors else self
+        filter_ = root.name.lower() + '_type'
+        class_ = getattr(maps.models, root.name)
+        return class_.objects.filter(**{filter_: self})
 
 
 class Place(BaseModel):

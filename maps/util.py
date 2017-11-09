@@ -1,12 +1,10 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import re
-
 from django.urls import reverse
-from itertools import chain
 from markupsafe import Markup
 from mimetypes import guess_type
 
-from .models import Type, Place, Reference, Institute, Map, Person
+from .models import Type
 
 
 def link(entity):
@@ -31,24 +29,11 @@ def sanitize(string):
 def truncate_string(string, length=40, title=True):
     if string is None:
         return ''  # pragma: no cover
-
     if len(string) > length + 2:
         string = string[:length] + '..'
         if title:
             string = '<span title="' + string.replace('"', '') + '">' + string + '</span>'
     return string
-
-
-def get_related_items(node):
-    # Todo: refactor to only get relevant entities and not search everywhere
-    items_place = Place.objects.filter(place_type=node)
-    items_reference = Reference.objects.filter(reference_type=node)
-    items_institute = Institute.objects.filter(institute_type=node)
-    items_map = Map.objects.filter(map_type=node)
-    items_person = Person.objects.filter(person_type=node)
-    related_items = list(
-        chain(items_map, items_person, items_institute, items_reference, items_place))
-    return related_items
 
 
 def get_mime_type(file_name):
