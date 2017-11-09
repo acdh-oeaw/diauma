@@ -58,16 +58,14 @@ def scan_detail(request, pk):
     scan = Scan.objects.get(pk=pk)
     tables = {'maps': MapTable(Map.objects.filter(scan_map=scan))}
     tables['maps'].tab = '#maps'
-    # Todo: implement for production
     file_name = splitext(basename(scan.file.name))[0]  # basename without extension
-    image_server = 'https://diauma-demo-iiif.hephaistos.arz.oeaw.ac.at/'
     iiif = {
         'file_path': settings.MEDIA_ROOT + 'IIIF/' + file_name,
-        'tile_sources': image_server + file_name + '/info.json',
-        'library_path': '/static/webpage/libraries/openseadragon/'}
+        'tile_sources': settings.IIIF_URL + file_name + '/info.json',
+        'library_path': '/static/webpage/libraries/openseadragon/'} if settings.IIIF_URL else None
     return render(request, 'maps/files/scan/detail.html', {
         'scan': scan,
-        'iiif': iiif if os.path.isfile(iiif['file_path'] + '.jp2') else None,
+        'iiif': iiif if iiif and os.path.isfile(iiif['file_path'] + '.jp2') else None,
         'tables': tables,
         'types': Type.objects.filter(scan_type=scan)})
 
