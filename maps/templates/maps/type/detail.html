@@ -46,7 +46,6 @@
         <h3>Related entries</h3>
         {% render_table table %}
     {% endif %}
-
     <script>
         $(document).on('click', '#delete-type', function(){
             return confirm('Delete {{ node.name }}?');

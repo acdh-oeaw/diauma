@@ -16,7 +16,7 @@
             <a href="#tab-file" data-toggle="tab">Files ({{ tables.files.data|length }})</a>
         </li>
         <li id="members-tab-header">
-            <a href="#tab-orphans" data-toggle="tab">Orphans ({{ orphans|length }})</a>
+            <a href="#tab-orphans" data-toggle="tab">Orphans ({{ tables.orphans.data|length }})</a>
         </li>
     </ul>
     <div class="tab-content clearfix">
@@ -38,11 +38,10 @@
         </div>
         <div class="tab-pane" id="tab-orphans">
             <h3>Orphans</h3>
-            {% if orphans %}
+
+            {% if tables.orphans.data %}
                 <p>These files exist on the file system but have no related database entries.</p>
-                {% for file in orphans %}
-                    {{ file }}<br/>
-                {% endfor %}
+                {% render_table tables.orphans %}
             {% else %}
                 Congratulation, no orphaned files found.
             {% endif %}

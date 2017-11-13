@@ -1,11 +1,14 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
-
+import os
 from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from django.template.defaultfilters import filesizeformat
 from mptt.models import MPTTModel, TreeForeignKey
+from os.path import splitext, basename
+
+import maps
 
 
 def file_size(value):
@@ -60,6 +63,17 @@ class Type(MPTTModel):
                 selected=selected if selected_ids and node.id in selected_ids else '',
                 children=node.get_tree_data_children(selected_ids))
         return '"children" : [' + html + '],'
+
+    def get_related_items(self):
+        """
+            Get related items dynamically. The last line does something like:
+            return Place.objects.filter(place_type=node)
+        """
+        ancestors = self.get_ancestors()
+        root = ancestors[0] if ancestors else self
+        filter_ = root.name.lower() + '_type'
+        class_ = getattr(maps.models, root.name)
+        return class_.objects.filter(**{filter_: self})
 
 
 class Place(BaseModel):
@@ -195,7 +209,12 @@ class Scan(BaseModel):
     scan_date = models.DateField(blank=True, null=True)
 
     def delete(self, using=None, keep_parents=False):
-        # Delete the file from disk because Django doesn't do it
+        """ Delete IIIF file if exist and than
+            the file itself from disk because Django doesn't do it"""
+        file_name = splitext(basename(self.file.name))[0]
+        file_iiif_path = settings.MEDIA_ROOT + 'IIIF/' + file_name + '.jp2'
+        if os.path.exists(file_iiif_path):
+            os.remove(file_iiif_path)
         self.file.delete()
         super(Scan, self).delete(using, keep_parents)
 

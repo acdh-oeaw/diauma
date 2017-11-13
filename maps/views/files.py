@@ -1,4 +1,6 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
+from os.path import basename, splitext
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -8,37 +10,41 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
-
 import os
 
 from maps.forms import FileForm, ScanForm
 from maps.models import File, Scan, Type, Map
-from maps.tables import FileTable, ScanTable, MapTable
+from maps.tables import FileTable, ScanTable, MapTable, OrphanTable
 from maps.util import get_selected_nodes
 
 
 @login_required
 def index(request):
-    orphans = []
+
+    orphan_data = []
     # get scan orphaned files
     path = settings.MEDIA_ROOT + 'scan/'
-    files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
-    for file in files:
+    scans = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+    for file in scans:
         if not Scan.objects.filter(file='scan/' + file):
-            orphans.append('Scan: ' + file)
+            orphan_data.append({'type': 'Scan', 'name': file})
     # get file orphaned files
     path = settings.MEDIA_ROOT + 'file/'
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     for file in files:
         if not File.objects.filter(file='file/' + file):
-            orphans.append('File: ' + file)
+            orphan_data.append({'type': 'File', 'name': file})
     tables = {
         'files': FileTable(File.objects.all()),
         'scans': ScanTable(Scan.objects.all())}
+    tables['files'].tab = '#tab-file'
+    tables['scans'].tab = '#tab-scan'
+    tables['orphans'] = OrphanTable(orphan_data)
+    tables['orphans'].tab = '#tab-orphans'
     for name, table in tables.items():
         RequestConfig(
             request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
-    return render(request, 'maps/files/index.html', {'tables': tables, 'orphans': orphans})
+    return render(request, 'maps/files/index.html', {'tables': tables})
 
 
 @login_required
@@ -57,8 +63,14 @@ def scan_detail(request, pk):
     scan = Scan.objects.get(pk=pk)
     tables = {'maps': MapTable(Map.objects.filter(scan_map=scan))}
     tables['maps'].tab = '#maps'
+    file_name = splitext(basename(scan.file.name))[0]  # basename without extension
+    iiif = {
+        'file_path': settings.MEDIA_ROOT + 'IIIF/' + file_name,
+        'tile_sources': settings.IIIF_URL + file_name + '/info.json',
+        'library_path': '/static/webpage/libraries/openseadragon/'} if settings.IIIF_URL else None
     return render(request, 'maps/files/scan/detail.html', {
         'scan': scan,
+        'iiif': iiif if iiif and os.path.isfile(iiif['file_path'] + '.jp2') else None,
         'tables': tables,
         'types': Type.objects.filter(scan_type=scan)})
 

@@ -11,6 +11,8 @@ ALLOWED_UPLOAD_SIZE = 20 * 1024 * 1024  # in bytes, e.g for 2 MB: 2 * 1024 * 102
 ALLOWED_SCAN_EXTENSIONS = ['jp2', 'tif', 'tiff']
 ALLOWED_SCAN_SIZE = 10 * 1024 * 1024 * 1024  # in bytes, e.g for 2 MB: 2 * 1024 * 1024
 
+IIIF_URL = ''  # in case you are using IIIF for scans, e.g. https://my_iiif_server.net/
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
