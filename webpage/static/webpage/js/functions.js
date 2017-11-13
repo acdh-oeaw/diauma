@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    $.jstree.defaults.core.themes.dots = false;
+
     /* workaround for bootstraps inability to open tabs with a direct link */
     var hash = window.location.hash;
     if (hash) {

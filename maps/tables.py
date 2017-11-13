@@ -9,6 +9,15 @@ from .util import link, truncate_string, get_mime_type
 from .models import Person, Map, Place, Institute, File, Scan, BaseModel
 
 
+class OrphanTable(tables.Table):
+
+    class Meta:
+        attrs = {'class': 'paleblue'}
+
+    type = tables.Column()
+    name = tables.Column()
+
+
 class TypeRelatedTable(tables.Table):
 
     class Meta:
@@ -176,8 +185,6 @@ class FileTable(tables.Table):
         if default_storage.exists(record.file):
             return filesizeformat(record.file.size)
         return mark_safe('<span class="error">Missing file!</span>')  # pragma: no cover
-
-
 
     @staticmethod
     def render_name(record):
