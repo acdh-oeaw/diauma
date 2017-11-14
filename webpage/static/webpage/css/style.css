@@ -11,6 +11,10 @@ body {
     font-family: sans-serif;
 }
 
+table.paleblue a.button {
+    color: white;
+}
+
 #seadragon {
     width: 800px;
     height: 600px;

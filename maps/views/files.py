@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
+from django.utils.safestring import mark_safe
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 import os
@@ -27,13 +28,23 @@ def index(request):
     scans = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     for file in scans:
         if not Scan.objects.filter(file='scan/' + file):
-            orphan_data.append({'type': 'Scan', 'name': file})
+            link = '<a class="button" download target="_blank" href="/media/scan/' + file + '">'
+            link += 'Download</a>'
+            orphan_data.append({
+                'type': 'Scan',
+                'name': file,
+                'download': mark_safe(link)})
     # get file orphaned files
     path = settings.MEDIA_ROOT + 'file/'
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     for file in files:
         if not File.objects.filter(file='file/' + file):
-            orphan_data.append({'type': 'File', 'name': file})
+            link = '<a class="button" download target="_blank" href="/media/file/' + file + '">'
+            link += 'Download</a>'
+            orphan_data.append({
+                'type': 'File',
+                'name': file,
+                'download': mark_safe(link)})
     tables = {
         'files': FileTable(File.objects.all()),
         'scans': ScanTable(Scan.objects.all())}

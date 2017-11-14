@@ -8,6 +8,7 @@
 {% load crispy_forms_tags %}
 {% block breadcrumbs %}
     {% breadcrumb "Files" "maps:files-index" %}
+    {% breadcrumb "Scan" '' %}
     {% breadcrumb_safe scan.name|truncate_string '' %}
 {% endblock %}
 <div class="container">
