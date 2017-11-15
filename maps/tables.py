@@ -16,7 +16,7 @@ class OrphanTable(tables.Table):
 
     type = tables.Column()
     name = tables.Column()
-    download = tables.Column()
+    source = tables.Column()
 
 
 class TypeRelatedTable(tables.Table):

@@ -40,7 +40,12 @@
             <h3>Orphans</h3>
 
             {% if tables.orphans.data %}
-                <p>These files exist on the file system but have no related database entries.</p>
+                <p>
+                    Listed are:<br />
+                    - Entries without a file with a link to the entry.<br />
+                    - Files that exist but have no related database entries with a download link.
+
+                </p>
                 {% render_table tables.orphans %}
             {% else %}
                 Congratulation, no orphaned files found.
