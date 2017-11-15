@@ -38,17 +38,15 @@
         </div>
         <div class="tab-pane" id="tab-orphans">
             <h3>Orphans</h3>
-
             {% if tables.orphans.data %}
                 <p>
                     Listed are:<br />
                     - Entries without a file with a link to the entry.<br />
                     - Files that exist but have no related database entries with a download link.
-
                 </p>
                 {% render_table tables.orphans %}
             {% else %}
-                Congratulation, no orphaned files found.
+                <p>Congratulation, no orphaned files found.</p>
             {% endif %}
         </div>
     </div>

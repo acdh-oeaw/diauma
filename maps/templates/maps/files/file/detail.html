@@ -36,8 +36,6 @@
                     <h3>Information</h3>
                     {% if file.file|file_exists %}
                         <p>File size: {{ file.file.size|filesizeformat }}</p>
-                    {% else %}
-                        <p class="error">This file don't seem to exist!</p>
                     {% endif %}
                     <p>File type: {{ file.file.name|mime_type }}</p>
                     {% include "maps/types_for_detail_view.html" %}
