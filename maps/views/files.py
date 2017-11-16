@@ -44,7 +44,7 @@ def index(request):
                 'type': 'Missing scan',
                 'name': scan,
                 'source': mark_safe('<a href="' + url_ + '">Link</a>')})
-
+    # Todo: write a loop for orphaned files
     # get orphaned files
     path = settings.MEDIA_ROOT + 'scan/'
     scans = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
@@ -64,6 +64,18 @@ def index(request):
             link += 'Download</a>'
             orphan_data.append({
                 'type': 'Orphaned file',
+                'name': file,
+                'source': mark_safe(link)})
+    path = settings.MEDIA_ROOT + 'IIIF/'
+    files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+    for file in files:
+        file_name = splitext(basename(file))[0]  # basename without extension
+        print(file_name)
+        if not Scan.objects.filter(file__contains='scan/' + file_name):
+            link = '<a class="button" download target="_blank" href="/media/IIIF/' + file + '">'
+            link += 'Download</a>'
+            orphan_data.append({
+                'type': 'Orphaned IIIF file',
                 'name': file,
                 'source': mark_safe(link)})
     tables['orphans'] = OrphanTable(orphan_data)
