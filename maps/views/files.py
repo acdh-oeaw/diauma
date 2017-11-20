@@ -6,8 +6,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.files.storage import default_storage
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
+from django.utils.safestring import mark_safe
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 import os
@@ -20,25 +22,62 @@ from maps.util import get_selected_nodes
 
 @login_required
 def index(request):
-
+    file_objects = File.objects.all()
+    scan_objects = Scan.objects.all()
+    tables = {'files': FileTable(file_objects), 'scans': ScanTable(scan_objects)}
+    tables['files'].tab = '#tab-file'
+    tables['scans'].tab = '#tab-scan'
     orphan_data = []
-    # get scan orphaned files
+
+    # get objects whose files are missing
+    for file in file_objects:
+        if not default_storage.exists(file.file):
+            url_ = reverse('maps:file-detail', kwargs={'pk': file.pk})
+            orphan_data.append({
+                'type': 'Missing file',
+                'name': file,
+                'source': mark_safe('<a href="' + url_ + '">Link</a>')})
+    for scan in scan_objects:
+        if not default_storage.exists(scan.file):
+            url_ = reverse('maps:scan-detail', kwargs={'pk': scan.pk})
+            orphan_data.append({
+                'type': 'Missing scan',
+                'name': scan,
+                'source': mark_safe('<a href="' + url_ + '">Link</a>')})
+    # Todo: write a loop for orphaned files
+    # get orphaned files
     path = settings.MEDIA_ROOT + 'scan/'
     scans = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     for file in scans:
         if not Scan.objects.filter(file='scan/' + file):
-            orphan_data.append({'type': 'Scan', 'name': file})
-    # get file orphaned files
+            link = '<a class="button" download target="_blank" href="/media/scan/' + file + '">'
+            link += 'Download</a>'
+            orphan_data.append({
+                'type': 'Orphaned scan',
+                'name': file,
+                'source': mark_safe(link)})
     path = settings.MEDIA_ROOT + 'file/'
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     for file in files:
         if not File.objects.filter(file='file/' + file):
-            orphan_data.append({'type': 'File', 'name': file})
-    tables = {
-        'files': FileTable(File.objects.all()),
-        'scans': ScanTable(Scan.objects.all())}
-    tables['files'].tab = '#tab-file'
-    tables['scans'].tab = '#tab-scan'
+            link = '<a class="button" download target="_blank" href="/media/file/' + file + '">'
+            link += 'Download</a>'
+            orphan_data.append({
+                'type': 'Orphaned file',
+                'name': file,
+                'source': mark_safe(link)})
+    path = settings.MEDIA_ROOT + 'IIIF/'
+    files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+    for file in files:
+        file_name = splitext(basename(file))[0]  # basename without extension
+        print(file_name)
+        if not Scan.objects.filter(file__contains='scan/' + file_name):
+            link = '<a class="button" download target="_blank" href="/media/IIIF/' + file + '">'
+            link += 'Download</a>'
+            orphan_data.append({
+                'type': 'Orphaned IIIF file',
+                'name': file,
+                'source': mark_safe(link)})
     tables['orphans'] = OrphanTable(orphan_data)
     tables['orphans'].tab = '#tab-orphans'
     for name, table in tables.items():

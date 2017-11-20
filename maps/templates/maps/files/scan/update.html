@@ -7,6 +7,7 @@
     <div class="container">
         {% block breadcrumbs %}
             {% breadcrumb "Files" "maps:files-index" %}
+            {% breadcrumb "Scan" '' %}
             {% breadcrumb_safe object.name|truncate_string "maps:scan-detail" object.id %}
             {% breadcrumb "Update" '' %}
         {% endblock %}
