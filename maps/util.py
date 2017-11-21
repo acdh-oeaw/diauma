@@ -27,12 +27,18 @@ def sanitize(string):
 
 
 def truncate_string(string, length=40, title=True):
+    """
+    Returns a truncated string with '..' at the end if it is longer than the length parameter.
+    If the title param is true a span with the original string as title (for mouse over) is added.
+    """
     if string is None:
         return ''  # pragma: no cover
     if len(string) > length + 2:
-        string = string[:length] + '..'
         if title:
-            string = '<span title="' + string.replace('"', '') + '">' + string + '</span>'
+            title = string.replace('"', '')
+            string = '<span title="' + title + '">' + string[:length] + '..' + '</span>'
+        else:
+            string = string[:length] + '..'
     return string
 
 

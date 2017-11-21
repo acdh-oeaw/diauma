@@ -1,7 +1,6 @@
 Manual
-******
+======
 
-.. contents:: :local:
 
 Diauma is a web application to manage maps and associated data.
 
@@ -10,127 +9,16 @@ are described in detail below.
 
 Fields marked with an * are mandatory
 
-Map
-===
-These are the core elements of the application, a map can have following information:
+.. toctree::
+   :maxdepth: 1
 
-Name *
-------
-The name is used for display in tables and can be searched.
+   map
+   reference
+   person
+   institute
+   place
+   files
 
-Map id
-------
-This field can be used for an unique identifier.
-
-Title
------
-This field can be used for the whole title e.g. in case there was chosen a shorter for display.
-
-Scale
------
-If known the scale of the map can be entered here.
-
-Width and height
-----------------
-These values are for the physical dimensions of a map. The default is in centimeter.
-
-Date created
-------------
-The date when the map was created. Either only the first value is used or you can enter a time span
-using the second field, too.
-
-Date content
-------------
-The date of the map content. Either only the first value is used or you can enter a time span
-using the second field, too.
-
-Info
-----
-Additional information can be entered here.
-
-Has base map
-------------
-You can chose one existing map which this map is based on.
-
-Is copy of
-----------
-If this map is a copy you can chose one existing map as the original.
-
-Created by
-----------
-Multiple persons can entered as creator of the map.
-
-Issued at, Has current location
--------------------------------
-You can select a place where the map was issued and where the map is currently located.
-
-Published by
-------------
-Multiple institutes which participated in publishing the map can be selected.
-
-Referenced by
--------------
-Multiple references which the map is part of can be selected.
-
-Reference
-=========
-References are collection of maps e.g. an atlas or an scientific anthology.
-
-Name *
-------
-The name is used for display in tables and can be searched.
-
-Info
-----
-Additional information can be entered here.
-
-Person
-======
-Persons can be chosen as a creator of a map.
-
-Name *
-------
-The name is used for display in tables and can be searched.
-
-Info
-----
-Additional information can be entered here.
-
-Person location
----------------
-A Place can be chosen as the main location of a person
-
-Person institutes
------------------
-Multiple Institutes that the person is associated with can be selected.
-
-Institute
-=========
-Institutes can be the publisher of maps. Also persons can be associated with institutions.
-
-Name *
-------
-The name is used for display in tables and can be searched.
-
-Info
-----
-Additional information can be entered here.
-
-Institute location
-------------------
-A place can be chosen as location of an institute.
-
-Place
-=====
-Places can be the location of institutes, persons and maps.
-
-Name *
-------
-The name is used for display in tables and can be searched.
-
-Info
-----
-Additional information can be entered here.
 
 Types
 =====
@@ -144,3 +32,4 @@ Existing type hierarchies can be edited and extended by every user but can only 
 have no subtypes and no associated entries.
 
 Admins can add new type hierarchies in the backend.
+

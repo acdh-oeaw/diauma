@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Manual &mdash; Diauma Docu 0.7.0 documentation</title>
+  <title>Place &mdash; Diauma Docu 0.7.0 documentation</title>
   
 
   
@@ -39,8 +39,9 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Diauma Docu 0.7.0 documentation" href="index.html"/>
-        <link rel="next" title="Map" href="map.html"/>
-        <link rel="prev" title="About the project" href="project.html"/> 
+        <link rel="up" title="Manual" href="manual.html"/>
+        <link rel="next" title="FILES" href="files.html"/>
+        <link rel="prev" title="Institute" href="institute.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -96,16 +97,20 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="project.html">About the project</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Manual</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="manual.html">Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference.html">Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="person.html">Person</a></li>
 <li class="toctree-l2"><a class="reference internal" href="institute.html">Institute</a></li>
-<li class="toctree-l2"><a class="reference internal" href="place.html">Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="files.html">Files</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Place</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#name">Name *</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#info">Info</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#types">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">FILES</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#types">Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model.html">DIAUMA-Model</a></li>
 </ul>
 
@@ -151,13 +156,15 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Manual</li>
+          <li><a href="manual.html">Manual</a> &raquo;</li>
+        
+      <li>Place</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/manual.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/place.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -170,32 +177,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="manual">
-<h1>Manual<a class="headerlink" href="#manual" title="Permalink to this headline">¶</a></h1>
-<p>Diauma is a web application to manage maps and associated data.</p>
-<p>In the menu you&#8217;ll find the main entities: Map, Reference, Person, Institute and Place which
-are described in detail below.</p>
-<p>Fields marked with an * are mandatory</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="map.html">Map</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="person.html">Person</a></li>
-<li class="toctree-l1"><a class="reference internal" href="institute.html">Institute</a></li>
-<li class="toctree-l1"><a class="reference internal" href="place.html">Place</a></li>
-<li class="toctree-l1"><a class="reference internal" href="files.html">Files</a></li>
+  <div class="section" id="place">
+<h1>Place<a class="headerlink" href="#place" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#name" id="id1">Name *</a></li>
+<li><a class="reference internal" href="#info" id="id2">Info</a></li>
 </ul>
 </div>
+<p>Places can be the location of institutes, persons and maps.</p>
+<div class="section" id="name">
+<h2><a class="toc-backref" href="#id1">Name *</a><a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
+<p>The name is used for display in tables and can be searched.</p>
 </div>
-<div class="section" id="types">
-<h1>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h1>
-<p>Types are used to track information which entities have in common. E.g. there is a type &#8220;Features&#8221;
-for maps which can include items like &#8220;Legend&#8221;, &#8220;Stamp&#8221; and so on. They are hierarchic, meaning the
-type &#8220;Stamp&#8221; can have sub types e.g. &#8216;Royal stamp&#8217; and &#8216;Unknown stamp&#8217;. Also it is possible the
-select multiple types so a map can feature a &#8220;Royal stamp&#8221; and an &#8220;Unknown stamp&#8221;.</p>
-<p>Existing type hierarchies can be edited and extended by every user but can only be deleted, if they
-have no subtypes and no associated entries.</p>
-<p>Admins can add new type hierarchies in the backend.</p>
+<div class="section" id="info">
+<h2><a class="toc-backref" href="#id2">Info</a><a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h2>
+<p>Additional information can be entered here.</p>
+</div>
 </div>
 
 
@@ -208,10 +206,10 @@ have no subtypes and no associated entries.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="map.html" class="btn btn-neutral float-right" title="Map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="files.html" class="btn btn-neutral float-right" title="FILES" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="project.html" class="btn btn-neutral" title="About the project" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="institute.html" class="btn btn-neutral" title="Institute" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -23,6 +23,8 @@ def display_node_count(node, root_name):
 @register.filter(name='display_image')
 def display_image(file):
     """Returns an image with css class preview and a link to the image itself, if available."""
+    if not default_storage.exists(file.file):
+        return mark_safe('<p class="error">The associated file doesn\'t  exist!</p>')
     if util.get_mime_type(file.file.name).startswith('image'):
         html = '<a href="' + file.file.url + '">'
         html += '<img class="preview" src="' + file.file.url + '" alt="No preview available." />'
