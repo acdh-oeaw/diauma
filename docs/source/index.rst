@@ -8,12 +8,3 @@ Welcome to the Diauma documentation!
    project
    manual
    model
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
