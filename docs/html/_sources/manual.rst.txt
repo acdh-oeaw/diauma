@@ -17,6 +17,7 @@ Fields marked with an * are mandatory
    person
    institute
    place
+   files
 
 
 Types
