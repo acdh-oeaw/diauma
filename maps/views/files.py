@@ -70,7 +70,6 @@ def index(request):
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     for file in files:
         file_name = splitext(basename(file))[0]  # basename without extension
-        print(file_name)
         if not Scan.objects.filter(file__contains='scan/' + file_name):
             link = '<a class="button" download target="_blank" href="/media/IIIF/' + file + '">'
             link += 'Download</a>'
