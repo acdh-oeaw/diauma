@@ -38,6 +38,12 @@
         </div>
         <div class="tab-pane" id="tab-orphans">
             <h3>Orphans</h3>
+            {% if orphaned_files_count %}
+                <div class="button-bar">
+                    <a class="button" id="delete-orphaned-files"
+                       href="{% url 'maps:delete-orphaned-files' %}">Delete orphaned files</a>
+                </div>
+            {% endif %}
             {% if tables.orphans.data %}
                 <p>
                     Listed are:<br />
@@ -46,9 +52,14 @@
                 </p>
                 {% render_table tables.orphans %}
             {% else %}
-                <p>Congratulation, no orphaned files found.</p>
+                <p>Congratulation, no orphaned files or data entries found.</p>
             {% endif %}
         </div>
     </div>
 </div>
+<script>
+    $(document).on('click', '#delete-orphaned-files', function(){
+        return confirm('Delete {{ orphaned_files_count }} file(s)?');
+    })
+</script>
 {% endblock %}
