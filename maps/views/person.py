@@ -37,8 +37,7 @@ def detail(request, pk):
         'institutes': institutes,
         'map_table': map_table,
         'location_at': get_object_or_None(Place, person_location=person),
-        'types': Type.objects.filter(person_type=person)
-    })
+        'types': Type.objects.filter(person_type=person)})
 
 
 class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):

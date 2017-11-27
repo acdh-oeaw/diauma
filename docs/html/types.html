@@ -1,7 +1,6 @@
 
 
 
-
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -10,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; Diauma Docu 0.8.0 documentation</title>
+  <title>Types &mdash; Diauma Docu 0.8.0 documentation</title>
   
 
   
@@ -37,9 +36,12 @@
 
   
         <link rel="index" title="Index"
-              href="#"/>
+              href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Diauma Docu 0.8.0 documentation" href="index.html"/> 
+    <link rel="top" title="Diauma Docu 0.8.0 documentation" href="index.html"/>
+        <link rel="up" title="Manual" href="manual.html"/>
+        <link rel="next" title="DIAUMA-Model" href="model.html"/>
+        <link rel="prev" title="Files" href="files.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -93,9 +95,18 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="project.html">About the project</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manual.html">Manual</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="manual.html">Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="person.html">Person</a></li>
+<li class="toctree-l2"><a class="reference internal" href="institute.html">Institute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="place.html">Place</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Files</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Types</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="model.html">DIAUMA-Model</a></li>
 </ul>
 
@@ -141,12 +152,16 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Index</li>
+          <li><a href="manual.html">Manual</a> &raquo;</li>
+        
+      <li>Types</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/types.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -158,11 +173,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- 
+  <div class="section" id="types">
+<h1>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h1>
+<p>Types are used to track information which entities have in common. E.g. there is a type &#8220;Features&#8221;
+for maps which can include items like &#8220;Legend&#8221;, &#8220;Stamp&#8221; and so on. They are hierarchic, meaning the
+type &#8220;Stamp&#8221; can have sub types e.g. &#8216;Royal stamp&#8217; and &#8216;Unknown stamp&#8217;. Also it is possible the
+select multiple types so a map can feature a &#8220;Royal stamp&#8221; and an &#8220;Unknown stamp&#8221;.</p>
+<p>Existing type hierarchies can be edited and extended by every user but can only be deleted, if they
+have no subtypes and no associated entries.</p>
+<p>Admins can add new type hierarchies in the backend.</p>
 </div>
 
 
@@ -172,6 +191,15 @@
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="model.html" class="btn btn-neutral float-right" title="DIAUMA-Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="files.html" class="btn btn-neutral" title="Files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

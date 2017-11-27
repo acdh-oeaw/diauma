@@ -45,7 +45,7 @@ urlpatterns = [
     url(r'^type/update/(?P<pk>\d+)/$', type.Update.as_view(), name='type-update'),
     url(r'^type/delete/(?P<pk>\d+)/$', type.Delete.as_view(), name='type-delete'),
 
-    url(r'^$', files.index, name="files-index"),
+    url(r'^files/$', files.index, name="files-index"),
     url(r'^files/file-detail/(?P<pk>\d+)/$', files.file_detail, name='file-detail'),
     url(r'^files/scan-detail/(?P<pk>\d+)/$', files.scan_detail, name='scan-detail'),
     url(r'^files/file-create/$', files.FileCreate.as_view(), name='file-create'),
@@ -57,5 +57,6 @@ urlpatterns = [
     url(r'^files/file-update/(?P<pk>\d+)/$', files.FileUpdate.as_view(), name='file-update'),
     url(r'^files/scan-update/(?P<pk>\d+)/$', files.ScanUpdate.as_view(), name='scan-update'),
     url(r'^files/file-delete/(?P<pk>\d+)/$', files.FileDelete.as_view(), name='file-delete'),
-    url(r'^files/scan-delete/(?P<pk>\d+)/$', files.ScanDelete.as_view(), name='scan-delete')
+    url(r'^files/scan-delete/(?P<pk>\d+)/$', files.ScanDelete.as_view(), name='scan-delete'),
+    url(r'^files/delete-orphaned-files/$', files.delete_orphaned_files, name='delete-orphaned-files')
 ]

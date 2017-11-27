@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.files.storage import default_storage
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -28,7 +28,6 @@ def index(request):
     tables['files'].tab = '#tab-file'
     tables['scans'].tab = '#tab-scan'
     orphan_data = []
-
     # get objects whose files are missing
     for file in file_objects:
         if not default_storage.exists(file.file):
@@ -46,10 +45,12 @@ def index(request):
                 'source': mark_safe('<a href="' + url_ + '">Link</a>')})
     # Todo: write a loop for orphaned files
     # get orphaned files
+    orphaned_files_count = 0
     path = settings.MEDIA_ROOT + 'scan/'
     scans = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     for file in scans:
         if not Scan.objects.filter(file='scan/' + file):
+            orphaned_files_count += 1
             link = '<a class="button" download target="_blank" href="/media/scan/' + file + '">'
             link += 'Download</a>'
             orphan_data.append({
@@ -60,6 +61,7 @@ def index(request):
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     for file in files:
         if not File.objects.filter(file='file/' + file):
+            orphaned_files_count += 1
             link = '<a class="button" download target="_blank" href="/media/file/' + file + '">'
             link += 'Download</a>'
             orphan_data.append({
@@ -70,8 +72,8 @@ def index(request):
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     for file in files:
         file_name = splitext(basename(file))[0]  # basename without extension
-        print(file_name)
         if not Scan.objects.filter(file__contains='scan/' + file_name):
+            orphaned_files_count += 1
             link = '<a class="button" download target="_blank" href="/media/IIIF/' + file + '">'
             link += 'Download</a>'
             orphan_data.append({
@@ -83,7 +85,35 @@ def index(request):
     for name, table in tables.items():
         RequestConfig(
             request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
-    return render(request, 'maps/files/index.html', {'tables': tables})
+    return render(request, 'maps/files/index.html', {
+        'tables': tables,
+        'orphaned_files_count': orphaned_files_count})
+
+
+@login_required
+def delete_orphaned_files(request):  # pragma: no cover
+    orphaned_files_count = 0
+    path = settings.MEDIA_ROOT + 'scan/'
+    scans = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+    for file in scans:
+        if not Scan.objects.filter(file='scan/' + file):
+            os.remove(os.path.join(path, file))
+            orphaned_files_count += 1
+    path = settings.MEDIA_ROOT + 'file/'
+    files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+    for file in files:
+        if not File.objects.filter(file='file/' + file):
+            os.remove(os.path.join(path, file))
+            orphaned_files_count += 1
+    path = settings.MEDIA_ROOT + 'IIIF/'
+    files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+    for file in files:
+        file_name = splitext(basename(file))[0]  # basename without extension
+        if not Scan.objects.filter(file__contains='scan/' + file_name):
+            os.remove(os.path.join(path, file))
+            orphaned_files_count += 1
+    messages.info(request, str(orphaned_files_count) + ' file(s) where deleted.')
+    return redirect('/maps/files')
 
 
 @login_required
