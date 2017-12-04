@@ -87,13 +87,19 @@ class MapForm(BaseForm):
 
     def save(self, *args, **kwargs):
         instance = super(MapForm, self).save(*args, **kwargs)
-        if instance.pk:  # remove maps which have been unselected
+        if instance.pk:  # remove files and scans which have been unselected
             for file_ in instance.file_map.all():
                 if file_ not in self.cleaned_data['file_map']:
                     instance.file_map.remove(file_)
+            for file_ in instance.scan_map.all():
+                if file_ not in self.cleaned_data['scan_map']:
+                    instance.scan_map.remove(file_)
         for file_ in self.cleaned_data['file_map']:
             if file_ not in instance.file_map.all():
                 instance.file_map.add(file_)  # add newly selected maps
+        for file_ in self.cleaned_data['scan_map']:
+            if file_ not in instance.scan_map.all():
+                instance.scan_map.add(file_)  # add newly selected scans
         return instance
 
     class Meta:
