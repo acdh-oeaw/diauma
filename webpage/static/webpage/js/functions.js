@@ -70,6 +70,13 @@ function selectFromTreeMulti(name) {
     $('#' + name + '-selection').html(checkedNames);
 }
 
+function selectFromTree(name, id, text) {
+    $('#id_parent').val(id)
+    $('#' + name + '-button').val(text);
+    $('#' + name + '-dialog').dialog('close');
+    $('#' + name + '-clear').show();
+}
+
 /* Piwik */
 var _paq = _paq || [];
 /* tracker methods like 'setCustomDimension' should be called before 'trackPageView' */

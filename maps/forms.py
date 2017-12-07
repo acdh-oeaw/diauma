@@ -49,7 +49,7 @@ class BaseForm(forms.ModelForm):
                         <div id="{field}-tree"></div>
                     </div>
                 </div>
-                <script type="text/javascript">
+                <script>
                     $(document).ready(function () {{
                         createTreeOverlay("{field}", "{node_name}", true);
                         $("#{field}-tree").jstree({{
@@ -339,71 +339,62 @@ class TypeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(TypeForm, self).__init__(*args, **kwargs)
-        # selected_ids = [o.id for o in instance.scan_type.all()] if instance else []
-        selected_ids = []
         instance = kwargs.get('instance')
         if not instance:
             instance = kwargs['initial']['parent']
         ancestors = instance.get_ancestors()
         root = ancestors[0] if ancestors else None
-        nodes_html = self.get_nodes_html(root, selected_ids)
+        nodes_html = self.get_nodes_html(root, instance.parent)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
-        self.helper.layout = Layout(Div('parent', HTML(nodes_html)))
+        self.helper.layout = Layout(
+            Div('parent', css_class = 'hidden'),
+            Div(HTML(nodes_html)))
 
     @staticmethod
-    def get_nodes_html(root, selected_ids):
-        html = ''
-        overlay_html = ''
-        selected_ids_string = []
-        selected_name_string = ''
-        for child in root.get_descendants():
-            if child.id in selected_ids:
-                selected_ids_string.append(str(child.id))
-                selected_name_string += child.name + '<br />'
-        selected_ids_string = ','.join(selected_ids_string)
-        html += """
+    def get_nodes_html(root, selected):
+        html = """
             <div class="table-row">
                 <div>
-                    <label class="optional" for="{field}-button">Super: </label>
+                    <label class="optional" for="{field}-button">Super </label>
                 </div>
                 <div class="table-cell">
-                    <input type="hidden" name="{field}-id"
-                        value="{selected_ids_string}" id="{field}-id" />
-                    <div style="text-align:left;" id="{field}-selection">
-                        {selected_name_string}
-                    </div>
-                    <span id="{field}-button" class="button">Change</span>
+                    <input type="hidden" name="{field}-id" value="{selected_id}" id="{field}-id" />
+                    <input id="{field}-button" name="{field}-button" type="text"
+                        class="table-select" onfocus="this.blur()"
+                        readonly="readonly" value="{selected_name}" placeholder="Select" />
                 </div>
             </div>""".format(
-            field='map-type-' + sanitize(root.name),
-            node_name=root.name,
-            selected_ids_string=selected_ids_string,
-            selected_name_string=selected_name_string)
-        overlay_html += """
+                field='map-type-' + sanitize(root.name),
+                node_name=root.name,
+                selected_id=selected.id,
+                selected_name=selected.name)
+        overlay_html = """
             <div id="{field}-overlay" class="overlay" style="display:none">
                 <div id="{field}-dialog" class="overlay-container">
                     <input class="tree-filter" id="{field}-search" placeholder="Filter"/>
                     <div id="{field}-tree"></div>
                 </div>
             </div>
-            <script type="text/javascript">
+            <script>
                 $(document).ready(function () {{
-                    createTreeOverlay("{field}", "{node_name}", true);
+                    createTreeOverlay("{field}", "{node_name}");
                     $("#{field}-tree").jstree({{
                         "search": {{"case_insensitive": true, "show_only_matches": true}},
-                        "plugins": ["search", "checkbox"],
-                        "checkbox": {{ "three_state" : false }},
+                        "plugins": ["search"],
                         {tree_data}
+                    }});
+                    $("#{field}-tree").on("select_node.jstree", function (e, data) {{
+                        selectFromTree("{field}", data.node.id, data.node.text);
                     }});
                     $("#{field}-search").keyup(function () {{
                         $("#{field}-tree").jstree("search", $(this).val());
                     }});
                 }});
             </script>""".format(
-            field='map-type-' + sanitize(root.name),
-            node_name=root.name,
-            tree_data=root.get_tree_data(selected_ids))
+                field='map-type-' + sanitize(root.name),
+                node_name=root.name,
+                tree_data=root.get_tree_data([selected.id]))
         return html + overlay_html
 
 
