@@ -341,25 +341,26 @@ class TypeForm(forms.ModelForm):
         super(TypeForm, self).__init__(*args, **kwargs)
         instance = kwargs.get('instance')
         if not instance:
-            instance = kwargs['initial']['parent']
-        ancestors = instance.get_ancestors()
-        root = ancestors[0] if ancestors else None
-        nodes_html = self.get_nodes_html(root, instance.parent)
+            parent = kwargs['initial']['parent']
+        else:
+            ancestors = instance.get_ancestors()
+            parent = list(ancestors)[-1]
+        ancestors = parent.get_ancestors()
+        root = ancestors[0] if ancestors else parent
+        nodes_html = self.get_nodes_html(root, parent, True)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
         self.helper.layout = Layout(
-            Div('parent', css_class = 'hidden'),
+            Div('parent', css_class='hidden'),
             Div(HTML(nodes_html)))
 
     @staticmethod
-    def get_nodes_html(root, selected):
+    def get_nodes_html(root, selected, with_root=False):
         html = """
-            <div class="table-row">
-                <div>
-                    <label class="optional" for="{field}-button">Super </label>
-                </div>
-                <div class="table-cell">
-                    <input type="hidden" name="{field}-id" value="{selected_id}" id="{field}-id" />
+            <div class="form-group">
+                <label class="optional" for="{field}-button">Super</label>
+                <input type="hidden" name="{field}-id" value="{selected_id}" id="{field}-id" />
+                <div class="controls">
                     <input id="{field}-button" name="{field}-button" type="text"
                         class="table-select" onfocus="this.blur()"
                         readonly="readonly" value="{selected_name}" placeholder="Select" />
@@ -394,7 +395,7 @@ class TypeForm(forms.ModelForm):
             </script>""".format(
                 field='map-type-' + sanitize(root.name),
                 node_name=root.name,
-                tree_data=root.get_tree_data([selected.id]))
+                tree_data=root.get_tree_data([selected.id], with_root))
         return html + overlay_html
 
 
