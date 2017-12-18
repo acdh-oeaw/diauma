@@ -41,9 +41,10 @@ def detail(request, pk):
 def create(request, pk):
     parent = Type.objects.get(pk=pk)
     form = TypeForm(request.POST or None, initial={"parent": parent})
-
     if request.method == 'POST' and form.is_valid():
-        node = Type.objects.create(name=form['name'].data, parent=Type.objects.get(pk=form['parent'].data))
+        node = Type.objects.create(
+            name=form['name'].data,
+            parent=Type.objects.get(pk=form['parent'].data))
         return redirect('maps:type-detail', pk=node.id)
     return render(request, 'maps/type/create.html', {'parent': parent, 'form': form})
 

@@ -51,16 +51,13 @@ class MapsTest(TestCase):
         self.assertContains(rv, 'The Asylum')
         institute = Institute.objects.create()
         rv = self.client.post(reverse('maps:institute-update', kwargs={'pk': institute.id}), {
-                'name': 'Umbrella Corporation',
-                'info': '''Very long info indeed Very long info
-                    indeed Very long info indeed Very long info indeed Very long info indeed Very
-                    long info indeed Very long info indeed and this is getting even longer'''},
-                follow=True)
+                'name': 'Umbrella Corporation', 'info': 'Cooperate info'}, follow=True)
         self.assertContains(rv, 'Umbrella Corporation')
         rv = self.client.get(reverse('maps:institute'), follow=True)
-        self.assertContains(rv, 'Very long')
+        self.assertContains(rv, 'Cooperate info')
         rv = self.client.post(reverse(
-            'maps:institute-delete', kwargs={'pk': institute.id}),
+            'maps:institute-delete',
+            kwargs={'pk': institute.id}),
             follow=True)
         self.assertContains(rv, 'An entry has been deleted.')
 
@@ -74,8 +71,8 @@ class MapsTest(TestCase):
                 'map-type-Sex-id': Type.objects.get(name="Female").id,
                 'date_begin': '2000-02-02',
                 'date_end': '2140-02-02',
-                'info': "It's a fine day, people open windows. "
-                        "They leave the houses, just for a short while."},
+                'info': """ It's a fine day, people open windows. 
+                            They leave the houses, just for a short while."""},
             follow=True)
         self.assertContains(rv, 'Laura')
         rv = self.client.get(reverse('maps:person-update', kwargs={'pk': person.id}), follow=True)

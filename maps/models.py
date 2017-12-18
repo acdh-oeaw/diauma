@@ -1,12 +1,10 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import os
-from urllib import request
 
 from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
-from django.http import HttpRequest
 from django.template.defaultfilters import filesizeformat
 from mptt.models import MPTTModel, TreeForeignKey
 from os.path import splitext, basename
