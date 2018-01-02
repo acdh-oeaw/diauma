@@ -1,11 +1,12 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
 
 from maps.models import Institute, Map, Person, Place,  Reference
 from maps.util import truncate_string
 
-
+@login_required
 def index(request):
     options = {
         'width': '1140',
@@ -58,7 +59,9 @@ def add_node(entity, color):
 def add_edge(source, targets):
     string = ''
     for target in targets:
+        if source.id == target.id:
+            continue  # avoid connections to itself
         string += "{{'source': '{source}', 'target': '{target}' }},".format(
-            source = source.__class__.__name__ + '-' + str(source.id),
-            target = target.__class__.__name__ + '-' + str(target.id))
+            source=source.__class__.__name__ + '-' + str(source.id),
+            target=target.__class__.__name__ + '-' + str(target.id))
     return string
