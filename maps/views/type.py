@@ -42,7 +42,9 @@ def create(request, pk):
     parent = Type.objects.get(pk=pk)
     form = TypeForm(request.POST or None, initial={"parent": parent})
     if request.method == 'POST' and form.is_valid():
-        node = Type.objects.create(name=form['name'].data, parent=parent)
+        node = Type.objects.create(
+            name=form['name'].data,
+            parent=Type.objects.get(pk=form['parent'].data))
         return redirect('maps:type-detail', pk=node.id)
     return render(request, 'maps/type/create.html', {'parent': parent, 'form': form})
 
@@ -55,6 +57,23 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('maps:type-detail', kwargs={'pk': self.object.pk})
+
+    def post(self, request, *args, **kwargs):
+        request.POST = request.POST.copy()
+        node = self.get_object()
+        parent = Type.objects.get(pk=request.POST['parent'])
+
+        # make some tests to avoid recursive connections
+        if parent in node.get_descendants():
+            message = 'A type may not be made a child of any of its descendants.'
+            messages.error(self.request, message)
+            return super(Update, self).get(request, *args, **kwargs)
+        if parent == node:
+            message = 'A node may not be made a child of itself.'
+            messages.error(self.request, message)
+            return super(Update, self).get(request, *args, **kwargs)
+        return super(Update, self).post(request, *args, **kwargs)
+
 
 
 class Delete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):

@@ -188,6 +188,7 @@ textarea, input[type="password"], select {
 .error {
     background-color: #ffffff;
     color: #a94442;
+    padding: 0.1em 0.3em;
 }
 
 
