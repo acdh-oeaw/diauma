@@ -1,9 +1,13 @@
 Institute
 =========
 
-.. contents:: :local:
+.. image:: _images/institute.jpg
+
+**To do**: Erklärung, warum ebenfalls Institute abgespeichert und online erfasst werden.
 
 Institutes can be the publisher of maps. Also persons can be associated with institutions.
+
+.. contents:: :local:
 
 Name *
 ------

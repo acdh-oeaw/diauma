@@ -1,9 +1,21 @@
 Map
 ===
 
-.. contents:: :local:
+.. |br| raw:: html
 
-These are the core elements of the application, a map can have following information:
+     <br>
+
+.. image:: _images/map.jpg
+
+Im Zuge der Inventarisierung werden alle vorhandenen Karten, die sich im Kartenschrank in der
+Postgasse 7, 1010 Wien befinden, in der DIAUMA-Datenbank online erfasst. Hierzu ist zumindest der
+Name der Karte einzugeben. Allerdings kann dieser durch zahlreiche andere Metadaten angereichert
+werden. Diese sind unten erklärt.
+
+**To do**: auf die drei verschiedenen Kartentypen eingehen |br|
+**To do**: Kommentar zur Schwierigkeit der Benennung der Karten |br|
+
+.. contents:: :local:
 
 Name *
 ------
