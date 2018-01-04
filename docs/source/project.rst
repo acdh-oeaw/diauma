@@ -30,3 +30,7 @@ Visualisierung“ steht somit für moderne Sicherung, Zugänglichkeit und Befors
 gemäß den Zielsetzungen der Digital Humanities. Es behandelt zudem mit dem Dialekt eine Thematik,
 die in Österreich, aber auch darüber hinaus hohe gesellschaftliche Relevanz aufweist und deshalb
 in der Öffentlichkeit breites Interesse findet.
+
+.. image:: _images/about_1.jpg
+.. image:: _images/about_2.jpg
+.. image:: _images/about_3.jpg

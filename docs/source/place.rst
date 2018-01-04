@@ -1,9 +1,13 @@
 Place
 =====
 
-.. contents:: :local:
+.. image:: _images/place.jpg
+
+**To do**: kurzer Kommentar dazu
 
 Places can be the location of institutes, persons and maps.
+
+.. contents:: :local:
 
 Name *
 ------

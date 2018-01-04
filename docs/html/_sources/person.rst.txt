@@ -1,9 +1,18 @@
 Person
 ======
 
-.. contents:: :local:
+.. image:: _images/person.jpg
 
-Persons can be chosen as a creator of a map.
+Personen, die in der DIAUMA-Datenbank online erfasst sind, sind entweder Kartenautoren,
+Verleger oder Herausgeber. Diese lassen sich nur direkt auf der Karte finden.
+Allerdings können dies auch MitarbeiterInnen sein, die Karten händisch kopiert und
+nachgezeichnet haben.  Zumindest muss ein Name der Person angegeben werden. Falls bekannt,
+ist es auch möglich, das Geburts- und Sterbedatum einzutragen.
+
+**To do**: Kommentar über die Vielfalt der Leute, die an dem Projekt mitgearbeitet haben,
+haben sehr viele vers. Namen gefunden
+
+.. contents:: :local:
 
 Name *
 ------
