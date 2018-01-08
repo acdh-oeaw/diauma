@@ -10,7 +10,7 @@
         {% breadcrumb "Map" "maps:map" %}
     {% endblock %}
     <div class="button-bar">
-        <a class="button" href="{% url 'maps:map-create' %}">{{ map_translate }} {% trans "This is the title." %}+</a>
+        <a class="button" href="{% url 'maps:map-create' %}">{% trans "map"|capfirst %} +</a>
     </div>
     {% render_table map_table %}
 {% endblock %}

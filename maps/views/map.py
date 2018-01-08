@@ -22,7 +22,7 @@ from django.utils.translation import gettext as _
 def index(request):
     table = MapTable(Map.objects.all())
     RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
-    return render(request, 'maps/map/index.html', {'map_table': table, 'map_translate': _('map_translate')})
+    return render(request, 'maps/map/index.html', {'map_table': table})
 
 
 @login_required

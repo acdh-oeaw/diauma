@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load webpage_extras %}
 {% load django_bootstrap_breadcrumbs %}
+{% load i18n %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -70,6 +71,22 @@
             {% else %}
                 <a href="{% url 'webpage:login' %}">Login</a>
             {% endif %}
+
+<form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+    <input name="next" type="hidden" value="{{ redirect_to }}" />
+    <select name="language">
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% for language in languages %}
+            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                {{ language.name_local }} ({{ language.code }})
+            </option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Go" />
+    {% trans "map"|capfirst %} {{ LANGUAGE_CODE }}
+</form>
         </div>
     </div>
     <nav class="navbar navbar-default navbar-static-top procustom-navbar" id="top-procustom-navbar">
