@@ -15,12 +15,14 @@ from maps.models import Map, Person, Institute, Reference, Place, Type, File, Sc
 from maps.tables import MapTable, FileTable, ScanTable
 from maps.util import link, get_selected_nodes
 
+from django.utils.translation import gettext as _
+
 
 @login_required
 def index(request):
     table = MapTable(Map.objects.all())
     RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
-    return render(request, 'maps/map/index.html', {'map_table': table})
+    return render(request, 'maps/map/index.html', {'map_table': table, 'map_translate': _('map_translate')})
 
 
 @login_required

@@ -87,10 +87,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-LANGUAGES = [
-    ('en-us', 'English')
-]
-
 ALLOWED_HOSTS = []
 
 DATABASES = {
@@ -102,6 +98,15 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+LANGUAGES = (
+    ('en-us', 'English'),
+    ('de-de', 'Deutsch'),
+)
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 MPTT_ADMIN_LEVEL_INDENT = 20
 TABLE_ITEMS_PER_PAGE = 20
