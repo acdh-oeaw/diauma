@@ -28,6 +28,11 @@ $(document).ready(function () {
     });
 })
 
+function select_language(language_code) {
+    $('#language').val(language_code);
+    $('#language-form').submit();
+}
+
 function createTreeOverlay(name, title, multiple=false) {
     $('#' + name + '-overlay').click(function () {
         $('#' + name + '-dialog').dialog('close');
