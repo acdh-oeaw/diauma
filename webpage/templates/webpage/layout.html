@@ -97,7 +97,7 @@
                         {% with 'map reference person institute place' as list %}
                             {% for item in list.split %}
                                 <li class="{% if item in request.resolver_match.url_name %}active{% endif %}">
-                                    <a href="{% url 'maps:'|add:item %}">{{ {% trans title|capfirst %}|title }}</a>
+                                    <a href="{% url 'maps:'|add:item %}">{% trans item|capfirst %}</a>
                                 </li>
                             {% endfor %}
                         {% endwith %}

@@ -7,20 +7,62 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-08 15:15+0100\n"
-"PO-Revision-Date: 2018-01-08 15:15+0100\n"
+"POT-Creation-Date: 2018-01-09 17:51+0100\n"
+"PO-Revision-Date: 2018-01-09 17:52+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 1.8.11\n"
+
+#: maps/templates/maps/files/index.html:16
+#: webpage/templates/webpage/layout.html:109
+msgid "files"
+msgstr "Dateien"
+
+#: maps/templates/maps/institute/index.html:11
+msgid "institute"
+msgstr "Institut"
 
 #: maps/templates/maps/map/index.html:13
 msgid "map"
 msgstr "Karte"
+
+#: maps/templates/maps/person/index.html:11
+msgid "person"
+msgstr "Person"
+
+#: maps/templates/maps/place/index.html:11
+msgid "place"
+msgstr "Ort"
+
+#: maps/templates/maps/reference/index.html:12
+msgid "reference"
+msgstr "Referenz"
+
+#: maps/templates/maps/search/index.html:13
+#: webpage/templates/webpage/layout.html:80
+msgid "search"
+msgstr "Suche"
+
+#: maps/templates/maps/type/index.html:7
+msgid "type"
+msgstr "Typ"
+
+#: webpage/templates/webpage/layout.html:112
+msgid "types"
+msgstr "Typen"
+
+#: webpage/templates/webpage/layout.html:115
+msgid "network"
+msgstr "Netzwerk"
+
+#: webpage/templates/webpage/layout.html:119
+msgid "Legal Notice"
+msgstr "Impressum"
 
 #: webpage/templates/webpage/table.html:15
 #: webpage/templates/webpage/table.html:42
