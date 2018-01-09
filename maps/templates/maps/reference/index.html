@@ -9,7 +9,7 @@
         {% breadcrumb "Reference" "maps:reference" %}
     {% endblock %}
     <div class="button-bar">
-        <a class="button" href="{% url 'maps:reference-create' %}">Reference +</a>
+        <a class="button" href="{% url 'maps:reference-create' %}">{% trans "reference"|capfirst %} +</a>
     </div>
     {% render_table reference_table %}
 {% endblock %}

@@ -8,7 +8,7 @@
         {% breadcrumb "Person" "maps:person" %}
     {% endblock %}
     <div class="button-bar">
-        <a class="button" href="{% url 'maps:person-create' %}">Person +</a>
+        <a class="button" href="{% url 'maps:person-create' %}">{% trans "person"|capfirst %} +</a>
     </div>
     {% render_table person_table %}
 {% endblock %}

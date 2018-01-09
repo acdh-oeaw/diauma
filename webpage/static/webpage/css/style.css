@@ -25,6 +25,29 @@ table.paleblue a.button {
     padding-top: 3em;
 }
 
+.search-button {
+    font-size: 1.1em;
+    margin-right: 0;
+}
+
+#search-term {
+    color: black;
+    width: 10em;
+}
+
+#language-form, #search-form {
+    float: left;
+}
+
+#language-form span {
+    border: 1px solid white;
+}
+
+#language-form span.selected {
+    background-color: white;
+    color: #4088c3;
+}
+
 
 td, th {
     white-space: nowrap;
@@ -32,10 +55,6 @@ td, th {
 
 .navbar-static-top {
     z-index: 0;
-}
-
-#search-form {
-    margin-top: 1.8em;
 }
 
 #search-form button, #search-form input {

@@ -8,7 +8,7 @@
         {% breadcrumb "Place" "maps:place" %}
     {% endblock %}
     <div class="button-bar">
-        <a class="button" href="{% url 'maps:place-create' %}">Place +</a>
+        <a class="button" href="{% url 'maps:place-create' %}">{% trans "place"|capfirst %} +</a>
     </div>
     {% render_table place_table %}
 {% endblock %}
