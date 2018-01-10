@@ -3,14 +3,14 @@
 {% load crispy_forms_tags %}
 {% load maps_extras %}
 {% load i18n %}
-{% block title %}Diauma - Files{% endblock %}
+{% block title %{% trans "files"|capfirst %}{% endblock %}
 {% block content %}
     <div class="container">
         {% block breadcrumbs %}
-            {% breadcrumb "Files" "maps:files-index" %}
-            {% breadcrumb "File" '' %}
+            {% breadcrumb "files" "maps:files-index" %}
+            {% breadcrumb "file" '' %}
             {% breadcrumb_safe object.name|truncate_string "maps:file-detail" object.id %}
-            {% breadcrumb "Update" '' %}
+            {% breadcrumb "update" '' %}
         {% endblock %}
         <div class="panel-body">
             {% crispy form %}

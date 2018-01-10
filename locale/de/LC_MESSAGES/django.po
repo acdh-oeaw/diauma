@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-10 13:06+0100\n"
-"PO-Revision-Date: 2018-01-10 13:09+0100\n"
+"POT-Creation-Date: 2018-01-10 15:59+0100\n"
+"PO-Revision-Date: 2018-01-10 15:54+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -19,6 +19,8 @@ msgstr ""
 "X-Generator: Poedit 1.8.11\n"
 
 #: maps/templates/maps/files/file/create.html:5
+#: maps/templates/maps/files/file/detail.html:7
+#: maps/templates/maps/files/index.html:6
 #: maps/templates/maps/files/index.html:17
 #: webpage/templates/webpage/layout.html:110
 msgid "files"
@@ -27,6 +29,30 @@ msgstr "Dateien"
 #: maps/templates/maps/files/file/create.html:8
 msgid "file +"
 msgstr "Datei +"
+
+#: maps/templates/maps/files/file/detail.html:17
+msgid "overview"
+msgstr "Übersicht"
+
+#: maps/templates/maps/files/file/detail.html:21
+msgid "maps"
+msgstr "Karten"
+
+#: maps/templates/maps/files/file/detail.html:37
+msgid "information"
+msgstr "Information"
+
+#: maps/templates/maps/files/file/detail.html:39
+msgid "file size"
+msgstr "Dateigröße"
+
+#: maps/templates/maps/files/file/detail.html:41
+msgid "file type"
+msgstr "Dateityp"
+
+#: maps/templates/maps/files/file/detail.html:61
+msgid "delete"
+msgstr "löschen"
 
 #: maps/templates/maps/institute/index.html:12
 msgid "institute"
