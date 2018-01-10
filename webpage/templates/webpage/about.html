@@ -1,7 +1,8 @@
 {% extends "webpage/layout.html" %}
 {% load staticfiles %}
 {% load webpage_extras %}
-{% block title %} About {% endblock %}
+{% load i18n %}
+{% block title %}{% trans "about"|capfirst %}{% endblock %}
 {% block content %}
 <div class="container">
     <h1 style="text-align: center;">Austrian Dialect Cartography 1924–1956</h1>
@@ -38,7 +39,7 @@
         With a strong Digital Humanities approach this project aims at digitalising dialect maps,
         georeferencing them, enrich them with metadata and putting those maps online.
     </p>
-    <h4>ACDH Contact</h4>
+    <h4>ACDH {% trans "contact"|capfirst %}</h4>
     <p>
         Manfred Glauninger
         (<a href="mailto:manfred.glauninger@oeaw.ac.at">manfred.glauninger@oeaw.ac.at</a>)<br />
@@ -50,6 +51,6 @@
         <a target="_blank" href="http://www.oeaw.ac.at/stipendien-foerderungen/foerderprogramme/godigital/godigital-20-ausgewaehlte-projekte/#c22559">
             ÖAW Go!Digital 2.0
         </a><br />
-        <a target="_blank" href="https://github.com/acdh-oeaw/diauma">Code on GitHub</a>
+        <a target="_blank" href="https://github.com/acdh-oeaw/diauma">{% trans "code on GitHub"|capfirst %}</a>
 </div>
 {% endblock %}

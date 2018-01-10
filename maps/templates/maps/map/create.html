@@ -1,14 +1,14 @@
 {% extends "webpage/layout.html" %}
 {% load django_bootstrap_breadcrumbs %}
 {% load crispy_forms_tags %}
-{% block title %}Diauma - Map{% endblock %}
 {% load i18n %}
+{% block title %}Diauma - Map{% endblock %}
+{% block breadcrumbs %}
+    {% breadcrumb "map" "maps:map" %}
+    {% breadcrumb "+" '' %}
+{% endblock %}
 {% block content %}
     <div class="container">
-        {% block breadcrumbs %}
-            {% breadcrumb "Map" "maps:map" %}
-            {% breadcrumb "+" '' %}
-        {% endblock %}
         <div class="panel-body">
             {% crispy form %}
         </div>

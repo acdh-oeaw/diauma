@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-09 17:51+0100\n"
-"PO-Revision-Date: 2018-01-09 17:52+0100\n"
+"POT-Creation-Date: 2018-01-10 13:06+0100\n"
+"PO-Revision-Date: 2018-01-10 13:09+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,12 +18,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.11\n"
 
-#: maps/templates/maps/files/index.html:16
-#: webpage/templates/webpage/layout.html:109
+#: maps/templates/maps/files/file/create.html:5
+#: maps/templates/maps/files/index.html:17
+#: webpage/templates/webpage/layout.html:110
 msgid "files"
 msgstr "Dateien"
 
-#: maps/templates/maps/institute/index.html:11
+#: maps/templates/maps/files/file/create.html:8
+msgid "file +"
+msgstr "Datei +"
+
+#: maps/templates/maps/institute/index.html:12
 msgid "institute"
 msgstr "Institut"
 
@@ -31,38 +36,88 @@ msgstr "Institut"
 msgid "map"
 msgstr "Karte"
 
-#: maps/templates/maps/person/index.html:11
+#: maps/templates/maps/person/index.html:12
 msgid "person"
 msgstr "Person"
 
-#: maps/templates/maps/place/index.html:11
+#: maps/templates/maps/place/index.html:12
 msgid "place"
 msgstr "Ort"
 
-#: maps/templates/maps/reference/index.html:12
+#: maps/templates/maps/reference/index.html:13
 msgid "reference"
 msgstr "Referenz"
 
-#: maps/templates/maps/search/index.html:13
-#: webpage/templates/webpage/layout.html:80
+#: maps/templates/maps/search/index.html:14
+#: webpage/templates/webpage/layout.html:81
 msgid "search"
 msgstr "Suche"
 
-#: maps/templates/maps/type/index.html:7
+#: maps/templates/maps/type/index.html:8
 msgid "type"
 msgstr "Typ"
 
-#: webpage/templates/webpage/layout.html:112
+#: webpage/templates/webpage/about.html:5
+#: webpage/templates/webpage/layout.html:95
+msgid "about"
+msgstr "About"
+
+#: webpage/templates/webpage/about.html:42
+msgid "contact"
+msgstr "Kontakt"
+
+#: webpage/templates/webpage/about.html:54
+msgid "code on GitHub"
+msgstr "Code auf GitHub"
+
+#: webpage/templates/webpage/imprint.html:5
+#: webpage/templates/webpage/imprint.html:9
+msgid "imprint"
+msgstr "Impressum"
+
+#: webpage/templates/webpage/layout.html:56
+msgid "version"
+msgstr "Version"
+
+#: webpage/templates/webpage/layout.html:61
+msgid "hello"
+msgstr "Hallo"
+
+#: webpage/templates/webpage/layout.html:62
+msgid "logout"
+msgstr "Abmelden"
+
+#: webpage/templates/webpage/layout.html:80
+msgid "search term"
+msgstr "Suchbegriff"
+
+#: webpage/templates/webpage/layout.html:86
+msgid "login"
+msgstr "Login"
+
+#: webpage/templates/webpage/layout.html:113
 msgid "types"
 msgstr "Typen"
 
-#: webpage/templates/webpage/layout.html:115
+#: webpage/templates/webpage/layout.html:116
 msgid "network"
 msgstr "Netzwerk"
 
-#: webpage/templates/webpage/layout.html:119
+#: webpage/templates/webpage/layout.html:120
 msgid "Legal Notice"
 msgstr "Impressum"
+
+#: webpage/templates/webpage/login.html:7
+msgid "Your username and password didn't match. Please try again."
+msgstr "Falscher Benutzername oder Passwort"
+
+#: webpage/templates/webpage/login.html:14
+msgid "username"
+msgstr "Username"
+
+#: webpage/templates/webpage/login.html:18
+msgid "password"
+msgstr "Passwort"
 
 #: webpage/templates/webpage/table.html:15
 #: webpage/templates/webpage/table.html:42
