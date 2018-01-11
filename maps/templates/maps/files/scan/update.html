@@ -2,14 +2,15 @@
 {% load django_bootstrap_breadcrumbs %}
 {% load crispy_forms_tags %}
 {% load maps_extras %}
-{% block title %}Diauma - Files{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "files"|capfirst %}{% endblock %}
 {% block content %}
     <div class="container">
         {% block breadcrumbs %}
             {% breadcrumb "files" "maps:files-index" %}
-            {% breadcrumb "Scan" '' %}
+            {% breadcrumb "scan" '' %}
             {% breadcrumb_safe object.name|truncate_string "maps:scan-detail" object.id %}
-            {% breadcrumb "Update" '' %}
+            {% breadcrumb "update" '' %}
         {% endblock %}
         <div class="panel-body">
             {% crispy form %}

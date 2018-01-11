@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-10 15:59+0100\n"
-"PO-Revision-Date: 2018-01-10 15:54+0100\n"
+"POT-Creation-Date: 2018-01-11 17:07+0100\n"
+"PO-Revision-Date: 2018-01-11 17:09+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -20,8 +20,12 @@ msgstr ""
 
 #: maps/templates/maps/files/file/create.html:5
 #: maps/templates/maps/files/file/detail.html:7
+#: maps/templates/maps/files/file/update.html:6
 #: maps/templates/maps/files/index.html:6
 #: maps/templates/maps/files/index.html:17
+#: maps/templates/maps/files/scan/create.html:5
+#: maps/templates/maps/files/scan/detail.html:8
+#: maps/templates/maps/files/scan/update.html:5
 #: webpage/templates/webpage/layout.html:110
 msgid "files"
 msgstr "Dateien"
@@ -31,28 +35,53 @@ msgid "file +"
 msgstr "Datei +"
 
 #: maps/templates/maps/files/file/detail.html:17
+#: maps/templates/maps/files/scan/detail.html:18
 msgid "overview"
 msgstr "Übersicht"
 
 #: maps/templates/maps/files/file/detail.html:21
+#: maps/templates/maps/files/scan/detail.html:21
 msgid "maps"
 msgstr "Karten"
 
+#: maps/templates/maps/files/file/detail.html:28
+#: maps/templates/maps/files/scan/detail.html:27
+msgid "update"
+msgstr "bearbeiten"
+
+#: maps/templates/maps/files/file/detail.html:30
+#: maps/templates/maps/files/scan/detail.html:29
+msgid "delete"
+msgstr "löschen"
+
+#: maps/templates/maps/files/file/detail.html:32
+msgid "download"
+msgstr "download"
+
 #: maps/templates/maps/files/file/detail.html:37
+#: maps/templates/maps/files/scan/detail.html:36
 msgid "information"
 msgstr "Information"
 
 #: maps/templates/maps/files/file/detail.html:39
+#: maps/templates/maps/files/scan/detail.html:38
 msgid "file size"
 msgstr "Dateigröße"
 
 #: maps/templates/maps/files/file/detail.html:41
+#: maps/templates/maps/files/scan/detail.html:40
 msgid "file type"
 msgstr "Dateityp"
 
 #: maps/templates/maps/files/file/detail.html:61
-msgid "delete"
-msgstr "löschen"
+#: maps/templates/maps/files/scan/detail.html:74
+#, python-format
+msgid "Delete %(name)s?"
+msgstr "%(name)s löschen?"
+
+#: maps/templates/maps/files/scan/create.html:10
+msgid "scan +"
+msgstr "Scan +"
 
 #: maps/templates/maps/institute/index.html:12
 msgid "institute"
