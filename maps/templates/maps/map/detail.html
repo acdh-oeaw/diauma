@@ -3,60 +3,61 @@
 {% load maps_extras %}
 {% load humanize %}
 {% load render_table from django_tables2 %}
-{% block title %}Diauma - Map{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "map"|capfirst %}{% endblock %}
+{% block breadcrumbs %}
+    {% breadcrumb "map" "maps:map" %}
+    {% breadcrumb_safe map.name|truncate_string '' %}
+{% endblock %}
 {% block content %}
-    {% block breadcrumbs %}
-        {% breadcrumb "Map" "maps:map" %}
-        {% breadcrumb_safe map.name|truncate_string '' %}
-    {% endblock %}
     <div class="container">
         <ul id="tabs" class="nav nav-tabs">
             <li id="overview-tab-header">
-                <a href="#overview" data-toggle="tab">Overview</a>
+                <a href="#overview" data-toggle="tab">{% trans "overview"|capfirst %}</a>
             </li>
             {% if tables.copies.data %}
                 <li id="copies-tab-header">
-                    <a href="#copies" data-toggle="tab">Copies</a>
+                    <a href="#copies" data-toggle="tab">{% trans "copies"|capfirst %}</a>
                 </li>
             {% endif %}
             {% if tables.base.data %}
                 <li id="base-tab-header">
-                    <a href="#base" data-toggle="tab">Base for</a>
+                    <a href="#base" data-toggle="tab">{% trans "base for"|capfirst %}</a>
                 </li>
             {% endif %}
             <li id="files-tab-header">
-                <a href="#files" data-toggle="tab">Files</a>
+                <a href="#files" data-toggle="tab">{% trans "files for"|capfirst %}</a>
             </li>
         </ul>
         <div class="tab-content clearfix">
             <div class="tab-pane" id="overview">
                 <div class="button-bar">
-                    <a class="button" href="{% url 'maps:map-update' map.id %}">Update</a>
+                    <a class="button" href="{% url 'maps:map-update' map.id %}">{% trans "update"|capfirst %}</a>
                     <form method="POST" action="{% url 'maps:map-delete' map.id %}">
                         {% csrf_token %}<input id="delete-map" type="submit" value="Delete">
                     </form>
                 </div>
                 <h2>{{ map.name }}</h2>
                 {% if map.title %}
-                    <p>Title: {{ map.title }}</p>
+                    <p>{% trans "title"|capfirst %}: {{ map.title }}</p>
                 {% endif %}
                 <div class="detail-column">
-                    <h3>Information</h3>
+                    <h3>{% trans "information"|capfirst %}</h3>
                     {% if map.map_id %}
-                        <p>Map ID: {{ map.map_id }}</p>
+                        <p>{% trans "map"|capfirst %} ID: {{ map.map_id }}</p>
                     {% endif %}
                     {% if map.scale %}
-                        <p>Scale: 1:{{ map.scale|intcomma }}</p>
+                        <p>{% trans "scale"|capfirst %}: 1:{{ map.scale|intcomma }}</p>
                     {% endif %}
                     {% if map.width %}
-                        <p>Width: {{ map.width }} cm</p>
+                        <p>{% trans "width"|capfirst %}: {{ map.width }} cm</p>
                     {% endif %}
                     {% if map.height %}
-                        <p>Height: {{ map.height }} cm</p>
+                        <p>{% trans "height"|capfirst %}: {{ map.height }} cm</p>
                     {% endif %}
                     {% if map.date_created %}
                         <p>
-                            Creation date: {{ map.date_created|format_date:'%Y' }}
+                            {% trans "creation date"|capfirst %}: {{ map.date_created|format_date:'%Y' }}
                             {% if map.date_created2 %}
                                 - {{ map.date_created2|format_date }}
                             {% endif %}
@@ -64,7 +65,7 @@
                     {% endif %}
                     {% if map.date_content %}
                         <p>
-                            Content date: {{ map.date_content|format_date:'%Y' }}
+                            {% trans "content date"|capfirst %}: {{ map.date_content|format_date:'%Y' }}
                             {% if map.date_content2 %}
                                 - {{ map.date_content2|format_date:'%Y' }}
                             {% endif %}
@@ -72,29 +73,29 @@
                     {% endif %}
                 </div>
                 <div class="detail-column">
-                    <h3>Links</h3>
+                    <h3>{% trans "links"|capfirst %}</h3>
                     {% if has_base %}
-                        <p>Has base map: {{ has_base|link }}</p>
+                        <p>{% trans "has base map"|capfirst %}: {{ has_base|link }}</p>
                     {% endif %}
                     {% if copy_of %}
-                        <p>Is a copy of: {{ copy_of|link }}</p>
+                        <p>{% trans "is copy of"|capfirst %}: {{ copy_of|link }}</p>
                     {% endif %}
                     {% autoescape off %}
                         {% if links.authors %}
-                            <p>Created by: {{ links.authors|join:', ' }}</p>
+                            <p>{% trans "created by"|capfirst %}: {{ links.authors|join:', ' }}</p>
                         {% endif %}
                         {% if links.publishers %}
-                            <p>Published by: {{ links.publishers|join:', ' }}</p>
+                            <p>{% trans "published by"|capfirst %}: {{ links.publishers|join:', ' }}</p>
                         {% endif %}
                         {% if links.references %}
-                            <p>Reference: {{ links.references|join:', ' }}</p>
+                            <p>{% trans "reference"|capfirst %}: {{ links.references|join:', ' }}</p>
                         {% endif %}
                     {% endautoescape %}
                     {% if issued_at %}
-                        <p>Issued at: {{ issued_at|link }}</p>
+                        <p>{% trans "issued at"|capfirst %}: {{ issued_at|link }}</p>
                     {% endif %}
                     {% if location_at %}
-                        <p>Located at: {{ location_at|link }}</p>
+                        <p>{% trans "located at"|capfirst %}: {{ location_at|link }}</p>
                     {% endif %}
                 </div>
                 {% include "../types_for_detail_view.html" %}
@@ -114,15 +115,15 @@
             {% endif %}
             <div class="tab-pane" id="files">
                 <a href="{% url 'maps:scan-create' class_name='map' origin_id=map.id %}"
-                    class="button">Scan +</a>
+                    class="button">{% trans "scans"|capfirst %} +</a>
                 <a href="{% url 'maps:file-create' class_name='map' origin_id=map.id %}"
-                    class="button">File +</a>
+                    class="button">{% trans "file"|capfirst %} +</a>
                 {% if tables.scans.data %}
-                    <h3>Scans</h3>
+                    <h3>{% trans "scans"|capfirst %}</h3>
                     {% render_table tables.scans %}
                 {% endif %}
                 {% if tables.files.data %}
-                    <h3>Files</h3>
+                    <h3>{% trans "files for"|capfirst %}</h3>
                     {% render_table tables.files %}
                 {% endif %}
             </div>
@@ -130,7 +131,7 @@
     </div>
     <script>
         $(document).on('click', '#delete-map', function(){
-            return confirm('Delete {{ map.name }}?');
+            return confirm('{% blocktrans with map.name as name %}Delete {{ name }}?{% endblocktrans %}');
         })
     </script>
 {% endblock %}

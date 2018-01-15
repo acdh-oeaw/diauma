@@ -23,7 +23,7 @@
     <div class="tab-content clearfix">
         <div class="tab-pane" id="tab-scan">
             <div class="button-bar">
-                <a class="button" href="{% url 'maps:scan-create' %}">Scan +</a>
+                <a class="button" href="{% url 'maps:scan-create' %}">{% trans "scan"|capfirst %} +</a>
             </div>
             {% if tables.scans.data %}
                 {% render_table tables.scans %}
@@ -31,7 +31,7 @@
         </div>
         <div class="tab-pane" id="tab-file">
             <div class="button-bar">
-                <a class="button" href="{% url 'maps:file-create' %}">File +</a>
+                <a class="button" href="{% url 'maps:file-create' %}">{% trans "file"|capfirst %} +</a>
             </div>
             {% if tables.files.data %}
                 {% render_table tables.files %}
@@ -47,20 +47,20 @@
             {% endif %}
             {% if tables.orphans.data %}
                 <p>
-                    Listed are:<br />
-                    - Entries without a file with a link to the entry.<br />
-                    - Files that exist but have no related database entries with a download link.
+                    {% trans "listed are"|capfirst %}:<br />
+                    - {% trans "Entries without a file with a link to the entry." %}<br />
+                    - {% trans "Files that exist but have no related database entries with a download link." %}
                 </p>
                 {% render_table tables.orphans %}
             {% else %}
-                <p>Congratulation, no orphaned files or data entries found.</p>
+                <p>{% trans "Congratulation, no orphaned files or data entries found." %}</p>
             {% endif %}
         </div>
     </div>
 </div>
 <script>
     $(document).on('click', '#delete-orphaned-files', function(){
-        return confirm('Delete {{ orphaned_files_count }} file(s)?');
+        return confirm('{% blocktrans with orphaned_files_count as name %}Delete {{ name }}?{% endblocktrans %}');
     })
 </script>
 {% endblock %}

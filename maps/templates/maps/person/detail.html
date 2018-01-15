@@ -11,18 +11,18 @@
     <div class="container">
         <ul id="tabs" class="nav nav-tabs">
             <li id="overview-tab-header">
-                <a href="#overview" data-toggle="tab">Overview</a>
+                <a href="#overview" data-toggle="tab">{% trans "overview"|capfirst %}</a>
             </li>
             {% if map_table.data|length > 0 %}
                 <li id="maps-tab-header">
-                    <a href="#maps" data-toggle="tab">Maps</a>
+                    <a href="#maps" data-toggle="tab">{% trans "maps"|capfirst %}</a>
                 </li>
             {% endif %}
         </ul>
         <div class="tab-content clearfix">
             <div class="tab-pane" id="overview">
                 <div class="button-bar">
-                    <a class="button" href="{% url 'maps:person-update' person.id %}">Update</a>
+                    <a class="button" href="{% url 'maps:person-update' person.id %}">{% trans "update"|capfirst %}</a>
                     <form method="POST" action="{% url 'maps:person-delete' person.id %}">
                         {% csrf_token %}
                         <input id="delete-person" type="submit" value="Delete">
@@ -30,9 +30,9 @@
                 </div>
                 <h2>{{ person.name }}</h2>
                 <div class="detail-column">
-                    <h3>Information</h3>
+                    <h3>{% trans "information"|capfirst %}</h3>
                     {% if location_at %}
-                        <p>Located at: {{ location_at|link }}</p>
+                        <p>{% trans "located at"|capfirst %}: {{ location_at|link }}</p>
                     {% endif %}
                     {% autoescape off %}
                         {% if institutes %}
@@ -66,7 +66,7 @@
     </div>
     <script>
         $(document).on('click', '#delete-person', function(){
-            return confirm('Delete {{ object.name }}?');
+            return confirm('{% blocktrans with object.name as name %}Delete {{ name }}?{% endblocktrans %}');
         })
     </script>
 {% endblock %}

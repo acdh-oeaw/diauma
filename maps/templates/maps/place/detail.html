@@ -11,7 +11,7 @@
     <div class="container">
         <ul id="tabs" class="nav nav-tabs">
             <li id="overview-tab-header">
-                <a href="#overview" data-toggle="tab">Overview</a>
+                <a href="#overview" data-toggle="tab">{% trans "overview"|capfirst %}</a>
             </li>
             {% if person_table.data|length > 0 %}
                 <li id="persons-tab-header">
@@ -20,24 +20,24 @@
             {% endif %}
             {% if institute_table.data|length > 0 %}
                 <li id="institutes-tab-header">
-                    <a href="#institutes" data-toggle="tab">Institutes</a>
+                    <a href="#institutes" data-toggle="tab">{% trans "institute"|capfirst %}</a>
                 </li>
             {% endif %}
             {% if issue_table.data|length > 0 %}
                 <li id="issues-tab-header">
-                    <a href="#issues" data-toggle="tab">Issued Maps</a>
+                    <a href="#issues" data-toggle="tab">{% trans "issued maps"|capfirst %}</a>
                 </li>
             {% endif %}
             {% if location_table.data|length > 0 %}
                 <li id="locations-tab-header">
-                    <a href="#locations" data-toggle="tab">Located Maps</a>
+                    <a href="#locations" data-toggle="tab">{% trans "located maps"|capfirst %}</a>
                 </li>
             {% endif %}
         </ul>
         <div class="tab-content clearfix">
             <div class="tab-pane" id="overview">
                 <div class="button-bar">
-                    <a class="button" href="{% url 'maps:place-update' place.id %}">Update</a>
+                    <a class="button" href="{% url 'maps:place-update' place.id %}">{% trans "update"|capfirst %}</a>
                     <form method="POST" action="{% url 'maps:place-delete' place.id %}">
                         {% csrf_token %}
                         <input id="delete-place" type="submit" value="Delete">
@@ -45,7 +45,7 @@
                 </div>
                 <h2>{{ place.name }}</h2>
                 <div class="detail-column">
-                    <h3>Information</h3>
+                    <h3>{% trans "information"|capfirst %}</h3>
                     {% if place.modern_name %}
                         <p>Modern name: {{ place.modern_name }}</p>
                     {% endif %}
@@ -79,7 +79,7 @@
     </div>
     <script>
         $(document).on('click', '#delete-place', function(){
-            return confirm('Delete {{ object.name }}?');
+            return confirm('{% blocktrans with object.name as name %}Delete {{ name }}?{% endblocktrans %}');
         })
     </script>
 {% endblock %}

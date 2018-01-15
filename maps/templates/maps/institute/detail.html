@@ -2,27 +2,28 @@
 {% load django_bootstrap_breadcrumbs %}
 {% load maps_extras %}
 {% load render_table from django_tables2 %}
-{% block title %}Diauma - Institute{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "institute"|capfirst %}{% endblock %}
+{% block breadcrumbs %}
+    {% breadcrumb "institute" "maps:institute" %}
+    {% breadcrumb_safe institute.name|truncate_string '' %}
+{% endblock %}
 {% block content %}
-    {% block breadcrumbs %}
-        {% breadcrumb "Institute" "maps:institute" %}
-        {% breadcrumb_safe institute.name|truncate_string '' %}
-    {% endblock %}
     <div class="container">
         <ul id="tabs" class="nav nav-tabs">
-            <li id="overview-tab-header"><a href="#overview" data-toggle="tab">Overview</a></li>
+            <li id="overview-tab-header"><a href="#overview" data-toggle="tab">{% trans "overview"|capfirst %}</a></li>
             {% if map_table.data|length > 0 %}
-                <li id="maps-tab-header"><a href="#maps" data-toggle="tab">Maps</a></li>
+                <li id="maps-tab-header"><a href="#maps" data-toggle="tab">{% trans "maps"|capfirst %}</a></li>
             {% endif %}
             {% if member_table.data|length > 0 %}
-                <li id="members-tab-header"><a href="#members" data-toggle="tab">Members</a></li>
+                <li id="members-tab-header"><a href="#members" data-toggle="tab">{% trans "members"|capfirst %}</a></li>
             {% endif %}
         </ul>
         <div class="tab-content clearfix">
             <div class="tab-pane" id="overview">
                 <div class="button-bar">
                     <a class="button" href="{% url 'maps:institute-update' institute.id %}">
-                        Update
+                        {% trans "update"|capfirst %}
                     </a>
                     <form method="POST" action="{% url 'maps:institute-delete' institute.id %}">
                         {% csrf_token %}
@@ -31,9 +32,9 @@
                 </div>
                 <h2>{{ institute.name }}</h2>
                 <div class="detail-column">
-                    <h3>Information</h3>
+                    <h3>{% trans "information"|capfirst %}</h3>
                     {% if location_at %}
-                        <p>Located at: {{ location_at|link }}</p>
+                        <p>{% trans "located at"|capfirst %}: {{ location_at|link }}</p>
                     {% endif %}
                 </div>
                 {% include "../types_for_detail_view.html" %}
@@ -55,7 +56,7 @@
     </div>
     <script>
         $(document).on('click', '#delete-institute', function(){
-            return confirm('Delete {{ object.name }}?');
+            return confirm('{% blocktrans with object.name as name %}Delete {{ name }}?{% endblocktrans %}');
         })
     </script>
 {% endblock %}

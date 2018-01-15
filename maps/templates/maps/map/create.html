@@ -2,7 +2,7 @@
 {% load django_bootstrap_breadcrumbs %}
 {% load crispy_forms_tags %}
 {% load i18n %}
-{% block title %}Diauma - Map{% endblock %}
+{% block title %}{% trans "map"|capfirst %}{% endblock %}
 {% block breadcrumbs %}
     {% breadcrumb "map" "maps:map" %}
     {% breadcrumb "+" '' %}
