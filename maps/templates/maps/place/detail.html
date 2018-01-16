@@ -2,12 +2,13 @@
 {% load django_bootstrap_breadcrumbs %}
 {% load maps_extras %}
 {% load render_table from django_tables2 %}
-{% block title %}Diauma - Place{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "place"|capfirst %}{% endblock %}
+{% block breadcrumbs %}
+    {% breadcrumb "place" "maps:place" %}
+    {% breadcrumb place.name|truncate_string '' %}
+{% endblock %}
 {% block content %}
-    {% block breadcrumbs %}
-        {% breadcrumb "Place" "maps:place" %}
-        {% breadcrumb place.name|truncate_string '' %}
-    {% endblock %}
     <div class="container">
         <ul id="tabs" class="nav nav-tabs">
             <li id="overview-tab-header">
@@ -15,7 +16,7 @@
             </li>
             {% if person_table.data|length > 0 %}
                 <li id="persons-tab-header">
-                    <a href="#persons" data-toggle="tab">Persons</a>
+                    <a href="#persons" data-toggle="tab">{% trans "persons"|capfirst %}</a>
                 </li>
             {% endif %}
             {% if institute_table.data|length > 0 %}

@@ -2,12 +2,13 @@
 {% load django_bootstrap_breadcrumbs %}
 {% load maps_extras %}
 {% load render_table from django_tables2 %}
-{% block title %}Diauma - Person{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "person"|capfirst %}{% endblock %}
+{% block breadcrumbs %}
+    {% breadcrumb "person" "maps:person" %}
+    {% breadcrumb_safe person.name|truncate_string '' %}
+{% endblock %}
 {% block content %}
-    {% block breadcrumbs %}
-        {% breadcrumb "Person" "maps:person" %}
-        {% breadcrumb_safe person.name|truncate_string '' %}
-    {% endblock %}
     <div class="container">
         <ul id="tabs" class="nav nav-tabs">
             <li id="overview-tab-header">
@@ -36,12 +37,12 @@
                     {% endif %}
                     {% autoescape off %}
                         {% if institutes %}
-                            <p>Member of: {{ institutes|join:', ' }}</p>
+                            <p>{% trans "member of"|capfirst %}: {{ institutes|join:', ' }}</p>
                         {% endif %}
                     {% endautoescape %}
                     {% if person.date_begin or person.date_end %}
                         <p>
-                            Dates:
+                            {% trans "dates"|capfirst %}:
                             {% if person.date_begin %}
                                 {{ person.date_begin|format_date:'%Y' }}
                             {% endif %}

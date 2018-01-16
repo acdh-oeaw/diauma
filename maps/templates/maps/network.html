@@ -1,10 +1,10 @@
 {% extends "webpage/layout.html" %}
 {% load static %}
 {% load django_bootstrap_breadcrumbs %}
-{% block title %}Diauma - Network{% endblock %}
+{% block title %}{% trans "network"|capfirst %}{% endblock %}
 {% block content %}
     {% block breadcrumbs %}
-        {% breadcrumb "Network" "maps:network" %}
+        {% breadcrumb "network" "maps:network" %}
     {% endblock %}
     <link rel="stylesheet" href="{% static 'webpage/css/d3.css' %}" />
     <script src="{% static 'webpage/libraries/d3/d3-3.5.17.min.js' %}"></script>

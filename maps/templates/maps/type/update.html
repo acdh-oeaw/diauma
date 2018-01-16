@@ -1,21 +1,22 @@
 {% extends "webpage/layout.html" %}
 {% load crispy_forms_tags %}
 {% load django_bootstrap_breadcrumbs %}
-{% block title %}Diauma - Type{% endblock %}
 {% load maps_extras %}
+{% load i18n %}
+{% block title %}{% trans "type"|capfirst %}{% endblock %}
+{% block breadcrumbs %}
+    {% breadcrumb "types" "maps:type" %}
+    {% for item in object.get_ancestors %}
+        {% breadcrumb item|link|safe '' %}
+    {% endfor %}
+    {% breadcrumb_safe object.name|truncate_string "maps:type-detail" object.id %}
+    {% breadcrumb "update" "" %}
+{% endblock %}
 {% block content %}
-<div class="container">
-    {% block breadcrumbs %}
-        {% breadcrumb "Types" "maps:type" %}
-        {% for item in object.get_ancestors %}
-            {% breadcrumb item|link|safe '' %}
-        {% endfor %}
-        {% breadcrumb_safe object.name|truncate_string "maps:type-detail" object.id %}
-        {% breadcrumb "update" "" %}
-    {% endblock %}
-    <h2>{{ object.name }}</h2>
-    <div class="panel-body">
-        {% crispy form %}
+    <div class="container">
+        <h2>{{ object.name }}</h2>
+        <div class="panel-body">
+            {% crispy form %}
+        </div>
     </div>
-</div>
 {% endblock %}

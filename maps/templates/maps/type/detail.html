@@ -4,20 +4,21 @@
 {% load static %}
 {% load django_bootstrap_breadcrumbs %}
 {% load render_table from django_tables2 %}
-{% block title %}Diauma - Type{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "type"|capfirst %}{% endblock %}
+{% block breadcrumbs %}
+    {% breadcrumb "types" "maps:type" %}
+    {% for item in node.get_ancestors %}
+        {% breadcrumb item|link|safe '' %}
+    {% endfor %}
+    {% breadcrumb node.name "" %}
+{% endblock %}
 {% block content %}
-    {% block breadcrumbs %}
-        {% breadcrumb "Types" "maps:type" %}
-        {% for item in node.get_ancestors %}
-            {% breadcrumb item|link|safe '' %}
-        {% endfor %}
-        {% breadcrumb node.name "" %}
-    {% endblock %}
     <div class="button-bar">
         {% if node.level != 0 %}
             <a class="button" href="{% url 'maps:type-update' node.id %}">{% trans "update"|capfirst %}</a>
         {% endif %}
-        <a class="button" href="{% url 'maps:type-create' node.id %}">Type +</a>
+        <a class="button" href="{% url 'maps:type-create' node.id %}">{% trans "type"|capfirst %} +</a>
         {% if not descendants and not related_items %}
             <form method="POST" action="{% url 'maps:type-delete' node.id %}">
                 {% csrf_token %}<input id="delete-type" type="submit" value="Delete">
@@ -25,7 +26,7 @@
         {% endif %}
     </div>
     {% if descendants %}
-        <h3>Sub types</h3>
+        <h3>{% trans "sub types"|capfirst %}</h3>
         <ul>
             {% recursetree descendants %}
                 <li>
@@ -43,7 +44,7 @@
         </ul>
     {% endif %}
     {% if table.data %}
-        <h3>Related entries</h3>
+        <h3>{% trans "related entries"|capfirst %}</h3>
         {% render_table table %}
     {% endif %}
     <script>
