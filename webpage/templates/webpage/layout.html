@@ -1,8 +1,8 @@
 <!DOCTYPE html>
+{% load i18n %}
 {% load staticfiles %}
 {% load webpage_extras %}
 {% load django_bootstrap_breadcrumbs %}
-{% load i18n %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -132,7 +132,7 @@
         {% block breadcrumbs %}
             {% clear_breadcrumbs %}
         {% endblock %}
-        {% render_breadcrumbs %}
+        {% render_breadcrumbs "webpage/breadcrumbs.html" %}
         {% block procustom-index %}{% endblock %}
         {% block content %}{% endblock %}
     </div>

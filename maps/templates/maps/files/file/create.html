@@ -5,7 +5,7 @@
 {% block title %}{% trans "files"|capfirst %}{% endblock %}
 {% block breadcrumbs %}
     {% breadcrumb "files" "maps:files-index" %}
-    {% trans "file +"|capfirst as add_file %}
+    {% trans "file +" as add_file %}
     {% breadcrumb add_file '' %}
 {% endblock %}
 {% block content %}
