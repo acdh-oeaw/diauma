@@ -5,6 +5,7 @@ from django.conf import settings
 from django.template.defaultfilters import filesizeformat
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, HTML, Div
+from django.utils.translation import ugettext
 
 from .util import sanitize
 from .models import Map, Person, Institute, Place, Reference, Type, File, Scan
@@ -75,14 +76,14 @@ class MapForm(BaseForm):
         File.objects.all(),
         widget=autocomplete.ModelSelect2Multiple(
             url='maps-ac:file-autocomplete',
-            attrs={'data-placeholder': 'Type for getting available files'}),
+            attrs={'data-placeholder': ugettext('Type for getting available entries')}),
         required=False)
     
     scan_map = forms.ModelMultipleChoiceField(
         Scan.objects.all(),
         widget=autocomplete.ModelSelect2Multiple(
             url='maps-ac:scan-autocomplete',
-            attrs={'data-placeholder': 'Type for getting available scans'}),
+            attrs={'data-placeholder': ugettext('Type for getting available entries')}),
         required=False)
 
     def save(self, *args, **kwargs):
@@ -137,25 +138,25 @@ class MapForm(BaseForm):
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'map_persons': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:persons-autocomplete',
-                attrs={'data-placeholder': 'Type for available persons'}),
+                attrs={'data-placeholder': ugettext('Type for getting available entries')}),
             'map_institute': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:institute-autocomplete',
-                attrs={'data-placeholder': 'Type for available institutes'}),
+                attrs={'data-placeholder': ugettext('Type for getting available entries')}),
             'map_references': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:references-autocomplete',
-                attrs={'data-placeholder': 'Type for available references'}),
+                attrs={'data-placeholder': ugettext('Type for getting available entries')}),
             'map_issued': autocomplete.ModelSelect2(
                 url='maps-ac:place-autocomplete',
-                attrs={'data-placeholder': 'Type for available places'}),
+                attrs={'data-placeholder': ugettext('Type for getting available entries')}),
             'map_location': autocomplete.ModelSelect2(
                 url='maps-ac:place-autocomplete',
-                attrs={'data-placeholder': 'Type for available places'}),
+                attrs={'data-placeholder': ugettext('Type for getting available entries')}),
             'map_copy': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
-                attrs={'data-placeholder': 'Type for available maps'}),
+                attrs={'data-placeholder': ugettext('Type for getting available entries')}),
             'map_base': autocomplete.ModelSelect2(
                 url='maps-ac:map-autocomplete',
-                attrs={'data-placeholder': 'Type for available maps'})}
+                attrs={'data-placeholder': ugettext('Type for getting available entries')})}
 
     def __init__(self, *args, **kwargs):
         super(MapForm, self).__init__(*args, **kwargs)
@@ -173,23 +174,24 @@ class MapForm(BaseForm):
         selected_ids = [o.id for o in instance.map_type.all()] if instance else []
         nodes_html = self.get_nodes_html(Type.objects.get(name='Map', parent=None), selected_ids)
         self.helper.layout = Layout(
-            Div(HTML('<div class="form-header">Map data</div>'),
+            Div(HTML('<div class="form-header">' + ugettext('data') + '</div>'),
                 'name',
                 'map_id',
                 'title',
                 'scale',
                 'width',
                 'height',
-                HTML('<div class="form-header">Dates</div><div class="form-float date-fields">'),
+                HTML('<div class="form-header">' + ugettext('dates') +
+                     '</div><div class="form-float date-fields">'),
                 'date_created',
                 'date_created2',
                 HTML('</div><div style="clear:both;"></div><div class="form-float date-fields">'),
                 'date_content',
                 'date_content2',
-                HTML('<br /><p>Use ** fields to define a time span.</p>'),
+                HTML('<br /><p>' + ugettext('Use ** fields to define a time span.') + '</p>'),
                 HTML('</div><div style="clear:both;"></div>'),
                 css_class='form-float'),
-            Div(HTML('<div class="form-header">Links</div>'),
+            Div(HTML('<div class="form-header">' + ugettext('links') + '</div>'),
                 'file_map',
                 'scan_map',
                 'map_base',
@@ -200,7 +202,7 @@ class MapForm(BaseForm):
                 'map_institute',
                 'map_references',
                 css_class='form-float'),
-            Div(HTML('<div class="form-header">Types</div>'),
+            Div(HTML('<div class="form-header">' + ugettext('types') + '</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>')),
             Div('map_type', css_class='hidden'))
@@ -219,10 +221,10 @@ class PersonForm(BaseForm):
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'person_location': autocomplete.ModelSelect2(
                 url='maps-ac:place-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available places'}),
+                attrs={'data-placeholder': ugettext('Type for getting available entries')}),
             'person_institutes': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:institute-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available references'})}
+                attrs={'data-placeholder': ugettext('Type for getting available entries')})}
 
     def __init__(self, *args, **kwargs):
         super(PersonForm, self).__init__(*args, **kwargs)
@@ -233,7 +235,7 @@ class PersonForm(BaseForm):
         nodes_html = self.get_nodes_html(Type.objects.get(name='Person', parent=None), selected_ids)
         self.helper.layout = Layout(
             Div(
-                HTML('<div class="form-header">Person data</div>'),
+                HTML('<div class="form-header">' + ugettext('data') + '</div>'),
                 'name',
                 'person_location',
                 'person_institutes',
@@ -243,7 +245,7 @@ class PersonForm(BaseForm):
                 HTML('</div><div style="clear:both;"></div>'),
                 css_class='form-float'),
             Div(
-                HTML('<div class="form-header">Types</div>'),
+                HTML('<div class="form-header">' + ugettext('types') + '</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>')),
             Div('person_type', css_class='hidden'))
@@ -257,7 +259,7 @@ class InstituteForm(BaseForm):
         widgets = {
             'institute_location': autocomplete.ModelSelect2(
                 url='maps-ac:place-autocomplete',
-                attrs={'data-placeholder': 'Type for getting available places'})}
+                attrs={'data-placeholder': ugettext('Type for getting available entries')})}
 
     def __init__(self, *args, **kwargs):
         super(InstituteForm, self).__init__(*args, **kwargs)
@@ -269,7 +271,7 @@ class InstituteForm(BaseForm):
             Type.objects.get(name='Institute', parent=None), selected_ids)
         self.helper.layout = Layout(
             Div(
-                HTML('<div class="form-header">Institute data</div>'),
+                HTML('<div class="form-header">' + ugettext('data') + '</div>'),
                 'name',
                 'institute_location',
                 css_class='form-float'),
@@ -295,11 +297,11 @@ class PlaceForm(BaseForm):
         nodes_html = self.get_nodes_html(Type.objects.get(name='Place', parent=None), selected_ids)
         self.helper.layout = Layout(
             Div(
-                HTML('<div class="form-header">Place data</div>'),
+                HTML('<div class="form-header">' + ugettext('data') + '</div>'),
                 'name',
                 css_class='form-float'),
             Div(
-                HTML('<div class="form-header">Types</div>'),
+                HTML('<div class="form-header">' + ugettext('types') + '</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>')),
             Div('place_type', css_class='hidden'))
@@ -321,11 +323,11 @@ class ReferenceForm(BaseForm):
             Type.objects.get(name='Reference', parent=None), selected_ids)
         self.helper.layout = Layout(
             Div(
-                HTML('<div class="form-header">Reference data</div>'),
+                HTML('<div class="form-header">' + ugettext('data') + '</div>'),
                 'name',
                 css_class='form-float'),
             Div(
-                HTML('<div class="form-header">Types</div>'),
+                HTML('<div class="form-header">' + ugettext('types') + '</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>')),
             Div('reference_type', css_class='hidden'))
@@ -405,7 +407,7 @@ class FileForm(BaseForm):
         Map.objects.all(),
         widget=autocomplete.ModelSelect2Multiple(
             url='maps-ac:map-autocomplete',
-            attrs={'data-placeholder': 'Type for getting available maps'}),
+            attrs={'data-placeholder': ugettext('Type for getting available entries')}),
         required=False)
 
     class Meta:
@@ -424,16 +426,16 @@ class FileForm(BaseForm):
         if instance and instance.pk:
             self.fields['file'].widget.attrs['disabled'] = True
             self.helper.layout = Layout(
-                Div(HTML('<div class="form-header">File data</div>'),
+                Div(HTML('<div class="form-header">' + ugettext('data') + '</div>'),
                     'name',
                     css_class='form-float'),
-                Div(HTML('<div class="form-header">Types</div>'),
+                Div(HTML('<div class="form-header">' + ugettext('types') + '</div>'),
                     HTML(nodes_html),
                     HTML('<div style="clear:both;"></div>')),
                 Div('file_type', 'file', css_class='hidden'))
         else:
             self.helper.layout = Layout(
-                Div(HTML('<div class="form-header">File data</div>'),
+                Div(HTML('<div class="form-header">' + ugettext('data') + '</div>'),
                     'file',
                     HTML(
                         '<p>Max file size: ' + filesizeformat(settings.ALLOWED_UPLOAD_SIZE) +
@@ -441,7 +443,7 @@ class FileForm(BaseForm):
                         ', '.join(settings.ALLOWED_UPLOAD_EXTENSIONS) + '</p>'),
                     'name',
                     css_class='form-float'),
-                Div(HTML('<div class="form-header">Types</div>'),
+                Div(HTML('<div class="form-header">' + ugettext('types') + '</div>'),
                     HTML(nodes_html),
                     HTML('<div style="clear:both;"></div>')),
                 Div('file_type', css_class='hidden'))
@@ -453,14 +455,14 @@ class ScanForm(BaseForm):
         Map.objects.all(),
         widget=autocomplete.ModelSelect2Multiple(
             url='maps-ac:map-autocomplete',
-            attrs={'data-placeholder': 'Type for getting available maps'}),
+            attrs={'data-placeholder': ugettext('Type for getting available entries')}),
         required=False)
 
     scan_person = forms.ModelMultipleChoiceField(
         Person.objects.all(),
         widget=autocomplete.ModelSelect2Multiple(
             url='maps-ac:persons-autocomplete',
-            attrs={'data-placeholder': 'Type for getting available persons'}),
+            attrs={'data-placeholder': ugettext('Type for getting available entries')}),
         required=False)
 
     class Meta:
@@ -478,24 +480,25 @@ class ScanForm(BaseForm):
         if instance and instance.pk:
             self.fields['file'].widget.attrs['disabled'] = True
             self.helper.layout = Layout(
-                Div(HTML('<div class="form-header">Scan data</div>'),
+                Div(HTML('<div class="form-header">' + ugettext('data') + '</div>'),
                     'name',
                     css_class='form-float'),
-                Div(HTML('<div class="form-header">Types</div>'),
+                Div(HTML('<div class="form-header">' + ugettext('types') + '</div>'),
                     HTML(nodes_html),
                     HTML('<div style="clear:both;"></div>')),
                 Div('scan_type', 'file', css_class='hidden'))
         else:
             self.helper.layout = Layout(
-                Div(HTML('<div class="form-header">Scan data</div>'),
+                Div(HTML('<div class="form-header">' + ugettext('data') + '</div>'),
                     'file',
                     HTML(
-                        '<p>Max file size: ' + filesizeformat(settings.ALLOWED_SCAN_SIZE) +
-                        '<br />' + 'Allowed files: ' +
+                        '<p>' + ugettext('Max file size') + ': ' +
+                        filesizeformat(settings.ALLOWED_SCAN_SIZE) +
+                        '<br />' + ugettext('allowed files') + ': ' +
                         ', '.join(settings.ALLOWED_SCAN_EXTENSIONS) + '</p>'),
                     'name',
                     css_class='form-float'),
-                Div(HTML('<div class="form-header">Types</div>'),
+                Div(HTML('<div class="form-header">' + ugettext('types') + '</div>'),
                     HTML(nodes_html),
                     HTML('<div style="clear:both;"></div>')),
                 Div('scan_type', css_class='hidden'))
