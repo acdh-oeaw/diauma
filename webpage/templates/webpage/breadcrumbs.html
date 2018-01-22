@@ -1,0 +1,14 @@
+<ul class="breadcrumb">
+    {% for url, label in breadcrumbs %}
+        <li>
+            {% if url and forloop.counter != breadcrumbs_total %}
+                <a href="{{ url }}">{{ label|capfirst|safe }}</a>
+            {% else %}
+                {{ label|capfirst|safe }}
+            {% endif %}
+            {% if not forloop.last %}
+                <span class="divider">/</span>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

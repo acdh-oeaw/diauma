@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+{% load i18n %}
 {% load staticfiles %}
 {% load webpage_extras %}
 {% load django_bootstrap_breadcrumbs %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}{% projects_metadata 'title' %}{% endblock %}</title>
+    <title>{% projects_metadata 'title' %} - {% block title %}{% projects_metadata 'title' %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block metaDescription %}
         <meta name="description" content="{{ metadata.description }}">
@@ -53,23 +54,37 @@
         </div>
         <div id="login-logout">
             <p>
-                Version {% projects_metadata 'version' %}
+                {% trans "version"|capfirst %} {% projects_metadata 'version' %}
                 <a href="{% url 'maps:changelog' %}">Changelog</a>
             </p>
             {% if user.is_authenticated %}
                 <p>
-                    Hello {{ user.get_username }}, <a href="{% url 'webpage:logout' %}">Logout</a>
+                    {% trans "hello"|capfirst %} {{ user.get_username }},
+                    <a href="{% url 'webpage:logout' %}">{% trans "logout"|capfirst %}</a>
                 </p>
-                <form id="search-form" action="{% url 'maps:search' %}" method="post">
+            {% endif %}
+            <div>
+                <form action="{% url 'set_language' %}" method="post" id="language-form">
                     {% csrf_token %}
-                    <input id="search-term" name="search-term" type="text" placeholder="Search"
-                           style="color:black;width: 10em;" />
-                    <button class="searchbutton" type="submit" style="margin-right:0;">
-                        Search
-                    </button>
+                    <input name="next" type="hidden" value="{{ redirect_to }}" />
+                    <input name="language" id="language" type="hidden" value="" />
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <span class="button {% if language.code == LANGUAGE_CODE %}selected{% endif %}" onclick="select_language('{{ language.code }}')">{{ language.code|upper }}</span>
+                    {% endfor %}
                 </form>
-            {% else %}
-                <a href="{% url 'webpage:login' %}">Login</a>
+                {% if user.is_authenticated %}
+                    <form id="search-form" action="{% url 'maps:search' %}" method="post">
+                        {% csrf_token %}
+                        <input id="search-term" name="search-term" type="text" placeholder="{% trans "search term"|capfirst %}" />
+                        <button class="search-button" type="submit">{% trans "search"|capfirst %}</button>
+                    </form>
+                {% endif %}
+            </div>
+            {% if not user.is_authenticated %}
+                <a href="{% url 'webpage:login' %}">{% trans "login"|capfirst %}</a>
             {% endif %}
         </div>
     </div>
@@ -78,13 +93,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="{% if 'about' in request.resolver_match.url_name %}active{% endif %}">
-                        <a href="{% url 'webpage:about' %}">About</a>
+                        <a href="{% url 'webpage:about' %}">{% trans "about"|capfirst %}</a>
                     </li>
                     {% if user.is_authenticated %}
                         {% with 'map reference person institute place' as list %}
                             {% for item in list.split %}
                                 <li class="{% if item in request.resolver_match.url_name %}active{% endif %}">
-                                    <a href="{% url 'maps:'|add:item %}">{{ item|title }}</a>
+                                    <a href="{% url 'maps:'|add:item %}">{% trans item|capfirst %}</a>
                                 </li>
                             {% endfor %}
                         {% endwith %}
@@ -93,17 +108,17 @@
                 <ul style="float:right;" class="nav navbar-nav">
                     {% if user.is_authenticated %}
                         <li class="{% if 'file' in request.resolver_match.url_name %}active{% endif %}">
-                            <a href="{% url 'maps:files-index' %}">Files</a>
+                            <a href="{% url 'maps:files-index' %}">{% trans "files"|capfirst %}</a>
                         </li>
                         <li class="{% if 'type' in request.resolver_match.url_name %}active{% endif %}">
-                            <a href="{% url 'maps:type' %}">Types</a>
+                            <a href="{% url 'maps:type' %}">{% trans "types"|capfirst %}</a>
                         </li>
                         <li class="{% if 'network' in request.resolver_match.url_name %}active{% endif %}">
-                            <a href="{% url 'maps:network' %}">Network</a>
+                            <a href="{% url 'maps:network' %}">{% trans "network"|capfirst %}</a>
                         </li>
                     {% endif %}
                     <li class="{% if 'imprint' in request.resolver_match.url_name %}active{% endif %}">
-                        <a href="{% url 'webpage:imprint' %}">Legal Notice</a>
+                        <a href="{% url 'webpage:imprint' %}">{% trans "Legal Notice"|capfirst %}</a>
                     </li>
                     <li>
                         <a target='blank_' href="/docs/index.html">?</a>
@@ -118,7 +133,7 @@
         {% block breadcrumbs %}
             {% clear_breadcrumbs %}
         {% endblock %}
-        {% render_breadcrumbs %}
+        {% render_breadcrumbs "webpage/breadcrumbs.html" %}
         {% block procustom-index %}{% endblock %}
         {% block content %}{% endblock %}
     </div>
@@ -134,8 +149,7 @@
             </div>
             <div class="col-sm-4">
                 <a href="{% projects_metadata 'github' %}" class="navlink" target="_blank">
-                    <img src="{% static 'webpage/img/GitHub-Mark-Light-64px.png' %}"
-                        id="github-logo" alt="{{ metadata.github }}" title="Github source code" />
+                    <img src="{% static 'webpage/img/GitHub-Mark-Light-64px.png' %}" id="github-logo" alt="{{ metadata.github }}" title="Github source code" />
                 </a>
             </div>
         </div>

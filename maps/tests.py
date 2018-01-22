@@ -143,7 +143,7 @@ class MapsTest(TestCase):
     def test_search(self):
         self.client.post(reverse('maps:search'), follow=True)
         rv = self.client.post(reverse('maps:search'), {'search-term': 'never_find_me'}, follow=True)
-        self.assertContains(rv, 'No entries')
+        self.assertContains(rv, 'No results for')
         Map.objects.create(name="Atlantis")
         Place.objects.create(name="Valhalla")
         Institute.objects.create(name="Umbrella Corporation")

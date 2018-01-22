@@ -25,7 +25,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap3"
 ROOT_URLCONF = 'diauma.urls'
 WSGI_APPLICATION = 'diauma.wsgi.application'
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 TIME_ZONE = 'CET'
 USE_I18N = True
 USE_L10N = True
@@ -60,6 +60,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -87,10 +88,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-LANGUAGES = [
-    ('en-us', 'English')
-]
-
 ALLOWED_HOSTS = []
 
 DATABASES = {
@@ -102,6 +99,16 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('de', 'Deutsch'),
+)
 
 MPTT_ADMIN_LEVEL_INDENT = 20
 TABLE_ITEMS_PER_PAGE = 20

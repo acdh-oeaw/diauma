@@ -1,43 +1,44 @@
 {% extends "webpage/layout.html" %}
 {% load django_bootstrap_breadcrumbs %}
 {% load maps_extras %}
-{% load render_table from django_tables2 %}
-{% block title %}Diauma - Files{% endblock %}
-{% block content %}
 {% load crispy_forms_tags %}
+{% load render_table from django_tables2 %}
+{% load i18n %}
+{% block title %}{% trans "files"|capfirst %}{% endblock %}
 {% block breadcrumbs %}
-    {% breadcrumb "Files" "maps:files-index" %}
-    {% breadcrumb "File" '' %}
+    {% breadcrumb "files" "maps:files-index" %}
+    {% breadcrumb "file" '' %}
     {% breadcrumb_safe file.name|truncate_string '' %}
 {% endblock %}
+{% block content %}
 <div class="container">
     <ul id="tabs" class="nav nav-tabs">
         <li id="overview-tab-header">
-            <a href="#overview" data-toggle="tab">Overview</a>
+            <a href="#overview" data-toggle="tab">{% trans "overview"|capfirst %}</a>
         </li>
         {% if tables.maps.data|length > 0 %}
             <li id="maps-tab-header">
-                <a href="#maps" data-toggle="tab">Maps</a>
+                <a href="#maps" data-toggle="tab">{% trans "maps"|capfirst %}</a>
             </li>
         {% endif %}
     </ul>
     <div class="tab-content clearfix">
         <div class="tab-pane" id="overview">
             <div class="button-bar">
-                <a class="button" href="{% url 'maps:file-update' file.id %}">Update</a>
+                <a class="button" href="{% url 'maps:file-update' file.id %}">{% trans "update"|capfirst %}</a>
                 <form method="POST" action="{% url 'maps:file-delete' file.id %}">
-                    {% csrf_token %}<input id="delete-file" type="submit" value="Delete">
+                    {% csrf_token %}<input id="delete-file" type="submit" value="{% trans 'delete'|capfirst %}">
                 </form>
-                <a class="button" download target="_blank" href="{{ file.file.url }}">Download</a>
+                <a class="button" download target="_blank" href="{{ file.file.url }}">{% trans "download"|capfirst %}</a>
             </div>
             <h2>{{ file.name }}</h2>
             <div>
                 <div class="detail-column">
-                    <h3>Information</h3>
+                    <h3>{% trans "information"|capfirst %}</h3>
                     {% if file.file|file_exists %}
-                        <p>File size: {{ file.file.size|filesizeformat }}</p>
+                        <p>{% trans "file size"|capfirst %}: {{ file.file.size|filesizeformat }}</p>
                     {% endif %}
-                    <p>File type: {{ file.file.name|mime_type }}</p>
+                    <p>{% trans "file type"|capfirst %}: {{ file.file.name|mime_type }}</p>
                     {% include "maps/types_for_detail_view.html" %}
                 </div>
                 <div class="detail-column">
@@ -57,7 +58,7 @@
 </div>
 <script>
     $(document).on('click', '#delete-file', function(){
-        return confirm('Delete {{ file.name }}?');
+        return confirm('{% blocktrans with file.name as name %}Delete {{ name }}?{% endblocktrans %}');
     })
 </script>
 {% endblock %}

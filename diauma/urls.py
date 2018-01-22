@@ -4,7 +4,9 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('webpage.urls', namespace='webpage')),
     url(r'^maps/', include('maps.urls', namespace='maps')),
