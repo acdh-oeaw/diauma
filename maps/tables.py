@@ -3,6 +3,7 @@ import django_tables2 as tables
 from django.core.files.storage import default_storage
 from django.template.defaultfilters import filesizeformat
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext
 
 from .templatetags.maps_extras import format_date
 from .util import link, truncate_string, get_mime_type
@@ -46,8 +47,8 @@ class PersonTable(tables.Table):
 
     def __init__(self, *args, c1_name="", **kwargs):
         super().__init__(*args, **kwargs)
-        self.base_columns['date_begin'].verbose_name = 'Begin'
-        self.base_columns['date_end'].verbose_name = 'End'
+        self.base_columns['date_begin'].verbose_name = ugettext('begin').capitalize()
+        self.base_columns['date_end'].verbose_name = ugettext('end').capitalize()
 
     @staticmethod
     def render_name(record):
@@ -99,8 +100,8 @@ class MapTable(tables.Table):
 
     def __init__(self, *args, c1_name="", **kwargs):
         super().__init__(*args, **kwargs)
-        self.base_columns['date_created'].verbose_name = 'Created'
-        self.base_columns['date_content'].verbose_name = 'Content'
+        self.base_columns['date_created'].verbose_name = ugettext('created').capitalize()
+        self.base_columns['date_content'].verbose_name = ugettext('content').capitalize()
 
     @staticmethod
     def render_name(record):

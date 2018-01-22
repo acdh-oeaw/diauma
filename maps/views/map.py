@@ -15,6 +15,8 @@ from maps.models import Map, Person, Institute, Reference, Place, Type, File, Sc
 from maps.tables import MapTable, FileTable, ScanTable
 from maps.util import link, get_selected_nodes
 
+from django.utils.translation import gettext as _
+
 
 @login_required
 def index(request):

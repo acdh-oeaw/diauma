@@ -2,13 +2,14 @@
 {% load maps_extras %}
 {% load django_bootstrap_breadcrumbs %}
 {% load render_table from django_tables2 %}
-{% block title %}Diauma - Person{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "person"|capfirst %}{% endblock %}
+{% block breadcrumbs %}
+    {% breadcrumb "person" "maps:person" %}
+{% endblock %}
 {% block content %}
-    {% block breadcrumbs %}
-        {% breadcrumb "Person" "maps:person" %}
-    {% endblock %}
     <div class="button-bar">
-        <a class="button" href="{% url 'maps:person-create' %}">Person +</a>
+        <a class="button" href="{% url 'maps:person-create' %}">{% trans "person"|capfirst %} +</a>
     </div>
     {% render_table person_table %}
 {% endblock %}

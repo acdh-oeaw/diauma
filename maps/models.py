@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from django.template.defaultfilters import filesizeformat
+from django.utils.translation import ugettext_lazy
 from mptt.models import MPTTModel, TreeForeignKey
 from os.path import splitext, basename
 
@@ -15,13 +16,15 @@ import maps
 def file_size(value):
     limit = settings.ALLOWED_UPLOAD_SIZE
     if value.size > limit:
-        raise ValidationError('File size exceeded. Allowed are: ' + filesizeformat(limit))
+        message = ugettext_lazy('File size exceeded. Allowed are:') + ' ' + filesizeformat(limit)
+        raise ValidationError(message)
 
 
 def scan_size(value):
     limit = settings.ALLOWED_SCAN_SIZE
     if value.size > limit:
-        raise ValidationError('Scan size exceeded. Allowed are: ' + filesizeformat(limit))
+        message = ugettext_lazy('Scan size exceeded. Allowed are:') + '  ' + filesizeformat(limit)
+        raise ValidationError(message)
 
 
 class BaseModel(models.Model):
@@ -88,7 +91,8 @@ class Place(BaseModel):
     name = models.CharField(max_length=255)
     modern_name = models.CharField(blank=True, max_length=255)
     info = models.TextField(blank=True)
-    place_type = models.ManyToManyField(Type, blank=True, related_name='place_type')
+    place_type = models.ManyToManyField(Type, blank=True, related_name='place_type',
+                                        verbose_name=ugettext_lazy('types'))
 
     def __str__(self):
         return self.name
@@ -97,9 +101,11 @@ class Place(BaseModel):
 class Institute(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
-    institute_location = models.ForeignKey(
-        Place, blank=True, null=True, related_name='institute_location')
-    institute_type = models.ManyToManyField(Type, blank=True, related_name='institute_type')
+    institute_location = models.ForeignKey(Place, blank=True, null=True,
+                                           related_name='institute_location',
+                                           verbose_name=ugettext_lazy('location'))
+    institute_type = models.ManyToManyField(Type, blank=True, related_name='institute_type',
+                                            verbose_name=ugettext_lazy('types'))
 
     def __str__(self):
         return self.name
@@ -108,13 +114,16 @@ class Institute(BaseModel):
 class Person(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
-    date_begin = models.DateField(null=True, blank=True, verbose_name='Begin')
-    date_end = models.DateField(null=True, blank=True, verbose_name='End')
+    date_begin = models.DateField(null=True, blank=True, verbose_name=ugettext_lazy('begin'))
+    date_end = models.DateField(null=True, blank=True, verbose_name=ugettext_lazy('end'))
     person_location = models.ForeignKey(
-        Place, blank=True, null=True, related_name='person_location')
+        Place, blank=True, null=True, related_name='person_location',
+        verbose_name=ugettext_lazy('location'))
     person_institutes = models.ManyToManyField(
-        Institute, blank=True, related_name='person_institutes')
-    person_type = models.ManyToManyField(Type, blank=True, related_name='person_type')
+        Institute, blank=True, related_name='person_institutes',
+        verbose_name=ugettext_lazy('institutes'))
+    person_type = models.ManyToManyField(Type, blank=True, related_name='person_type',
+                                         verbose_name=ugettext_lazy('types'))
 
     def __str__(self):
         return self.name
@@ -132,7 +141,8 @@ class Person(BaseModel):
 class Reference(BaseModel):
     name = models.CharField(max_length=255)
     info = models.TextField(blank=True)
-    reference_type = models.ManyToManyField(Type, blank=True, related_name='reference_type')
+    reference_type = models.ManyToManyField(Type, blank=True, related_name='reference_type',
+                                            verbose_name=ugettext_lazy('types'))
 
     def __str__(self):
         return self.name
@@ -141,34 +151,36 @@ class Reference(BaseModel):
 class Map(BaseModel):
     name = models.CharField(max_length=255)
     map_id = models.CharField(max_length=255, blank=True, null=True)
-    title = models.CharField(blank=True, max_length=255)
-    info = models.TextField(blank=True)
-    scale = models.IntegerField('Scale (1:)', null=True, blank=True)
-    width = models.FloatField('Width (cm)', null=True, blank=True)
-    height = models.FloatField('Height (cm)', null=True, blank=True)
-    date_created = models.DateField(null=True, blank=True)
+    title = models.CharField(ugettext_lazy('title'), blank=True, max_length=255)
+    info = models.TextField(ugettext_lazy('info'), blank=True)
+    scale = models.IntegerField(ugettext_lazy('scale (1:)'), null=True, blank=True)
+    width = models.FloatField(ugettext_lazy('width (cm)'), null=True, blank=True)
+    height = models.FloatField(ugettext_lazy('height (cm)'), null=True, blank=True)
+    date_created = models.DateField(ugettext_lazy('creation date'), null=True, blank=True)
     date_created2 = models.DateField('**', null=True, blank=True)
-    date_content = models.DateField( null=True, blank=True)
+    date_content = models.DateField(ugettext_lazy('content date'), null=True, blank=True)
     date_content2 = models.DateField('**', null=True, blank=True)
     map_places = models.ManyToManyField(Place, blank=True)
     map_persons = models.ManyToManyField(
-        Person, blank=True, related_name='author', verbose_name='Created by')
+        Person, blank=True, related_name='author', verbose_name=ugettext_lazy('created by'))
     map_institute = models.ManyToManyField(
-        Institute, blank=True, related_name='publisher', verbose_name='Published by')
-    map_references = models.ManyToManyField(
-        Reference, blank=True, related_name='reference', verbose_name='Referenced by')
-    map_issued = models.ForeignKey(
-        Place, blank=True, null=True, related_name='issued', verbose_name='Issued at')
+        Institute, blank=True, related_name='publisher', verbose_name=ugettext_lazy('published by'))
+    map_references = models.ManyToManyField(Reference, blank=True, related_name='reference',
+                                            verbose_name=ugettext_lazy('referenced by'))
+    map_issued = models.ForeignKey(Place, blank=True, null=True, related_name='issued',
+                                   verbose_name=ugettext_lazy('issued at'))
     map_location = models.ForeignKey(
         Place, blank=True,
         null=True,
         related_name='map_location',
-        verbose_name='Has current location')
-    map_copy = models.ForeignKey(
-        'self', blank=True, null=True, related_name='copy', verbose_name='Is copy of')
+        verbose_name=ugettext_lazy('has current location'))
+    map_copy = models.ForeignKey('self', blank=True, null=True, related_name='copy',
+                                 verbose_name=ugettext_lazy('is copy of'))
     map_base = models.ForeignKey(
-        'self', blank=True, null=True, related_name='base', verbose_name='Has base map')
-    map_type = models.ManyToManyField(Type, blank=True, related_name='map_type')
+        'self', blank=True, null=True, related_name='base',
+        verbose_name=ugettext_lazy('has base map'))
+    map_type = models.ManyToManyField(Type, blank=True, related_name='map_type',
+                                      verbose_name=ugettext_lazy('types'))
 
     def __str__(self):
         return self.name
@@ -180,7 +192,7 @@ class Map(BaseModel):
             if not self._state.adding and self.pk is not None:  # exclude if update with same value
                 qs = qs.exclude(pk=self.pk)
             if qs.exists():
-                raise ValidationError({'map_id': 'Map-ID already in use.'})
+                raise ValidationError({'map_id': ugettext_lazy('Map ID already in use.')})
 
 
 class File(BaseModel):
@@ -190,8 +202,10 @@ class File(BaseModel):
         validators=[
             file_size,
             FileExtensionValidator(allowed_extensions=settings.ALLOWED_UPLOAD_EXTENSIONS)])
-    file_type = models.ManyToManyField(Type, blank=True, related_name='file_type')
-    file_map = models.ManyToManyField(Map, blank=True, related_name='file_map')
+    file_type = models.ManyToManyField(Type, blank=True, related_name='file_type',
+                                       verbose_name=ugettext_lazy('types'))
+    file_map = models.ManyToManyField(Map, blank=True, related_name='file_map',
+                                      verbose_name=ugettext_lazy('maps'))
     info = models.TextField(blank=True)
 
     def delete(self, using=None, keep_parents=False):
@@ -210,10 +224,13 @@ class Scan(BaseModel):
         validators=[
             scan_size,
             FileExtensionValidator(allowed_extensions=settings.ALLOWED_SCAN_EXTENSIONS)])
-    scan_type = models.ManyToManyField(Type, blank=True, related_name='scan_type')
+    scan_type = models.ManyToManyField(Type, blank=True, related_name='scan_type',
+                                       verbose_name=ugettext_lazy('types'))
     info = models.TextField(blank=True)
-    scan_person = models.ManyToManyField(Person, blank=True, related_name='scan_creator')
-    scan_map = models.ManyToManyField(Map, blank=True, related_name='scan_map')
+    scan_person = models.ManyToManyField(Person, blank=True, related_name='scan_creator',
+                                         verbose_name=ugettext_lazy('creator'))
+    scan_map = models.ManyToManyField(Map, blank=True, related_name='scan_map',
+                                      verbose_name=ugettext_lazy('maps'))
     scan_date = models.DateField(blank=True, null=True)
 
     def delete(self, using=None, keep_parents=False):

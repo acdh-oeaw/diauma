@@ -3,76 +3,75 @@
 {% load maps_extras %}
 {% load staticfiles %}
 {% load render_table from django_tables2 %}
-{% block title %}Diauma - Files{% endblock %}
-{% block content %}
 {% load crispy_forms_tags %}
+{% load i18n %}
+{% block title %}{% trans "files"|capfirst %}{% endblock %}
 {% block breadcrumbs %}
-    {% breadcrumb "Files" "maps:files-index" %}
-    {% breadcrumb "Scan" '' %}
+    {% breadcrumb "files" "maps:files-index" %}
+    {% breadcrumb "scan" '' %}
     {% breadcrumb_safe scan.name|truncate_string '' %}
 {% endblock %}
-<div class="container">
-    <ul id="tabs" class="nav nav-tabs">
-        <li id="overview-tab-header">
-            <a href="#overview" data-toggle="tab">Overview</a>
-        </li>
-        {% if tables.maps.data|length > 0 %}
-            <li id="maps-tab-header">
-                <a href="#maps" data-toggle="tab">Maps</a>
+{% block content %}
+    <div class="container">
+        <ul id="tabs" class="nav nav-tabs">
+            <li id="overview-tab-header">
+                <a href="#overview" data-toggle="tab">{% trans "overview"|capfirst %}</a>
             </li>
-        {% endif %}
-    </ul>
-    <div class="tab-content clearfix">
-        <div class="tab-pane" id="overview">
-            <div class="button-bar">
-                <a class="button" href="{% url 'maps:scan-update' scan.id %}">Update</a>
-                <form method="POST" action="{% url 'maps:scan-delete' scan.id %}">
-                    {% csrf_token %}<input id="delete-scan" type="submit" value="Delete">
-                </form>
-                <a class="button" download target="_blank" href="{{ scan.file.url }}">Download</a>
-            </div>
-            <h2>{{ scan.name }}</h2>
-            <div>
-                <div class="detail-column">
-                    <h3>Information</h3>
-                    {% if scan.file|file_exists %}
-                        <p>File size: {{ scan.file.size|filesizeformat }}</p>
-                    {% endif %}
-                    <p>File type: {{ scan.file.name|mime_type }}</p>
-                    {% include "maps/types_for_detail_view.html" %}
+            {% if tables.maps.data|length > 0 %}
+                <li id="maps-tab-header"><a href="#maps" data-toggle="tab">{% trans "maps"|capfirst %}</a></li>
+            {% endif %}
+        </ul>
+        <div class="tab-content clearfix">
+            <div class="tab-pane" id="overview">
+                <div class="button-bar">
+                    <a class="button" href="{% url 'maps:scan-update' scan.id %}">{% trans "update"|capfirst %}</a>
+                    <form method="POST" action="{% url 'maps:scan-delete' scan.id %}">
+                        {% csrf_token %}<input id="delete-scan" type="submit" value="{% trans 'delete'|capfirst %}">
+                    </form>
+                    <a class="button" download target="_blank" href="{{ scan.file.url }}">Download</a>
                 </div>
-                <div class="detail-column">
-                    <div id="seadragon-toolbar"></div>
-                    {% if iiif %}
-                        <div id="seadragon"></div>
-                        <script src="{{ iiif.library_path|add:'openseadragon.min.js' }}"></script>
-                        <script>
-                            var viewer = OpenSeadragon({
-                                id: "seadragon",
-                                prefixUrl: "{{ iiif.library_path|add:'images/'  }}",
-                                toolbar: "seadragon-toolbar",
-                                tileSources: "{{ iiif.tile_sources }}",
-                            });
-                        </script>
-                    {% else %}
-                        {{ scan|display_image }}
-                    {% endif %}
+                <h2>{{ scan.name }}</h2>
+                <div>
+                    <div class="detail-column">
+                        <h3>{% trans "information"|capfirst %}</h3>
+                        {% if scan.file|file_exists %}
+                            <p>{% trans "file size"|capfirst %}: {{ scan.file.size|filesizeformat }}</p>
+                        {% endif %}
+                        <p>{% trans "file type"|capfirst %}: {{ scan.file.name|mime_type }}</p>
+                        {% include "maps/types_for_detail_view.html" %}
+                    </div>
+                    <div class="detail-column">
+                        <div id="seadragon-toolbar"></div>
+                        {% if iiif %}
+                            <div id="seadragon"></div>
+                            <script src="{{ iiif.library_path|add:'openseadragon.min.js' }}"></script>
+                            <script>
+                                var viewer = OpenSeadragon({
+                                    id: "seadragon",
+                                    prefixUrl: "{{ iiif.library_path|add:'images/'  }}",
+                                    toolbar: "seadragon-toolbar",
+                                    tileSources: "{{ iiif.tile_sources }}",
+                                });
+                            </script>
+                        {% else %}
+                            {{ scan|display_image }}
+                        {% endif %}
+                    </div>
+                    <div style="clear:both;"></div>
+                    {{ scan|display_info }}
+                    {{ scan|display_dates }}
                 </div>
-                <div style="clear:both;"></div>
-                {{ scan|display_info }}
-                {{ scan|display_dates }}
             </div>
+            {% if tables.maps.data|length > 0 %}
+                <div class="tab-pane" id="maps">
+                    {% render_table tables.maps %}
+                </div>
+            {% endif %}
         </div>
-        {% if tables.maps.data|length > 0 %}
-            <div class="tab-pane" id="maps">
-                {% render_table tables.maps %}
-            </div>
-        {% endif %}
     </div>
-</div>
-<script>
-    $(document).on('click', '#delete-scan', function(){
-        return confirm('Delete {{ scan.name }}?');
-    })
-</script>
+    <script>
+        $(document).on('click', '#delete-scan', function(){
+            return confirm('{% blocktrans with scan.name as name %}Delete {{ name }}?{% endblocktrans %}');
+        })
+    </script>
 {% endblock %}

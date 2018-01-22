@@ -1,0 +1,471 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Diauma\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-22 13:05+0100\n"
+"PO-Revision-Date: 2018-01-22 13:05+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: maps/forms.py:42
+msgid "change"
+msgstr "change"
+
+#: maps/forms.py:80 maps/forms.py:87 maps/forms.py:142 maps/forms.py:145
+#: maps/forms.py:148 maps/forms.py:151 maps/forms.py:154 maps/forms.py:157
+#: maps/forms.py:160 maps/forms.py:225 maps/forms.py:228 maps/forms.py:263
+#: maps/forms.py:411 maps/forms.py:459 maps/forms.py:466
+msgid "Type for getting available entries"
+msgstr "Type for getting available entries"
+
+#: maps/forms.py:169 maps/forms.py:233 maps/forms.py:268 maps/forms.py:295
+#: maps/forms.py:320 maps/forms.py:355 maps/forms.py:422 maps/forms.py:477
+msgid "submit"
+msgstr "submit"
+
+#: maps/forms.py:178 maps/forms.py:239 maps/forms.py:275 maps/forms.py:301
+#: maps/forms.py:327 maps/forms.py:430 maps/forms.py:439 maps/forms.py:484
+#: maps/forms.py:493
+msgid "data"
+msgstr "data"
+
+#: maps/forms.py:185 maps/templates/maps/person/detail.html:45
+msgid "dates"
+msgstr "dates"
+
+#: maps/forms.py:192
+msgid "Use ** fields to define a time span."
+msgstr "Use ** fields to define a time span."
+
+#: maps/forms.py:195 maps/templates/maps/map/detail.html:76
+msgid "links"
+msgstr "links"
+
+#: maps/forms.py:206 maps/forms.py:249 maps/forms.py:305 maps/forms.py:331
+#: maps/forms.py:433 maps/forms.py:447 maps/forms.py:487 maps/forms.py:502
+#: maps/models.py:95 maps/models.py:108 maps/models.py:126 maps/models.py:136
+#: maps/models.py:174 maps/models.py:197 maps/models.py:219
+#: maps/templates/maps/types_for_detail_view.html:6
+#: webpage/templates/webpage/layout.html:113
+msgid "types"
+msgstr "types"
+
+#: maps/forms.py:496
+msgid "Max file size"
+msgstr "Max file size"
+
+#: maps/forms.py:498
+msgid "allowed files"
+msgstr "allowed files"
+
+#: maps/models.py:19
+msgid "File size exceeded. Allowed are:"
+msgstr "File size exceeded. Allowed are:"
+
+#: maps/models.py:26
+msgid "Scan size exceeded. Allowed are:"
+msgstr "Scan size exceeded. Allowed are:"
+
+#: maps/models.py:106 maps/models.py:121
+msgid "location"
+msgstr "location"
+
+#: maps/models.py:117 maps/tables.py:50
+msgid "begin"
+msgstr "begin"
+
+#: maps/models.py:118 maps/tables.py:51
+msgid "end"
+msgstr "end"
+
+#: maps/models.py:124
+msgid "institutes"
+msgstr "institutes"
+
+#: maps/models.py:145 maps/templates/maps/map/detail.html:42
+msgid "title"
+msgstr "title"
+
+#: maps/models.py:146
+msgid "info"
+msgstr "info"
+
+#: maps/models.py:147
+msgid "scale (1:)"
+msgstr "scale (1:)"
+
+#: maps/models.py:148
+msgid "width (cm)"
+msgstr "width (cm)"
+
+#: maps/models.py:149
+msgid "height (cm)"
+msgstr "height (cm)"
+
+#: maps/models.py:150 maps/templates/maps/map/detail.html:60
+msgid "creation date"
+msgstr "creation date"
+
+#: maps/models.py:152 maps/templates/maps/map/detail.html:68
+msgid "content date"
+msgstr "content date"
+
+#: maps/models.py:156 maps/templates/maps/map/detail.html:85
+msgid "created by"
+msgstr "created by"
+
+#: maps/models.py:158 maps/templates/maps/map/detail.html:88
+msgid "published by"
+msgstr "published by"
+
+#: maps/models.py:160
+msgid "referenced by"
+msgstr "referenced by"
+
+#: maps/models.py:162 maps/templates/maps/map/detail.html:95
+msgid "issued at"
+msgstr "issued at"
+
+#: maps/models.py:167
+msgid "has current location"
+msgstr "has current location"
+
+#: maps/models.py:169 maps/templates/maps/map/detail.html:81
+msgid "is copy of"
+msgstr "is copy of"
+
+#: maps/models.py:172 maps/templates/maps/map/detail.html:78
+msgid "has base map"
+msgstr "has base map"
+
+#: maps/models.py:186
+msgid "Map ID already in use."
+msgstr "Map ID already in use."
+
+#: maps/models.py:199 maps/models.py:224
+#: maps/templates/maps/files/file/detail.html:21
+#: maps/templates/maps/files/scan/detail.html:21
+#: maps/templates/maps/institute/detail.html:16
+#: maps/templates/maps/person/detail.html:19
+#: maps/templates/maps/reference/detail.html:16
+msgid "maps"
+msgstr "maps"
+
+#: maps/models.py:222
+msgid "creator"
+msgstr "creator"
+
+#: maps/tables.py:103
+msgid "created"
+msgstr "created"
+
+#: maps/tables.py:104
+msgid "content"
+msgstr "content"
+
+#: maps/templates/maps/files/file/create.html:5
+#: maps/templates/maps/files/file/detail.html:7
+#: maps/templates/maps/files/file/update.html:6
+#: maps/templates/maps/files/index.html:6
+#: maps/templates/maps/files/index.html:17
+#: maps/templates/maps/files/scan/create.html:5
+#: maps/templates/maps/files/scan/detail.html:8
+#: maps/templates/maps/files/scan/update.html:6
+#: webpage/templates/webpage/layout.html:110
+msgid "files"
+msgstr "files"
+
+#: maps/templates/maps/files/file/create.html:8
+msgid "file +"
+msgstr "file +"
+
+#: maps/templates/maps/files/file/detail.html:17
+#: maps/templates/maps/files/scan/detail.html:18
+#: maps/templates/maps/institute/detail.html:14
+#: maps/templates/maps/map/detail.html:16
+#: maps/templates/maps/person/detail.html:15
+#: maps/templates/maps/place/detail.html:15
+#: maps/templates/maps/reference/detail.html:14
+msgid "overview"
+msgstr "overview"
+
+#: maps/templates/maps/files/file/detail.html:28
+#: maps/templates/maps/files/scan/detail.html:27
+#: maps/templates/maps/institute/detail.html:26
+#: maps/templates/maps/map/detail.html:35
+#: maps/templates/maps/person/detail.html:26
+#: maps/templates/maps/place/detail.html:41
+#: maps/templates/maps/reference/detail.html:23
+#: maps/templates/maps/type/detail.html:19
+msgid "update"
+msgstr "update"
+
+#: maps/templates/maps/files/file/detail.html:30
+#: maps/templates/maps/files/scan/detail.html:29
+msgid "delete"
+msgstr "delete"
+
+#: maps/templates/maps/files/file/detail.html:32
+msgid "download"
+msgstr "download"
+
+#: maps/templates/maps/files/file/detail.html:37
+#: maps/templates/maps/files/scan/detail.html:36
+#: maps/templates/maps/institute/detail.html:35
+#: maps/templates/maps/map/detail.html:45
+#: maps/templates/maps/person/detail.html:34
+#: maps/templates/maps/place/detail.html:49
+msgid "information"
+msgstr "information"
+
+#: maps/templates/maps/files/file/detail.html:39
+#: maps/templates/maps/files/scan/detail.html:38
+msgid "file size"
+msgstr "file size"
+
+#: maps/templates/maps/files/file/detail.html:41
+#: maps/templates/maps/files/scan/detail.html:40
+msgid "file type"
+msgstr "file type"
+
+#: maps/templates/maps/files/file/detail.html:61
+#: maps/templates/maps/files/index.html:63
+#: maps/templates/maps/files/scan/detail.html:74
+#: maps/templates/maps/institute/detail.html:59
+#: maps/templates/maps/map/detail.html:134
+#: maps/templates/maps/person/detail.html:70
+#: maps/templates/maps/place/detail.html:83
+#: maps/templates/maps/reference/detail.html:45
+#: maps/templates/maps/type/detail.html:52
+#, python-format
+msgid "Delete %(name)s?"
+msgstr "Delete %(name)s?"
+
+#: maps/templates/maps/files/index.html:26
+msgid "scan"
+msgstr "scan"
+
+#: maps/templates/maps/files/index.html:34
+#: maps/templates/maps/map/detail.html:120
+msgid "file"
+msgstr "file"
+
+#: maps/templates/maps/files/index.html:50
+msgid "listed are"
+msgstr "listed are"
+
+#: maps/templates/maps/files/index.html:51
+msgid "Entries without a file with a link to the entry."
+msgstr "Entries without a file with a link to the entry."
+
+#: maps/templates/maps/files/index.html:52
+msgid "Files that exist but have no related database entries with a download link."
+msgstr "Files that exist but have no related database entries with a download link."
+
+#: maps/templates/maps/files/index.html:56
+msgid "Congratulation, no orphaned files or data entries found."
+msgstr "Congratulation, no orphaned files or data entries found."
+
+#: maps/templates/maps/files/scan/create.html:10
+msgid "scan +"
+msgstr "Scan +"
+
+#: maps/templates/maps/institute/create.html:5
+#: maps/templates/maps/institute/detail.html:6
+#: maps/templates/maps/institute/index.html:6
+#: maps/templates/maps/institute/index.html:12
+#: maps/templates/maps/institute/update.html:4
+#: maps/templates/maps/place/detail.html:24
+msgid "institute"
+msgstr "institute"
+
+#: maps/templates/maps/institute/detail.html:19
+msgid "members"
+msgstr "members"
+
+#: maps/templates/maps/institute/detail.html:37
+#: maps/templates/maps/map/detail.html:98
+#: maps/templates/maps/person/detail.html:36
+msgid "located at"
+msgstr "located at"
+
+#: maps/templates/maps/map/create.html:5 maps/templates/maps/map/detail.html:7
+#: maps/templates/maps/map/detail.html:47 maps/templates/maps/map/index.html:7
+#: maps/templates/maps/map/index.html:13 maps/templates/maps/map/update.html:6
+msgid "map"
+msgstr "map"
+
+#: maps/templates/maps/map/detail.html:20
+msgid "copies"
+msgstr "copies"
+
+#: maps/templates/maps/map/detail.html:25
+msgid "base for"
+msgstr "base for"
+
+#: maps/templates/maps/map/detail.html:29
+#: maps/templates/maps/map/detail.html:126
+msgid "files for"
+msgstr "files for"
+
+#: maps/templates/maps/map/detail.html:50
+msgid "scale"
+msgstr "scale"
+
+#: maps/templates/maps/map/detail.html:53
+msgid "width"
+msgstr "width"
+
+#: maps/templates/maps/map/detail.html:56
+msgid "height"
+msgstr "height"
+
+#: maps/templates/maps/map/detail.html:91
+#: maps/templates/maps/reference/create.html:5
+#: maps/templates/maps/reference/detail.html:6
+#: maps/templates/maps/reference/index.html:7
+#: maps/templates/maps/reference/index.html:13
+#: maps/templates/maps/reference/update.html:6
+msgid "reference"
+msgstr "reference"
+
+#: maps/templates/maps/map/detail.html:118
+#: maps/templates/maps/map/detail.html:122
+msgid "scans"
+msgstr "scans"
+
+#: maps/templates/maps/network.html:5 webpage/templates/webpage/layout.html:116
+msgid "network"
+msgstr "network"
+
+#: maps/templates/maps/person/create.html:5
+#: maps/templates/maps/person/detail.html:6
+#: maps/templates/maps/person/index.html:6
+#: maps/templates/maps/person/index.html:12
+#: maps/templates/maps/person/update.html:6
+msgid "person"
+msgstr "person"
+
+#: maps/templates/maps/person/detail.html:40
+msgid "member of"
+msgstr "member of"
+
+#: maps/templates/maps/place/create.html:5
+#: maps/templates/maps/place/detail.html:6
+#: maps/templates/maps/place/index.html:6
+#: maps/templates/maps/place/index.html:12
+#: maps/templates/maps/place/update.html:6
+msgid "place"
+msgstr "place"
+
+#: maps/templates/maps/place/detail.html:19
+msgid "persons"
+msgstr "persons"
+
+#: maps/templates/maps/place/detail.html:29
+msgid "issued maps"
+msgstr "issued maps"
+
+#: maps/templates/maps/place/detail.html:34
+msgid "located maps"
+msgstr "located maps"
+
+#: maps/templates/maps/search/index.html:6
+#: maps/templates/maps/search/index.html:14
+#: webpage/templates/webpage/layout.html:81
+msgid "search"
+msgstr "search"
+
+#: maps/templates/maps/search/index.html:18
+#, python-format
+msgid "No results for: %(name)s"
+msgstr "No results for: %(name)s"
+
+#: maps/templates/maps/type/create.html:6
+#: maps/templates/maps/type/detail.html:8
+#: maps/templates/maps/type/detail.html:21
+#: maps/templates/maps/type/index.html:8 maps/templates/maps/type/update.html:6
+msgid "type"
+msgstr "type"
+
+#: maps/templates/maps/type/detail.html:29
+msgid "sub types"
+msgstr "sub types"
+
+#: maps/templates/maps/type/detail.html:47
+msgid "related entries"
+msgstr "related entries"
+
+#: webpage/templates/webpage/about.html:5
+#: webpage/templates/webpage/layout.html:95
+msgid "about"
+msgstr "about"
+
+#: webpage/templates/webpage/about.html:42
+msgid "contact"
+msgstr "contact"
+
+#: webpage/templates/webpage/about.html:54
+msgid "code on GitHub"
+msgstr "Code on GitHub"
+
+#: webpage/templates/webpage/imprint.html:5
+#: webpage/templates/webpage/imprint.html:9
+msgid "imprint"
+msgstr "imprint"
+
+#: webpage/templates/webpage/layout.html:56
+msgid "version"
+msgstr "version"
+
+#: webpage/templates/webpage/layout.html:61
+msgid "hello"
+msgstr "hello"
+
+#: webpage/templates/webpage/layout.html:62
+msgid "logout"
+msgstr "logout"
+
+#: webpage/templates/webpage/layout.html:80
+msgid "search term"
+msgstr "search term"
+
+#: webpage/templates/webpage/layout.html:86
+msgid "login"
+msgstr "login"
+
+#: webpage/templates/webpage/layout.html:120
+msgid "Legal Notice"
+msgstr "Legal Notice"
+
+#: webpage/templates/webpage/login.html:7
+msgid "Your username and password didn't match. Please try again."
+msgstr "Your username and password didn't match. Please try again."
+
+#: webpage/templates/webpage/login.html:14
+msgid "username"
+msgstr "username"
+
+#: webpage/templates/webpage/login.html:18
+msgid "password"
+msgstr "password"
+
+#: webpage/templates/webpage/table.html:15
+#: webpage/templates/webpage/table.html:42
+msgid "Previous"
+msgstr "previous"
+
+#: webpage/templates/webpage/table.html:32
+#: webpage/templates/webpage/table.html:67
+msgid "Next"
+msgstr "next"
