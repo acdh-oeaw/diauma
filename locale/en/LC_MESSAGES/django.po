@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Diauma\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 14:40+0100\n"
-"PO-Revision-Date: 2018-01-18 14:41+0100\n"
+"POT-Creation-Date: 2018-01-22 13:05+0100\n"
+"PO-Revision-Date: 2018-01-22 13:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -16,6 +16,57 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.11\n"
+
+#: maps/forms.py:42
+msgid "change"
+msgstr "change"
+
+#: maps/forms.py:80 maps/forms.py:87 maps/forms.py:142 maps/forms.py:145
+#: maps/forms.py:148 maps/forms.py:151 maps/forms.py:154 maps/forms.py:157
+#: maps/forms.py:160 maps/forms.py:225 maps/forms.py:228 maps/forms.py:263
+#: maps/forms.py:411 maps/forms.py:459 maps/forms.py:466
+msgid "Type for getting available entries"
+msgstr "Type for getting available entries"
+
+#: maps/forms.py:169 maps/forms.py:233 maps/forms.py:268 maps/forms.py:295
+#: maps/forms.py:320 maps/forms.py:355 maps/forms.py:422 maps/forms.py:477
+msgid "submit"
+msgstr "submit"
+
+#: maps/forms.py:178 maps/forms.py:239 maps/forms.py:275 maps/forms.py:301
+#: maps/forms.py:327 maps/forms.py:430 maps/forms.py:439 maps/forms.py:484
+#: maps/forms.py:493
+msgid "data"
+msgstr "data"
+
+#: maps/forms.py:185 maps/templates/maps/person/detail.html:45
+msgid "dates"
+msgstr "dates"
+
+#: maps/forms.py:192
+msgid "Use ** fields to define a time span."
+msgstr "Use ** fields to define a time span."
+
+#: maps/forms.py:195 maps/templates/maps/map/detail.html:76
+msgid "links"
+msgstr "links"
+
+#: maps/forms.py:206 maps/forms.py:249 maps/forms.py:305 maps/forms.py:331
+#: maps/forms.py:433 maps/forms.py:447 maps/forms.py:487 maps/forms.py:502
+#: maps/models.py:95 maps/models.py:108 maps/models.py:126 maps/models.py:136
+#: maps/models.py:174 maps/models.py:197 maps/models.py:219
+#: maps/templates/maps/types_for_detail_view.html:6
+#: webpage/templates/webpage/layout.html:113
+msgid "types"
+msgstr "types"
+
+#: maps/forms.py:496
+msgid "Max file size"
+msgstr "Max file size"
+
+#: maps/forms.py:498
+msgid "allowed files"
+msgstr "allowed files"
 
 #: maps/models.py:19
 msgid "File size exceeded. Allowed are:"
@@ -25,22 +76,15 @@ msgstr "File size exceeded. Allowed are:"
 msgid "Scan size exceeded. Allowed are:"
 msgstr "Scan size exceeded. Allowed are:"
 
-#: maps/models.py:95 maps/models.py:108 maps/models.py:126 maps/models.py:136
-#: maps/models.py:174 maps/models.py:197 maps/models.py:219
-#: maps/templates/maps/types_for_detail_view.html:6
-#: webpage/templates/webpage/layout.html:113
-msgid "types"
-msgstr "types"
-
 #: maps/models.py:106 maps/models.py:121
 msgid "location"
 msgstr "location"
 
-#: maps/models.py:117
+#: maps/models.py:117 maps/tables.py:50
 msgid "begin"
 msgstr "begin"
 
-#: maps/models.py:118
+#: maps/models.py:118 maps/tables.py:51
 msgid "end"
 msgstr "end"
 
@@ -120,6 +164,14 @@ msgstr "maps"
 #: maps/models.py:222
 msgid "creator"
 msgstr "creator"
+
+#: maps/tables.py:103
+msgid "created"
+msgstr "created"
+
+#: maps/tables.py:104
+msgid "content"
+msgstr "content"
 
 #: maps/templates/maps/files/file/create.html:5
 #: maps/templates/maps/files/file/detail.html:7
@@ -278,10 +330,6 @@ msgstr "width"
 msgid "height"
 msgstr "height"
 
-#: maps/templates/maps/map/detail.html:76
-msgid "links"
-msgstr "links"
-
 #: maps/templates/maps/map/detail.html:91
 #: maps/templates/maps/reference/create.html:5
 #: maps/templates/maps/reference/detail.html:6
@@ -311,10 +359,6 @@ msgstr "person"
 #: maps/templates/maps/person/detail.html:40
 msgid "member of"
 msgstr "member of"
-
-#: maps/templates/maps/person/detail.html:45
-msgid "dates"
-msgstr "dates"
 
 #: maps/templates/maps/place/create.html:5
 #: maps/templates/maps/place/detail.html:6
