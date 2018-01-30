@@ -4,6 +4,7 @@ from django.core.files.storage import default_storage
 from django.db.models import Count
 from django.utils.html import linebreaks
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext
 
 from maps import util
 from maps.models import Type
@@ -13,7 +14,7 @@ register = template.Library()
 
 @register.filter(name='display_node_count')
 def display_node_count(node, root_name):
-    """Returns the count of entities using the node."""
+    """ Returns the count of entities using the node."""
     types = Type.objects.annotate(count=Count(root_name.lower() + '_type'))
     for type_ in types:
         if type_.id == node.id:
@@ -22,15 +23,18 @@ def display_node_count(node, root_name):
 
 @register.filter(name='display_image')
 def display_image(file):
-    """Returns an image with css class preview and a link to the image itself, if available."""
+    """ Returns an image with css class preview and a link to the image itself, if available."""
     if not default_storage.exists(file.file):
-        return mark_safe('<p class="error">The associated file doesn\'t  exist!</p>')
+        text = '<p class="error">' + ugettext("The associated file doesn't exist!") + '</p>'
+        return mark_safe(text)
     if util.get_mime_type(file.file.name).startswith('image'):
         html = '<a href="' + file.file.url + '">'
-        html += '<img class="preview" src="' + file.file.url + '" alt="No preview available." />'
-        html += '</a>'
+        html += '<img class="preview" src="' + file.file.url + '" alt="'
+        html += ugettext('No preview available') + '" /></a>'
         return mark_safe(html)
-    return mark_safe('<p style="margin-top:1em;">No preview available.</p>')   # pragma: no cover
+    else:   # pragma: no cover
+        text = '<p style="margin-top:1em;">' + ugettext('No preview available') + '</p>'
+        return mark_safe(text)
 
 
 @register.filter(name='mime_type')
@@ -49,16 +53,17 @@ def file_exists(path):
 def display_info(entity):
     if not entity.info:
         return ''
-    return mark_safe('<h3>Info</h3><div class="info_content">%s</div>' % linebreaks(entity.info))
+    text = '<h3>' + ugettext("info").capitalize() + '</h3>'
+    return mark_safe(text + '<div class="info_content">%s</div>' % linebreaks(entity.info))
 
 
 @register.filter(name='display_dates')
 def display_dates(entity):
-    """Returns created and modified date if available."""
+    """ Returns created and modified date if available."""
     created = format_date(entity.created_date)
     modified = format_date(entity.modified_date)
-    string = '<div class="created">Created ' + created
-    string += ', modified ' + modified if created != modified else ''
+    string = '<div class="created">' + ugettext('created') + ' ' + created
+    string += ',' + ugettext('modified') + ' ' + modified if created != modified else ''
     string += '</div>'
     return mark_safe(string)
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-22 13:05+0100\n"
-"PO-Revision-Date: 2018-01-22 13:06+0100\n"
+"POT-Creation-Date: 2018-01-30 12:22+0100\n"
+"PO-Revision-Date: 2018-01-30 12:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -38,7 +38,7 @@ msgstr "speichern"
 #: maps/forms.py:327 maps/forms.py:430 maps/forms.py:439 maps/forms.py:484
 #: maps/forms.py:493
 msgid "data"
-msgstr "data"
+msgstr "Daten"
 
 #: maps/forms.py:185 maps/templates/maps/person/detail.html:45
 msgid "dates"
@@ -97,7 +97,7 @@ msgstr "Institute"
 msgid "title"
 msgstr "Titel"
 
-#: maps/models.py:146
+#: maps/models.py:146 maps/templatetags/maps_extras.py:56
 msgid "info"
 msgstr "Info"
 
@@ -166,7 +166,7 @@ msgstr "Karten"
 msgid "creator"
 msgstr "Ersteller"
 
-#: maps/tables.py:103
+#: maps/tables.py:103 maps/templatetags/maps_extras.py:65
 msgid "created"
 msgstr "erstellt"
 
@@ -182,6 +182,7 @@ msgstr "Inhalt"
 #: maps/templates/maps/files/scan/create.html:5
 #: maps/templates/maps/files/scan/detail.html:8
 #: maps/templates/maps/files/scan/update.html:6
+#: maps/templates/maps/map/detail.html:29
 #: webpage/templates/webpage/layout.html:110
 msgid "files"
 msgstr "Dateien"
@@ -213,10 +214,17 @@ msgstr "bearbeiten"
 
 #: maps/templates/maps/files/file/detail.html:30
 #: maps/templates/maps/files/scan/detail.html:29
+#: maps/templates/maps/institute/detail.html:30
+#: maps/templates/maps/map/detail.html:37
+#: maps/templates/maps/person/detail.html:29
+#: maps/templates/maps/place/detail.html:44
+#: maps/templates/maps/reference/detail.html:27
+#: maps/templates/maps/type/detail.html:24
 msgid "delete"
 msgstr "löschen"
 
 #: maps/templates/maps/files/file/detail.html:32
+#: maps/templates/maps/files/scan/detail.html:31
 msgid "download"
 msgstr "download"
 
@@ -260,6 +268,10 @@ msgstr "Scan"
 #: maps/templates/maps/map/detail.html:120
 msgid "file"
 msgstr "Datei"
+
+#: maps/templates/maps/files/index.html:45
+msgid "Delete orphaned files"
+msgstr "Verwaiste Dateien löschen"
 
 #: maps/templates/maps/files/index.html:50
 msgid "listed are"
@@ -317,11 +329,6 @@ msgstr "Kopien"
 msgid "base for"
 msgstr "Grundlage für"
 
-#: maps/templates/maps/map/detail.html:29
-#: maps/templates/maps/map/detail.html:126
-msgid "files for"
-msgstr "Dateien für"
-
 #: maps/templates/maps/map/detail.html:50
 msgid "scale"
 msgstr "Maßstab"
@@ -347,6 +354,10 @@ msgstr "Referenz"
 #: maps/templates/maps/map/detail.html:122
 msgid "scans"
 msgstr "Scans"
+
+#: maps/templates/maps/map/detail.html:126
+msgid "files for"
+msgstr "Dateien für"
 
 #: maps/templates/maps/network.html:5 webpage/templates/webpage/layout.html:116
 msgid "network"
@@ -384,6 +395,10 @@ msgstr "Herausgegebene Karten"
 msgid "located maps"
 msgstr "Befindet sich in"
 
+#: maps/templates/maps/place/detail.html:51
+msgid "modern name"
+msgstr "Aktueller Name"
+
 #: maps/templates/maps/search/index.html:6
 #: maps/templates/maps/search/index.html:14
 #: webpage/templates/webpage/layout.html:81
@@ -409,6 +424,18 @@ msgstr "Unter Typen"
 #: maps/templates/maps/type/detail.html:47
 msgid "related entries"
 msgstr "Einträge"
+
+#: maps/templatetags/maps_extras.py:28
+msgid "The associated file doesn't exist!"
+msgstr "Die assoziierte Datei existiert nicht"
+
+#: maps/templatetags/maps_extras.py:33 maps/templatetags/maps_extras.py:36
+msgid "No preview available"
+msgstr "Keine Vorschau möglich"
+
+#: maps/templatetags/maps_extras.py:66
+msgid "modified"
+msgstr "verändert"
 
 #: webpage/templates/webpage/about.html:5
 #: webpage/templates/webpage/layout.html:95

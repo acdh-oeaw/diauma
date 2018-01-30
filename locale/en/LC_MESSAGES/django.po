@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Diauma\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-22 13:05+0100\n"
-"PO-Revision-Date: 2018-01-22 13:05+0100\n"
+"POT-Creation-Date: 2018-01-30 12:22+0100\n"
+"PO-Revision-Date: 2018-01-30 12:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -96,7 +96,7 @@ msgstr "institutes"
 msgid "title"
 msgstr "title"
 
-#: maps/models.py:146
+#: maps/models.py:146 maps/templatetags/maps_extras.py:56
 msgid "info"
 msgstr "info"
 
@@ -165,7 +165,7 @@ msgstr "maps"
 msgid "creator"
 msgstr "creator"
 
-#: maps/tables.py:103
+#: maps/tables.py:103 maps/templatetags/maps_extras.py:65
 msgid "created"
 msgstr "created"
 
@@ -181,6 +181,7 @@ msgstr "content"
 #: maps/templates/maps/files/scan/create.html:5
 #: maps/templates/maps/files/scan/detail.html:8
 #: maps/templates/maps/files/scan/update.html:6
+#: maps/templates/maps/map/detail.html:29
 #: webpage/templates/webpage/layout.html:110
 msgid "files"
 msgstr "files"
@@ -212,10 +213,17 @@ msgstr "update"
 
 #: maps/templates/maps/files/file/detail.html:30
 #: maps/templates/maps/files/scan/detail.html:29
+#: maps/templates/maps/institute/detail.html:30
+#: maps/templates/maps/map/detail.html:37
+#: maps/templates/maps/person/detail.html:29
+#: maps/templates/maps/place/detail.html:44
+#: maps/templates/maps/reference/detail.html:27
+#: maps/templates/maps/type/detail.html:24
 msgid "delete"
 msgstr "delete"
 
 #: maps/templates/maps/files/file/detail.html:32
+#: maps/templates/maps/files/scan/detail.html:31
 msgid "download"
 msgstr "download"
 
@@ -259,6 +267,10 @@ msgstr "scan"
 #: maps/templates/maps/map/detail.html:120
 msgid "file"
 msgstr "file"
+
+#: maps/templates/maps/files/index.html:45
+msgid "Delete orphaned files"
+msgstr "Delete orphaned files"
 
 #: maps/templates/maps/files/index.html:50
 msgid "listed are"
@@ -313,11 +325,6 @@ msgstr "copies"
 msgid "base for"
 msgstr "base for"
 
-#: maps/templates/maps/map/detail.html:29
-#: maps/templates/maps/map/detail.html:126
-msgid "files for"
-msgstr "files for"
-
 #: maps/templates/maps/map/detail.html:50
 msgid "scale"
 msgstr "scale"
@@ -343,6 +350,10 @@ msgstr "reference"
 #: maps/templates/maps/map/detail.html:122
 msgid "scans"
 msgstr "scans"
+
+#: maps/templates/maps/map/detail.html:126
+msgid "files for"
+msgstr "files for"
 
 #: maps/templates/maps/network.html:5 webpage/templates/webpage/layout.html:116
 msgid "network"
@@ -380,6 +391,10 @@ msgstr "issued maps"
 msgid "located maps"
 msgstr "located maps"
 
+#: maps/templates/maps/place/detail.html:51
+msgid "modern name"
+msgstr "modern name"
+
 #: maps/templates/maps/search/index.html:6
 #: maps/templates/maps/search/index.html:14
 #: webpage/templates/webpage/layout.html:81
@@ -405,6 +420,18 @@ msgstr "sub types"
 #: maps/templates/maps/type/detail.html:47
 msgid "related entries"
 msgstr "related entries"
+
+#: maps/templatetags/maps_extras.py:28
+msgid "The associated file doesn't exist!"
+msgstr "The associated file doesn't exist!"
+
+#: maps/templatetags/maps_extras.py:33 maps/templatetags/maps_extras.py:36
+msgid "No preview available"
+msgstr "No preview available"
+
+#: maps/templatetags/maps_extras.py:66
+msgid "modified"
+msgstr "modified"
 
 #: webpage/templates/webpage/about.html:5
 #: webpage/templates/webpage/layout.html:95
