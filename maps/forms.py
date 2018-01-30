@@ -277,7 +277,7 @@ class InstituteForm(BaseForm):
                 'institute_location',
                 css_class='form-float'),
             Div(
-                HTML('<div class="form-header">Types</div>'),
+                HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>')),
             Div('institute_type', css_class='hidden'))
