@@ -26,7 +26,7 @@
                     <a class="button" href="{% url 'maps:person-update' person.id %}">{% trans "update"|capfirst %}</a>
                     <form method="POST" action="{% url 'maps:person-delete' person.id %}">
                         {% csrf_token %}
-                        <input id="delete-person" type="submit" value="Delete">
+                        <input id="delete-person" type="submit" value="{% trans 'delete'|capfirst %}">
                     </form>
                 </div>
                 <h2>{{ person.name }}</h2>

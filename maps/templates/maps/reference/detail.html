@@ -24,7 +24,7 @@
                     </a>
                     <form method="POST" action="{% url 'maps:reference-delete' reference.id %}">
                         {% csrf_token %}
-                        <input id="delete-reference" type="submit" value="Delete">
+                        <input id="delete-reference" type="submit" value="{% trans 'delete'|capfirst %}">
                     </form>
                 </div>
                 <h2>{{ reference.name }}</h2>

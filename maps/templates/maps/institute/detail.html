@@ -27,7 +27,7 @@
                     </a>
                     <form method="POST" action="{% url 'maps:institute-delete' institute.id %}">
                         {% csrf_token %}
-                        <input id="delete-institute" type="submit" value="Delete">
+                        <input id="delete-institute" type="submit" value="{% trans 'delete'|capfirst %}">
                     </form>
                 </div>
                 <h2>{{ institute.name }}</h2>

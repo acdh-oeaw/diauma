@@ -41,14 +41,14 @@
                     <a class="button" href="{% url 'maps:place-update' place.id %}">{% trans "update"|capfirst %}</a>
                     <form method="POST" action="{% url 'maps:place-delete' place.id %}">
                         {% csrf_token %}
-                        <input id="delete-place" type="submit" value="Delete">
+                        <input id="delete-place" type="submit" value="{% trans 'delete'|capfirst %}">
                     </form>
                 </div>
                 <h2>{{ place.name }}</h2>
                 <div class="detail-column">
                     <h3>{% trans "information"|capfirst %}</h3>
                     {% if place.modern_name %}
-                        <p>Modern name: {{ place.modern_name }}</p>
+                        <p>{% trans 'modern name'|capfirst %}: {{ place.modern_name }}</p>
                     {% endif %}
                 </div>
                 {% include "../types_for_detail_view.html" %}

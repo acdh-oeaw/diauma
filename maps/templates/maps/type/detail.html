@@ -21,7 +21,7 @@
         <a class="button" href="{% url 'maps:type-create' node.id %}">{% trans "type"|capfirst %} +</a>
         {% if not descendants and not related_items %}
             <form method="POST" action="{% url 'maps:type-delete' node.id %}">
-                {% csrf_token %}<input id="delete-type" type="submit" value="Delete">
+                {% csrf_token %}<input id="delete-type" type="submit" value="{% trans 'delete'|capfirst %}">
             </form>
         {% endif %}
     </div>

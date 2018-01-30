@@ -34,7 +34,7 @@
                 <div class="button-bar">
                     <a class="button" href="{% url 'maps:map-update' map.id %}">{% trans "update"|capfirst %}</a>
                     <form method="POST" action="{% url 'maps:map-delete' map.id %}">
-                        {% csrf_token %}<input id="delete-map" type="submit" value="Delete">
+                        {% csrf_token %}<input id="delete-map" type="submit" value="{% trans 'delete'|capfirst %}">
                     </form>
                 </div>
                 <h2>{{ map.name }}</h2>

@@ -28,7 +28,7 @@
                     <form method="POST" action="{% url 'maps:scan-delete' scan.id %}">
                         {% csrf_token %}<input id="delete-scan" type="submit" value="{% trans 'delete'|capfirst %}">
                     </form>
-                    <a class="button" download target="_blank" href="{{ scan.file.url }}">Download</a>
+                    <a class="button" download target="_blank" href="{{ scan.file.url }}">{% trans 'download'|capfirst %}</a>
                 </div>
                 <h2>{{ scan.name }}</h2>
                 <div>
