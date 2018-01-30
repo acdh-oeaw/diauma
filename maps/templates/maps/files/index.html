@@ -42,7 +42,7 @@
             {% if orphaned_files_count %}
                 <div class="button-bar">
                     <a class="button" id="delete-orphaned-files"
-                       href="{% url 'maps:delete-orphaned-files' %}">Delete orphaned files</a>
+                       href="{% url 'maps:delete-orphaned-files' %}">{% trans 'Delete orphaned files' %}</a>
                 </div>
             {% endif %}
             {% if tables.orphans.data %}
