@@ -1,9 +1,9 @@
 {% extends "webpage/layout.html" %}
 {% load crispy_forms_tags %}
 {% load django_bootstrap_breadcrumbs %}
-{% block title %}{% trans "institute"|capfirst %}{% endblock %}
 {% load maps_extras %}
 {% load i18n %}
+{% block title %}{% trans "institute"|capfirst %}{% endblock %}
 {% block breadcrumbs %}
     {% breadcrumb "institute" "maps:institute" %}
     {% breadcrumb_safe object.name|truncate_string "maps:institute-detail" object.id %}
