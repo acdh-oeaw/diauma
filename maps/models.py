@@ -1,14 +1,14 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import os
+from os.path import splitext, basename
 
-from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
+from django.db import models
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy
 from mptt.models import MPTTModel, TreeForeignKey
-from os.path import splitext, basename
 
 import maps
 

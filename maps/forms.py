@@ -1,14 +1,14 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit, Layout, HTML, Div
 from dal import autocomplete
 from django import forms
 from django.conf import settings
 from django.template.defaultfilters import filesizeformat
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, HTML, Div
 from django.utils.translation import ugettext, ugettext_lazy
 
-from .util import sanitize
 from .models import Map, Person, Institute, Place, Reference, Type, File, Scan
+from .util import sanitize
 
 
 class BaseForm(forms.ModelForm):

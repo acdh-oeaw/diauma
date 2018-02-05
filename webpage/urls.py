@@ -3,6 +3,7 @@ from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import RedirectView, TemplateView
 from django.views.static import serve
+
 from . import views
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)

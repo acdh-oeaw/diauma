@@ -2,10 +2,10 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from mptt.admin import DraggableMPTTAdmin
-from .models import Map, Institute, Place, Person, Reference, Type
-from .models import File
 
 from .forms import FileForm
+from .models import File
+from .models import Map, Institute, Place, Person, Reference, Type
 
 
 class FileAdmin(admin.ModelAdmin):

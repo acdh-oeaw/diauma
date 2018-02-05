@@ -3,8 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
 
-from maps.models import Institute, Map, Person, Place,  Reference
+from maps.models import Institute, Map, Person, Reference
 from maps.util import truncate_string
+
 
 @login_required
 def index(request):
