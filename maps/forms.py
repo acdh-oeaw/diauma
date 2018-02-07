@@ -287,7 +287,7 @@ class PlaceForm(BaseForm):
 
     class Meta:
         model = Place
-        fields = ('name', 'modern_name', 'info', 'place_type')
+        fields = ('name', 'modern_name', 'geonames_uri', 'info', 'place_type')
 
     def __init__(self, *args, **kwargs):
         super(PlaceForm, self).__init__(*args, **kwargs)

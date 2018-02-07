@@ -90,6 +90,7 @@ class Type(MPTTModel):
 class Place(BaseModel):
     name = models.CharField(max_length=255)
     modern_name = models.CharField(blank=True, max_length=255)
+    geonames_uri = models.CharField(blank=True, max_length=255, verbose_name='GeoNames URI')
     info = models.TextField(blank=True)
     place_type = models.ManyToManyField(Type, blank=True, related_name='place_type',
                                         verbose_name=ugettext_lazy('types'))
