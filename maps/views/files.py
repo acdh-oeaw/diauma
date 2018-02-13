@@ -1,4 +1,5 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
+import os
 from os.path import basename, splitext
 
 from django.conf import settings
@@ -12,7 +13,6 @@ from django.urls import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
-import os
 
 from maps.forms import FileForm, ScanForm
 from maps.models import File, Scan, Type, Map

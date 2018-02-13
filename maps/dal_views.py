@@ -1,5 +1,6 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from dal import autocomplete
+
 from .models import Person, Institute, Reference, Place, Map, File, Scan
 
 

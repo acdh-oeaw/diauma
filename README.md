@@ -24,7 +24,7 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/
 
 ### Required Software
 
-To install the requireded software execute:
+To install the required libraries execute:
 
     pip install -r requirements.txt
 
@@ -38,7 +38,7 @@ webpage/metadata.py - adapt according to your needs
 
 Installation of required modules:
 
-    pip install requirements/requirements_test.txt
+    pip install -r requirements/requirements_test.txt
 
 Run tests with HTML coverage report:
 
