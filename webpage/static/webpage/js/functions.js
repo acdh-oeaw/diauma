@@ -95,10 +95,10 @@ _paq.push(['enableLinkTracking']);
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik/piwik.js'; s.parentNode.insertBefore(g,s);
 })();
 
-/* cookie consent */
+/* Cookie consent */
 window.cookieconsent_options = {
     'message':'This website uses cookies to ensure you get the best experience on our website',
     'dismiss':'Got it!',
     'learnMore':'More info',
-    'link':'{% url "webpage:imprint" %}',
+    'link':'/imprint',
     'theme':'dark-bottom'};

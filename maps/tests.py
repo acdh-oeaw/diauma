@@ -1,9 +1,9 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
 from django.urls import reverse
-from django.conf import settings
 
 from maps.models import Map, Institute, Person, Place, Reference, Type, File, Scan
 
