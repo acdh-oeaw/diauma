@@ -5,9 +5,9 @@ from django.template.defaultfilters import filesizeformat
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext
 
+from .models import Person, Map, Place, Institute, File, Scan, BaseModel
 from .templatetags.maps_extras import format_date
 from .util import link, truncate_string, get_mime_type
-from .models import Person, Map, Place, Institute, File, Scan, BaseModel
 
 
 class OrphanTable(tables.Table):

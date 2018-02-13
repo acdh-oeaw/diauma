@@ -1,14 +1,14 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit, Layout, HTML, Div
 from dal import autocomplete
 from django import forms
 from django.conf import settings
 from django.template.defaultfilters import filesizeformat
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, HTML, Div
 from django.utils.translation import ugettext, ugettext_lazy
 
-from .util import sanitize
 from .models import Map, Person, Institute, Place, Reference, Type, File, Scan
+from .util import sanitize
 
 
 class BaseForm(forms.ModelForm):
@@ -205,7 +205,8 @@ class MapForm(BaseForm):
                 css_class='form-float'),
             Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
-                HTML('<div style="clear:both;"></div>')),
+                HTML('<div style="clear:both;"></div>'),
+                'info'),
             Div('map_type', css_class='hidden'))
 
 
@@ -248,7 +249,8 @@ class PersonForm(BaseForm):
             Div(
                 HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
-                HTML('<div style="clear:both;"></div>')),
+                HTML('<div style="clear:both;"></div>'),
+                'info'),
             Div('person_type', css_class='hidden'))
 
 
@@ -279,7 +281,8 @@ class InstituteForm(BaseForm):
             Div(
                 HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
-                HTML('<div style="clear:both;"></div>')),
+                HTML('<div style="clear:both;"></div>'),
+                'info'),
             Div('institute_type', css_class='hidden'))
 
 
@@ -304,7 +307,8 @@ class PlaceForm(BaseForm):
             Div(
                 HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
-                HTML('<div style="clear:both;"></div>')),
+                HTML('<div style="clear:both;"></div>'),
+                'info'),
             Div('place_type', css_class='hidden'))
 
 
@@ -330,7 +334,8 @@ class ReferenceForm(BaseForm):
             Div(
                 HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
-                HTML('<div style="clear:both;"></div>')),
+                HTML('<div style="clear:both;"></div>'),
+                'info'),
             Div('reference_type', css_class='hidden'))
 
 
@@ -432,7 +437,8 @@ class FileForm(BaseForm):
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
-                    HTML('<div style="clear:both;"></div>')),
+                    HTML('<div style="clear:both;"></div>'),
+                    'info'),
                 Div('file_type', 'file', css_class='hidden'))
         else:
             self.helper.layout = Layout(
@@ -446,7 +452,8 @@ class FileForm(BaseForm):
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
-                    HTML('<div style="clear:both;"></div>')),
+                    HTML('<div style="clear:both;"></div>'),
+                    'info'),
                 Div('file_type', css_class='hidden'))
 
 
@@ -486,7 +493,8 @@ class ScanForm(BaseForm):
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
-                    HTML('<div style="clear:both;"></div>')),
+                    HTML('<div style="clear:both;"></div>'),
+                    'info'),
                 Div('scan_type', 'file', css_class='hidden'))
         else:
             self.helper.layout = Layout(
@@ -501,5 +509,6 @@ class ScanForm(BaseForm):
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
-                    HTML('<div style="clear:both;"></div>')),
+                    HTML('<div style="clear:both;"></div>'),
+                    'info'),
                 Div('scan_type', css_class='hidden'))

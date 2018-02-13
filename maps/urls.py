@@ -4,6 +4,8 @@ from django.conf.urls import url
 from .views import (map, reference, person, institute, place, changelog, type, search,
                     network, files)
 
+app_name = 'maps'
+
 urlpatterns = [
     url(r'^changelog/$', changelog.index, name='changelog'),
     url(r'^search/$', search.index, name='search'),
@@ -58,5 +60,6 @@ urlpatterns = [
     url(r'^files/scan-update/(?P<pk>\d+)/$', files.ScanUpdate.as_view(), name='scan-update'),
     url(r'^files/file-delete/(?P<pk>\d+)/$', files.FileDelete.as_view(), name='file-delete'),
     url(r'^files/scan-delete/(?P<pk>\d+)/$', files.ScanDelete.as_view(), name='scan-delete'),
-    url(r'^files/delete-orphaned-files/$', files.delete_orphaned_files, name='delete-orphaned-files')
+    url(r'^files/delete-orphaned-files/$', files.delete_orphaned_files,
+        name='delete-orphaned-files')
 ]
