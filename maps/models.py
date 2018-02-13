@@ -1,5 +1,6 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import os
+import string
 from os.path import splitext, basename
 
 from django.conf import settings
@@ -182,10 +183,24 @@ class Map(BaseModel):
                 raise ValidationError({'map_id': ugettext_lazy('Map ID already in use.')})
 
 
+def file_upload_path(instance, filename):
+    valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+    filename = ''.join(c for c in filename if c in valid_chars)
+    filename = filename.replace(' ', '_')
+    return 'file/' + filename
+
+
+def scan_upload_path(instance, filename):
+    valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+    filename = ''.join(c for c in filename if c in valid_chars)
+    filename = filename.replace(' ', '_')
+    return 'scan/' + filename
+
+
 class File(BaseModel):
     name = CharField(max_length=255)
     file = FileField(
-        upload_to='file/',
+        upload_to=file_upload_path,
         validators=[
             file_size,
             FileExtensionValidator(allowed_extensions=settings.ALLOWED_UPLOAD_EXTENSIONS)])
@@ -196,7 +211,7 @@ class File(BaseModel):
     info = TextField(blank=True)
 
     def delete(self, using=None, keep_parents=False):
-        """ Delete the file from disk because Django doesn't do it. """
+        """ Delete the file from disk because Django doesn't do it."""
         self.file.delete()
         super(File, self).delete(using, keep_parents)
 
@@ -207,7 +222,7 @@ class File(BaseModel):
 class Scan(BaseModel):
     name = CharField(max_length=255)
     file = ImageField(
-        upload_to='scan/',
+        upload_to=scan_upload_path,
         validators=[
             scan_size,
             FileExtensionValidator(allowed_extensions=settings.ALLOWED_SCAN_EXTENSIONS)])
