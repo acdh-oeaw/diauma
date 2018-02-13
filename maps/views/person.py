@@ -1,4 +1,5 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
+from annoying.functions import get_object_or_None
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -7,7 +8,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from annoying.functions import get_object_or_None
 from django_tables2 import RequestConfig
 
 from maps.forms import PersonForm

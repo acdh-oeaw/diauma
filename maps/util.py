@@ -1,8 +1,9 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import re
+from mimetypes import guess_type
+
 from django.urls import reverse
 from markupsafe import Markup
-from mimetypes import guess_type
 
 from .models import Type
 

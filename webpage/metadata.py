@@ -3,11 +3,11 @@
 
 PROJECT_METADATA = {
     'title': 'Diauma',
-    'version': '0.10.0',
+    'version': '0.11.0',
     'piwik_id': '64',
     'author': 'Alexander Watzinger',
     'subtitle': 'Austrian Dialect Cartography 1924–1956. Digitalisation, Contextualisation, Visualisation',
     'description': '',
     'github': 'https://github.com/acdh-oeaw/diauma',
-    'purpose_de': '',
-    'purpose_en': ''}
+    'purpose_de': 'Dieses Projekt ist fokusiert auf die österreichischen Dialektkartographie von 1924 bis 1956.',
+    'purpose_en': 'The project is focusing on Austrian dialect cartography from 1924 to 1956.'}
