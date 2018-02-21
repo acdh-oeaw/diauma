@@ -1,8 +1,8 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 from django.conf.urls import url
 
-from .views import (map, reference, person, institute, place, changelog, type, search,
-                    network, files)
+from .views import (changelog, files, institute, map, network, person, place, reference, search,
+                    type)
 
 app_name = 'maps'
 

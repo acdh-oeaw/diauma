@@ -6,12 +6,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
 from maps.forms import ReferenceForm
-from maps.models import Reference, Map, Type
-from maps.tables import ReferenceTable, MapTable
+from maps.models import Map, Reference, Type
+from maps.tables import MapTable, ReferenceTable
 from maps.util import get_selected_nodes
 
 
