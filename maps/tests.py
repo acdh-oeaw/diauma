@@ -5,7 +5,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from maps.models import Map, Institute, Person, Place, Reference, Type, File, Scan
+from maps.models import File, Institute, Map, Person, Place, Reference, Scan, Type
 
 
 class MapsTest(TestCase):

@@ -2,7 +2,7 @@
 from django.conf.urls import url
 
 from . import dal_views
-from .models import Person, Institute, Reference, Place, Map, File, Scan
+from .models import File, Institute, Map, Person, Place, Reference, Scan
 
 app_name = 'map-ac'
 
