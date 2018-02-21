@@ -41,6 +41,7 @@ class BaseModel(Model):
 
 class Type(MPTTModel):
     name = CharField(max_length=250)
+    info = TextField(blank=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True,
                             on_delete=CASCADE)
 

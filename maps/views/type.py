@@ -44,6 +44,7 @@ def create(request, pk):
     if request.method == 'POST' and form.is_valid():
         node = Type.objects.create(
             name=form['name'].data,
+            info=form['info'].data,
             parent=Type.objects.get(pk=form['parent'].data))
         return redirect('maps:type-detail', pk=node.id)
     return render(request, 'maps/type/create.html', {'parent': parent, 'form': form})
@@ -63,7 +64,7 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         node = self.get_object()
         parent = Type.objects.get(pk=request.POST['parent'])
 
-        # make some tests to avoid recursive connections
+        # Make some tests to avoid recursive connections
         if parent in node.get_descendants():
             message = 'A type may not be made a child of any of its descendants.'
             messages.error(self.request, message)
@@ -75,11 +76,16 @@ class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return super(Update, self).post(request, *args, **kwargs)
 
 
-
 class Delete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Type
     success_message = 'An entry has been deleted.'
-    success_url = reverse_lazy('maps:type')
+
+    def get_success_url(self):
+        ancestors = Type.objects.get(pk=self.object.pk).get_ancestors()
+        if not ancestors:
+            return reverse_lazy('maps:type')
+        parent = ancestors.reverse()[0]
+        return reverse('maps:type-detail', kwargs={'pk': parent.id})
 
     def delete(self, request, *args, **kwargs):
         node = self.get_object()

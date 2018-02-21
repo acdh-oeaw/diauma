@@ -7,7 +7,7 @@
 {% block breadcrumbs %}
     {% breadcrumb "types" "maps:type" %}
     {% for item in object.get_ancestors %}
-        {% breadcrumb item|link|safe '' %}
+        {% breadcrumb_safe item|link|safe '' %}
     {% endfor %}
     {% breadcrumb_safe object.name|truncate_string "maps:type-detail" object.id %}
     {% breadcrumb "update" "" %}

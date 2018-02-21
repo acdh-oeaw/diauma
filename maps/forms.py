@@ -343,7 +343,7 @@ class TypeForm(forms.ModelForm):
 
     class Meta:
         model = Type
-        fields = ('name', 'parent')
+        fields = ('name', 'parent', 'info')
 
     def __init__(self, *args, **kwargs):
         super(TypeForm, self).__init__(*args, **kwargs)
@@ -359,8 +359,10 @@ class TypeForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', ugettext('submit').capitalize()))
         self.helper.layout = Layout(
+            'name',
             Div('parent', css_class='hidden'),
-            Div(HTML(nodes_html)))
+            Div(HTML(nodes_html)),
+            'info')
 
     @staticmethod
     def get_nodes_html(root, selected, with_root=False):
