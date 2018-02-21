@@ -11,9 +11,9 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
 from maps.forms import MapForm
-from maps.models import Map, Person, Institute, Reference, Place, Type, File, Scan
-from maps.tables import MapTable, FileTable, ScanTable
-from maps.util import link, get_selected_nodes
+from maps.models import File, Institute, Map, Person, Place, Reference, Scan, Type
+from maps.tables import FileTable, MapTable, ScanTable
+from maps.util import get_selected_nodes, link
 
 
 @login_required

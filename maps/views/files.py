@@ -8,15 +8,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.files.storage import default_storage
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
 from maps.forms import FileForm, ScanForm
-from maps.models import File, Scan, Type, Map
-from maps.tables import FileTable, ScanTable, MapTable, OrphanTable
+from maps.models import File, Map, Scan, Type
+from maps.tables import FileTable, MapTable, OrphanTable, ScanTable
 from maps.util import get_selected_nodes
 
 

@@ -9,7 +9,7 @@
 {% block breadcrumbs %}
     {% breadcrumb "types" "maps:type" %}
     {% for item in node.get_ancestors %}
-        {% breadcrumb item|link|safe '' %}
+        {% breadcrumb_safe item|link '' %}
     {% endfor %}
     {% breadcrumb node.name "" %}
 {% endblock %}
@@ -47,6 +47,7 @@
         <h3>{% trans "related entries"|capfirst %}</h3>
         {% render_table table %}
     {% endif %}
+    {{ node|display_info }}
     <script>
         $(document).on('click', '#delete-type', function(){
             return confirm('{% blocktrans with node.name as name %}Delete {{ name }}?{% endblocktrans %}');

@@ -1,14 +1,14 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import os
 import string
-from os.path import splitext, basename
+from os.path import basename, splitext
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
-from django.db.models import (Model, CASCADE, DateTimeField, CharField, TextField, ManyToManyField,
-                              ForeignKey, IntegerField, DateField, FloatField, FileField,
-                              ImageField)
+from django.db.models import (CASCADE, CharField, DateField, DateTimeField, FileField, FloatField,
+                              ForeignKey, ImageField, IntegerField, ManyToManyField, Model,
+                              TextField)
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy
 from mptt.models import MPTTModel, TreeForeignKey
@@ -41,6 +41,7 @@ class BaseModel(Model):
 
 class Type(MPTTModel):
     name = CharField(max_length=250)
+    info = TextField(blank=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True,
                             on_delete=CASCADE)
 
