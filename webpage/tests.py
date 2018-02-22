@@ -1,4 +1,4 @@
-# Copyright 2017 by ACDH. Please see the file README.md for licensing information
+# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
