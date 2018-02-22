@@ -1,4 +1,4 @@
-# Copyright 2017 by ACDH. Please see the file README.md for licensing information
+# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 import django_tables2 as tables
 from django.core.files.storage import default_storage
 from django.template.defaultfilters import filesizeformat
