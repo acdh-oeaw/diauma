@@ -1,4 +1,4 @@
-# Copyright 2017 by ACDH. Please see the file README.md for licensing information
+# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from django.http import HttpResponse
