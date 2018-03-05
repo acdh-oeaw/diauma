@@ -436,6 +436,7 @@ class FileForm(BaseForm):
             self.helper.layout = Layout(
                 Div(HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                     'name',
+                    'file_map',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
@@ -451,6 +452,7 @@ class FileForm(BaseForm):
                         '<br />' + 'Allowed files: ' +
                         ', '.join(settings.ALLOWED_UPLOAD_EXTENSIONS) + '</p>'),
                     'name',
+                    'file_map',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
@@ -492,11 +494,14 @@ class ScanForm(BaseForm):
             self.helper.layout = Layout(
                 Div(HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                     'name',
+                    'scan_map',
+                    'scan_person',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
                     HTML('<div style="clear:both;"></div>'),
                     'info'),
+
                 Div('scan_type', 'file', css_class='hidden'))
         else:
             self.helper.layout = Layout(
@@ -508,6 +513,8 @@ class ScanForm(BaseForm):
                         '<br />' + ugettext('allowed files') + ': ' +
                         ', '.join(settings.ALLOWED_SCAN_EXTENSIONS) + '</p>'),
                     'name',
+                    'scan_map',
+                    'scan_person',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
