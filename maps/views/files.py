@@ -28,7 +28,8 @@ def index(request):
     tables['files'].tab = '#tab-file'
     tables['scans'].tab = '#tab-scan'
     orphan_data = []
-    # get objects whose files are missing
+
+    # Get objects whose files are missing
     for file in file_objects:
         if not default_storage.exists(file.file):
             url_ = reverse('maps:file-detail', kwargs={'pk': file.pk})
