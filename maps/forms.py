@@ -304,6 +304,7 @@ class PlaceForm(BaseForm):
                 HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                 'name',
                 'modern_name',
+                'geonames_uri',
                 css_class='form-float'),
             Div(
                 HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
