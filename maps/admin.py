@@ -1,11 +1,10 @@
-# Copyright 2017 by ACDH. Please see the file README.md for licensing information
+# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.contrib import admin
 from django.utils.html import format_html
 from mptt.admin import DraggableMPTTAdmin
 
 from .forms import FileForm
-from .models import File
-from .models import Map, Institute, Place, Person, Reference, Type
+from .models import File, Institute, Map, Person, Place, Reference, Type
 
 
 class FileAdmin(admin.ModelAdmin):

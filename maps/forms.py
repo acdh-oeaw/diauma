@@ -1,13 +1,13 @@
-# Copyright 2017 by ACDH. Please see the file README.md for licensing information
+# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, HTML, Div
+from crispy_forms.layout import Div, HTML, Layout, Submit
 from dal import autocomplete
 from django import forms
 from django.conf import settings
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext, ugettext_lazy
 
-from .models import Map, Person, Institute, Place, Reference, Type, File, Scan
+from .models import File, Institute, Map, Person, Place, Reference, Scan, Type
 from .util import sanitize
 
 
@@ -205,7 +205,8 @@ class MapForm(BaseForm):
                 css_class='form-float'),
             Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
-                HTML('<div style="clear:both;"></div>')),
+                HTML('<div style="clear:both;"></div>'),
+                'info'),
             Div('map_type', css_class='hidden'))
 
 
@@ -248,7 +249,8 @@ class PersonForm(BaseForm):
             Div(
                 HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
-                HTML('<div style="clear:both;"></div>')),
+                HTML('<div style="clear:both;"></div>'),
+                'info'),
             Div('person_type', css_class='hidden'))
 
 
@@ -277,9 +279,10 @@ class InstituteForm(BaseForm):
                 'institute_location',
                 css_class='form-float'),
             Div(
-                HTML('<div class="form-header">Types</div>'),
+                HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
-                HTML('<div style="clear:both;"></div>')),
+                HTML('<div style="clear:both;"></div>'),
+                'info'),
             Div('institute_type', css_class='hidden'))
 
 
@@ -304,7 +307,8 @@ class PlaceForm(BaseForm):
             Div(
                 HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
-                HTML('<div style="clear:both;"></div>')),
+                HTML('<div style="clear:both;"></div>'),
+                'info'),
             Div('place_type', css_class='hidden'))
 
 
@@ -330,7 +334,8 @@ class ReferenceForm(BaseForm):
             Div(
                 HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
-                HTML('<div style="clear:both;"></div>')),
+                HTML('<div style="clear:both;"></div>'),
+                'info'),
             Div('reference_type', css_class='hidden'))
 
 
@@ -338,7 +343,7 @@ class TypeForm(forms.ModelForm):
 
     class Meta:
         model = Type
-        fields = ('name', 'parent')
+        fields = ('name', 'parent', 'info')
 
     def __init__(self, *args, **kwargs):
         super(TypeForm, self).__init__(*args, **kwargs)
@@ -354,8 +359,10 @@ class TypeForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', ugettext('submit').capitalize()))
         self.helper.layout = Layout(
+            'name',
             Div('parent', css_class='hidden'),
-            Div(HTML(nodes_html)))
+            Div(HTML(nodes_html)),
+            'info')
 
     @staticmethod
     def get_nodes_html(root, selected, with_root=False):
@@ -429,10 +436,12 @@ class FileForm(BaseForm):
             self.helper.layout = Layout(
                 Div(HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                     'name',
+                    'file_map',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
-                    HTML('<div style="clear:both;"></div>')),
+                    HTML('<div style="clear:both;"></div>'),
+                    'info'),
                 Div('file_type', 'file', css_class='hidden'))
         else:
             self.helper.layout = Layout(
@@ -443,10 +452,12 @@ class FileForm(BaseForm):
                         '<br />' + 'Allowed files: ' +
                         ', '.join(settings.ALLOWED_UPLOAD_EXTENSIONS) + '</p>'),
                     'name',
+                    'file_map',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
-                    HTML('<div style="clear:both;"></div>')),
+                    HTML('<div style="clear:both;"></div>'),
+                    'info'),
                 Div('file_type', css_class='hidden'))
 
 
@@ -483,10 +494,14 @@ class ScanForm(BaseForm):
             self.helper.layout = Layout(
                 Div(HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                     'name',
+                    'scan_map',
+                    'scan_person',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
-                    HTML('<div style="clear:both;"></div>')),
+                    HTML('<div style="clear:both;"></div>'),
+                    'info'),
+
                 Div('scan_type', 'file', css_class='hidden'))
         else:
             self.helper.layout = Layout(
@@ -498,8 +513,11 @@ class ScanForm(BaseForm):
                         '<br />' + ugettext('allowed files') + ': ' +
                         ', '.join(settings.ALLOWED_SCAN_EXTENSIONS) + '</p>'),
                     'name',
+                    'scan_map',
+                    'scan_person',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
-                    HTML('<div style="clear:both;"></div>')),
+                    HTML('<div style="clear:both;"></div>'),
+                    'info'),
                 Div('scan_type', css_class='hidden'))

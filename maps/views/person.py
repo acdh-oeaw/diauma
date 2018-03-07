@@ -1,4 +1,4 @@
-# Copyright 2017 by ACDH. Please see the file README.md for licensing information
+# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from annoying.functions import get_object_or_None
 from django.conf import settings
 from django.contrib import messages
@@ -7,13 +7,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
 from maps.forms import PersonForm
-from maps.models import Person, Map, Place, Institute, Type
-from maps.tables import PersonTable, MapTable
-from maps.util import link, get_selected_nodes
+from maps.models import Institute, Map, Person, Place, Type
+from maps.tables import MapTable, PersonTable
+from maps.util import get_selected_nodes, link
 
 
 @login_required

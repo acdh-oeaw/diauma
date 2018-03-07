@@ -1,4 +1,4 @@
-# Copyright 2017 by ACDH. Please see the file README.md for licensing information
+# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils.safestring import mark_safe

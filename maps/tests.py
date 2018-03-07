@@ -1,11 +1,11 @@
-# Copyright 2017 by ACDH. Please see the file README.md for licensing information
+# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from maps.models import Map, Institute, Person, Place, Reference, Type, File, Scan
+from maps.models import File, Institute, Map, Person, Place, Reference, Scan, Type
 
 
 class MapsTest(TestCase):
@@ -126,7 +126,7 @@ class MapsTest(TestCase):
         self.client.get(reverse('maps:type-create', kwargs={'pk': node.id}))
         rv = self.client.post(
             reverse('maps:type-create', kwargs={'pk': node.id}),
-            {'name': 'My type of drink.', 'parent': node.id},
+            {'name': 'My type of drink.','info': '', 'parent': node.id},
             follow=True)
         self.assertContains(rv, 'My type of drink.')
         new_node = Type.objects.get(name="My type of drink.")

@@ -1,11 +1,14 @@
 # Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import os
-from os.path import splitext, basename
+import string
+from os.path import basename, splitext
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
-from django.db import models
+from django.db.models import (CASCADE, CharField, DateField, DateTimeField, FileField, FloatField,
+                              ForeignKey, ImageField, IntegerField, ManyToManyField, Model,
+                              TextField)
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy
 from mptt.models import MPTTModel, TreeForeignKey
@@ -27,9 +30,9 @@ def scan_size(value):
         raise ValidationError(message)
 
 
-class BaseModel(models.Model):
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
+class BaseModel(Model):
+    created_date = DateTimeField(auto_now_add=True)
+    modified_date = DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
@@ -37,8 +40,10 @@ class BaseModel(models.Model):
 
 
 class Type(MPTTModel):
-    name = models.CharField(max_length=250)
-    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
+    name = CharField(max_length=250)
+    info = TextField(blank=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True,
+                            on_delete=CASCADE)
 
     class MPTTMeta:
         order_insertion_by = ['name']
@@ -88,91 +93,84 @@ class Type(MPTTModel):
 
 
 class Place(BaseModel):
-    name = models.CharField(max_length=255)
-    modern_name = models.CharField(blank=True, max_length=255)
-    geonames_uri = models.CharField(blank=True, max_length=255, verbose_name='GeoNames URI')
-    info = models.TextField(blank=True)
-    place_type = models.ManyToManyField(Type, blank=True, related_name='place_type',
-                                        verbose_name=ugettext_lazy('types'))
+    name = CharField(max_length=255)
+    modern_name = CharField(blank=True, max_length=255)
+    geonames_uri = CharField(blank=True, max_length=255, verbose_name='GeoNames URI')
+    info = TextField(blank=True)
+    place_type = ManyToManyField(Type, blank=True, related_name='place_type',
+                                 verbose_name=ugettext_lazy('types'))
 
     def __str__(self):
         return self.name
 
 
 class Institute(BaseModel):
-    name = models.CharField(max_length=255)
-    info = models.TextField(blank=True)
-    institute_location = models.ForeignKey(Place, blank=True, null=True,
-                                           related_name='institute_location',
-                                           verbose_name=ugettext_lazy('location'))
-    institute_type = models.ManyToManyField(Type, blank=True, related_name='institute_type',
-                                            verbose_name=ugettext_lazy('types'))
+    name = CharField(max_length=255)
+    info = TextField(blank=True)
+    institute_location = ForeignKey(Place, blank=True, null=True, related_name='institute_location',
+                                    verbose_name=ugettext_lazy('location'), on_delete=CASCADE)
+    institute_type = ManyToManyField(Type, blank=True, related_name='institute_type',
+                                     verbose_name=ugettext_lazy('types'))
 
     def __str__(self):
         return self.name
 
 
 class Person(BaseModel):
-    name = models.CharField(max_length=255)
-    info = models.TextField(blank=True)
-    date_begin = models.DateField(null=True, blank=True, verbose_name=ugettext_lazy('begin'))
-    date_end = models.DateField(null=True, blank=True, verbose_name=ugettext_lazy('end'))
-    person_location = models.ForeignKey(
-        Place, blank=True, null=True, related_name='person_location',
-        verbose_name=ugettext_lazy('location'))
-    person_institutes = models.ManyToManyField(
-        Institute, blank=True, related_name='person_institutes',
-        verbose_name=ugettext_lazy('institutes'))
-    person_type = models.ManyToManyField(Type, blank=True, related_name='person_type',
-                                         verbose_name=ugettext_lazy('types'))
+    name = CharField(max_length=255)
+    info = TextField(blank=True)
+    date_begin = DateField(null=True, blank=True, verbose_name=ugettext_lazy('begin'))
+    date_end = DateField(null=True, blank=True, verbose_name=ugettext_lazy('end'))
+    person_location = ForeignKey(Place, blank=True, null=True, related_name='person_location',
+                                 verbose_name=ugettext_lazy('location'), on_delete=CASCADE)
+    person_institutes = ManyToManyField(Institute, blank=True, related_name='person_institutes',
+                                        verbose_name=ugettext_lazy('institutes'))
+    person_type = ManyToManyField(Type, blank=True, related_name='person_type',
+                                  verbose_name=ugettext_lazy('types'))
 
     def __str__(self):
         return self.name
 
 
 class Reference(BaseModel):
-    name = models.CharField(max_length=255)
-    info = models.TextField(blank=True)
-    reference_type = models.ManyToManyField(Type, blank=True, related_name='reference_type',
-                                            verbose_name=ugettext_lazy('types'))
+    name = CharField(max_length=255)
+    info = TextField(blank=True)
+    reference_type = ManyToManyField(Type, blank=True, related_name='reference_type',
+                                     verbose_name=ugettext_lazy('types'))
 
     def __str__(self):
         return self.name
 
 
 class Map(BaseModel):
-    name = models.CharField(max_length=255)
-    map_id = models.CharField(max_length=255, blank=True, null=True)
-    title = models.CharField(ugettext_lazy('title'), blank=True, max_length=255)
-    info = models.TextField(ugettext_lazy('info'), blank=True)
-    scale = models.IntegerField(ugettext_lazy('scale (1:)'), null=True, blank=True)
-    width = models.FloatField(ugettext_lazy('width (cm)'), null=True, blank=True)
-    height = models.FloatField(ugettext_lazy('height (cm)'), null=True, blank=True)
-    date_created = models.DateField(ugettext_lazy('creation date'), null=True, blank=True)
-    date_created2 = models.DateField('**', null=True, blank=True)
-    date_content = models.DateField(ugettext_lazy('content date'), null=True, blank=True)
-    date_content2 = models.DateField('**', null=True, blank=True)
-    map_places = models.ManyToManyField(Place, blank=True)
-    map_persons = models.ManyToManyField(
+    name = CharField(max_length=255)
+    map_id = CharField(max_length=255, blank=True, null=True)
+    title = CharField(ugettext_lazy('title'), blank=True, max_length=255)
+    info = TextField(ugettext_lazy('info'), blank=True)
+    scale = IntegerField(ugettext_lazy('scale (1:)'), null=True, blank=True)
+    width = FloatField(ugettext_lazy('width (cm)'), null=True, blank=True)
+    height = FloatField(ugettext_lazy('height (cm)'), null=True, blank=True)
+    date_created = DateField(ugettext_lazy('creation date'), null=True, blank=True)
+    date_created2 = DateField('**', null=True, blank=True)
+    date_content = DateField(ugettext_lazy('content date'), null=True, blank=True)
+    date_content2 = DateField('**', null=True, blank=True)
+    map_places = ManyToManyField(Place, blank=True)
+    map_persons = ManyToManyField(
         Person, blank=True, related_name='author', verbose_name=ugettext_lazy('created by'))
-    map_institute = models.ManyToManyField(
+    map_institute = ManyToManyField(
         Institute, blank=True, related_name='publisher', verbose_name=ugettext_lazy('published by'))
-    map_references = models.ManyToManyField(Reference, blank=True, related_name='reference',
-                                            verbose_name=ugettext_lazy('referenced by'))
-    map_issued = models.ForeignKey(Place, blank=True, null=True, related_name='issued',
-                                   verbose_name=ugettext_lazy('issued at'))
-    map_location = models.ForeignKey(
-        Place, blank=True,
-        null=True,
-        related_name='map_location',
-        verbose_name=ugettext_lazy('has current location'))
-    map_copy = models.ForeignKey('self', blank=True, null=True, related_name='copy',
-                                 verbose_name=ugettext_lazy('is copy of'))
-    map_base = models.ForeignKey(
-        'self', blank=True, null=True, related_name='base',
-        verbose_name=ugettext_lazy('has base map'))
-    map_type = models.ManyToManyField(Type, blank=True, related_name='map_type',
-                                      verbose_name=ugettext_lazy('types'))
+    map_references = ManyToManyField(Reference, blank=True, related_name='reference',
+                                     verbose_name=ugettext_lazy('referenced by'))
+    map_issued = ForeignKey(Place, blank=True, null=True, related_name='issued',
+                            verbose_name=ugettext_lazy('issued at'), on_delete=CASCADE)
+    map_location = ForeignKey(Place, blank=True, null=True, related_name='map_location',
+                              verbose_name=ugettext_lazy('has current location'), on_delete=CASCADE)
+    map_copy = ForeignKey('self', blank=True, null=True, related_name='copy',
+                          verbose_name=ugettext_lazy('is copy of'), on_delete=CASCADE)
+    map_base = ForeignKey('self', blank=True, null=True, related_name='base',
+                          verbose_name=ugettext_lazy('has base map'), on_delete=CASCADE)
+    map_type = ManyToManyField(Type, blank=True, related_name='map_type',
+                               verbose_name=ugettext_lazy('types'))
 
     def __str__(self):
         return self.name
@@ -187,21 +185,35 @@ class Map(BaseModel):
                 raise ValidationError({'map_id': ugettext_lazy('Map ID already in use.')})
 
 
+def file_upload_path(instance, filename):
+    valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+    filename = ''.join(c for c in filename if c in valid_chars)
+    filename = filename.replace(' ', '_')
+    return 'file/' + filename
+
+
+def scan_upload_path(instance, filename):
+    valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+    filename = ''.join(c for c in filename if c in valid_chars)
+    filename = filename.replace(' ', '_')
+    return 'scan/' + filename
+
+
 class File(BaseModel):
-    name = models.CharField(max_length=255)
-    file = models.FileField(
-        upload_to='file/',
+    name = CharField(max_length=255)
+    file = FileField(
+        upload_to=file_upload_path,
         validators=[
             file_size,
             FileExtensionValidator(allowed_extensions=settings.ALLOWED_UPLOAD_EXTENSIONS)])
-    file_type = models.ManyToManyField(Type, blank=True, related_name='file_type',
-                                       verbose_name=ugettext_lazy('types'))
-    file_map = models.ManyToManyField(Map, blank=True, related_name='file_map',
-                                      verbose_name=ugettext_lazy('maps'))
-    info = models.TextField(blank=True)
+    file_type = ManyToManyField(Type, blank=True, related_name='file_type',
+                                verbose_name=ugettext_lazy('types'))
+    file_map = ManyToManyField(Map, blank=True, related_name='file_map',
+                               verbose_name=ugettext_lazy('maps'))
+    info = TextField(blank=True)
 
     def delete(self, using=None, keep_parents=False):
-        """ Delete the file from disk because Django doesn't do it. """
+        """ Delete the file from disk because Django doesn't do it."""
         self.file.delete()
         super(File, self).delete(using, keep_parents)
 
@@ -210,20 +222,20 @@ class File(BaseModel):
 
 
 class Scan(BaseModel):
-    name = models.CharField(max_length=255)
-    file = models.ImageField(
-        upload_to='scan/',
+    name = CharField(max_length=255)
+    file = ImageField(
+        upload_to=scan_upload_path,
         validators=[
             scan_size,
             FileExtensionValidator(allowed_extensions=settings.ALLOWED_SCAN_EXTENSIONS)])
-    scan_type = models.ManyToManyField(Type, blank=True, related_name='scan_type',
-                                       verbose_name=ugettext_lazy('types'))
-    info = models.TextField(blank=True)
-    scan_person = models.ManyToManyField(Person, blank=True, related_name='scan_creator',
-                                         verbose_name=ugettext_lazy('creator'))
-    scan_map = models.ManyToManyField(Map, blank=True, related_name='scan_map',
-                                      verbose_name=ugettext_lazy('maps'))
-    scan_date = models.DateField(blank=True, null=True)
+    scan_type = ManyToManyField(Type, blank=True, related_name='scan_type',
+                                verbose_name=ugettext_lazy('types'))
+    info = TextField(blank=True)
+    scan_person = ManyToManyField(Person, blank=True, related_name='scan_creator',
+                                  verbose_name=ugettext_lazy('creator'))
+    scan_map = ManyToManyField(Map, blank=True, related_name='scan_map',
+                               verbose_name=ugettext_lazy('maps'))
+    scan_date = DateField(blank=True, null=True)
 
     def delete(self, using=None, keep_parents=False):
         """ Delete IIIF file if exist and than

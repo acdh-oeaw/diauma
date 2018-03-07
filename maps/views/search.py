@@ -1,10 +1,10 @@
-# Copyright 2017 by ACDH. Please see the file README.md for licensing information
+# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from maps.models import Map, Reference, Person, Institute, Place
-from maps.tables import MapTable, ReferenceTable, PersonTable, InstituteTable, PlaceTable
+from maps.models import Institute, Map, Person, Place, Reference
+from maps.tables import InstituteTable, MapTable, PersonTable, PlaceTable, ReferenceTable
 
 
 @login_required

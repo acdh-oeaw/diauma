@@ -1,4 +1,4 @@
-# Copyright 2017 by ACDH. Please see the file README.md for licensing information
+# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 import os
 from os.path import basename, splitext
 
@@ -8,15 +8,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.files.storage import default_storage
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
 from maps.forms import FileForm, ScanForm
-from maps.models import File, Scan, Type, Map
-from maps.tables import FileTable, ScanTable, MapTable, OrphanTable
+from maps.models import File, Map, Scan, Type
+from maps.tables import FileTable, MapTable, OrphanTable, ScanTable
 from maps.util import get_selected_nodes
 
 
@@ -28,7 +28,8 @@ def index(request):
     tables['files'].tab = '#tab-file'
     tables['scans'].tab = '#tab-scan'
     orphan_data = []
-    # get objects whose files are missing
+
+    # Get objects whose files are missing
     for file in file_objects:
         if not default_storage.exists(file.file):
             url_ = reverse('maps:file-detail', kwargs={'pk': file.pk})
