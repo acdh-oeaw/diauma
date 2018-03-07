@@ -126,7 +126,7 @@ class MapsTest(TestCase):
         self.client.get(reverse('maps:type-create', kwargs={'pk': node.id}))
         rv = self.client.post(
             reverse('maps:type-create', kwargs={'pk': node.id}),
-            {'name': 'My type of drink.', 'parent': node.id},
+            {'name': 'My type of drink.','info': '', 'parent': node.id},
             follow=True)
         self.assertContains(rv, 'My type of drink.')
         new_node = Type.objects.get(name="My type of drink.")
