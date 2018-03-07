@@ -303,6 +303,7 @@ class PlaceForm(BaseForm):
             Div(
                 HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                 'name',
+                'modern_name',
                 css_class='form-float'),
             Div(
                 HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
@@ -501,7 +502,6 @@ class ScanForm(BaseForm):
                     HTML(nodes_html),
                     HTML('<div style="clear:both;"></div>'),
                     'info'),
-
                 Div('scan_type', 'file', css_class='hidden'))
         else:
             self.helper.layout = Layout(
