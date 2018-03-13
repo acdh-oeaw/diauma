@@ -95,7 +95,7 @@ class Type(MPTTModel):
 class Place(BaseModel):
     name = CharField(max_length=255)
     modern_name = CharField(blank=True, max_length=255)
-    geonames_uri = CharField(blank=True, max_length=255, verbose_name='GeoNames URI')
+    geonames_id = IntegerField(null=True, blank=True, verbose_name='GeoNamesId')
     info = TextField(blank=True)
     place_type = ManyToManyField(Type, blank=True, related_name='place_type',
                                  verbose_name=ugettext_lazy('types'))

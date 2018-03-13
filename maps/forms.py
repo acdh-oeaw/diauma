@@ -290,7 +290,7 @@ class PlaceForm(BaseForm):
 
     class Meta:
         model = Place
-        fields = ('name', 'modern_name', 'geonames_uri', 'info', 'place_type')
+        fields = ('name', 'modern_name', 'info', 'place_type', 'geonames_id')
 
     def __init__(self, *args, **kwargs):
         super(PlaceForm, self).__init__(*args, **kwargs)
@@ -304,7 +304,8 @@ class PlaceForm(BaseForm):
                 HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                 'name',
                 'modern_name',
-                'geonames_uri',
+                'geonames_id',
+                HTML(self.display_geonames_select()),
                 css_class='form-float'),
             Div(
                 HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
@@ -312,6 +313,17 @@ class PlaceForm(BaseForm):
                 HTML('<div style="clear:both;"></div>'),
                 'info'),
             Div('place_type', css_class='hidden'))
+
+    @staticmethod
+    def display_geonames_select():
+        string = """
+            <input id="geonames-search" name="geonames-search" type="button" value="{label}" />
+            </input>
+            <select id="geonames-select" name="geonames-select">
+                <option value="0">{none}</option>
+            </select>
+            """.format(label=ugettext('Search in GeoNames'), none=ugettext('none').title())
+        return string
 
 
 class ReferenceForm(BaseForm):
