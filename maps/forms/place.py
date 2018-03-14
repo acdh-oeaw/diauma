@@ -38,8 +38,14 @@ class PlaceForm(BaseForm):
     @staticmethod
     def display_geonames_select():
         string = """
-            <input id="geonames-search" name="geonames-search" type="button" value="{label}" />
-            </input>
-            <select id="geonames-select" name="geonames-select"></select>
-            """.format(label=ugettext('Search in GeoNames'), none=ugettext('none').title())
+            <p>
+                <input class="btn btn-primary" id="geonames-search" name="geonames-search"
+                    type="button" value="{label}" />
+                </input>
+                <span class="diauma-tooltip" title="{info}">i</span>
+                <br /><br />
+                <select id="geonames-select" name="geonames-select"></select>
+            </p>
+            """.format(
+                label=ugettext('Search in GeoNames'), info=ugettext('info geonames'))
         return string

@@ -11,6 +11,23 @@ body {
     font-family: sans-serif;
 }
 
+span.diauma-tooltip {
+    border-style: solid;
+    border-width: 1px;
+    cursor: help;
+    font-family: courier new,monospace;
+    font-weight: bold;
+    padding: 0.2em;
+    position: relative;
+    background-color: #ffffff;
+    color: #2e6da4;
+    font-size: 1.3em;
+}
+
+select {
+    background-color: #ffffff;
+}
+
 table.paleblue a.button {
     color: white;
 }

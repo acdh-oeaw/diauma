@@ -47,8 +47,7 @@ def detail(request, pk):
         'institute_table': institute_table,
         'issue_table': issue_table,
         'location_table': location_table,
-        'types': Type.objects.filter(place_type=place),
-    })
+        'types': Type.objects.filter(place_type=place)})
 
 
 class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
