@@ -14,7 +14,8 @@ from django.utils.safestring import mark_safe
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
-from maps.forms import FileForm, ScanForm
+from maps.forms.file import FileForm
+from maps.forms.scan import ScanForm
 from maps.models import File, Map, Scan, Type
 from maps.tables import FileTable, MapTable, OrphanTable, ScanTable
 from maps.util import get_selected_nodes

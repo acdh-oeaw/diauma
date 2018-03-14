@@ -10,7 +10,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
-from maps.forms import MapForm
+from maps.forms.map import MapForm
 from maps.models import File, Institute, Map, Person, Place, Reference, Scan, Type
 from maps.tables import FileTable, MapTable, ScanTable
 from maps.util import get_selected_nodes, link

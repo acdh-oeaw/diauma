@@ -38,4 +38,8 @@ def index(request):
         table = PlaceTable(places)
         table.paginate(page=request.GET.get('page', 1), per_page=settings.TABLE_ITEMS_PER_PAGE)
         result_tables['Places'] = table
-    return render(request, 'maps/search/index.html', {'search_term': search_term, 'result_tables': result_tables})
+    return render(
+        request,
+        'maps/search/index.html',
+        {'search_term': search_term,
+         'result_tables': result_tables})

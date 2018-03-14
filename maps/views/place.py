@@ -9,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
-from maps.forms import PlaceForm
+from maps.forms.place import PlaceForm
 from maps.models import Institute, Map, Person, Place, Type
 from maps.tables import InstituteTable, MapTable, PersonTable, PlaceTable
 from maps.util import get_selected_nodes
@@ -27,16 +27,20 @@ def detail(request, pk):
     place = Place.objects.get(pk=pk)
     person_table = PersonTable(Person.objects.filter(person_location=place))
     person_table.tab = '#persons'
-    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(person_table)
+    RequestConfig(
+        request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(person_table)
     institute_table = InstituteTable(Institute.objects.filter(institute_location=place))
     institute_table.tab = '#institutes'
-    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(institute_table)
+    RequestConfig(
+        request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(institute_table)
     issue_table = MapTable(Map.objects.filter(map_issued=place))
     issue_table.tab = '#issues'
-    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(issue_table)
+    RequestConfig(
+        request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(issue_table)
     location_table = MapTable(Map.objects.filter(map_location=place))
     location_table.tab = '#locations'
-    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(location_table)
+    RequestConfig(
+        request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(location_table)
     return render(request, 'maps/place/detail.html', {
         'place': place,
         'person_table': person_table,
