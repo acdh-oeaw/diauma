@@ -1,6 +1,7 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Div, HTML, Layout, Submit
+from django.conf import settings
 from django.utils.translation import ugettext
 
 from maps.forms.base import BaseForm
@@ -39,13 +40,18 @@ class PlaceForm(BaseForm):
     def display_geonames_select():
         string = """
             <p>
+                <input id="geonames_username" type="hidden" value="{geonames_username}">
                 <input class="btn btn-primary" id="geonames-search" name="geonames-search"
                     type="button" value="{label}" />
                 </input>
                 <span class="diauma-tooltip" title="{info}">i</span>
                 <br /><br />
+                <span id="no-results" style="display:none;font-weight:bold;">{no_results}</span>
                 <select id="geonames-select" name="geonames-select"></select>
             </p>
             """.format(
-                label=ugettext('Search in GeoNames'), info=ugettext('info geonames'))
+                geonames_username=settings.GEONAMES_USERNAME,
+                label=ugettext('Search in GeoNames'),
+                info=ugettext('info geonames'),
+                no_results=ugettext('No matching results found at GeoNames.'))
         return string

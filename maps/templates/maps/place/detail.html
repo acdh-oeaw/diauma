@@ -50,6 +50,12 @@
                     {% if place.modern_name %}
                         <p>{% trans 'modern name'|capfirst %}: {{ place.modern_name }}</p>
                     {% endif %}
+                    {% if place.geonames_id %}
+                        <p>
+                            GeoNames Id:
+                            <a href="http://www.geonames.org/{{ place.geonames_id }}" rel="noopener" target="_blank">{{ place.geonames_id }}</a>
+                        </p>
+                    {% endif %}
                 </div>
                 {% include "../types_for_detail_view.html" %}
                 <div style="clear:both;"></div>

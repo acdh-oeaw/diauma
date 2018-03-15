@@ -22,6 +22,9 @@ LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
 IIIF_URL = ''  # In case you are using IIIF for scans, e.g. https://my_iiif_server.net/
 
+# GeoNames requires a username, you can create an account at http://www.geonames.org/login
+GEONAMES_USERNAME = 'CHANGE_ME'
+
 # Localisation
 LANGUAGE_CODE = 'en'
 TIME_ZONE = 'CET'
