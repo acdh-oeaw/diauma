@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     $('#geonames-select').hide();
+
     function getName(geoname) {
         var name = geoname.name;
         var extraName;
