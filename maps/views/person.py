@@ -10,7 +10,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
-from maps.forms import PersonForm
+from maps.forms.person import PersonForm
 from maps.models import Institute, Map, Person, Place, Type
 from maps.tables import MapTable, PersonTable
 from maps.util import get_selected_nodes, link
@@ -31,7 +31,8 @@ def detail(request, pk):
         institutes.append(link(institute))
     map_table = MapTable(Map.objects.filter(map_persons=person))
     map_table.tab = '#maps'
-    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(map_table)
+    RequestConfig(
+        request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(map_table)
     return render(request, 'maps/person/detail.html', {
         'person': person,
         'institutes': institutes,

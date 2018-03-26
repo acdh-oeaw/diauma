@@ -11,6 +11,49 @@ body {
     font-family: sans-serif;
 }
 
+a {
+    color: #3b89ad;
+}
+
+div.messages {
+    margin-top: 0.5em;
+    font-color: #666666;
+}
+
+footer a, .about a {
+    border-bottom: 1px solid #88dbdf;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease 0s;
+}
+
+table.paleblue a:link, table.paleblue a:visited, table.paleblue + ul.pagination > li > a {
+    border: none;
+    color: #3b89ad;
+    text-decoration: none;
+}
+
+.navbar-nav > li > a {
+    padding-bottom: 0;
+}
+
+span.diauma-tooltip {
+    border-style: solid;
+    border-width: 1px;
+    cursor: help;
+    font-family: courier new,monospace;
+    font-weight: bold;
+    padding: 0.2em;
+    position: relative;
+    background-color: #ffffff;
+    color: #2e6da4;
+    font-size: 1.3em;
+}
+
+select {
+    background-color: #ffffff;
+}
+
 table.paleblue a.button {
     color: white;
 }
@@ -35,19 +78,23 @@ table.paleblue a.button {
     width: 10em;
 }
 
-#language-form, #search-form {
+#search-form {
     float: left;
 }
 
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    background: none;
+}
+
 #language-form span {
-    border: 1px solid white;
+    margin: 0.2em;
+    cursor: pointer;
 }
 
 #language-form span.selected {
-    background-color: white;
-    color: #4088c3;
+    color: #3b89ad;
+    font-weight: bold;
 }
-
 
 td, th {
     white-space: nowrap;
@@ -63,14 +110,14 @@ td, th {
 
 #manual h2 {
     color: #ffffff;
-    background-color:  #4088c3;
+    background-color:  #88dbdf;
     padding: 0.5em;
 }
 
 header {
     flex: 0 0 auto;
-    background-color: #4088c3;
-    color: #ffffff;
+    border-bottom: 5px solid #88dbdf;
+    margin-bottom: 20px;
 }
 
 #goto {
@@ -100,6 +147,10 @@ div.form-float {
     width: 20em;
 }
 
+.navbar-nav a {
+    border: none;
+}
+
 textarea.form-control {
     width: 60em;
 }
@@ -109,17 +160,16 @@ input[type="submit"] {
     border: none;
     cursor: pointer;
     white-space: nowrap;
-    background-color: #4088c3;
+    background-color: #88dbdf;
 }
 
 #login-logout {
     text-align: right;
     float: right;
-    margin: 1em;
+    margin-top: 1em;
 }
 
 #login-logout a {
-    color: white;
     font-weight: bold;
     font-size: 1.1em;
     text-decoration: none;
@@ -142,7 +192,7 @@ div.changelog-version {
     font-weight: bold;
     padding: 0.3em;
     width: 500px;
-    background-color: #4088c3;
+    background-color: #88dbdf;
     color: #ffffff;
 }
 
@@ -177,8 +227,13 @@ input[type='number'] {
 }
 
 input[type="submit"], button, .submit, a.button, span.button,
-#buttonBar a, .buttonBar a, #breadcrumb {
-    background-color: #4088c3;
+#buttonBar a, .buttonBar a, #breadcrumb, .btn, .btn-primary {
+    background-color: #3b89ad;
+}
+
+.navbar-nav > li > span {
+    display: inline-block;
+    padding-top: 14px;
 }
 
 input[type="submit"], #breadcrumb div a, .submit, button, a.button, #buttonBar a, .buttonBar a,
@@ -201,7 +256,7 @@ textarea, input[type="password"], select {
 }
 
 .navbar-nav.nav > li.active > a {
-    color: #4088c3;
+    color: #3b89ad;
 }
 
 .error {
@@ -226,16 +281,45 @@ h3 {
     font-weight: bold;
 }
 
-footer {
-    flex: 0 0 auto;
-    background-color: #4088c3;
-    color: #ffffff;
-    font-size:1 3px;
-    padding: 20px;
-    left: 0;
-    right: 0;
+.main-footer {
+    background-color: #ffffff;
+    display: inline-block;
+    position: relative;
     width: 100%;
-    margin-top: 10px;
+    z-index: 3;
+}
+
+.main-footer .footer-wrapper .footer-sep {
+    border-bottom: 1px solid #333333;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 35px;
+    padding-bottom: 15px;
+    padding-top: 5px;
+}
+
+.main-footer .footer-wrapper {
+    display: inline-block;
+    padding: 25px 20px 50px;
+    width: 100%;
+}
+
+.csc-textpic-text {
+    padding-left: 20px;
+}
+
+.footer-imprint-bar {
+    background-color: #f1f1f1;
+    font-size: 14px;
+    padding: 8px;
+    text-align: center;
+}
+
+.footer-imprint-bar a {
+    border-bottom: 1px solid #88dbdf;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease 0s;
 }
 
 img.preview {
@@ -247,16 +331,6 @@ img.preview {
 legend {
   background-color: #efefef;
   padding: 10px;
-}
-
-#logo {
-    width: 200px;
-}
-
-#acdh-logo {
-    width: 25%;
-    height: auto;
-    padding: 10px 0 10px 0;
 }
 
 #github-logo {

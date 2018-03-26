@@ -1,36 +1,48 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 import os
 
+SITE_ID = 1
+ALLOWED_HOSTS = []
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, '../'))))
 
-SITE_ID = 1
-
-# file upload configuration
+# File upload configuration
 FILE_UPLOAD_PERMISSIONS = 0o644
 ALLOWED_UPLOAD_EXTENSIONS = ['jp2', 'jpeg', 'jpg', 'pdf', 'png', 'tif', 'tiff', 'zip']
 ALLOWED_UPLOAD_SIZE = 2 * 1024 * 1024  # in bytes, e.g for 2 MB: 2 * 1024 * 1024
 ALLOWED_SCAN_EXTENSIONS = ['jp2', 'tif', 'tiff']
 ALLOWED_SCAN_SIZE = 10 * 1024 * 1024  # in bytes, e.g for 10 MB: 2 * 1024 * 1024
 
-IIIF_URL = ''  # in case you are using IIIF for scans, e.g. https://my_iiif_server.net/
-
+# URL configuration
+ROOT_URLCONF = 'diauma.urls'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
+IIIF_URL = ''  # In case you are using IIIF for scans, e.g. https://my_iiif_server.net/
 
-CRISPY_TEMPLATE_PACK = "bootstrap3"
-ROOT_URLCONF = 'diauma.urls'
-WSGI_APPLICATION = 'diauma.wsgi.application'
+# GeoNames requires a username, you can create an account at http://www.geonames.org/login
+GEONAMES_USERNAME = 'CHANGE_ME'
 
+# Localisation
 LANGUAGE_CODE = 'en'
 TIME_ZONE = 'CET'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('de', 'Deutsch'),
+)
+
+# Django configuration
+WSGI_APPLICATION = 'diauma.wsgi.application'
 INSTALLED_APPS = [
     'crispy_forms',
     'dal',
@@ -66,6 +78,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'DIRS': [],
@@ -87,8 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-ALLOWED_HOSTS = []
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -98,16 +109,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
-)
-
-LANGUAGES = (
-    ('en', 'English'),
-    ('de', 'Deutsch'),
-)
 
 MPTT_ADMIN_LEVEL_INDENT = 20
 TABLE_ITEMS_PER_PAGE = 20

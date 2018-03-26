@@ -9,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
-from maps.forms import ReferenceForm
+from maps.forms.reference import ReferenceForm
 from maps.models import Map, Reference, Type
 from maps.tables import MapTable, ReferenceTable
 from maps.util import get_selected_nodes
@@ -31,8 +31,7 @@ def detail(request, pk):
     return render(request, 'maps/reference/detail.html', {
         'reference': reference,
         'map_table': table,
-        'types': Type.objects.filter(reference_type=reference)
-    })
+        'types': Type.objects.filter(reference_type=reference)})
 
 
 class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):

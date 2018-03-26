@@ -30,100 +30,79 @@
     <script src="{% static 'webpage/js/functions.js' %}"></script>
 </head>
 <body>
-<header class="page-header procustom-header">
-    <div class="container" id="procustom-affix">
-        <div style="float:left;margin-right:2em;">
-            <a href="{% url 'webpage:about' %}" class="navlink">
-                <img src="{% static 'webpage/img/logo.png' %}" id="logo" alt="Diauma" />
-            </a>
-        </div>
-        <div style="float:left;margin:1em;">
-            <span style="font-style:bold;font-size:2em;color:#efefef;">
-                DIAUMA - Demo
-            </span><br />
-                Displayed data is just for testing and demonstration purposes.
-            {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
-                        <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </div>
-        <div id="login-logout">
-            <p>
-                {% trans "version"|capfirst %} {% projects_metadata 'version' %}
-                <a href="{% url 'maps:changelog' %}">Changelog</a>
-            </p>
-            {% if user.is_authenticated %}
-                <p>
-                    {% trans "hello"|capfirst %} {{ user.get_username }},
-                    <a href="{% url 'webpage:logout' %}">{% trans "logout"|capfirst %}</a>
-                </p>
-            {% endif %}
-            <div>
-                <form action="{% url 'set_language' %}" method="post" id="language-form">
-                    {% csrf_token %}
-                    <input name="next" type="hidden" value="{{ request.get_full_path }}" />
-                    <input name="language" id="language" type="hidden" value="" />
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% get_available_languages as LANGUAGES %}
-                    {% get_language_info_list for LANGUAGES as languages %}
-                    {% for language in languages %}
-                        <span class="button {% if language.code == LANGUAGE_CODE %}selected{% endif %}" onclick="select_language('{{ language.code }}')">{{ language.code|upper }}</span>
-                    {% endfor %}
-                </form>
-                {% if user.is_authenticated %}
-                    <form id="search-form" action="{% url 'maps:search' %}" method="post">
-                        {% csrf_token %}
-                        <input id="search-term" name="search-term" type="text" placeholder="{% trans "search term"|capfirst %}" />
-                        <button class="search-button" type="submit">{% trans "search"|capfirst %}</button>
-                    </form>
-                {% endif %}
-            </div>
-            {% if not user.is_authenticated %}
-                <a href="{% url 'webpage:login' %}">{% trans "login"|capfirst %}</a>
-            {% endif %}
-        </div>
-    </div>
+<header class="procustom-header">
     <nav class="navbar navbar-default navbar-static-top procustom-navbar" id="top-procustom-navbar">
         <div class="container">
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="{% if 'about' in request.resolver_match.url_name %}active{% endif %}">
-                        <a href="{% url 'webpage:about' %}">{% trans "about"|capfirst %}</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                        {% with 'map reference person institute place' as list %}
-                            {% for item in list.split %}
-                                <li class="{% if item in request.resolver_match.url_name %}active{% endif %}">
-                                    <a href="{% url 'maps:'|add:item %}">{% trans item|capfirst %}</a>
-                                </li>
+            <div style="float:left;margin-right:2em;">
+                <a href="{% url 'webpage:about' %}" class="navlink">
+                    <img src="{% static 'webpage/img/logo.png' %}" id="logo" alt="Diauma" />
+                </a>
+            </div>
+            <div>
+                <div style="float:left;margin:1em 0 0 1em;height:5.2em;">
+                    <span style="font-size:1.4em;">DIAUMA - Digitizing Austrian Maps</span>
+                    <div class="messages">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</div>
                             {% endfor %}
-                        {% endwith %}
-                    {% endif %}
-                </ul>
-                <ul style="float:right;" class="nav navbar-nav">
-                    {% if user.is_authenticated %}
-                        <li class="{% if 'file' in request.resolver_match.url_name %}active{% endif %}">
-                            <a href="{% url 'maps:files-index' %}">{% trans "files"|capfirst %}</a>
-                        </li>
-                        <li class="{% if 'type' in request.resolver_match.url_name %}active{% endif %}">
-                            <a href="{% url 'maps:type' %}">{% trans "types"|capfirst %}</a>
-                        </li>
-                        <li class="{% if 'network' in request.resolver_match.url_name %}active{% endif %}">
-                            <a href="{% url 'maps:network' %}">{% trans "network"|capfirst %}</a>
-                        </li>
-                    {% endif %}
-                    <li class="{% if 'imprint' in request.resolver_match.url_name %}active{% endif %}">
-                        <a href="{% url 'webpage:imprint' %}">{% trans "Legal Notice"|capfirst %}</a>
-                    </li>
-                    <li>
-                        <a target='blank_' href="/docs/index.html">?</a>
-                    </li>
-                </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if user.is_authenticated %}
+                    <div id="login-logout" style="float:right;">
+                        <span style="float:left;margin-right:2em;">
+                            {% trans "hello"|capfirst %} {{ user.get_username }},
+                            <a href="{% url 'webpage:logout' %}">{% trans "logout"|capfirst %}</a>
+                        </span>
+                        <form id="search-form" action="{% url 'maps:search' %}" method="post">
+                            {% csrf_token %}
+                            <input id="search-term" name="search-term" type="text" placeholder="{% trans 'search term'|capfirst %}" />
+                            <button class="search-button" type="submit">{% trans "search"|capfirst %}</button>
+                        </form>
+                    </div>
+                {% endif %}
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        {% if user.is_authenticated %}
+                            <li class="{% if 'about' in request.resolver_match.url_name %}active{% endif %}">
+                                <a href="{% url 'webpage:about' %}">{% trans "about"|capfirst %}</a>
+                            </li>
+                            {% with 'map reference person institute place' as list %}
+                                {% for item in list.split %}
+                                    <li class="{% if item in request.resolver_match.url_name %}active{% endif %}">
+                                        <a href="{% url 'maps:'|add:item %}">{% trans item|capfirst %}</a>
+                                    </li>
+                                {% endfor %}
+                            {% endwith %}
+                            <li class="{% if 'file' in request.resolver_match.url_name %}active{% endif %}">
+                                <a href="{% url 'maps:files-index' %}">{% trans "files"|capfirst %}</a>
+                            </li>
+                            <li class="{% if 'type' in request.resolver_match.url_name %}active{% endif %}">
+                                <a href="{% url 'maps:type' %}">{% trans "types"|capfirst %}</a>
+                            </li>
+                            <li class="{% if 'network' in request.resolver_match.url_name %}active{% endif %}">
+                                <a href="{% url 'maps:network' %}">{% trans "network"|capfirst %}</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    <div style="float:right;margin-top:1em;">
+                        <form action="{% url 'set_language' %}" method="post" id="language-form">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.get_full_path }}" />
+                            <input name="language" id="language" type="hidden" value="" />
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                                <span class=" {% if language.code == LANGUAGE_CODE %}selected{% endif %}" onclick="select_language('{{ language.code }}')">{{ language.code|upper }}</span>
+                            {% endfor %}
+                        </form>
+                        {% if not user.is_authenticated %}
+                            <p style="margin-top:1em;font-weight:bold;float:right;"><a href="{% url 'webpage:login' %}">{% trans "login"|capfirst %}</a></p>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -138,18 +117,39 @@
         {% block content %}{% endblock %}
     </div>
 </section>
-<footer>
+<footer class="main-footer">
     <div class="container">
-        <div class="row text-center">
-            <div class="col-sm-4">
-                <a href="https://www.oeaw.ac.at/acdh/" class="navlink" target="_blank">
-                    <img src="{% static 'webpage/img/acdh_logo.png' %}" id="acdh-logo" alt="ACDH" title="Austrian Centre for Digital Humanities" />
-                </a>
+        <div class="footer-wrapper">
+            <div class="footer-sep">
+                <i class="far fa-comment"></i> CONTACT
             </div>
-            <div class="col-sm-4">
-                <a href="{% projects_metadata 'github' %}" class="navlink" target="_blank">
-                    <img src="{% static 'webpage/img/GitHub-Mark-Light-64px.png' %}" id="github-logo" alt="{{ metadata.github }}" title="Github source code" />
-                </a>
+            <div class="row">
+                <div class="col-md-1 pl-0">
+                    <a href="https://www.oeaw.ac.at/acdh/acdh-home/" target="_blank" rel="noopener" aria-label="ACDH" style="border:none;">
+                         <img src="{% static 'webpage/img/acdh_logo.png' %}" id="acdh-logo" alt="ACDH" title="Austrian Centre for Digital Humanities" />
+                    </a>
+                </div>
+                <div class="col-md-4" style="margin-left:1em;">
+                    <p>
+                        ACDH-ÖAW<br>
+                        Austrian Centre for Digital Humanities<br>
+                        Austrian Academy of Sciences
+                    </p>
+                    <p>
+                        Sonnenfelsgasse 19,<br>
+                        1010 Vienna
+                    </p>
+                    <p>
+                        T: +43 1 51581-2200<br>
+                        E: <a href="mailto:acdh@oeaw.ac.at">acdh@oeaw.ac.at</a>
+                    </p>
+                </div>
+            </div>
+            <div class="footer-imprint-bar">
+                {% trans "version"|capfirst %} {% projects_metadata 'version' %} <a href="{% url 'maps:changelog' %}">Changelog</a>
+                - <a href="{% projects_metadata 'github' %}" class="navlink" target="_blank" rel="noopener">Code on GitHub</a>
+                - <a target='blank_' href="/docs/index.html">{% trans "documentation"|capfirst %}</a>
+                - <a href="{% url 'webpage:imprint' %}">{% trans "Legal Notice"|capfirst %}</a>
             </div>
         </div>
     </div>

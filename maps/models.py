@@ -1,4 +1,4 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
+# Copyright 2017 by ACDH. Please see the file README.md for licensing information
 import os
 import string
 from os.path import basename, splitext
@@ -95,6 +95,7 @@ class Type(MPTTModel):
 class Place(BaseModel):
     name = CharField(max_length=255)
     modern_name = CharField(blank=True, max_length=255)
+    geonames_id = IntegerField(null=True, blank=True, verbose_name='GeoNamesId')
     info = TextField(blank=True)
     place_type = ManyToManyField(Type, blank=True, related_name='place_type',
                                  verbose_name=ugettext_lazy('types'))
