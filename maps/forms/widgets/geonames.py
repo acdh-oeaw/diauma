@@ -1,0 +1,91 @@
+# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
+from django.forms import widgets
+from django.utils.safestring import mark_safe
+from django.conf import settings
+from django.utils.translation import ugettext
+
+
+class GeonamesWidget(widgets.NumberInput):
+
+    def render(self, name, value, attrs=None, **kwargs):
+        final_attrs = self.build_attrs(self.attrs, attrs)
+        output = super(GeonamesWidget, self).render(name, value, final_attrs, **kwargs)
+        output += """
+            <p>
+                <input id="geonames_username" type="hidden" value="{geonames_username}">
+                <input class="btn btn-primary" id="geonames-search" name="geonames-search"
+                    type="button" value="{label}" />
+                </input>
+                <span class="diauma-tooltip" title="{info}">i</span>
+                <br /><br />
+                <span id="no-results" style="display:none;font-weight:bold;">{no_results}</span>
+                <select id="geonames-select" name="geonames-select"></select>
+            </p>""".format(
+                geonames_username=settings.GEONAMES_USERNAME,
+                label=ugettext('Search in GeoNames'),
+                info=ugettext('info geonames'),
+                no_results=ugettext('No matching results found at GeoNames.'))
+        # Todo: find a way to load a javascript file in same dir instead adding it here
+        output += """
+            <script>
+            $(document).ready(function() {
+                $('#geonames-select').hide();
+
+                function getName(geoname) {
+                    var name = geoname.name;
+                    var extraName;
+                    ['adminName1', 'countryName'].forEach(function (d) {
+                        extraName = geoname[d];
+                        if (extraName && extraName != '' && extraName != geoname.name) {
+                            name += ', ' + extraName;
+                        }
+                    }, this);
+                    name += ' (' + geoname['fcodeName'] + ')';
+                    return name;
+                }
+
+                $('#geonames-select').change(function() {
+                    $('#id_geonames_id').val($(this).val());
+                });
+
+                $('#geonames-search').click(function() {
+                    $('#no-results').hide();
+                    $('#geonames-select').show();
+                    $('#geonames-select').empty();
+                    question = $('#id_name').val();
+                    max_rows = '12';
+                    username = $('#geonames_username').val();
+                    // Feature classes to search in. See: http://www.geonames.org/export/codes.html
+                    featureClasses = ['A', 'H', 'L', 'P', 'R', 'T', 'U', 'V'];
+                    request_url = 'https://secure.geonames.org/searchJSON?q=' + question;
+                    request_url += '&maxRows=' + max_rows;
+                    request_url += '&username=' + username;
+                    request_url += '&style=LONG&isNameRequired=true';
+                    request_url += '&' + featureClasses.map(function (fc) {
+                        return 'featureClass=' + fc
+                    }).join('&');
+
+                    $.ajax({
+                        url: request_url,
+                        success: function(data){
+                            if (Object.keys(data.geonames).length > 0) {
+                                $.each(data, function(key, value) {
+                                    if (key == 'geonames') {
+                                        value.forEach(function (geoname) {
+                                            $('#geonames-select').append($('<option>', {
+                                                value: geoname['geonameId'],
+                                                text: getName(geoname)
+                                            }));
+                                        });
+                                    }
+                                });
+                            } else {
+                                $('#geonames-select').hide();
+                                $('#no-results').show();
+                            }
+                        },
+                        return: false
+                    })
+                })
+            });</script>"""
+        return mark_safe(output)
