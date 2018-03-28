@@ -17,6 +17,7 @@ class GeonamesWidget(widgets.NumberInput):
                     type="button" value="{label}" />
                 </input>
                 <span class="diauma-tooltip" title="{info}">i</span>
+                <input id="fuzzy" type="checkbox" /> Fuzzy
                 <br /><br />
                 <span id="no-results" style="display:none;font-weight:bold;">{no_results}</span>
                 <select id="geonames-select" name="geonames-select"></select>
@@ -25,7 +26,7 @@ class GeonamesWidget(widgets.NumberInput):
                 label=ugettext('Search in GeoNames'),
                 info=ugettext('info geonames'),
                 no_results=ugettext('No matching results found at GeoNames.'))
-        # Todo: find a way to load a javascript file in same dir instead adding it here
+        # Todo: find a way to load a JavaScript file in same dir instead adding it here
         output += """
             <script>
             $(document).ready(function() {
@@ -55,12 +56,17 @@ class GeonamesWidget(widgets.NumberInput):
                     question = $('#id_name').val();
                     max_rows = '12';
                     username = $('#geonames_username').val();
+                    fuzzy_search = 0
+                    if($('#fuzzy').prop('checked')) {
+                        fuzzy_search = 1
+                    }
                     // Feature classes to search in. See: http://www.geonames.org/export/codes.html
                     featureClasses = ['A', 'H', 'L', 'P', 'R', 'T', 'U', 'V'];
                     request_url = 'https://secure.geonames.org/searchJSON?q=' + question;
                     request_url += '&maxRows=' + max_rows;
                     request_url += '&username=' + username;
                     request_url += '&style=LONG&isNameRequired=true';
+                    request_url += '&fuzzy=' + fuzzy_search;
                     request_url += '&' + featureClasses.map(function (fc) {
                         return 'featureClass=' + fc
                     }).join('&');
@@ -69,6 +75,7 @@ class GeonamesWidget(widgets.NumberInput):
                         url: request_url,
                         success: function(data){
                             if (Object.keys(data.geonames).length > 0) {
+                                $('#geonames-select').append($('<option>', {value: '', text: ''}));
                                 $.each(data, function(key, value) {
                                     if (key == 'geonames') {
                                         value.forEach(function (geoname) {
