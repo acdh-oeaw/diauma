@@ -11,21 +11,32 @@ class GeonamesWidget(widgets.NumberInput):
         final_attrs = self.build_attrs(self.attrs, attrs)
         output = super(GeonamesWidget, self).render(name, value, final_attrs, **kwargs)
         output += """
-            <p>
-                <input id="geonames_username" type="hidden" value="{geonames_username}">
-                <input class="btn btn-primary" id="geonames-search" name="geonames-search"
-                    type="button" value="{label}" />
-                </input>
-                <span class="diauma-tooltip" title="{info}">i</span>
-                <input id="fuzzy" type="checkbox" /> Fuzzy
-                <br /><br />
-                <span id="no-results" style="display:none;font-weight:bold;">{no_results}</span>
-                <select id="geonames-select" name="geonames-select"></select>
-            </p>""".format(
+
+            <div class="table-cell date-switcher">
+                <span id="geonames-switcher" class="button">Show</span>
+            </div>
+            <div class="geonames-switch" style="width:20em;">
+                <p>
+                    {info}
+                    <a href="http://www.geonames.org/export/codes.html" target="_blank"
+                        rel="noopener">Codes</a>
+                </p>
+                <p class="geonames-switch">
+                    <input id="geonames_username" type="hidden" value="{geonames_username}">
+                    <input class="btn btn-primary" id="geonames-search" name="geonames-search"
+                        type="button" value="{label}" />
+                    </input>
+                    <input id="fuzzy" type="checkbox" /> Fuzzy
+                    <br /><br />
+                    <span id="no-results" style="display:none;font-weight:bold;">{no_results}</span>
+                    <select id="geonames-select" name="geonames-select"></select>
+                </p>
+            </div>""".format(
                 geonames_username=settings.GEONAMES_USERNAME,
                 label=ugettext('Search in GeoNames'),
                 info=ugettext('info geonames'),
                 no_results=ugettext('No matching results found at GeoNames.'))
+
         # Todo: find a way to load a JavaScript file in same dir instead adding it here
         output += """
             <script>
@@ -57,10 +68,9 @@ class GeonamesWidget(widgets.NumberInput):
                     max_rows = '12';
                     username = $('#geonames_username').val();
                     fuzzy_search = 0
-                    if($('#fuzzy').prop('checked')) {
+                    if ($('#fuzzy').prop('checked')) {
                         fuzzy_search = 1
                     }
-                    // Feature classes to search in. See: http://www.geonames.org/export/codes.html
                     featureClasses = ['A', 'H', 'L', 'P', 'R', 'T', 'U', 'V'];
                     request_url = 'https://secure.geonames.org/searchJSON?q=' + question;
                     request_url += '&maxRows=' + max_rows;
