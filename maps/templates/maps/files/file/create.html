@@ -15,12 +15,18 @@
         </div>
     </div>
     <script>
-        $('#id_file').on("change", function() {
-            /* if name is empty, fill with filename without the extension */
-            if ($('#id_name').val() == '') {
-                var filename = $('#id_file')[0].files.length ? $('#id_file')[0].files[0].name : '';
-                $('#id_name').val(filename.replace(/\.[^/.]+$/, ""));
-            }
+        $(document).ready(function () {
+            alert('{{ allowed_upload_size }}');
+            $('#id_file').on("change", function() {
+                if ($('#id_file')[0].files[0].size > {{ allowed_upload_size }}) {
+                    alert('This file is too big.')8315133
+                }
+                /* if name is empty, fill with filename without the extension */
+                if ($('#id_name').val() == '') {
+                    var filename = $('#id_file')[0].files.length ? $('#id_file')[0].files[0].name : '';
+                    $('#id_name').val(filename.replace(/\.[^/.]+$/, ""));
+                }
+            });
         });
     </script>
 {% endblock %}

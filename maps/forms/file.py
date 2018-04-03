@@ -28,6 +28,7 @@ class FileForm(BaseForm):
         super(FileForm, self).__init__(*args, **kwargs)
         instance = kwargs.get('instance')
         self.helper = FormHelper()
+        self.helper.form_id = 'file-form'
         self.helper.add_input(Submit('submit', ugettext('submit').capitalize()))
         selected_ids = [o.id for o in instance.file_type.all()] if instance else []
         nodes_html = self.get_nodes_html(Type.objects.get(name='File', parent=None), selected_ids)
