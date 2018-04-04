@@ -69,4 +69,24 @@ class ScanForm(BaseForm):
                     HTML(nodes_html),
                     HTML('<div style="clear:both;"></div>'),
                     'info'),
-                Div('scan_type', css_class='hidden'))
+                Div('scan_type', css_class='hidden'),
+                Div(HTML('''
+                <script>
+                    $(document).ready(function () {{
+                        $('#id_file').on("change", function() {{
+                            /* check and warn if filesize is too big */
+                            if ($('#id_file')[0].files[0].size > {allowed_upload_size}) {{
+                                alert('{file_too_big_error}')
+                            }}
+                            /* if name is empty, fill with filename without the extension */
+                            if ($('#id_name').val() == '') {{
+                                var filename =
+                                $('#id_file')[0].files.length ? $('#id_file')[0].files[0].name : '';
+                                $('#id_name').val(filename.replace(/\.[^/.]+$/, ""));
+                            }}
+                        }});
+                    }});
+                </script>'''.format(
+                    allowed_upload_size=settings.ALLOWED_SCAN_SIZE,
+                    file_too_big_error=ugettext('This file is too big.')
+                ))))
