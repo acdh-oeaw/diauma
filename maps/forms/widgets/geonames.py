@@ -10,24 +10,26 @@ class GeonamesWidget(widgets.NumberInput):
     def render(self, name, value, attrs=None, **kwargs):
         final_attrs = self.build_attrs(self.attrs, attrs)
         output = super(GeonamesWidget, self).render(name, value, final_attrs, **kwargs)
+        codes = ''
+        for code in ['A', 'H', 'L', 'P', 'R', 'S', 'T', 'U', 'V']:
+            codes += '''
+                <input name="geo_codes" value="{code}" type="checkbox" checked=checked />{code}
+                '''.format(code=code)
         output += """
-
             <div class="table-cell date-switcher">
                 <span id="geonames-switcher" class="button">Show</span>
             </div>
-            <div class="geonames-switch" style="width:20em;">
-                <p>
-                    {info}
-                    <a href="http://www.geonames.org/export/codes.html" target="_blank"
-                        rel="noopener">Codes</a>
-                </p>
+            <div class="geonames-switch" style="width:22em;">
+                {info}
                 <p class="geonames-switch">
                     <input id="geonames_username" type="hidden" value="{geonames_username}">
                     <input class="btn btn-primary" id="geonames-search" name="geonames-search"
                         type="button" value="{label}" />
                     </input>
                     <input id="fuzzy" type="checkbox" /> Fuzzy
-                    <br /><br />
+                    <p>{codes}</p>
+                    <a href="http://www.geonames.org/export/codes.html" target="_blank"
+                        rel="noopener">Codes</a>
                     <span id="no-results" style="display:none;font-weight:bold;">{no_results}</span>
                     <select id="geonames-select" name="geonames-select"></select>
                 </p>
@@ -35,6 +37,7 @@ class GeonamesWidget(widgets.NumberInput):
                 geonames_username=settings.GEONAMES_USERNAME,
                 label=ugettext('Search in GeoNames'),
                 info=ugettext('info geonames'),
+                codes=codes,
                 no_results=ugettext('No matching results found at GeoNames.'))
 
         # Todo: find a way to load a JavaScript file in same dir instead adding it here
