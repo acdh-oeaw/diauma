@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-22 13:28+0100\n"
-"PO-Revision-Date: 2018-03-22 13:29+0100\n"
+"POT-Creation-Date: 2018-04-09 12:42+0200\n"
+"PO-Revision-Date: 2018-04-09 12:43+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -30,14 +30,14 @@ msgstr "ändern"
 msgid "Type for getting available entries"
 msgstr "Eintippen um Auswahl zu erhalten"
 
-#: maps/forms/file.py:31 maps/forms/institute.py:24 maps/forms/map.py:106
+#: maps/forms/file.py:32 maps/forms/institute.py:24 maps/forms/map.py:106
 #: maps/forms/person.py:33 maps/forms/place.py:20 maps/forms/reference.py:19
 #: maps/forms/scan.py:38 maps/forms/type.py:29
 msgid "submit"
 msgstr "speichern"
 
 #: maps/forms/file.py:39 maps/forms/file.py:50 maps/forms/institute.py:31
-#: maps/forms/map.py:115 maps/forms/person.py:39 maps/forms/place.py:26
+#: maps/forms/map.py:115 maps/forms/person.py:39 maps/forms/place.py:27
 #: maps/forms/reference.py:26 maps/forms/scan.py:45 maps/forms/scan.py:57
 msgid "data"
 msgstr "Daten"
@@ -52,6 +52,10 @@ msgstr "Daten"
 msgid "types"
 msgstr "Typen"
 
+#: maps/forms/file.py:82 maps/forms/scan.py:91
+msgid "This file is too big."
+msgstr "Diese Datei ist zu groß."
+
 #: maps/forms/map.py:122 maps/templates/maps/person/detail.html:45
 msgid "dates"
 msgstr "Datumsangaben"
@@ -63,21 +67,6 @@ msgstr "Benutze ** Felder für eine Zeitspanne."
 #: maps/forms/map.py:132 maps/templates/maps/map/detail.html:76
 msgid "links"
 msgstr "Links"
-
-#: maps/forms/place.py:54
-msgid "Search in GeoNames"
-msgstr "Bei GeoNames suchen"
-
-#: maps/forms/place.py:55
-msgid "info geonames"
-msgstr ""
-"Es kann bei GeoNames noch Einträgen für den Wert im Feld 'Name' gesucht "
-"werden. Wenn Einträge gefunden werden, kann aus einer Liste ein passender "
-"gewählt werden wobei das GeoNamesId Feld automatisch befüllt wird."
-
-#: maps/forms/place.py:56
-msgid "No matching results found at GeoNames."
-msgstr "Es wurden keine passenden Einträge bei GeoNames gefunden."
 
 #: maps/forms/scan.py:60
 msgid "Max file size"
@@ -522,3 +511,15 @@ msgstr "Voriges"
 #: webpage/templates/webpage/table.html:67
 msgid "Next"
 msgstr "Nächstes"
+
+#~ msgid "Search in GeoNames"
+#~ msgstr "Bei GeoNames suchen"
+
+#~ msgid "info geonames"
+#~ msgstr ""
+#~ "Es kann bei GeoNames noch Einträgen für den Wert im Feld 'Name' gesucht "
+#~ "werden. Wenn Einträge gefunden werden, kann aus einer Liste ein passender "
+#~ "gewählt werden wobei das GeoNamesId Feld automatisch befüllt wird."
+
+#~ msgid "No matching results found at GeoNames."
+#~ msgstr "Es wurden keine passenden Einträge bei GeoNames gefunden."
