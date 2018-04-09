@@ -2,43 +2,49 @@
 from django.forms import widgets
 from django.utils.safestring import mark_safe
 from django.conf import settings
-from django.utils.translation import ugettext
 
 
 class GeonamesWidget(widgets.NumberInput):
+    """ A widget for a GeoNames Id form field. It searches for the value from an #id_name field.
+        Fuzzy search can be toggled and search categories selected. """
 
     def render(self, name, value, attrs=None, **kwargs):
         final_attrs = self.build_attrs(self.attrs, attrs)
         output = super(GeonamesWidget, self).render(name, value, final_attrs, **kwargs)
         codes = ''
+        tooltip = "You can search at GeoNames for corresponding entries for the value of the " \
+                  "'Name' field. If entries are found you can choose one from a list to " \
+                  "automatically fill the 'GeoNamesId' field."
         for code in ['A', 'H', 'L', 'P', 'R', 'S', 'T', 'U', 'V']:
             codes += '''
                 <input name="geo_codes" value="{code}" type="checkbox" checked=checked />{code}
                 '''.format(code=code)
         output += """
-            <div class="table-cell date-switcher">
+            <div class="table-cell">
                 <span id="geonames-switcher" class="button">Show</span>
             </div>
-            <div class="geonames-switch" style="width:22em;">
-                {info}
+            <div class="geonames-switch" style="width:24em;margin-top:1em;">
                 <p class="geonames-switch">
                     <input id="geonames_username" type="hidden" value="{geonames_username}">
                     <input class="btn btn-primary" id="geonames-search" name="geonames-search"
                         type="button" value="{label}" />
                     </input>
+                    <span class="diauma-tooltip" title="{tooltip}">i</span>
                     <input id="fuzzy" type="checkbox" /> Fuzzy
-                    <p>{codes}</p>
-                    <a href="http://www.geonames.org/export/codes.html" target="_blank"
-                        rel="noopener">Codes</a>
+                    <p>
+                        {codes}
+                        <a href="http://www.geonames.org/export/codes.html" target="_blank"
+                            rel="noopener">Codes</a>
+                    </p>
                     <span id="no-results" style="display:none;font-weight:bold;">{no_results}</span>
                     <select id="geonames-select" name="geonames-select"></select>
                 </p>
             </div>""".format(
                 geonames_username=settings.GEONAMES_USERNAME,
-                label=ugettext('Search in GeoNames'),
-                info=ugettext('info geonames'),
+                label='Search in GeoNames',
+                tooltip=tooltip,
                 codes=codes,
-                no_results=ugettext('No matching results found at GeoNames.'))
+                no_results='No matching results found at GeoNames.')
 
         # Todo: find a way to load a JavaScript file in same dir instead adding it here
         output += """
@@ -74,7 +80,10 @@ class GeonamesWidget(widgets.NumberInput):
                     if ($('#fuzzy').prop('checked')) {
                         fuzzy_search = 1
                     }
-                    featureClasses = ['A', 'H', 'L', 'P', 'R', 'T', 'U', 'V'];
+                    featureClasses = [];
+                    $.each($("input[name='geo_codes']:checked"), function() {
+                        featureClasses.push($(this).val());
+                    });
                     request_url = 'https://secure.geonames.org/searchJSON?q=' + question;
                     request_url += '&maxRows=' + max_rows;
                     request_url += '&username=' + username;
