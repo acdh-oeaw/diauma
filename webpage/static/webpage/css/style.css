@@ -15,6 +15,11 @@ a {
     color: #3b89ad;
 }
 
+.main-content, .main-footer {
+    background-color: #f1f1f1;
+}
+
+
 div.messages {
     margin-top: 0.5em;
     font-color: #666666;
@@ -227,9 +232,14 @@ input[type='number'] {
 }
 
 input[type="submit"], button, .submit, a.button, span.button,
-#buttonBar a, .buttonBar a, #breadcrumb, .btn, .btn-primary {
+#buttonBar a, .buttonBar a, .btn, .btn-primary {
     background-color: #3b89ad;
 }
+
+.breadcrumb {
+    background-color: #CCC;
+}
+
 
 .navbar-nav > li > span {
     display: inline-block;
@@ -433,7 +443,6 @@ div.table-row div.table-cell {
 }
 
 .breadcrumb {
-    background-color: #e7e7e7;
     font-weight: bold;
     clear: both;
     font-size: 1.2em;
