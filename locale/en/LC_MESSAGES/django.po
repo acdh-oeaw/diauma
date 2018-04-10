@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Diauma\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-22 13:28+0100\n"
-"PO-Revision-Date: 2018-03-22 13:28+0100\n"
+"POT-Creation-Date: 2018-04-09 12:42+0200\n"
+"PO-Revision-Date: 2018-04-09 12:43+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -29,14 +29,14 @@ msgstr "change"
 msgid "Type for getting available entries"
 msgstr "Type for getting available entries"
 
-#: maps/forms/file.py:31 maps/forms/institute.py:24 maps/forms/map.py:106
+#: maps/forms/file.py:32 maps/forms/institute.py:24 maps/forms/map.py:106
 #: maps/forms/person.py:33 maps/forms/place.py:20 maps/forms/reference.py:19
 #: maps/forms/scan.py:38 maps/forms/type.py:29
 msgid "submit"
 msgstr "submit"
 
 #: maps/forms/file.py:39 maps/forms/file.py:50 maps/forms/institute.py:31
-#: maps/forms/map.py:115 maps/forms/person.py:39 maps/forms/place.py:26
+#: maps/forms/map.py:115 maps/forms/person.py:39 maps/forms/place.py:27
 #: maps/forms/reference.py:26 maps/forms/scan.py:45 maps/forms/scan.py:57
 msgid "data"
 msgstr "data"
@@ -51,6 +51,10 @@ msgstr "data"
 msgid "types"
 msgstr "types"
 
+#: maps/forms/file.py:82 maps/forms/scan.py:91
+msgid "This file is too big."
+msgstr "This file is too big."
+
 #: maps/forms/map.py:122 maps/templates/maps/person/detail.html:45
 msgid "dates"
 msgstr "dates"
@@ -62,21 +66,6 @@ msgstr "Use ** fields to define a time span."
 #: maps/forms/map.py:132 maps/templates/maps/map/detail.html:76
 msgid "links"
 msgstr "links"
-
-#: maps/forms/place.py:54
-msgid "Search in GeoNames"
-msgstr "Search in GeoNames"
-
-#: maps/forms/place.py:55
-msgid "info geonames"
-msgstr ""
-"You can search at GeoNames for corresponding entries for the value of the "
-"'Name' field. If entries are found you can choose one from a list to "
-"automatically fill the 'GeoNamesId' field."
-
-#: maps/forms/place.py:56
-msgid "No matching results found at GeoNames."
-msgstr "No matching results found at GeoNames."
 
 #: maps/forms/scan.py:60
 msgid "Max file size"
@@ -299,10 +288,8 @@ msgid "Entries without a file with a link to the entry."
 msgstr "Entries without a file with a link to the entry."
 
 #: maps/templates/maps/files/index.html:52
-msgid ""
-"Files that exist but have no related database entries with a download link."
-msgstr ""
-"Files that exist but have no related database entries with a download link."
+msgid "Files that exist but have no related database entries with a download link."
+msgstr "Files that exist but have no related database entries with a download link."
 
 #: maps/templates/maps/files/index.html:56
 msgid "Congratulation, no orphaned files or data entries found."
@@ -520,3 +507,12 @@ msgstr "previous"
 #: webpage/templates/webpage/table.html:67
 msgid "Next"
 msgstr "next"
+
+#~ msgid "Search in GeoNames"
+#~ msgstr "Search in GeoNames"
+
+#~ msgid "info geonames"
+#~ msgstr "You can search at GeoNames for corresponding entries for the value of the 'Name' field. If entries are found you can choose one from a list to automatically fill the 'GeoNamesId' field."
+
+#~ msgid "No matching results found at GeoNames."
+#~ msgstr "No matching results found at GeoNames."
