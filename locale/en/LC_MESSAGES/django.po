@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Diauma\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 12:22+0100\n"
-"PO-Revision-Date: 2018-01-30 12:24+0100\n"
+"POT-Creation-Date: 2018-04-09 12:42+0200\n"
+"PO-Revision-Date: 2018-04-09 12:43+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -17,122 +17,129 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.11\n"
 
-#: maps/forms.py:42
+#: maps/forms/base.py:36
 msgid "change"
 msgstr "change"
 
-#: maps/forms.py:80 maps/forms.py:87 maps/forms.py:142 maps/forms.py:145
-#: maps/forms.py:148 maps/forms.py:151 maps/forms.py:154 maps/forms.py:157
-#: maps/forms.py:160 maps/forms.py:225 maps/forms.py:228 maps/forms.py:263
-#: maps/forms.py:411 maps/forms.py:459 maps/forms.py:466
+#: maps/forms/file.py:20 maps/forms/institute.py:19 maps/forms/map.py:17
+#: maps/forms/map.py:24 maps/forms/map.py:79 maps/forms/map.py:82
+#: maps/forms/map.py:85 maps/forms/map.py:88 maps/forms/map.py:91
+#: maps/forms/map.py:94 maps/forms/map.py:97 maps/forms/person.py:25
+#: maps/forms/person.py:28 maps/forms/scan.py:20 maps/forms/scan.py:27
 msgid "Type for getting available entries"
 msgstr "Type for getting available entries"
 
-#: maps/forms.py:169 maps/forms.py:233 maps/forms.py:268 maps/forms.py:295
-#: maps/forms.py:320 maps/forms.py:355 maps/forms.py:422 maps/forms.py:477
+#: maps/forms/file.py:32 maps/forms/institute.py:24 maps/forms/map.py:106
+#: maps/forms/person.py:33 maps/forms/place.py:20 maps/forms/reference.py:19
+#: maps/forms/scan.py:38 maps/forms/type.py:29
 msgid "submit"
 msgstr "submit"
 
-#: maps/forms.py:178 maps/forms.py:239 maps/forms.py:275 maps/forms.py:301
-#: maps/forms.py:327 maps/forms.py:430 maps/forms.py:439 maps/forms.py:484
-#: maps/forms.py:493
+#: maps/forms/file.py:39 maps/forms/file.py:50 maps/forms/institute.py:31
+#: maps/forms/map.py:115 maps/forms/person.py:39 maps/forms/place.py:27
+#: maps/forms/reference.py:26 maps/forms/scan.py:45 maps/forms/scan.py:57
 msgid "data"
 msgstr "data"
 
-#: maps/forms.py:185 maps/templates/maps/person/detail.html:45
-msgid "dates"
-msgstr "dates"
-
-#: maps/forms.py:192
-msgid "Use ** fields to define a time span."
-msgstr "Use ** fields to define a time span."
-
-#: maps/forms.py:195 maps/templates/maps/map/detail.html:76
-msgid "links"
-msgstr "links"
-
-#: maps/forms.py:206 maps/forms.py:249 maps/forms.py:305 maps/forms.py:331
-#: maps/forms.py:433 maps/forms.py:447 maps/forms.py:487 maps/forms.py:502
-#: maps/models.py:95 maps/models.py:108 maps/models.py:126 maps/models.py:136
-#: maps/models.py:174 maps/models.py:197 maps/models.py:219
+#: maps/forms/file.py:43 maps/forms/file.py:59 maps/forms/institute.py:36
+#: maps/forms/map.py:143 maps/forms/person.py:49 maps/forms/place.py:33
+#: maps/forms/reference.py:30 maps/forms/scan.py:50 maps/forms/scan.py:68
+#: maps/models.py:101 maps/models.py:113 maps/models.py:129 maps/models.py:139
+#: maps/models.py:173 maps/models.py:210 maps/models.py:232
 #: maps/templates/maps/types_for_detail_view.html:6
-#: webpage/templates/webpage/layout.html:113
+#: webpage/templates/webpage/layout.html:82
 msgid "types"
 msgstr "types"
 
-#: maps/forms.py:496
+#: maps/forms/file.py:82 maps/forms/scan.py:91
+msgid "This file is too big."
+msgstr "This file is too big."
+
+#: maps/forms/map.py:122 maps/templates/maps/person/detail.html:45
+msgid "dates"
+msgstr "dates"
+
+#: maps/forms/map.py:129
+msgid "Use ** fields to define a time span."
+msgstr "Use ** fields to define a time span."
+
+#: maps/forms/map.py:132 maps/templates/maps/map/detail.html:76
+msgid "links"
+msgstr "links"
+
+#: maps/forms/scan.py:60
 msgid "Max file size"
 msgstr "Max file size"
 
-#: maps/forms.py:498
+#: maps/forms/scan.py:62
 msgid "allowed files"
 msgstr "allowed files"
 
-#: maps/models.py:19
+#: maps/models.py:22
 msgid "File size exceeded. Allowed are:"
 msgstr "File size exceeded. Allowed are:"
 
-#: maps/models.py:26
+#: maps/models.py:29
 msgid "Scan size exceeded. Allowed are:"
 msgstr "Scan size exceeded. Allowed are:"
 
-#: maps/models.py:106 maps/models.py:121
+#: maps/models.py:111 maps/models.py:125
 msgid "location"
 msgstr "location"
 
-#: maps/models.py:117 maps/tables.py:50
+#: maps/models.py:122 maps/tables.py:50
 msgid "begin"
 msgstr "begin"
 
-#: maps/models.py:118 maps/tables.py:51
+#: maps/models.py:123 maps/tables.py:51
 msgid "end"
 msgstr "end"
 
-#: maps/models.py:124
+#: maps/models.py:127
 msgid "institutes"
 msgstr "institutes"
 
-#: maps/models.py:145 maps/templates/maps/map/detail.html:42
+#: maps/models.py:148 maps/templates/maps/map/detail.html:42
 msgid "title"
 msgstr "title"
 
-#: maps/models.py:146 maps/templatetags/maps_extras.py:56
+#: maps/models.py:149 maps/templatetags/maps_extras.py:56
 msgid "info"
 msgstr "info"
 
-#: maps/models.py:147
+#: maps/models.py:150
 msgid "scale (1:)"
 msgstr "scale (1:)"
 
-#: maps/models.py:148
+#: maps/models.py:151
 msgid "width (cm)"
 msgstr "width (cm)"
 
-#: maps/models.py:149
+#: maps/models.py:152
 msgid "height (cm)"
 msgstr "height (cm)"
 
-#: maps/models.py:150 maps/templates/maps/map/detail.html:60
+#: maps/models.py:153 maps/templates/maps/map/detail.html:60
 msgid "creation date"
 msgstr "creation date"
 
-#: maps/models.py:152 maps/templates/maps/map/detail.html:68
+#: maps/models.py:155 maps/templates/maps/map/detail.html:68
 msgid "content date"
 msgstr "content date"
 
-#: maps/models.py:156 maps/templates/maps/map/detail.html:85
+#: maps/models.py:159 maps/templates/maps/map/detail.html:85
 msgid "created by"
 msgstr "created by"
 
-#: maps/models.py:158 maps/templates/maps/map/detail.html:88
+#: maps/models.py:161 maps/templates/maps/map/detail.html:88
 msgid "published by"
 msgstr "published by"
 
-#: maps/models.py:160
+#: maps/models.py:163
 msgid "referenced by"
 msgstr "referenced by"
 
-#: maps/models.py:162 maps/templates/maps/map/detail.html:95
+#: maps/models.py:165 maps/templates/maps/map/detail.html:95
 msgid "issued at"
 msgstr "issued at"
 
@@ -144,15 +151,15 @@ msgstr "has current location"
 msgid "is copy of"
 msgstr "is copy of"
 
-#: maps/models.py:172 maps/templates/maps/map/detail.html:78
+#: maps/models.py:171 maps/templates/maps/map/detail.html:78
 msgid "has base map"
 msgstr "has base map"
 
-#: maps/models.py:186
+#: maps/models.py:185
 msgid "Map ID already in use."
 msgstr "Map ID already in use."
 
-#: maps/models.py:199 maps/models.py:224
+#: maps/models.py:212 maps/models.py:237
 #: maps/templates/maps/files/file/detail.html:21
 #: maps/templates/maps/files/scan/detail.html:21
 #: maps/templates/maps/institute/detail.html:16
@@ -161,7 +168,7 @@ msgstr "Map ID already in use."
 msgid "maps"
 msgstr "maps"
 
-#: maps/models.py:222
+#: maps/models.py:235
 msgid "creator"
 msgstr "creator"
 
@@ -182,7 +189,7 @@ msgstr "content"
 #: maps/templates/maps/files/scan/detail.html:8
 #: maps/templates/maps/files/scan/update.html:6
 #: maps/templates/maps/map/detail.html:29
-#: webpage/templates/webpage/layout.html:110
+#: webpage/templates/webpage/layout.html:79
 msgid "files"
 msgstr "files"
 
@@ -252,9 +259,9 @@ msgstr "file type"
 #: maps/templates/maps/institute/detail.html:59
 #: maps/templates/maps/map/detail.html:134
 #: maps/templates/maps/person/detail.html:70
-#: maps/templates/maps/place/detail.html:83
+#: maps/templates/maps/place/detail.html:89
 #: maps/templates/maps/reference/detail.html:45
-#: maps/templates/maps/type/detail.html:52
+#: maps/templates/maps/type/detail.html:54
 #, python-format
 msgid "Delete %(name)s?"
 msgstr "Delete %(name)s?"
@@ -296,7 +303,7 @@ msgstr "Scan +"
 #: maps/templates/maps/institute/detail.html:6
 #: maps/templates/maps/institute/index.html:6
 #: maps/templates/maps/institute/index.html:12
-#: maps/templates/maps/institute/update.html:4
+#: maps/templates/maps/institute/update.html:6
 #: maps/templates/maps/place/detail.html:24
 msgid "institute"
 msgstr "institute"
@@ -355,7 +362,7 @@ msgstr "scans"
 msgid "files for"
 msgstr "files for"
 
-#: maps/templates/maps/network.html:5 webpage/templates/webpage/layout.html:116
+#: maps/templates/maps/network.html:5 webpage/templates/webpage/layout.html:85
 msgid "network"
 msgstr "network"
 
@@ -371,11 +378,11 @@ msgstr "person"
 msgid "member of"
 msgstr "member of"
 
-#: maps/templates/maps/place/create.html:5
+#: maps/templates/maps/place/create.html:6
 #: maps/templates/maps/place/detail.html:6
 #: maps/templates/maps/place/index.html:6
 #: maps/templates/maps/place/index.html:12
-#: maps/templates/maps/place/update.html:6
+#: maps/templates/maps/place/update.html:7
 msgid "place"
 msgstr "place"
 
@@ -397,7 +404,7 @@ msgstr "modern name"
 
 #: maps/templates/maps/search/index.html:6
 #: maps/templates/maps/search/index.html:14
-#: webpage/templates/webpage/layout.html:81
+#: webpage/templates/webpage/layout.html:61
 msgid "search"
 msgstr "search"
 
@@ -413,11 +420,11 @@ msgstr "No results for: %(name)s"
 msgid "type"
 msgstr "type"
 
-#: maps/templates/maps/type/detail.html:29
+#: maps/templates/maps/type/detail.html:30
 msgid "sub types"
 msgstr "sub types"
 
-#: maps/templates/maps/type/detail.html:47
+#: maps/templates/maps/type/detail.html:48
 msgid "related entries"
 msgstr "related entries"
 
@@ -434,7 +441,7 @@ msgid "modified"
 msgstr "modified"
 
 #: webpage/templates/webpage/about.html:5
-#: webpage/templates/webpage/layout.html:95
+#: webpage/templates/webpage/layout.html:69
 msgid "about"
 msgstr "about"
 
@@ -451,27 +458,31 @@ msgstr "Code on GitHub"
 msgid "imprint"
 msgstr "imprint"
 
-#: webpage/templates/webpage/layout.html:56
-msgid "version"
-msgstr "version"
-
-#: webpage/templates/webpage/layout.html:61
+#: webpage/templates/webpage/layout.html:55
 msgid "hello"
 msgstr "hello"
 
-#: webpage/templates/webpage/layout.html:62
+#: webpage/templates/webpage/layout.html:56
 msgid "logout"
 msgstr "logout"
 
-#: webpage/templates/webpage/layout.html:80
+#: webpage/templates/webpage/layout.html:60
 msgid "search term"
 msgstr "search term"
 
-#: webpage/templates/webpage/layout.html:86
+#: webpage/templates/webpage/layout.html:102
 msgid "login"
 msgstr "login"
 
-#: webpage/templates/webpage/layout.html:120
+#: webpage/templates/webpage/layout.html:149
+msgid "version"
+msgstr "version"
+
+#: webpage/templates/webpage/layout.html:151
+msgid "documentation"
+msgstr "documentation"
+
+#: webpage/templates/webpage/layout.html:152
 msgid "Legal Notice"
 msgstr "Legal Notice"
 
@@ -496,3 +507,12 @@ msgstr "previous"
 #: webpage/templates/webpage/table.html:67
 msgid "Next"
 msgstr "next"
+
+#~ msgid "Search in GeoNames"
+#~ msgstr "Search in GeoNames"
+
+#~ msgid "info geonames"
+#~ msgstr "You can search at GeoNames for corresponding entries for the value of the 'Name' field. If entries are found you can choose one from a list to automatically fill the 'GeoNamesId' field."
+
+#~ msgid "No matching results found at GeoNames."
+#~ msgstr "No matching results found at GeoNames."
