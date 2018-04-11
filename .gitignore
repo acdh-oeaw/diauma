@@ -1,7 +1,7 @@
 # Byte-compiled
 __pycache__/
 *.pyc
-
+docs/html/.doctrees
 
 # media
 media/*
