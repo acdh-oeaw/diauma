@@ -27,7 +27,7 @@ def sanitize(string):
     return re.sub('[^A-Za-z0-9]+', '', string)
 
 
-def truncate_string(string, length=40, title=True):
+def truncate_string(string, length=80, title=True):
     """
     Returns a truncated string with '..' at the end if it is longer than the length parameter.
     If the title param is true a span with the original string as title (for mouse over) is added.
