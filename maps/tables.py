@@ -95,12 +95,14 @@ class MapTable(tables.Table):
     class Meta:
         model = Map
         attrs = {'class': 'paleblue'}
-        fields = ['name', 'date_content', 'created_date', 'info']
+        fields = ['name', 'date_content', 'created_date', 'modified_date', 'info']
         order_by = 'name'
 
     def __init__(self, *args, c1_name="", **kwargs):
         super().__init__(*args, **kwargs)
         self.base_columns['date_content'].verbose_name = ugettext('content').capitalize()
+        self.base_columns['created_date'].verbose_name = ugettext('created').capitalize()
+        self.base_columns['modified_date'].verbose_name = ugettext('modified').capitalize()
 
     @staticmethod
     def render_name(record):
@@ -113,6 +115,11 @@ class MapTable(tables.Table):
     @staticmethod
     def render_created_date(record):
         html = format_date(record.created_date, '%Y-%m-%d')
+        return html
+
+    @staticmethod
+    def render_modified_date(record):
+        html = format_date(record.modified_date, '%Y-%m-%d')
         return html
 
     @staticmethod
