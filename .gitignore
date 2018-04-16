@@ -27,3 +27,12 @@ db.sqlite3
 
 # documentation build files
 docs/_*/*
+
+# server specific implementation files
+.bash_history
+.cache/*
+.psql_history
+.viminfo
+myenv/*
+staticfiles/*
+
