@@ -14,9 +14,9 @@ app_name = "webpage"
 urlpatterns = [
     url(r'^favicon\.ico$', favicon_view),
     url(r'^robots.txt', lambda x: HttpResponse("User-Agent: *", content_type="text/plain")),
-    url(r'^$', TemplateView.as_view(template_name='webpage/about.html'), name="start"),
+    url(r'^$', views.about, name='about'),
+    url(r'^about/$', views.about, name='about'),
     url(r'^imprint/$', TemplateView.as_view(template_name='webpage/imprint.html'), name="imprint"),
-    url(r'^about/$', TemplateView.as_view(template_name='webpage/about.html'), name="about"),
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^login/$', auth_views.login, {'template_name': 'webpage/login.html'}, name='login'),
     url(r'^docs/(?P<path>.*)', serve, {'document_root': 'docs/html'}, 'docs'),
