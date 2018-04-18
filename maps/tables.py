@@ -5,7 +5,13 @@ from django.template.defaultfilters import filesizeformat
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext
 
-from .models import BaseModel, File, Institute, Map, Person, Place, Scan
+from maps.model.base import BaseModel
+from maps.model.file import File
+from maps.model.institute import Institute
+from maps.model.map import Map
+from maps.model.person import Person
+from maps.model.place import Place
+from maps.model.scan import Scan
 from .templatetags.maps_extras import format_date
 from .util import get_mime_type, link, truncate_string
 

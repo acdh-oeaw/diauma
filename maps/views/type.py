@@ -10,7 +10,7 @@ from django.views.generic.edit import DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
 from maps.forms.type import TypeForm
-from maps.models import Type
+from maps.model.type import Type
 from maps.tables import TypeRelatedTable
 
 

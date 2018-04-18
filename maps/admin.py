@@ -4,7 +4,13 @@ from django.utils.html import format_html
 from mptt.admin import DraggableMPTTAdmin
 
 from maps.forms.file import FileForm
-from .models import File, Institute, Map, Person, Place, Reference, Type
+from maps.model.file import File
+from maps.model.institute import Institute
+from maps.model.map import Map
+from maps.model.person import Person
+from maps.model.place import Place
+from maps.model.reference import Reference
+from maps.model.type import Type
 
 
 class FileAdmin(admin.ModelAdmin):

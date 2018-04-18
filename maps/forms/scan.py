@@ -8,7 +8,10 @@ from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext, ugettext_lazy
 
 from maps.forms.base import BaseForm
-from ..models import Map, Person, Scan, Type
+from maps.model.map import Map
+from maps.model.person import Person
+from maps.model.scan import Scan
+from maps.model.type import Type
 
 
 class ScanForm(BaseForm):

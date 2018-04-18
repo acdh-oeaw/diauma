@@ -10,7 +10,9 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
 from maps.forms.reference import ReferenceForm
-from maps.models import Map, Reference, Type
+from maps.model.map import Map
+from maps.model.reference import Reference
+from maps.model.type import Type
 from maps.tables import MapTable, ReferenceTable
 from maps.util import get_selected_nodes
 

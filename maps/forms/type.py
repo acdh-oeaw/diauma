@@ -4,7 +4,7 @@ from crispy_forms.layout import Div, HTML, Layout, Submit
 from django import forms
 from django.utils.translation import ugettext
 
-from ..models import Type
+from maps.model.type import Type
 from ..util import sanitize
 
 

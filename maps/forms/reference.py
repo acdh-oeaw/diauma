@@ -4,7 +4,8 @@ from crispy_forms.layout import Div, HTML, Layout, Submit
 from django.utils.translation import ugettext
 
 from maps.forms.base import BaseForm
-from ..models import Reference, Type
+from maps.model.reference import Reference
+from maps.model.type import Type
 
 
 class ReferenceForm(BaseForm):

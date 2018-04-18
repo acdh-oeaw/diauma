@@ -6,7 +6,10 @@ from django import forms
 from django.utils.translation import ugettext, ugettext_lazy
 
 from maps.forms.base import BaseForm
-from ..models import File, Map, Scan, Type
+from maps.model.file import File
+from maps.model.map import Map
+from maps.model.scan import Scan
+from maps.model.type import Type
 
 
 class MapForm(BaseForm):

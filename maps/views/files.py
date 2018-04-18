@@ -1,6 +1,5 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 import os
-from os.path import basename, splitext
 
 from django.conf import settings
 from django.contrib import messages
@@ -13,10 +12,14 @@ from django.urls import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
+from os.path import basename, splitext
 
 from maps.forms.file import FileForm
 from maps.forms.scan import ScanForm
-from maps.models import File, Map, Scan, Type
+from maps.model.file import File
+from maps.model.map import Map
+from maps.model.scan import Scan
+from maps.model.type import Type
 from maps.tables import FileTable, MapTable, OrphanTable, ScanTable
 from maps.util import get_selected_nodes
 

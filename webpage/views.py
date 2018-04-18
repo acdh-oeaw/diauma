@@ -3,7 +3,7 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect, render
 from django_tables2 import RequestConfig
 
-from maps.models import Map
+from maps.model.map import Map
 from maps.tables import MapTable
 
 
