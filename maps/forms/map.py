@@ -70,12 +70,16 @@ class MapForm(BaseForm):
             'date_content2')
         widgets = {
             'date_created': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'date_created2': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'date_content': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'date_content2': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'map_persons': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:persons-autocomplete',
