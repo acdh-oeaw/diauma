@@ -18,6 +18,7 @@ from maps.forms.file import FileForm
 from maps.forms.scan import ScanForm
 from maps.model.file import File
 from maps.model.map import Map
+from maps.model.reference import Reference
 from maps.model.scan import Scan
 from maps.model.type import Type
 from maps.tables import FileTable, MapTable, OrphanTable, ScanTable
@@ -216,6 +217,9 @@ class FileCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         if 'origin_id' in self.kwargs and 'class_name' in self.kwargs:
             if self.kwargs['class_name'] == 'map':
                 form.fields['file_map'].initial = Map.objects.get(pk=self.kwargs['origin_id'])
+            elif self.kwargs['class_name'] == 'reference':
+                form.fields['file_reference'].initial = \
+                    Reference.objects.get(pk=self.kwargs['origin_id'])
         return form
 
     def post(self, request, **kwargs):
@@ -242,10 +246,13 @@ class ScanCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         if 'origin_id' in self.kwargs and 'class_name' in self.kwargs:
             if self.kwargs['class_name'] == 'map':
                 form.fields['scan_map'].initial = Map.objects.get(pk=self.kwargs['origin_id'])
+            elif self.kwargs['class_name'] == 'reference':
+                form.fields['scan_reference'].initial = \
+                    Reference.objects.get(pk=self.kwargs['origin_id'])
         return form
 
     def post(self, request, **kwargs):
-        # add types
+        # Add types
         request.POST = request.POST.copy()
         request.POST.setlist('scan_type', get_selected_nodes('Scan', request))
         return super(ScanCreate, self).post(request, **kwargs)

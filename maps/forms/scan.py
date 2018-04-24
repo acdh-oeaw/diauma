@@ -10,6 +10,7 @@ from django.utils.translation import ugettext, ugettext_lazy
 from maps.forms.base import BaseForm
 from maps.model.map import Map
 from maps.model.person import Person
+from maps.model.reference import Reference
 from maps.model.scan import Scan
 from maps.model.type import Type
 
@@ -25,14 +26,21 @@ class ScanForm(BaseForm):
 
     scan_person = forms.ModelMultipleChoiceField(
         Person.objects.all(),
+        required=False,
         widget=autocomplete.ModelSelect2Multiple(
             url='maps-ac:persons-autocomplete',
-            attrs={'data-placeholder': ugettext_lazy('Type for getting available entries')}),
-        required=False)
+            attrs={'data-placeholder': ugettext_lazy('Type for getting available entries')}))
+
+    scan_reference = forms.ModelMultipleChoiceField(
+        Reference.objects.all(),
+        required=False,
+        widget=autocomplete.ModelSelect2Multiple(
+            url='maps-ac:references-autocomplete',
+            attrs={'data-placeholder': ugettext_lazy('Type for getting available entries')}))
 
     class Meta:
         model = Scan
-        fields = ('name', 'info', 'scan_type', 'file', 'scan_map', 'scan_person')
+        fields = ('name', 'info', 'scan_type', 'file', 'scan_map', 'scan_person', 'scan_reference')
 
     def __init__(self, *args, **kwargs):
         super(ScanForm, self).__init__(*args, **kwargs)
@@ -49,6 +57,7 @@ class ScanForm(BaseForm):
                     'name',
                     'scan_map',
                     'scan_person',
+                    'scan_reference',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
@@ -67,6 +76,7 @@ class ScanForm(BaseForm):
                     'name',
                     'scan_map',
                     'scan_person',
+                    'scan_reference',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),

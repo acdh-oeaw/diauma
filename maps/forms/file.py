@@ -10,6 +10,7 @@ from django.utils.translation import ugettext, ugettext_lazy
 from maps.forms.base import BaseForm
 from maps.model.file import File
 from maps.model.map import Map
+from maps.model.reference import Reference
 from maps.model.type import Type
 
 
@@ -17,14 +18,21 @@ class FileForm(BaseForm):
 
     file_map = forms.ModelMultipleChoiceField(
         Map.objects.all(),
+        required=False,
         widget=autocomplete.ModelSelect2Multiple(
             url='maps-ac:map-autocomplete',
-            attrs={'data-placeholder': ugettext_lazy('Type for getting available entries')}),
-        required=False)
+            attrs={'data-placeholder': ugettext_lazy('Type for getting available entries')}))
+
+    file_reference = forms.ModelMultipleChoiceField(
+        Reference.objects.all(),
+        required=False,
+        widget=autocomplete.ModelSelect2Multiple(
+            url='maps-ac:references-autocomplete',
+            attrs={'data-placeholder': ugettext_lazy('Type for getting available entries')}))
 
     class Meta:
         model = File
-        fields = ('name', 'info', 'file_type', 'file', 'file_map')
+        fields = ('name', 'info', 'file_type', 'file', 'file_map', 'file_reference')
 
     def __init__(self, *args, **kwargs):
         super(FileForm, self).__init__(*args, **kwargs)
@@ -41,6 +49,7 @@ class FileForm(BaseForm):
                 Div(HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                     'name',
                     'file_map',
+                    'file_reference',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
@@ -57,6 +66,7 @@ class FileForm(BaseForm):
                         ', '.join(settings.ALLOWED_UPLOAD_EXTENSIONS) + '</p>'),
                     'name',
                     'file_map',
+                    'file_reference',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
