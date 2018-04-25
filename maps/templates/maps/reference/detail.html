@@ -36,9 +36,9 @@
                 {{ reference|display_info }}
                 {{ reference|display_dates }}
             </div>
-            {% if map_table.data|length > 0 %}
+            {% if tables.map.data|length > 0 %}
                 <div class="tab-pane" id="maps">
-                    {% render_table map_table %}
+                    {% render_table tables.map %}
                 </div>
             {% endif %}
             <div class="tab-pane" id="files">

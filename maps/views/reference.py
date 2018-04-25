@@ -10,10 +10,12 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
 from maps.forms.reference import ReferenceForm
+from maps.model.file import File
 from maps.model.map import Map
 from maps.model.reference import Reference
+from maps.model.scan import Scan
 from maps.model.type import Type
-from maps.tables import MapTable, ReferenceTable
+from maps.tables import MapTable, ReferenceTable, FileTable, ScanTable
 from maps.util import get_selected_nodes
 
 
@@ -27,12 +29,19 @@ def index(request):
 @login_required
 def detail(request, pk):
     reference = Reference.objects.get(pk=pk)
-    table = MapTable(Map.objects.filter(map_references=reference))
-    table.tab = '#maps'
-    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
+    tables = {}
+    tables['maps'] = MapTable(Map.objects.filter(map_references=reference))
+    tables['maps'].tab = '#maps'
+    tables['files'] = FileTable(File.objects.filter(file_reference=reference))
+    tables['files'].tab = '#files'
+    tables['scans'] = ScanTable(Scan.objects.filter(scan_reference=reference))
+    tables['scans'].tab = '#files'
+    for name, table in tables.items():
+        RequestConfig(
+            request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     return render(request, 'maps/reference/detail.html', {
         'reference': reference,
-        'map_table': table,
+        'tables': tables,
         'types': Type.objects.filter(reference_type=reference)})
 
 

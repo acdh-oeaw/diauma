@@ -40,8 +40,6 @@ def detail(request, pk):
         links['references'].append(link(reference))
     for publisher in Institute.objects.filter(publisher=map_):
         links['publishers'].append(link(publisher))
-    for file in File.objects.filter(file_map=map_):
-        links['maps'].append(link(file))  # pragma: no cover
     tables = {}
     tables['copies'] = MapTable(Map.objects.filter(map_copy_id=map_))
     tables['copies'].tab = '#copies'

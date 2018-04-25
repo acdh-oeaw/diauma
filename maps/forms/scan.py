@@ -40,7 +40,12 @@ class ScanForm(BaseForm):
 
     class Meta:
         model = Scan
-        fields = ('name', 'info', 'scan_type', 'file', 'scan_map', 'scan_person', 'scan_reference')
+        fields = ('name', 'info', 'scan_date', 'scan_type', 'file', 'scan_map', 'scan_person',
+                  'scan_reference')
+        widgets = {
+            'scan_date': forms.DateInput(
+                format='%Y-%m-%d',
+                attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'})}
 
     def __init__(self, *args, **kwargs):
         super(ScanForm, self).__init__(*args, **kwargs)
@@ -55,9 +60,10 @@ class ScanForm(BaseForm):
             self.helper.layout = Layout(
                 Div(HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                     'name',
+                    'scan_date',
                     'scan_map',
-                    'scan_person',
                     'scan_reference',
+                    'scan_person',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),
@@ -74,9 +80,10 @@ class ScanForm(BaseForm):
                         '<br />' + ugettext('allowed files') + ': ' +
                         ', '.join(settings.ALLOWED_SCAN_EXTENSIONS) + '</p>'),
                     'name',
+                    'scan_date',
                     'scan_map',
-                    'scan_person',
                     'scan_reference',
+                    'scan_person',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                     HTML(nodes_html),

@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy
 
 from maps.model.base import BaseModel
 from maps.model.map import Map
+from maps.model.reference import Reference
 from maps.model.type import Type
 
 
@@ -38,6 +39,8 @@ class File(BaseModel):
                                 verbose_name=ugettext_lazy('types'))
     file_map = ManyToManyField(Map, blank=True, related_name='file_map',
                                verbose_name=ugettext_lazy('maps'))
+    file_reference = ManyToManyField(Reference, blank=True, related_name='file_reference',
+                                     verbose_name=ugettext_lazy('references'))
     info = TextField(blank=True)
 
     def delete(self, using=None, keep_parents=False):

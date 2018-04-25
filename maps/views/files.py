@@ -21,7 +21,7 @@ from maps.model.map import Map
 from maps.model.reference import Reference
 from maps.model.scan import Scan
 from maps.model.type import Type
-from maps.tables import FileTable, MapTable, OrphanTable, ScanTable
+from maps.tables import FileTable, MapTable, OrphanTable, ReferenceTable, ScanTable
 from maps.util import get_selected_nodes
 
 
@@ -127,6 +127,8 @@ def file_detail(request, pk):
     file = File.objects.get(pk=pk)
     tables = {'maps': MapTable(Map.objects.filter(file_map=file))}
     tables['maps'].tab = '#maps'
+    tables['references'] = ReferenceTable(Reference.objects.filter(file_reference=file))
+    tables['references'].tab = '#references'
     return render(request, 'maps/files/file/detail.html', {
         'file': file,
         'tables': tables,
@@ -138,6 +140,8 @@ def scan_detail(request, pk):
     scan = Scan.objects.get(pk=pk)
     tables = {'maps': MapTable(Map.objects.filter(scan_map=scan))}
     tables['maps'].tab = '#maps'
+    tables['references'] = ReferenceTable(Reference.objects.filter(scan_reference=scan))
+    tables['references'].tab = '#references'
     file_name = splitext(basename(scan.file.name))[0]  # basename without extension
     iiif = {
         'file_path': settings.MEDIA_ROOT + 'IIIF/' + file_name,
