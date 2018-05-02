@@ -15,6 +15,9 @@
             {% if map_table.data|length > 0 %}
                 <li id="maps-tab-header"><a href="#maps" data-toggle="tab">{% trans "maps"|capfirst %}</a></li>
             {% endif %}
+            {% if tables.subs.data|length > 0 %}
+                <li id="maps-tab-header"><a href="#subs" data-toggle="tab">{% trans "subs"|capfirst %}</a></li>
+            {% endif %}
             <li id="files-tab-header">
                 <a href="#files" data-toggle="tab">{% trans "files"|capfirst %}</a>
             </li>
@@ -31,11 +34,19 @@
                     </form>
                 </div>
                 <h2>{{ reference.name }}</h2>
+                {% if has_super %}
+                    <p>{% trans "has super"|capfirst %}: {{ has_super|link }}</p>
+                {% endif %}
                 {% include "../types_for_detail_view.html" %}
                 <div style="clear:both;"></div>
                 {{ reference|display_info }}
                 {{ reference|display_dates }}
             </div>
+            {% if tables.subs.data|length > 0 %}
+                <div class="tab-pane" id="subs">
+                    {% render_table tables.subs %}
+                </div>
+            {% endif %}
             {% if tables.map.data|length > 0 %}
                 <div class="tab-pane" id="maps">
                     {% render_table tables.map %}

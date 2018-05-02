@@ -1,7 +1,8 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Div, HTML, Layout, Submit
-from django.utils.translation import ugettext
+from dal import autocomplete
+from django.utils.translation import ugettext, ugettext_lazy
 
 from maps.forms.base import BaseForm
 from maps.model.reference import Reference
@@ -12,7 +13,11 @@ class ReferenceForm(BaseForm):
 
     class Meta:
         model = Reference
-        fields = ('name', 'info', 'reference_type')
+        fields = ('name', 'info', 'super', 'reference_type')
+        widgets = {
+            'super': autocomplete.ModelSelect2(
+                url='maps-ac:references-autocomplete',
+                attrs={'data-placeholder': ugettext_lazy('Type for getting available entries')})}
 
     def __init__(self, *args, **kwargs):
         super(ReferenceForm, self).__init__(*args, **kwargs)
@@ -26,6 +31,7 @@ class ReferenceForm(BaseForm):
             Div(
                 HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                 'name',
+                'super',
                 css_class='form-float'),
             Div(
                 HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),

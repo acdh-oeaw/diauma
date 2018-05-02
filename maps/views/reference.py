@@ -1,4 +1,5 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
+from annoying.functions import get_object_or_None
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -32,6 +33,8 @@ def detail(request, pk):
     tables = {}
     tables['maps'] = MapTable(Map.objects.filter(map_references=reference))
     tables['maps'].tab = '#maps'
+    tables['subs'] = ReferenceTable(Reference.objects.filter(super_id=reference.id))
+    tables['subs'].tab = '#subs'
     tables['files'] = FileTable(File.objects.filter(file_reference=reference))
     tables['files'].tab = '#files'
     tables['scans'] = ScanTable(Scan.objects.filter(scan_reference=reference))
@@ -41,6 +44,7 @@ def detail(request, pk):
             request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     return render(request, 'maps/reference/detail.html', {
         'reference': reference,
+        'has_super': get_object_or_None(Reference, sub=reference),
         'tables': tables,
         'types': Type.objects.filter(reference_type=reference)})
 
