@@ -9,6 +9,15 @@
     {% block breadcrumbs %}
         {% breadcrumb "files" "maps:files-index" %}
     {% endblock %}
+
+    {% trans "total disk space"|capfirst %} <strong>{{ disk_space_values.total|filesizeformat }}</strong> -
+    {% trans "free disk space"|capfirst %} <strong>{{ disk_space_values.free|filesizeformat }}</strong>
+    <div id="disk_size"></div>
+    <script>
+        $( function() {
+            $("#disk_size").progressbar({value: {{ disk_space_values.percent }} });
+        });
+    </script>
     <ul id="tabs" class="nav nav-tabs">
         <li id="overview-tab-header">
             <a href="#tab-scan" data-toggle="tab">Scans ({{ tables.scans.data|length }})</a>

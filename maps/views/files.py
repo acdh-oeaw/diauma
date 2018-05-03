@@ -91,8 +91,16 @@ def index(request):
     for name, table in tables.items():
         RequestConfig(
             request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
+    statvfs = os.statvfs(settings.MEDIA_URL)
+    disk_space = statvfs.f_frsize * statvfs.f_blocks
+    free_space = statvfs.f_frsize * statvfs.f_bavail  # available space without reserved blocks
+    disk_space_values = {
+        'total': statvfs.f_frsize * statvfs.f_blocks,
+        'free': statvfs.f_frsize * statvfs.f_bavail,
+        'percent': free_space / disk_space / 100
+    }
     return render(request, 'maps/files/index.html', {
-        'tables': tables,
+        'tables': tables, 'disk_space_values': disk_space_values,
         'orphaned_files_count': orphaned_files_count})
 
 
