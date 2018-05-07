@@ -11,7 +11,14 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
 from maps.forms.map import MapForm
-from maps.models import File, Institute, Map, Person, Place, Reference, Scan, Type
+from maps.model.file import File
+from maps.model.institute import Institute
+from maps.model.map import Map
+from maps.model.person import Person
+from maps.model.place import Place
+from maps.model.reference import Reference
+from maps.model.scan import Scan
+from maps.model.type import Type
 from maps.tables import FileTable, MapTable, ScanTable
 from maps.util import get_selected_nodes, link
 
@@ -33,8 +40,6 @@ def detail(request, pk):
         links['references'].append(link(reference))
     for publisher in Institute.objects.filter(publisher=map_):
         links['publishers'].append(link(publisher))
-    for file in File.objects.filter(file_map=map_):
-        links['maps'].append(link(file))  # pragma: no cover
     tables = {}
     tables['copies'] = MapTable(Map.objects.filter(map_copy_id=map_))
     tables['copies'].tab = '#copies'

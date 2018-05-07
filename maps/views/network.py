@@ -3,7 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
 
-from maps.models import Institute, Map, Person, Reference
+from maps.model.institute import Institute
+from maps.model.map import Map
+from maps.model.person import Person
+from maps.model.reference import Reference
 from maps.util import truncate_string
 
 

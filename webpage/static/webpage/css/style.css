@@ -19,6 +19,15 @@ a {
     background-color: #f1f1f1;
 }
 
+#disk_size {
+    width: 40em;
+    margin-bottom: 1em;
+}
+
+#disk_size .ui-widget-header {
+    background-color: #88dbdf;
+    margin: 0;
+}
 
 div.messages {
     margin-top: 0.5em;

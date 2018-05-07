@@ -7,7 +7,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext
 
 from maps import util
-from maps.models import Type
+from maps.model.type import Type
 
 register = template.Library()
 

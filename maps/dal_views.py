@@ -1,7 +1,13 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from dal import autocomplete
 
-from .models import File, Institute, Map, Person, Place, Reference, Scan
+from maps.model.file import File
+from maps.model.institute import Institute
+from maps.model.map import Map
+from maps.model.person import Person
+from maps.model.place import Place
+from maps.model.reference import Reference
+from maps.model.scan import Scan
 
 
 class PersonsAutocomplete(autocomplete.Select2QuerySetView):

@@ -5,7 +5,8 @@ from dal import autocomplete
 from django.utils.translation import ugettext, ugettext_lazy
 
 from maps.forms.base import BaseForm
-from ..models import Institute, Type
+from maps.model.institute import Institute
+from maps.model.type import Type
 
 
 class InstituteForm(BaseForm):

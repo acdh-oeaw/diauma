@@ -6,7 +6,10 @@ from django import forms
 from django.utils.translation import ugettext, ugettext_lazy
 
 from maps.forms.base import BaseForm
-from ..models import File, Map, Scan, Type
+from maps.model.file import File
+from maps.model.map import Map
+from maps.model.scan import Scan
+from maps.model.type import Type
 
 
 class MapForm(BaseForm):
@@ -67,12 +70,16 @@ class MapForm(BaseForm):
             'date_content2')
         widgets = {
             'date_created': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'date_created2': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'date_content': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'date_content2': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'map_persons': autocomplete.ModelSelect2Multiple(
                 url='maps-ac:persons-autocomplete',

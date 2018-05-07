@@ -3,7 +3,11 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from maps.models import Institute, Map, Person, Place, Reference
+from maps.model.institute import Institute
+from maps.model.map import Map
+from maps.model.person import Person
+from maps.model.place import Place
+from maps.model.reference import Reference
 from maps.tables import InstituteTable, MapTable, PersonTable, PlaceTable, ReferenceTable
 
 

@@ -11,7 +11,11 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
 
 from maps.forms.institute import InstituteForm
-from maps.models import Institute, Map, Person, Place, Type
+from maps.model.institute import Institute
+from maps.model.map import Map
+from maps.model.person import Person
+from maps.model.place import Place
+from maps.model.type import Type
 from maps.tables import InstituteTable, MapTable, PersonTable
 from maps.util import get_selected_nodes
 

@@ -6,7 +6,8 @@ from django import forms
 from django.utils.translation import ugettext, ugettext_lazy
 
 from maps.forms.base import BaseForm
-from ..models import Person, Type
+from maps.model.person import Person
+from maps.model.type import Type
 
 
 class PersonForm(BaseForm):

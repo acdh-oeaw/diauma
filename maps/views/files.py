@@ -1,4 +1,5 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
+import math
 import os
 from os.path import basename, splitext
 
@@ -9,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.files.storage import default_storage
 from django.shortcuts import redirect, render
+from django.template.defaultfilters import filesizeformat
 from django.urls import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -16,8 +18,12 @@ from django_tables2 import RequestConfig
 
 from maps.forms.file import FileForm
 from maps.forms.scan import ScanForm
-from maps.models import File, Map, Scan, Type
-from maps.tables import FileTable, MapTable, OrphanTable, ScanTable
+from maps.model.file import File
+from maps.model.map import Map
+from maps.model.reference import Reference
+from maps.model.scan import Scan
+from maps.model.type import Type
+from maps.tables import FileTable, MapTable, OrphanTable, ReferenceTable, ScanTable
 from maps.util import get_selected_nodes
 
 
@@ -58,6 +64,7 @@ def index(request):
             orphan_data.append({
                 'type': 'Orphaned scan',
                 'name': file,
+                'size': filesizeformat(os.path.getsize(path + file)),
                 'source': mark_safe(link)})
     path = settings.MEDIA_ROOT + 'file/'
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
@@ -69,6 +76,7 @@ def index(request):
             orphan_data.append({
                 'type': 'Orphaned file',
                 'name': file,
+                'size': filesizeformat(os.path.getsize(path + file)),
                 'source': mark_safe(link)})
     path = settings.MEDIA_ROOT + 'IIIF/'
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
@@ -81,14 +89,23 @@ def index(request):
             orphan_data.append({
                 'type': 'Orphaned IIIF file',
                 'name': file,
+                'size': filesizeformat(os.path.getsize(path + file)),
                 'source': mark_safe(link)})
     tables['orphans'] = OrphanTable(orphan_data)
     tables['orphans'].tab = '#tab-orphans'
     for name, table in tables.items():
         RequestConfig(
             request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
+    statvfs = os.statvfs(settings.MEDIA_URL)
+    disk_space = statvfs.f_frsize * statvfs.f_blocks
+    free_space = statvfs.f_frsize * statvfs.f_bavail  # available space without reserved blocks
+    disk_space_values = {
+        'total': statvfs.f_frsize * statvfs.f_blocks,
+        'free': statvfs.f_frsize * statvfs.f_bavail,
+        'percent': 100 - math.ceil(free_space / (disk_space / 100))
+    }
     return render(request, 'maps/files/index.html', {
-        'tables': tables,
+        'tables': tables, 'disk_space_values': disk_space_values,
         'orphaned_files_count': orphaned_files_count})
 
 
@@ -123,6 +140,8 @@ def file_detail(request, pk):
     file = File.objects.get(pk=pk)
     tables = {'maps': MapTable(Map.objects.filter(file_map=file))}
     tables['maps'].tab = '#maps'
+    tables['references'] = ReferenceTable(Reference.objects.filter(file_reference=file))
+    tables['references'].tab = '#references'
     return render(request, 'maps/files/file/detail.html', {
         'file': file,
         'tables': tables,
@@ -134,6 +153,8 @@ def scan_detail(request, pk):
     scan = Scan.objects.get(pk=pk)
     tables = {'maps': MapTable(Map.objects.filter(scan_map=scan))}
     tables['maps'].tab = '#maps'
+    tables['references'] = ReferenceTable(Reference.objects.filter(scan_reference=scan))
+    tables['references'].tab = '#references'
     file_name = splitext(basename(scan.file.name))[0]  # basename without extension
     iiif = {
         'file_path': settings.MEDIA_ROOT + 'IIIF/' + file_name,
@@ -213,6 +234,9 @@ class FileCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         if 'origin_id' in self.kwargs and 'class_name' in self.kwargs:
             if self.kwargs['class_name'] == 'map':
                 form.fields['file_map'].initial = Map.objects.get(pk=self.kwargs['origin_id'])
+            elif self.kwargs['class_name'] == 'reference':
+                form.fields['file_reference'].initial = \
+                    Reference.objects.get(pk=self.kwargs['origin_id'])
         return form
 
     def post(self, request, **kwargs):
@@ -239,10 +263,13 @@ class ScanCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         if 'origin_id' in self.kwargs and 'class_name' in self.kwargs:
             if self.kwargs['class_name'] == 'map':
                 form.fields['scan_map'].initial = Map.objects.get(pk=self.kwargs['origin_id'])
+            elif self.kwargs['class_name'] == 'reference':
+                form.fields['scan_reference'].initial = \
+                    Reference.objects.get(pk=self.kwargs['origin_id'])
         return form
 
     def post(self, request, **kwargs):
-        # add types
+        # Add types
         request.POST = request.POST.copy()
         request.POST.setlist('scan_type', get_selected_nodes('Scan', request))
         return super(ScanCreate, self).post(request, **kwargs)
