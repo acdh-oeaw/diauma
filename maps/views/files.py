@@ -1,4 +1,5 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
+import math
 import os
 
 from django.conf import settings
@@ -97,7 +98,7 @@ def index(request):
     disk_space_values = {
         'total': statvfs.f_frsize * statvfs.f_blocks,
         'free': statvfs.f_frsize * statvfs.f_bavail,
-        'percent': free_space / disk_space / 100
+        'percent': 100 - math.ceil(free_space / (disk_space / 100))
     }
     return render(request, 'maps/files/index.html', {
         'tables': tables, 'disk_space_values': disk_space_values,
