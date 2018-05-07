@@ -1,6 +1,7 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 import math
 import os
+from os.path import basename, splitext
 
 from django.conf import settings
 from django.contrib import messages
@@ -9,11 +10,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.files.storage import default_storage
 from django.shortcuts import redirect, render
+from django.template.defaultfilters import filesizeformat
 from django.urls import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_tables2 import RequestConfig
-from os.path import basename, splitext
 
 from maps.forms.file import FileForm
 from maps.forms.scan import ScanForm
@@ -63,6 +64,7 @@ def index(request):
             orphan_data.append({
                 'type': 'Orphaned scan',
                 'name': file,
+                'size': filesizeformat(os.path.getsize(path + file)),
                 'source': mark_safe(link)})
     path = settings.MEDIA_ROOT + 'file/'
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
@@ -74,6 +76,7 @@ def index(request):
             orphan_data.append({
                 'type': 'Orphaned file',
                 'name': file,
+                'size': filesizeformat(os.path.getsize(path + file)),
                 'source': mark_safe(link)})
     path = settings.MEDIA_ROOT + 'IIIF/'
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
@@ -86,6 +89,7 @@ def index(request):
             orphan_data.append({
                 'type': 'Orphaned IIIF file',
                 'name': file,
+                'size': filesizeformat(os.path.getsize(path + file)),
                 'source': mark_safe(link)})
     tables['orphans'] = OrphanTable(orphan_data)
     tables['orphans'].tab = '#tab-orphans'

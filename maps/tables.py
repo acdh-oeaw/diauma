@@ -23,6 +23,7 @@ class OrphanTable(tables.Table):
 
     type = tables.Column()
     name = tables.Column()
+    size = tables.Column()
     source = tables.Column()
 
 
