@@ -5,7 +5,8 @@ from django.utils.translation import ugettext
 
 from maps.forms.base import BaseForm
 from maps.forms.widgets.geonames import GeonamesWidget
-from ..models import Place, Type
+from maps.model.place import Place
+from maps.model.type import Type
 
 
 class PlaceForm(BaseForm):

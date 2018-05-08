@@ -15,6 +15,12 @@
             {% if map_table.data|length > 0 %}
                 <li id="maps-tab-header"><a href="#maps" data-toggle="tab">{% trans "maps"|capfirst %}</a></li>
             {% endif %}
+            {% if tables.subs.data|length > 0 %}
+                <li id="maps-tab-header"><a href="#subs" data-toggle="tab">{% trans "subs"|capfirst %}</a></li>
+            {% endif %}
+            <li id="files-tab-header">
+                <a href="#files" data-toggle="tab">{% trans "files"|capfirst %}</a>
+            </li>
         </ul>
         <div class="tab-content clearfix">
             <div id="overview" class="tab-pane">
@@ -28,16 +34,38 @@
                     </form>
                 </div>
                 <h2>{{ reference.name }}</h2>
+                {% if has_super %}
+                    <p>{% trans "has super"|capfirst %}: {{ has_super|link }}</p>
+                {% endif %}
                 {% include "../types_for_detail_view.html" %}
                 <div style="clear:both;"></div>
                 {{ reference|display_info }}
                 {{ reference|display_dates }}
             </div>
-            {% if map_table.data|length > 0 %}
-                <div class="tab-pane" id="maps">
-                    {% render_table map_table %}
+            {% if tables.subs.data|length > 0 %}
+                <div class="tab-pane" id="subs">
+                    {% render_table tables.subs %}
                 </div>
             {% endif %}
+            {% if tables.map.data|length > 0 %}
+                <div class="tab-pane" id="maps">
+                    {% render_table tables.map %}
+                </div>
+            {% endif %}
+            <div class="tab-pane" id="files">
+                <a href="{% url 'maps:scan-create' class_name='reference' origin_id=reference.id %}"
+                    class="button">{% trans "scans"|capfirst %} +</a>
+                <a href="{% url 'maps:file-create' class_name='reference' origin_id=reference.id %}"
+                    class="button">{% trans "file"|capfirst %} +</a>
+                {% if tables.scans.data %}
+                    <h3>{% trans "scans"|capfirst %}</h3>
+                    {% render_table tables.scans %}
+                {% endif %}
+                {% if tables.files.data %}
+                    <h3>{% trans "files for"|capfirst %}</h3>
+                    {% render_table tables.files %}
+                {% endif %}
+            </div>
         </div>
     </div>
     <script>

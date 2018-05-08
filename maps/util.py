@@ -5,7 +5,7 @@ from mimetypes import guess_type
 from django.urls import reverse
 from markupsafe import Markup
 
-from .models import Type
+from maps.model.type import Type
 
 
 def link(entity):

@@ -21,6 +21,11 @@
                 <a href="#maps" data-toggle="tab">{% trans "maps"|capfirst %}</a>
             </li>
         {% endif %}
+        {% if tables.references.data|length > 0 %}
+            <li id="references-tab_header">
+                <a href="#references" data-toggle="tab">{% trans "references"|capfirst %}</a>
+            </li>
+        {% endif %}
     </ul>
     <div class="tab-content clearfix">
         <div class="tab-pane" id="overview">
@@ -52,6 +57,11 @@
         {% if tables.maps.data|length > 0 %}
             <div class="tab-pane" id="maps">
                 {% render_table tables.maps %}
+            </div>
+        {% endif %}
+        {% if tables.references.data|length > 0 %}
+            <div class="tab-pane" id="references">
+                {% render_table tables.references %}
             </div>
         {% endif %}
     </div>

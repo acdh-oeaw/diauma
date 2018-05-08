@@ -8,7 +8,11 @@ from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext, ugettext_lazy
 
 from maps.forms.base import BaseForm
-from ..models import Map, Person, Scan, Type
+from maps.model.map import Map
+from maps.model.person import Person
+from maps.model.reference import Reference
+from maps.model.scan import Scan
+from maps.model.type import Type
 
 
 class ScanForm(BaseForm):
@@ -22,14 +26,26 @@ class ScanForm(BaseForm):
 
     scan_person = forms.ModelMultipleChoiceField(
         Person.objects.all(),
+        required=False,
         widget=autocomplete.ModelSelect2Multiple(
             url='maps-ac:persons-autocomplete',
-            attrs={'data-placeholder': ugettext_lazy('Type for getting available entries')}),
-        required=False)
+            attrs={'data-placeholder': ugettext_lazy('Type for getting available entries')}))
+
+    scan_reference = forms.ModelMultipleChoiceField(
+        Reference.objects.all(),
+        required=False,
+        widget=autocomplete.ModelSelect2Multiple(
+            url='maps-ac:references-autocomplete',
+            attrs={'data-placeholder': ugettext_lazy('Type for getting available entries')}))
 
     class Meta:
         model = Scan
-        fields = ('name', 'info', 'scan_type', 'file', 'scan_map', 'scan_person')
+        fields = ('name', 'info', 'scan_date', 'scan_type', 'file', 'scan_map', 'scan_person',
+                  'scan_reference')
+        widgets = {
+            'scan_date': forms.DateInput(
+                format='%Y-%m-%d',
+                attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'})}
 
     def __init__(self, *args, **kwargs):
         super(ScanForm, self).__init__(*args, **kwargs)
@@ -44,7 +60,9 @@ class ScanForm(BaseForm):
             self.helper.layout = Layout(
                 Div(HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                     'name',
+                    'scan_date',
                     'scan_map',
+                    'scan_reference',
                     'scan_person',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
@@ -62,7 +80,9 @@ class ScanForm(BaseForm):
                         '<br />' + ugettext('allowed files') + ': ' +
                         ', '.join(settings.ALLOWED_SCAN_EXTENSIONS) + '</p>'),
                     'name',
+                    'scan_date',
                     'scan_map',
+                    'scan_reference',
                     'scan_person',
                     css_class='form-float'),
                 Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
