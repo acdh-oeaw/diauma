@@ -96,7 +96,7 @@ def index(request):
     for name, table in tables.items():
         RequestConfig(
             request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
-    statvfs = os.statvfs(settings.MEDIA_URL)
+    statvfs = os.statvfs('/var/www/html')
     disk_space = statvfs.f_frsize * statvfs.f_blocks
     free_space = statvfs.f_frsize * statvfs.f_bavail  # available space without reserved blocks
     disk_space_values = {
