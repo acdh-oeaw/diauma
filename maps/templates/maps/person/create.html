@@ -47,8 +47,8 @@
                                     console.log(key);
                                     console.log(value);
                                     $('#gnd-select').append($('<option>', {
-                                        value: value.id,
-                                        text: value.id
+                                        value: value.id.split("/").pop(),
+                                        text: value['http://www.w3.org/2000/01/rdf-schema#label'][0].value
                                     }));
                                 });
                             } else {
