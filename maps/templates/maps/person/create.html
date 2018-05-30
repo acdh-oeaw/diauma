@@ -12,5 +12,54 @@
         <div class="panel-body">
             {% crispy form %}
         </div>
+        <input class="btn btn-primary" id="gnd-search" name="gnd-search"
+                        type="button" value="Search in GND" />
+        </input>
+        <select id="gnd-select" name="gnd-select"></select>
+        <script>
+            $(document).ready(function() {
+                $('#gnd-select').hide();
+
+                function getName(gnd) {
+                    var name = gnd.name;
+                    var extraName;
+                    name += ' (' + gnd['fcodeName'] + ')';
+                    return name;
+                }
+
+                $('#gnd-select').change(function() {
+                    $('#id_gnd_id').val($(this).val());
+                });
+
+                $('#gnd-search').click(function() {
+                    $('#no-results').hide();
+                    $('#gnd-select').show();
+                    $('#gnd-select').empty();
+                    question = $('#id_name').val();
+                    max_rows = '12';
+                    request_url = 'http://enrich.acdh.oeaw.ac.at/entityhub/site/gndPersons/find?name=Kreisky'
+                    $.ajax({
+                        url: request_url,
+                        success: function(data){
+                            if (data.results.length > 0) {
+                                $('#geonames-select').append($('<option>', {value: '', text: ''}));
+                                $.each(data.results, function(key, value) {
+                                    console.log(key);
+                                    console.log(value);
+                                    $('#gnd-select').append($('<option>', {
+                                        value: value.id,
+                                        text: value.id
+                                    }));
+                                });
+                            } else {
+                                $('#gnd-select').hide();
+                                $('#no-results').show();
+                            }
+                        },
+                        return: false
+                    })
+                })
+            });
+        </script>
     </div>
 {% endblock %}
