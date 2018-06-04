@@ -6,7 +6,7 @@ from django.conf import settings
 
 class GeonamesWidget(widgets.NumberInput):
     """ A widget for a GeoNames Id form field. It searches for the value from an #id_name field.
-        Fuzzy search can be toggled and search categories selected. """
+        Fuzzy search can be toggled and search categories selected."""
 
     def render(self, name, value, attrs=None, **kwargs):
         final_attrs = self.build_attrs(self.attrs, attrs)
@@ -46,7 +46,6 @@ class GeonamesWidget(widgets.NumberInput):
                 codes=codes,
                 no_results='No matching results found at GeoNames.')
 
-        # Todo: find a way to load a JavaScript file in same dir instead adding it here
         output += """
             <script>
             $(document).ready(function() {
