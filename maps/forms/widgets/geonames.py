@@ -68,6 +68,16 @@ class GeonamesWidget(widgets.NumberInput):
                     $('#id_geonames_id').val($(this).val());
                 });
 
+                $(".geonames-switch").toggle();
+                $("#geonames-switcher").click(function () {
+                    $(".geonames-switch").toggle();
+                    if ($("#geonames-switcher").text() == 'Show') {
+                        $("#geonames-switcher").text('Hide')
+                    } else {
+                        $("#geonames-switcher").text('Show')
+                    }
+                });
+
                 $('#geonames-search').click(function() {
                     $('#no-results').hide();
                     $('#geonames-select').show();

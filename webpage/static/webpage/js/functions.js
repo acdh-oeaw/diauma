@@ -1,16 +1,5 @@
 $(document).ready(function () {
 
-    /* Show and hide function for GeoNames search */
-    $(".geonames-switch").toggle();
-    $("#geonames-switcher").click(function () {
-        $(".geonames-switch").toggle();
-        if ($("#geonames-switcher").text() == 'Show') {
-            $("#geonames-switcher").text('Hide')
-        } else {
-            $("#geonames-switcher").text('Show')
-        }
-    });
-
     $.jstree.defaults.core.themes.dots = false;
 
     /* workaround for bootstraps inability to open tabs with a direct link */

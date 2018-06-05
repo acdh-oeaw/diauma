@@ -9,15 +9,18 @@ class GndWidget(widgets.NumberInput):
     def render(self, name, value, attrs=None, **kwargs):
         final_attrs = self.build_attrs(self.attrs, attrs)
         output = super(GndWidget, self).render(name, value, final_attrs, **kwargs)
-        tooltip = "You can search at GND for corresponding entries for the value of the " \
-                  "'Name' field. If entries are found you can choose one from a list to " \
-                  "automatically fill the 'GND-Id' field."
+        tooltip = "You can search at GND for corresponding entries. You can use * as wildcard at" \
+                  " the end. If entries are found you can choose one from a list to " \
+                  " automatically fill the 'GND-Id' field."
         output += """
             <div class="table-cell">
                 <span id="gnd-switcher" class="button">Show</span>
             </div>
-            <div class="gnd-switch" style="width:24em;margin-top:1em;">
+            <div class="gnd-switch" style="width:28em;margin-top:1em;">
                 <p class="gnd-switch">
+                    <input type="text" id="gnd-question" name="gnd-question"
+                         placeholder="Goethe, Wolfg*" />
+                    </input>
                     <input class="btn btn-primary" id="gnd-search" name="gnd-search"
                         type="button" value="{label}" />
                     </input>
@@ -46,14 +49,23 @@ class GndWidget(widgets.NumberInput):
                     $('#id_gnd_id').val($(this).val());
                 });
 
+                $(".gnd-switch").toggle();
+                $("#gnd-switcher").click(function () {
+                    $(".gnd-switch").toggle();
+                    if ($("#gnd-switcher").text() == 'Show') {
+                        $("#gnd-switcher").text('Hide')
+                    } else {
+                        $("#gnd-switcher").text('Show')
+                    }
+                });
+
                 $('#gnd-search').click(function() {
                     $('#no-results').hide();
                     $('#gnd-select').show();
                     $('#gnd-select').empty();
                     label_identifier = 'http://www.w3.org/2000/01/rdf-schema#label'
-                    question = $('#id_name').val();
                     url = 'http://enrich.acdh.oeaw.ac.at/entityhub/site/gndPersons/find?name=';
-                    url += $('#id_name').val();
+                    url += $('#gnd-question').val();
                     $.ajax({
                         url: url,
                         success: function(data){

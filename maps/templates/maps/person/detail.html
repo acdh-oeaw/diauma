@@ -40,6 +40,12 @@
                             <p>{% trans "member of"|capfirst %}: {{ institutes|join:', ' }}</p>
                         {% endif %}
                     {% endautoescape %}
+                    {% if person.gnd_id %}
+                        <p>
+                            GND ID:
+                            <a href="http://d-nb.info/gnd/{{ person.gnd_id }}" rel="noopener" target="_blank">{{ person.gnd_id }}</a>
+                        </p>
+                    {% endif %}
                     {% if person.date_begin or person.date_end %}
                         <p>
                             {% trans "dates"|capfirst %}:
