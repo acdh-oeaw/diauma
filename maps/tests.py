@@ -103,6 +103,8 @@ class MapsTest(TestCase):
             {'name': 'Newcastle', 'info': 'hello info'},
             follow=True)
         self.assertContains(rv, 'Newcastle')
+        rv = self.client.get(reverse('maps:place-update', kwargs={'pk': place.id}), follow=True)
+        self.assertContains(rv, 'hello info')
         rv = self.client.get(reverse('maps:place'), follow=True)
         self.assertContains(rv, 'Atlantis')
         rv = self.client.post(reverse('maps:place-delete', kwargs={'pk': place.id}), follow=True)
