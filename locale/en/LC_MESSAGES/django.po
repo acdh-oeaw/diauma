@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Diauma\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-07 15:50+0200\n"
+"POT-Creation-Date: 2018-06-06 12:51+0200\n"
 "PO-Revision-Date: 2018-05-07 15:53+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -25,28 +25,28 @@ msgstr "change"
 #: maps/forms/map.py:20 maps/forms/map.py:27 maps/forms/map.py:86
 #: maps/forms/map.py:89 maps/forms/map.py:92 maps/forms/map.py:95
 #: maps/forms/map.py:98 maps/forms/map.py:101 maps/forms/map.py:104
-#: maps/forms/person.py:26 maps/forms/person.py:29 maps/forms/reference.py:20
+#: maps/forms/person.py:27 maps/forms/person.py:30 maps/forms/reference.py:20
 #: maps/forms/scan.py:24 maps/forms/scan.py:32 maps/forms/scan.py:39
 msgid "Type for getting available entries"
 msgstr "Type for getting available entries"
 
 #: maps/forms/file.py:42 maps/forms/institute.py:25 maps/forms/map.py:113
-#: maps/forms/person.py:34 maps/forms/place.py:21 maps/forms/reference.py:25
+#: maps/forms/person.py:35 maps/forms/place.py:21 maps/forms/reference.py:25
 #: maps/forms/scan.py:54 maps/forms/type.py:29
 msgid "submit"
 msgstr "submit"
 
 #: maps/forms/file.py:49 maps/forms/file.py:61 maps/forms/institute.py:32
-#: maps/forms/map.py:122 maps/forms/person.py:40 maps/forms/place.py:28
+#: maps/forms/map.py:122 maps/forms/person.py:42 maps/forms/place.py:28
 #: maps/forms/reference.py:32 maps/forms/scan.py:61 maps/forms/scan.py:75
 msgid "data"
 msgstr "data"
 
 #: maps/forms/file.py:54 maps/forms/file.py:71 maps/forms/institute.py:37
-#: maps/forms/map.py:150 maps/forms/person.py:50 maps/forms/place.py:34
+#: maps/forms/map.py:150 maps/forms/person.py:53 maps/forms/place.py:34
 #: maps/forms/reference.py:37 maps/forms/scan.py:68 maps/forms/scan.py:88
 #: maps/model/file.py:39 maps/model/institute.py:16 maps/model/map.py:43
-#: maps/model/person.py:21 maps/model/place.py:15 maps/model/reference.py:13
+#: maps/model/person.py:23 maps/model/place.py:15 maps/model/reference.py:13
 #: maps/model/scan.py:41 maps/templates/maps/types_for_detail_view.html:6
 #: webpage/templates/webpage/layout.html:82
 msgid "types"
@@ -56,7 +56,7 @@ msgstr "types"
 msgid "This file is too big."
 msgstr "This file is too big."
 
-#: maps/forms/map.py:129 maps/templates/maps/person/detail.html:45
+#: maps/forms/map.py:129 maps/templates/maps/person/detail.html:51
 msgid "dates"
 msgstr "dates"
 
@@ -95,7 +95,7 @@ msgstr "maps"
 msgid "references"
 msgstr "references"
 
-#: maps/model/institute.py:14 maps/model/person.py:17
+#: maps/model/institute.py:14 maps/model/person.py:19
 msgid "location"
 msgstr "location"
 
@@ -159,15 +159,15 @@ msgstr "has base map"
 msgid "Map ID already in use."
 msgstr "Map ID already in use."
 
-#: maps/model/person.py:14 maps/tables.py:57
+#: maps/model/person.py:16 maps/tables.py:57
 msgid "begin"
 msgstr "begin"
 
-#: maps/model/person.py:15 maps/tables.py:58
+#: maps/model/person.py:17 maps/tables.py:58
 msgid "end"
 msgstr "end"
 
-#: maps/model/person.py:19
+#: maps/model/person.py:21
 msgid "institutes"
 msgstr "institutes"
 
@@ -275,7 +275,7 @@ msgstr "file type"
 #: maps/templates/maps/files/scan/detail.html:84
 #: maps/templates/maps/institute/detail.html:59
 #: maps/templates/maps/map/detail.html:134
-#: maps/templates/maps/person/detail.html:70
+#: maps/templates/maps/person/detail.html:76
 #: maps/templates/maps/place/detail.html:89
 #: maps/templates/maps/reference/detail.html:73
 #: maps/templates/maps/type/detail.html:54
@@ -314,8 +314,10 @@ msgid "Entries without a file with a link to the entry."
 msgstr "Entries without a file with a link to the entry."
 
 #: maps/templates/maps/files/index.html:61
-msgid "Files that exist but have no related database entries with a download link."
-msgstr "Files that exist but have no related database entries with a download link."
+msgid ""
+"Files that exist but have no related database entries with a download link."
+msgstr ""
+"Files that exist but have no related database entries with a download link."
 
 #: maps/templates/maps/files/index.html:65
 msgid "Congratulation, no orphaned files or data entries found."
@@ -402,7 +404,7 @@ msgstr "person"
 msgid "member of"
 msgstr "member of"
 
-#: maps/templates/maps/place/create.html:6
+#: maps/templates/maps/place/create.html:5
 #: maps/templates/maps/place/detail.html:6
 #: maps/templates/maps/place/index.html:6
 #: maps/templates/maps/place/index.html:12
@@ -544,7 +546,10 @@ msgstr "next"
 #~ msgstr "Search in GeoNames"
 
 #~ msgid "info geonames"
-#~ msgstr "You can search at GeoNames for corresponding entries for the value of the 'Name' field. If entries are found you can choose one from a list to automatically fill the 'GeoNamesId' field."
+#~ msgstr ""
+#~ "You can search at GeoNames for corresponding entries for the value of the "
+#~ "'Name' field. If entries are found you can choose one from a list to "
+#~ "automatically fill the 'GeoNamesId' field."
 
 #~ msgid "No matching results found at GeoNames."
 #~ msgstr "No matching results found at GeoNames."
