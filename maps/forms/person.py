@@ -6,6 +6,7 @@ from django import forms
 from django.utils.translation import ugettext, ugettext_lazy
 
 from maps.forms.base import BaseForm
+from maps.forms.widgets.gnd import GndWidget
 from maps.model.person import Person
 from maps.model.type import Type
 
@@ -15,7 +16,7 @@ class PersonForm(BaseForm):
     class Meta:
         model = Person
         fields = ('name', 'info', 'date_begin', 'date_end', 'person_location',
-                  'person_institutes', 'person_type')
+                  'person_institutes', 'person_type', 'gnd_id')
         widgets = {
             'date_begin': forms.DateInput(
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
@@ -32,6 +33,7 @@ class PersonForm(BaseForm):
         super(PersonForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', ugettext('submit').capitalize()))
+        # self.fields['gnd_id'].widget = GndWidget()
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.person_type.all()] if instance else []
         nodes_html = self.get_nodes_html(Type.objects.get(name='Person', parent=None), selected_ids)
@@ -41,6 +43,7 @@ class PersonForm(BaseForm):
                 'name',
                 'person_location',
                 'person_institutes',
+                'gnd_id',
                 HTML('<div class="form-float date-fields">'),
                 'date_begin',
                 'date_end',

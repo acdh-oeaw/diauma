@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-07 15:50+0200\n"
+"POT-Creation-Date: 2018-06-06 12:51+0200\n"
 "PO-Revision-Date: 2018-05-07 15:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,28 +26,28 @@ msgstr "ändern"
 #: maps/forms/map.py:20 maps/forms/map.py:27 maps/forms/map.py:86
 #: maps/forms/map.py:89 maps/forms/map.py:92 maps/forms/map.py:95
 #: maps/forms/map.py:98 maps/forms/map.py:101 maps/forms/map.py:104
-#: maps/forms/person.py:26 maps/forms/person.py:29 maps/forms/reference.py:20
+#: maps/forms/person.py:27 maps/forms/person.py:30 maps/forms/reference.py:20
 #: maps/forms/scan.py:24 maps/forms/scan.py:32 maps/forms/scan.py:39
 msgid "Type for getting available entries"
 msgstr "Eintippen um Auswahl zu erhalten"
 
 #: maps/forms/file.py:42 maps/forms/institute.py:25 maps/forms/map.py:113
-#: maps/forms/person.py:34 maps/forms/place.py:21 maps/forms/reference.py:25
+#: maps/forms/person.py:35 maps/forms/place.py:21 maps/forms/reference.py:25
 #: maps/forms/scan.py:54 maps/forms/type.py:29
 msgid "submit"
 msgstr "speichern"
 
 #: maps/forms/file.py:49 maps/forms/file.py:61 maps/forms/institute.py:32
-#: maps/forms/map.py:122 maps/forms/person.py:40 maps/forms/place.py:28
+#: maps/forms/map.py:122 maps/forms/person.py:42 maps/forms/place.py:28
 #: maps/forms/reference.py:32 maps/forms/scan.py:61 maps/forms/scan.py:75
 msgid "data"
 msgstr "Daten"
 
 #: maps/forms/file.py:54 maps/forms/file.py:71 maps/forms/institute.py:37
-#: maps/forms/map.py:150 maps/forms/person.py:50 maps/forms/place.py:34
+#: maps/forms/map.py:150 maps/forms/person.py:53 maps/forms/place.py:34
 #: maps/forms/reference.py:37 maps/forms/scan.py:68 maps/forms/scan.py:88
 #: maps/model/file.py:39 maps/model/institute.py:16 maps/model/map.py:43
-#: maps/model/person.py:21 maps/model/place.py:15 maps/model/reference.py:13
+#: maps/model/person.py:23 maps/model/place.py:15 maps/model/reference.py:13
 #: maps/model/scan.py:41 maps/templates/maps/types_for_detail_view.html:6
 #: webpage/templates/webpage/layout.html:82
 msgid "types"
@@ -57,7 +57,7 @@ msgstr "Typen"
 msgid "This file is too big."
 msgstr "Diese Datei ist zu groß."
 
-#: maps/forms/map.py:129 maps/templates/maps/person/detail.html:45
+#: maps/forms/map.py:129 maps/templates/maps/person/detail.html:51
 msgid "dates"
 msgstr "Datumsangaben"
 
@@ -96,7 +96,7 @@ msgstr "Karten"
 msgid "references"
 msgstr "Referenzen"
 
-#: maps/model/institute.py:14 maps/model/person.py:17
+#: maps/model/institute.py:14 maps/model/person.py:19
 msgid "location"
 msgstr "Ort"
 
@@ -160,15 +160,15 @@ msgstr "Hat Grundkarte"
 msgid "Map ID already in use."
 msgstr "Diese Karten ID ist schon in Verwendung."
 
-#: maps/model/person.py:14 maps/tables.py:57
+#: maps/model/person.py:16 maps/tables.py:57
 msgid "begin"
 msgstr "Beginn"
 
-#: maps/model/person.py:15 maps/tables.py:58
+#: maps/model/person.py:17 maps/tables.py:58
 msgid "end"
 msgstr "Ende"
 
-#: maps/model/person.py:19
+#: maps/model/person.py:21
 msgid "institutes"
 msgstr "Institute"
 
@@ -276,7 +276,7 @@ msgstr "Dateityp"
 #: maps/templates/maps/files/scan/detail.html:84
 #: maps/templates/maps/institute/detail.html:59
 #: maps/templates/maps/map/detail.html:134
-#: maps/templates/maps/person/detail.html:70
+#: maps/templates/maps/person/detail.html:76
 #: maps/templates/maps/place/detail.html:89
 #: maps/templates/maps/reference/detail.html:73
 #: maps/templates/maps/type/detail.html:54
@@ -406,7 +406,7 @@ msgstr "Person"
 msgid "member of"
 msgstr "Mitglied von"
 
-#: maps/templates/maps/place/create.html:6
+#: maps/templates/maps/place/create.html:5
 #: maps/templates/maps/place/detail.html:6
 #: maps/templates/maps/place/index.html:6
 #: maps/templates/maps/place/index.html:12

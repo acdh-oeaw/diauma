@@ -14,9 +14,9 @@ Name *
 The name is used for display in tables and can be searched.
 
 
-GeoNamesId
-----------
-This field can be used to connect a place to `GeoNames <http://www.geonames.org/>`_ identifier.
+GeoNames Id
+-----------
+This field can be used to connect a place to a `GeoNames <http://www.geonames.org/>`_ identifier.
 
 You can search at GeoNames for corresponding entries for the value of the
 **Name** field. If entries are found you can choose one from a list to
