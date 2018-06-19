@@ -56,7 +56,7 @@
     </div>
     <script>
         $(document).on('click', '#delete-institute', function(){
-            return confirm('{% blocktrans with object.name as name %}Delete {{ name }}?{% endblocktrans %}');
+            return confirm('{% blocktrans with institute.name as name %}Delete {{ name }}?{% endblocktrans %}');
         })
     </script>
 {% endblock %}
