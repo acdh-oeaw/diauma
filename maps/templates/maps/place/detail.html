@@ -86,7 +86,7 @@
     </div>
     <script>
         $(document).on('click', '#delete-place', function(){
-            return confirm('{% blocktrans with object.name as name %}Delete {{ name }}?{% endblocktrans %}');
+            return confirm('{% blocktrans with place.name as name %}Delete {{ name }}?{% endblocktrans %}');
         })
     </script>
 {% endblock %}
