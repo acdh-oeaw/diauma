@@ -19,8 +19,10 @@ class PersonForm(BaseForm):
                   'person_institutes', 'person_type', 'gnd_id')
         widgets = {
             'date_begin': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'date_end': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs={'class': 'date', 'input_formats': '%Y-%m-%d', 'placeholder': 'YYYY-MM-DD'}),
             'person_location': autocomplete.ModelSelect2(
                 url='maps-ac:place-autocomplete',
