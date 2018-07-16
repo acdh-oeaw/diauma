@@ -140,6 +140,9 @@ class MapForm(BaseForm):
                 'file_map',
                 'scan_map',
                 'map_base',
+                HTML('<p><a target="_blank" style="font-weight:bold;" '
+                     'href="/static/webpage/img/base_maps.pdf">'
+                     + ugettext('Basemap PDF') + '</a></p>'),
                 'map_copy',
                 'map_persons',
                 'map_issued',

@@ -19,10 +19,15 @@ class BaseForm(forms.ModelForm):
                     selected_ids_string.append(str(child.id))
                     selected_name_string += child.name + '<br />'
             selected_ids_string = ','.join(selected_ids_string)
+            tooltip = ''
+            if node.info:
+                title = node.info.replace('"', "'")
+                tooltip = '<span class="diauma-tooltip" title="' + title + '">i</span>'
+
             html += """
                 <div class="table-row">
                     <div>
-                        <label class="optional" for="{field}-button">{node_name}</label>
+                        <label class="optional" for="{field}-button">{node_name}</label> {tooltip}
                     </div>
                     <div class="table-cell">
                         <input type="hidden" name="{field}-id"
@@ -34,6 +39,7 @@ class BaseForm(forms.ModelForm):
                     </div>
                 </div>""".format(
                     change=ugettext('change').capitalize(),
+                    tooltip=tooltip,
                     field='map-type-' + sanitize(node.name),
                     node_name=node.name,
                     selected_ids_string=selected_ids_string,
