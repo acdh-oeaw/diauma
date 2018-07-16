@@ -63,8 +63,8 @@ class GndWidget(widgets.NumberInput):
                     $('#no-results').hide();
                     $('#gnd-select').show();
                     $('#gnd-select').empty();
-                    label_identifier = 'http://www.w3.org/2000/01/rdf-schema#label'
-                    url = 'http://enrich.acdh.oeaw.ac.at/entityhub/site/gndPersons/find?name=';
+                    label_identifier = 'http://www.w3.org/2000/01/rdf-schema#label';
+                    url = 'https://enrich.acdh.oeaw.ac.at/entityhub/site/gndPersons/find?name=';
                     url += $('#gnd-question').val();
                     $.ajax({
                         url: url,
