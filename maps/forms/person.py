@@ -35,7 +35,7 @@ class PersonForm(BaseForm):
         super(PersonForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', ugettext('submit').capitalize()))
-        # self.fields['gnd_id'].widget = GndWidget()
+        self.fields['gnd_id'].widget = GndWidget()
         instance = kwargs.get('instance')
         selected_ids = [o.id for o in instance.person_type.all()] if instance else []
         nodes_html = self.get_nodes_html(Type.objects.get(name='Person', parent=None), selected_ids)
