@@ -5,7 +5,7 @@
     <div class="detail-column">
         <h3>{% trans "types"|capfirst %}</h3>
         {% for node in types %}
-            <span title="{{ node.get_ancestors|tree_path:' > ' }}">{{ node|link }}</span><br />
+            {{ node.get_ancestors.1 }} <span title="{{ node.get_ancestors|tree_path:' > ' }}&#10;{% replace_string node.info '"' "'" %}">{{ node|link }}</span><br />
         {% endfor %}
     </div>
 {% endif %}
