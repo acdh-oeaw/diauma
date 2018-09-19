@@ -20,7 +20,7 @@
                     <ul>
                         {% recursetree root.get_descendants %}
                             <li>
-                                {{ node|link }}
+                                <span title="{% replace_string node.info '"' "'" %}">{{ node|link }}</span>
                                 {% if node.level > 1 %}
                                     ({{ node|display_node_count:root.name }})
                                 {% endif %}

@@ -17,7 +17,8 @@ class BaseForm(forms.ModelForm):
             for child in node.get_descendants():
                 if child.id in selected_ids:
                     selected_ids_string.append(str(child.id))
-                    selected_name_string += child.name + '<br />'
+                    selected_name_string += '<span title="' + child.info.replace('"', "'") + '">'
+                    selected_name_string += child.name + '</span><br />'
             selected_ids_string = ','.join(selected_ids_string)
             tooltip = ''
             if node.info:
