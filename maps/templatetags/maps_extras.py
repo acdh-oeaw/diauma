@@ -57,6 +57,11 @@ def display_info(entity):
     return mark_safe(text + '<div class="info_content">%s</div>' % linebreaks(entity.info))
 
 
+@register.simple_tag
+def replace_string(text, search_value, replace_value):
+    return text.replace(search_value, replace_value)
+
+
 @register.filter(name='display_dates')
 def display_dates(entity):
     """ Returns created and modified date if available."""
