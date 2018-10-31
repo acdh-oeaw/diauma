@@ -35,6 +35,9 @@
                     {% csrf_token %}<input id="delete-file" type="submit" value="{% trans 'delete'|capfirst %}">
                 </form>
                 <a class="button" download target="_blank" href="{{ file.file.url }}">{% trans "download"|capfirst %}</a>
+                {% if file.file|file_exists and 'pdf' in file.file.name|mime_type %}
+                    <a class="button" target="_blank" href="{{ file.file.url }}">{% trans "view"|capfirst %}</a>
+                {% endif %}
             </div>
             <h2>{{ file.name }}</h2>
             <div>

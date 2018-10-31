@@ -143,9 +143,7 @@ def file_detail(request, pk):
     tables['references'] = ReferenceTable(Reference.objects.filter(file_reference=file))
     tables['references'].tab = '#references'
     return render(request, 'maps/files/file/detail.html', {
-        'file': file,
-        'tables': tables,
-        'types': Type.objects.filter(file_type=file)})
+        'file': file, 'tables': tables, 'types': Type.objects.filter(file_type=file)})
 
 
 @login_required

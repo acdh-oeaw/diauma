@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-06 12:51+0200\n"
-"PO-Revision-Date: 2018-05-07 15:54+0200\n"
+"POT-Creation-Date: 2018-10-31 16:08+0100\n"
+"PO-Revision-Date: 2018-10-31 16:09+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.11\n"
 
-#: maps/forms/base.py:36
+#: maps/forms/base.py:42
 msgid "change"
 msgstr "ändern"
 
@@ -26,25 +26,25 @@ msgstr "ändern"
 #: maps/forms/map.py:20 maps/forms/map.py:27 maps/forms/map.py:86
 #: maps/forms/map.py:89 maps/forms/map.py:92 maps/forms/map.py:95
 #: maps/forms/map.py:98 maps/forms/map.py:101 maps/forms/map.py:104
-#: maps/forms/person.py:27 maps/forms/person.py:30 maps/forms/reference.py:20
+#: maps/forms/person.py:29 maps/forms/person.py:32 maps/forms/reference.py:20
 #: maps/forms/scan.py:24 maps/forms/scan.py:32 maps/forms/scan.py:39
 msgid "Type for getting available entries"
 msgstr "Eintippen um Auswahl zu erhalten"
 
 #: maps/forms/file.py:42 maps/forms/institute.py:25 maps/forms/map.py:113
-#: maps/forms/person.py:35 maps/forms/place.py:21 maps/forms/reference.py:25
+#: maps/forms/person.py:37 maps/forms/place.py:21 maps/forms/reference.py:25
 #: maps/forms/scan.py:54 maps/forms/type.py:29
 msgid "submit"
 msgstr "speichern"
 
 #: maps/forms/file.py:49 maps/forms/file.py:61 maps/forms/institute.py:32
-#: maps/forms/map.py:122 maps/forms/person.py:42 maps/forms/place.py:28
+#: maps/forms/map.py:122 maps/forms/person.py:44 maps/forms/place.py:28
 #: maps/forms/reference.py:32 maps/forms/scan.py:61 maps/forms/scan.py:75
 msgid "data"
 msgstr "Daten"
 
 #: maps/forms/file.py:54 maps/forms/file.py:71 maps/forms/institute.py:37
-#: maps/forms/map.py:150 maps/forms/person.py:53 maps/forms/place.py:34
+#: maps/forms/map.py:153 maps/forms/person.py:55 maps/forms/place.py:34
 #: maps/forms/reference.py:37 maps/forms/scan.py:68 maps/forms/scan.py:88
 #: maps/model/file.py:39 maps/model/institute.py:16 maps/model/map.py:43
 #: maps/model/person.py:23 maps/model/place.py:15 maps/model/reference.py:13
@@ -68,6 +68,10 @@ msgstr "Benutze ** Felder für eine Zeitspanne."
 #: maps/forms/map.py:139 maps/templates/maps/map/detail.html:76
 msgid "links"
 msgstr "Links"
+
+#: maps/forms/map.py:145
+msgid "Basemap PDF"
+msgstr "Basemap PDF"
 
 #: maps/forms/scan.py:78
 msgid "Max file size"
@@ -188,11 +192,11 @@ msgstr "Ersteller"
 msgid "content"
 msgstr "Inhalt"
 
-#: maps/tables.py:111 maps/templatetags/maps_extras.py:65
+#: maps/tables.py:111 maps/templatetags/maps_extras.py:70
 msgid "created"
 msgstr "erstellt"
 
-#: maps/tables.py:112 maps/templatetags/maps_extras.py:66
+#: maps/tables.py:112 maps/templatetags/maps_extras.py:71
 msgid "modified"
 msgstr "verändert"
 
@@ -252,7 +256,11 @@ msgstr "löschen"
 msgid "download"
 msgstr "download"
 
-#: maps/templates/maps/files/file/detail.html:42
+#: maps/templates/maps/files/file/detail.html:39
+msgid "view"
+msgstr "Anschauen"
+
+#: maps/templates/maps/files/file/detail.html:45
 #: maps/templates/maps/files/scan/detail.html:41
 #: maps/templates/maps/institute/detail.html:35
 #: maps/templates/maps/map/detail.html:45
@@ -261,17 +269,17 @@ msgstr "download"
 msgid "information"
 msgstr "Information"
 
-#: maps/templates/maps/files/file/detail.html:44
+#: maps/templates/maps/files/file/detail.html:47
 #: maps/templates/maps/files/scan/detail.html:43
 msgid "file size"
 msgstr "Dateigröße"
 
-#: maps/templates/maps/files/file/detail.html:46
+#: maps/templates/maps/files/file/detail.html:49
 #: maps/templates/maps/files/scan/detail.html:45
 msgid "file type"
 msgstr "Dateityp"
 
-#: maps/templates/maps/files/file/detail.html:71
+#: maps/templates/maps/files/file/detail.html:74
 #: maps/templates/maps/files/index.html:72
 #: maps/templates/maps/files/scan/detail.html:84
 #: maps/templates/maps/institute/detail.html:59
@@ -456,11 +464,11 @@ msgstr "Keine Ergebnisse für: %(name)s"
 msgid "type"
 msgstr "Typ"
 
-#: maps/templates/maps/type/detail.html:30
+#: maps/templates/maps/type/detail.html:31
 msgid "sub types"
 msgstr "Unter Typen"
 
-#: maps/templates/maps/type/detail.html:48
+#: maps/templates/maps/type/detail.html:49
 msgid "related entries"
 msgstr "Einträge"
 
@@ -510,15 +518,15 @@ msgstr "Suchbegriff"
 msgid "login"
 msgstr "Login"
 
-#: webpage/templates/webpage/layout.html:149
+#: webpage/templates/webpage/layout.html:147
 msgid "version"
 msgstr "Version"
 
-#: webpage/templates/webpage/layout.html:151
+#: webpage/templates/webpage/layout.html:149
 msgid "documentation"
 msgstr "Dokumentation"
 
-#: webpage/templates/webpage/layout.html:152
+#: webpage/templates/webpage/layout.html:150
 msgid "Legal Notice"
 msgstr "Impressum"
 
