@@ -58,6 +58,7 @@ class PersonTable(tables.Table):
         super().__init__(*args, **kwargs)
         self.base_columns['date_begin'].verbose_name = ugettext('begin').capitalize()
         self.base_columns['date_end'].verbose_name = ugettext('end').capitalize()
+        self.base_columns['map_count'].orderable = False
 
     @staticmethod
     def render_name(record):
