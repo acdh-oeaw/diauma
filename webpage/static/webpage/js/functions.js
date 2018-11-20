@@ -28,6 +28,16 @@ $(document).ready(function () {
     });
 })
 
+/* write tab target to url */
+$(function(){
+    var hash = window.location.hash;
+    hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+    $('.nav-tabs a').click(function (e) {
+        $(this).tab('show');
+        window.location.hash = this.hash;
+    });
+});
+
 function select_language(language_code) {
     $('#language').val(language_code);
     $('#language-form').submit();
