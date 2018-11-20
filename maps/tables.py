@@ -46,10 +46,12 @@ class TypeRelatedTable(tables.Table):
 
 class PersonTable(tables.Table):
 
+    map_count = tables.Column(accessor='map_count', verbose_name=ugettext('maps').capitalize())
+
     class Meta:
         model = Person
         attrs = {'class': 'paleblue'}
-        fields = ['name', 'date_begin', 'date_end', 'types', 'info']
+        fields = ['name', 'map_count', 'date_begin', 'date_end', 'info']
         order_by = 'name'
 
     def __init__(self, *args, c1_name="", **kwargs):

@@ -1,6 +1,7 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.db.models import (CASCADE, CharField, DateField, ForeignKey, IntegerField,
                               ManyToManyField, TextField)
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy
 
 from maps.model.base import BaseModel
@@ -24,3 +25,12 @@ class Person(BaseModel):
 
     def __str__(self):
         return self.name
+
+    def map_count(self):
+        from maps.model.map import Map
+        count = Map.objects.filter(map_persons=self).count()
+        html = ''
+        if count:
+            html = mark_safe('<a href="/maps/person/detail/' + str(self.id) +
+                             '/#maps">' + str(count) + '</a>')
+        return html
