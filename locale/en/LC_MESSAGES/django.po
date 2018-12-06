@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Diauma\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-31 16:08+0100\n"
-"PO-Revision-Date: 2018-10-31 16:10+0100\n"
+"POT-Creation-Date: 2018-12-06 14:27+0100\n"
+"PO-Revision-Date: 2018-12-06 14:28+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -45,8 +45,8 @@ msgstr "data"
 #: maps/forms/file.py:54 maps/forms/file.py:71 maps/forms/institute.py:37
 #: maps/forms/map.py:153 maps/forms/person.py:55 maps/forms/place.py:34
 #: maps/forms/reference.py:37 maps/forms/scan.py:68 maps/forms/scan.py:88
-#: maps/model/file.py:39 maps/model/institute.py:16 maps/model/map.py:43
-#: maps/model/person.py:23 maps/model/place.py:15 maps/model/reference.py:13
+#: maps/model/file.py:39 maps/model/institute.py:17 maps/model/map.py:43
+#: maps/model/person.py:24 maps/model/place.py:16 maps/model/reference.py:14
 #: maps/model/scan.py:41 maps/templates/maps/types_for_detail_view.html:6
 #: webpage/templates/webpage/layout.html:82
 msgid "types"
@@ -84,7 +84,8 @@ msgstr "allowed files"
 msgid "File size exceeded. Allowed are:"
 msgstr "File size exceeded. Allowed are:"
 
-#: maps/model/file.py:41 maps/model/scan.py:47
+#: maps/model/file.py:41 maps/model/scan.py:47 maps/tables.py:49
+#: maps/tables.py:162 maps/tables.py:184
 #: maps/templates/maps/files/file/detail.html:21
 #: maps/templates/maps/files/scan/detail.html:21
 #: maps/templates/maps/institute/detail.html:16
@@ -99,7 +100,7 @@ msgstr "maps"
 msgid "references"
 msgstr "references"
 
-#: maps/model/institute.py:14 maps/model/person.py:19
+#: maps/model/institute.py:15 maps/model/person.py:20
 msgid "location"
 msgstr "location"
 
@@ -163,19 +164,19 @@ msgstr "has base map"
 msgid "Map ID already in use."
 msgstr "Map ID already in use."
 
-#: maps/model/person.py:16 maps/tables.py:57
+#: maps/model/person.py:17 maps/tables.py:59
 msgid "begin"
 msgstr "begin"
 
-#: maps/model/person.py:17 maps/tables.py:58
+#: maps/model/person.py:18 maps/tables.py:60
 msgid "end"
 msgstr "end"
 
-#: maps/model/person.py:21
+#: maps/model/person.py:22
 msgid "institutes"
 msgstr "institutes"
 
-#: maps/model/reference.py:15 maps/templates/maps/reference/detail.html:38
+#: maps/model/reference.py:16 maps/templates/maps/reference/detail.html:38
 msgid "has super"
 msgstr "has super"
 
@@ -187,15 +188,23 @@ msgstr "Scan size exceeded. Allowed are:"
 msgid "creator"
 msgstr "creator"
 
-#: maps/tables.py:110
+#: maps/tables.py:87
+msgid "issued"
+msgstr "issued"
+
+#: maps/tables.py:88
+msgid "located"
+msgstr "located"
+
+#: maps/tables.py:120
 msgid "content"
 msgstr "content"
 
-#: maps/tables.py:111 maps/templatetags/maps_extras.py:70
+#: maps/tables.py:121 maps/templatetags/maps_extras.py:70
 msgid "created"
 msgstr "created"
 
-#: maps/tables.py:112 maps/templatetags/maps_extras.py:71
+#: maps/tables.py:122 maps/templatetags/maps_extras.py:71
 msgid "modified"
 msgstr "modified"
 
