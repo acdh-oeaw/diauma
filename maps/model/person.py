@@ -31,6 +31,5 @@ class Person(BaseModel):
         count = Map.objects.filter(map_persons=self).count()
         html = ''
         if count:
-            html = mark_safe('<a href="/maps/person/detail/' + str(self.id) +
-                             '/#maps">' + str(count) + '</a>')
-        return html
+            html = '<a href="/maps/person/detail/' + str(self.id) + '/#maps">' + str(count) + '</a>'
+        return mark_safe(html)

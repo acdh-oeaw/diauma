@@ -1,5 +1,6 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
-from django.db.models import (CASCADE, CharField, ManyToManyField, TextField, ForeignKey)
+from django.db.models import (CASCADE, CharField, ForeignKey, ManyToManyField, TextField)
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy
 
 from maps.model.base import BaseModel
@@ -16,3 +17,12 @@ class Reference(BaseModel):
 
     def __str__(self):
         return self.name
+
+    def map_count(self):
+        from maps.model.map import Map
+        referenced_count = Map.objects.filter(map_references=self).count()
+        html = ''
+        if referenced_count:
+            html = '<a href="/maps/reference/detail/' + str(self.id) + '/#maps">' + \
+                   str(referenced_count) + '</a>'
+        return mark_safe(html)

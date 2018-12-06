@@ -11,6 +11,7 @@ from maps.model.institute import Institute
 from maps.model.map import Map
 from maps.model.person import Person
 from maps.model.place import Place
+from maps.model.reference import Reference
 from maps.model.scan import Scan
 from .templatetags.maps_extras import format_date
 from .util import get_mime_type, link, truncate_string
@@ -45,7 +46,6 @@ class TypeRelatedTable(tables.Table):
 
 
 class PersonTable(tables.Table):
-
     map_count = tables.Column(accessor='map_count', verbose_name=ugettext('maps').capitalize())
 
     class Meta:
@@ -84,12 +84,19 @@ class PersonTable(tables.Table):
 
 
 class PlaceTable(tables.Table):
+    issued_count = tables.Column(accessor='issued_count', verbose_name=ugettext('issued').capitalize())
+    located_count = tables.Column(accessor='located_count', verbose_name=ugettext('located').capitalize())
 
     class Meta:
         model = Place
         attrs = {'class': 'paleblue'}
-        fields = ['name', 'info']
+        fields = ['name', 'issued_count', 'located_count', 'info']
         order_by = 'name'
+
+    def __init__(self, *args, c1_name="", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.base_columns['issued_count'].orderable = False
+        self.base_columns['located_count'].orderable = False
 
     @staticmethod
     def render_name(record):
@@ -152,12 +159,17 @@ class MapTable(tables.Table):
 
 
 class ReferenceTable(tables.Table):
+    map_count = tables.Column(accessor='map_count', verbose_name=ugettext('maps').capitalize())
 
     class Meta:
-        model = Map
+        model = Reference
         attrs = {'class': 'paleblue'}
-        fields = ['name', 'info']
+        fields = ['name', 'map_count', 'info']
         order_by = 'name'
+
+    def __init__(self, *args, c1_name="", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.base_columns['map_count'].orderable = False
 
     @staticmethod
     def render_name(record):
@@ -169,12 +181,17 @@ class ReferenceTable(tables.Table):
 
 
 class InstituteTable(tables.Table):
+    map_count = tables.Column(accessor='map_count', verbose_name=ugettext('maps').capitalize())
 
     class Meta:
         model = Institute
         attrs = {'class': 'paleblue'}
-        fields = ['name', 'institute_location', 'info']
+        fields = ['name', 'map_count', 'institute_location', 'info']
         order_by = 'name'
+
+    def __init__(self, *args, c1_name="", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.base_columns['map_count'].orderable = False
 
     @staticmethod
     def render_name(record):
