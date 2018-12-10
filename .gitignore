@@ -34,5 +34,6 @@ docs/_*/*
 .psql_history
 .viminfo
 myenv/*
+3.5_myenv/*
 staticfiles/*
 
