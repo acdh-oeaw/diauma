@@ -1,8 +1,8 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.conf.urls import url
 
-from .views import (changelog, files, institute, map, network, person, place, reference, search,
-                    type)
+from .views import (changelog, files, institute, leaflet, map, network, person, place, reference,
+                    search, type)
 
 app_name = 'maps'
 
@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^changelog/$', changelog.index, name='changelog'),
     url(r'^search/$', search.index, name='search'),
     url(r'^network/$', network.index, name='network'),
+    url(r'^leaflet/$', leaflet.index, name='leaflet'),
 
     url(r'^map/$', map.index, name='map'),
     url(r'^map/detail/(?P<pk>\d+)/$', map.detail, name='map-detail'),

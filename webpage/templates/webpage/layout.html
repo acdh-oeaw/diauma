@@ -84,6 +84,9 @@
                             <li class="{% if 'network' in request.resolver_match.url_name %}active{% endif %}">
                                 <a href="{% url 'maps:network' %}">{% trans "network"|capfirst %}</a>
                             </li>
+                            <li class="{% if 'leaflet' in request.resolver_match.url_name %}active{% endif %}">
+                                <a href="{% url 'maps:leaflet' %}">Leaflet</a>
+                            </li>
                         {% endif %}
                     </ul>
                     <div style="float:right;margin-top:1em;">
