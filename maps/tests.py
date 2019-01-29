@@ -25,6 +25,10 @@ class MapsTest(TestCase):
         form_data = {'username': 'temporary', 'password': 'temporary'}
         self.client.post(reverse('webpage:login'), form_data, follow=True)
 
+    def test_leaflet(self):
+        rv = self.client.get(reverse('maps:leaflet'))
+        self.assertContains(rv, 'Overlay')
+
     def test_map(self):
         rv = self.client.post(reverse('maps:map-create'), {'name': 'Middle Earth'}, follow=True)
         self.assertContains(rv, 'Middle Earth')
