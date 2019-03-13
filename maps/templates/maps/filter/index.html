@@ -8,7 +8,6 @@
     {% breadcrumb "search" "" %}
 {% endblock %}
 {% block content %}
-    A new beginning
     <form action="{% url 'maps:search' %}" method="post">
         {% csrf_token %}
         <input id="search-term" name="search-term" type="text" style="width: 10em;" value="{{ search_term }}" />

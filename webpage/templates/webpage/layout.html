@@ -89,6 +89,13 @@
                             </li>
                         {% endif %}
                     </ul>
+                    <ul class="nav navbar-nav">
+                        {% if user.is_authenticated %}
+                            <li class="{% if 'filter' in request.resolver_match.url_name %}active{% endif %}">
+                                <a href="{% url 'maps:filter' %}">{% trans 'filter'|capfirst %}</a>
+                            </li>
+                        {% endif %}
+                    </ul>
                     <div style="float:right;margin-top:1em;">
                         <form action="{% url 'set_language' %}" method="post" id="language-form">
                             {% csrf_token %}

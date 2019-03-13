@@ -9,6 +9,7 @@ app_name = 'maps'
 urlpatterns = [
     url(r'^changelog/$', changelog.index, name='changelog'),
     url(r'^search/$', search.index, name='search'),
+    url(r'^filter/$', search.index, name='filter'),
     url(r'^network/$', network.index, name='network'),
     url(r'^leaflet/$', leaflet.index, name='leaflet'),
 
