@@ -91,8 +91,11 @@
                     </ul>
                     <ul class="nav navbar-nav">
                         {% if user.is_authenticated %}
+                            <li class="{% if 'about2' in request.resolver_match.url_name %}active{% endif %}">
+                                <a href="{% url 'maps:about2' %}">{% trans 'about'|capfirst %}</a>
+                            </li>
                             <li class="{% if 'filter' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:filter' %}">{% trans 'filter'|capfirst %}</a>
+                                <a href="{% url 'maps:search2' %}">{% trans 'search'|capfirst %}</a>
                             </li>
                         {% endif %}
                     </ul>

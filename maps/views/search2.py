@@ -14,7 +14,7 @@ from maps.tables import InstituteTable, MapTable, PersonTable, PlaceTable, Refer
 def index(request):
     search_term = request.POST.get('search-term')
     if not search_term:
-        return render(request, 'maps/filter/index.html')
+        return render(request, 'maps/search/index.html')
     result_tables = {}
     maps = Map.objects.filter(name__icontains=search_term)
     if maps:

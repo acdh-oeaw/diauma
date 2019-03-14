@@ -1,0 +1,14 @@
+{% extends "webpage/layout.html" %}
+{% load django_bootstrap_breadcrumbs %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block title %}{% trans "about"|capfirst %}{% endblock %}
+{% block content %}
+<div class="container">
+    {% block breadcrumbs %}
+        {% breadcrumb "about" "maps:about" %}
+    {% endblock %}
+    A new home
+</div>
+{% endblock %}
