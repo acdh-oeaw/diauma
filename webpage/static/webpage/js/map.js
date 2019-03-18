@@ -10,13 +10,17 @@ baseMaps = {
 
 controls = {}
 map.setView([46.5, 14], 8);
-
 L.control.layers(baseMaps, controls).addTo(map);
 baseMaps.OpenStreetMap.addTo(map);
 
+var imageUrl = '/static/webpage/maps/suggestiv_kaernten.png';
+var imageBounds = [[45.65171024913483,12.437753704352426],[47.29437290743704,15.67192558457878]];
+var overlay = L.imageOverlay(imageUrl, imageBounds);
+overlay.addTo(map);
 
-var imageUrl = '/static/webpage/maps/suggestiv_kaernten.png',
-    imageBounds = [[45.65171024913483,12.437753704352426],[47.29437290743704,15.67192558457878]],
-    image = L.imageOverlay(imageUrl, imageBounds);
+function updateOpacity(value) {
+    overlay.setOpacity(value);
+}
 
-image.addTo(map);
+
+
