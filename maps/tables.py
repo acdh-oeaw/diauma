@@ -112,7 +112,7 @@ class MapTable(tables.Table):
     class Meta:
         model = Map
         attrs = {'class': 'paleblue'}
-        fields = ['name', 'date_content', 'created_date', 'modified_date', 'info']
+        fields = ['name', 'scan_map', 'date_content', 'created_date', 'modified_date', 'info']
         order_by = 'name'
 
     def __init__(self, *args, c1_name="", **kwargs):
@@ -120,6 +120,8 @@ class MapTable(tables.Table):
         self.base_columns['date_content'].verbose_name = ugettext('content').capitalize()
         self.base_columns['created_date'].verbose_name = ugettext('created').capitalize()
         self.base_columns['modified_date'].verbose_name = ugettext('modified').capitalize()
+        self.base_columns['scan_map'].verbose_name = ugettext('scans').capitalize()
+        self.base_columns['scan_map'].orderable = False
 
     @staticmethod
     def render_name(record):
@@ -128,6 +130,11 @@ class MapTable(tables.Table):
     @staticmethod
     def render_info(record):
         return mark_safe(truncate_string(record.info, 5))
+
+    @staticmethod
+    def render_scan_map(record):
+        count = record.scan_map.count()
+        return count if count else ''
 
     @staticmethod
     def render_created_date(record):
@@ -247,7 +254,7 @@ class ScanTable(tables.Table):
     class Meta:
         model = Scan
         attrs = {'class': 'paleblue'}
-        fields = ['created_date', 'name', 'file', 'modified_date', 'info']
+        fields = ['created_date', 'name', 'scan_map', 'file', 'modified_date', 'info']
         order_by = '-created_date'
 
     def __init__(self, *args, c1_name="", **kwargs):
@@ -255,10 +262,17 @@ class ScanTable(tables.Table):
         self.base_columns['created_date'].verbose_name = 'Uploaded'
         self.base_columns['file'].verbose_name = 'Size'
         self.base_columns['modified_date'].verbose_name = 'Type'
+        self.base_columns['scan_map'].verbose_name = ugettext('maps').capitalize()
+        self.base_columns['scan_map'].orderable = False
 
     @staticmethod
     def render_modified_date(record):
         return get_mime_type(record.file.name)
+
+    @staticmethod
+    def render_scan_map(record):
+        count = record.scan_map.count()
+        return count if count else ''
 
     @staticmethod
     def render_file(record):
