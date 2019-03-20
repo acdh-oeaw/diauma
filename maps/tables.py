@@ -121,7 +121,6 @@ class MapTable(tables.Table):
         self.base_columns['created_date'].verbose_name = ugettext('created').capitalize()
         self.base_columns['modified_date'].verbose_name = ugettext('modified').capitalize()
         self.base_columns['scan_map'].verbose_name = ugettext('scans').capitalize()
-        self.base_columns['scan_map'].orderable = False
 
     @staticmethod
     def render_name(record):
@@ -263,7 +262,6 @@ class ScanTable(tables.Table):
         self.base_columns['file'].verbose_name = 'Size'
         self.base_columns['modified_date'].verbose_name = 'Type'
         self.base_columns['scan_map'].verbose_name = ugettext('maps').capitalize()
-        self.base_columns['scan_map'].orderable = False
 
     @staticmethod
     def render_modified_date(record):
