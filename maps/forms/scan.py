@@ -54,6 +54,7 @@ class ScanForm(BaseForm):
         self.helper.add_input(Submit('submit', ugettext('submit').capitalize()))
         selected_ids = [o.id for o in instance.scan_type.all()] if instance else []
         nodes_html = self.get_nodes_html(Type.objects.get(name='Scan', parent=None), selected_ids)
+        self.fields['scan_map'].label = 'Map title'
 
         if instance and instance.pk:
             self.fields['file'].widget.attrs['disabled'] = True
@@ -74,11 +75,10 @@ class ScanForm(BaseForm):
             self.helper.layout = Layout(
                 Div(HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                     'file',
-                    HTML(
-                        '<p>' + ugettext('Max file size') + ': ' +
-                        filesizeformat(settings.ALLOWED_SCAN_SIZE) +
-                        '<br />' + ugettext('allowed files') + ': ' +
-                        ', '.join(settings.ALLOWED_SCAN_EXTENSIONS) + '</p>'),
+                    HTML('<p>' + ugettext('Max file size') + ': ' +
+                         filesizeformat(settings.ALLOWED_SCAN_SIZE) +
+                         '<br />' + ugettext('allowed files') + ': ' +
+                         ', '.join(settings.ALLOWED_SCAN_EXTENSIONS) + '</p>'),
                     'name',
                     'scan_date',
                     'scan_map',
@@ -106,7 +106,5 @@ class ScanForm(BaseForm):
                             }}
                         }});
                     }});
-                </script>'''.format(
-                    allowed_upload_size=settings.ALLOWED_SCAN_SIZE,
-                    file_too_big_error=ugettext('This file is too big.')
-                ))))
+                </script>'''.format(allowed_upload_size=settings.ALLOWED_SCAN_SIZE,
+                                    file_too_big_error=ugettext('This file is too big.')))))
