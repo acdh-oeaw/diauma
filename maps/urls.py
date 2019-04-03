@@ -62,5 +62,6 @@ urlpatterns = [
     url(r'^files/file-delete/(?P<pk>\d+)/$', files.FileDelete.as_view(), name='file-delete'),
     url(r'^files/scan-delete/(?P<pk>\d+)/$', files.ScanDelete.as_view(), name='scan-delete'),
     url(r'^files/delete-orphaned-files/$', files.delete_orphaned_files,
-        name='delete-orphaned-files')
-]
+        name='delete-orphaned-files')]
+
+handler404 = 'webpage.views.handler404'
