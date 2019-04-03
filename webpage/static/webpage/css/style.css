@@ -4,12 +4,15 @@ html {
     height: 100%;
 }
 
+#opacitySlider {
+    width: 20em;
+}
+
 #map {
     z-index: 0;
-    float: left;
+    margin-top: 1em;
     height: 600px;
     width: 1100px;
-    margin-left: 1em;
 }
 
 body {

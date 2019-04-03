@@ -19,3 +19,5 @@ urlpatterns = [
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^login/$', auth_views.LoginView.as_view(template_name='webpage/login.html'), name='login'),
     url(r'^docs/(?P<path>.*)', serve, {'document_root': 'docs/html'}, 'docs')]
+
+handler404 = 'webpage.views.handler404'

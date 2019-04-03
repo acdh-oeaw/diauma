@@ -11,3 +11,6 @@ urlpatterns = [
     url(r'^maps/', include('maps.urls', namespace='maps')),
     url(r'^maps-ac/', include('maps.dal_urls', namespace='maps-ac')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+handler404 = 'webpage.views.handler404'

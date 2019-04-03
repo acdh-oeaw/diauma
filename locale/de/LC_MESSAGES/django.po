@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 14:27+0100\n"
-"PO-Revision-Date: 2018-12-06 14:30+0100\n"
+"POT-Creation-Date: 2019-04-02 17:48+0200\n"
+"PO-Revision-Date: 2019-04-02 17:51+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -39,13 +39,13 @@ msgstr "speichern"
 
 #: maps/forms/file.py:49 maps/forms/file.py:61 maps/forms/institute.py:32
 #: maps/forms/map.py:122 maps/forms/person.py:44 maps/forms/place.py:28
-#: maps/forms/reference.py:32 maps/forms/scan.py:61 maps/forms/scan.py:75
+#: maps/forms/reference.py:32 maps/forms/scan.py:62 maps/forms/scan.py:76
 msgid "data"
 msgstr "Daten"
 
 #: maps/forms/file.py:54 maps/forms/file.py:71 maps/forms/institute.py:37
 #: maps/forms/map.py:153 maps/forms/person.py:55 maps/forms/place.py:34
-#: maps/forms/reference.py:37 maps/forms/scan.py:68 maps/forms/scan.py:88
+#: maps/forms/reference.py:37 maps/forms/scan.py:69 maps/forms/scan.py:88
 #: maps/model/file.py:39 maps/model/institute.py:17 maps/model/map.py:43
 #: maps/model/person.py:24 maps/model/place.py:16 maps/model/reference.py:14
 #: maps/model/scan.py:41 maps/templates/maps/types_for_detail_view.html:6
@@ -53,7 +53,7 @@ msgstr "Daten"
 msgid "types"
 msgstr "Typen"
 
-#: maps/forms/file.py:94 maps/forms/scan.py:111
+#: maps/forms/file.py:94 maps/forms/scan.py:110
 msgid "This file is too big."
 msgstr "Diese Datei ist zu groß."
 
@@ -86,7 +86,7 @@ msgid "File size exceeded. Allowed are:"
 msgstr "Dateigröße überschritten. Erlaubt sind:"
 
 #: maps/model/file.py:41 maps/model/scan.py:47 maps/tables.py:49
-#: maps/tables.py:162 maps/tables.py:184
+#: maps/tables.py:168 maps/tables.py:190 maps/tables.py:264
 #: maps/templates/maps/files/file/detail.html:21
 #: maps/templates/maps/files/scan/detail.html:21
 #: maps/templates/maps/institute/detail.html:16
@@ -208,6 +208,13 @@ msgstr "erstellt"
 #: maps/tables.py:122 maps/templatetags/maps_extras.py:71
 msgid "modified"
 msgstr "verändert"
+
+#: maps/tables.py:123 maps/templates/maps/map/detail.html:118
+#: maps/templates/maps/map/detail.html:122
+#: maps/templates/maps/reference/detail.html:57
+#: maps/templates/maps/reference/detail.html:61
+msgid "scans"
+msgstr "Scans"
 
 #: maps/templates/maps/files/file/create.html:5
 #: maps/templates/maps/files/file/detail.html:7
@@ -365,6 +372,14 @@ msgstr "Mitglieder"
 msgid "located at"
 msgstr "Ort"
 
+#: maps/templates/maps/leaflet/index.html:7
+msgid "leaflet"
+msgstr "leaflet"
+
+#: maps/templates/maps/leaflet/index.html:18
+msgid "opacity"
+msgstr "Durchsichtigkeit"
+
 #: maps/templates/maps/map/create.html:5 maps/templates/maps/map/detail.html:7
 #: maps/templates/maps/map/detail.html:47 maps/templates/maps/map/index.html:7
 #: maps/templates/maps/map/index.html:13 maps/templates/maps/map/update.html:6
@@ -399,13 +414,6 @@ msgstr "Höhe"
 #: maps/templates/maps/reference/update.html:6
 msgid "reference"
 msgstr "Referenz"
-
-#: maps/templates/maps/map/detail.html:118
-#: maps/templates/maps/map/detail.html:122
-#: maps/templates/maps/reference/detail.html:57
-#: maps/templates/maps/reference/detail.html:61
-msgid "scans"
-msgstr "Scans"
 
 #: maps/templates/maps/network.html:5 webpage/templates/webpage/layout.html:85
 msgid "network"
@@ -508,6 +516,7 @@ msgstr "Code auf GitHub"
 
 #: webpage/templates/webpage/imprint.html:5
 #: webpage/templates/webpage/imprint.html:9
+#: webpage/templates/webpage/layout.html:153
 msgid "imprint"
 msgstr "Impressum"
 
@@ -523,21 +532,17 @@ msgstr "Abmelden"
 msgid "search term"
 msgstr "Suchbegriff"
 
-#: webpage/templates/webpage/layout.html:102
+#: webpage/templates/webpage/layout.html:105
 msgid "login"
 msgstr "Login"
 
-#: webpage/templates/webpage/layout.html:147
+#: webpage/templates/webpage/layout.html:150
 msgid "version"
 msgstr "Version"
 
-#: webpage/templates/webpage/layout.html:149
+#: webpage/templates/webpage/layout.html:152
 msgid "documentation"
 msgstr "Dokumentation"
-
-#: webpage/templates/webpage/layout.html:150
-msgid "Legal Notice"
-msgstr "Impressum"
 
 #: webpage/templates/webpage/login.html:7
 msgid "Your username and password didn't match. Please try again."
@@ -560,6 +565,9 @@ msgstr "Voriges"
 #: webpage/templates/webpage/table.html:67
 msgid "Next"
 msgstr "Nächstes"
+
+#~ msgid "Legal Notice"
+#~ msgstr "Impressum"
 
 #~ msgid "Search in GeoNames"
 #~ msgstr "Bei GeoNames suchen"

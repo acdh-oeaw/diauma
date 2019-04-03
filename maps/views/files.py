@@ -52,7 +52,7 @@ def index(request):
                 'name': scan,
                 'source': mark_safe('<a href="' + url_ + '">Link</a>')})
     # Todo: write a loop for orphaned files
-    # get orphaned files
+    # Get orphaned files
     orphaned_files_count = 0
     path = settings.MEDIA_ROOT + 'scan/'
     scans = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
@@ -73,11 +73,10 @@ def index(request):
             orphaned_files_count += 1
             link = '<a class="button" download target="_blank" href="/media/file/' + file + '">'
             link += 'Download</a>'
-            orphan_data.append({
-                'type': 'Orphaned file',
-                'name': file,
-                'size': filesizeformat(os.path.getsize(path + file)),
-                'source': mark_safe(link)})
+            orphan_data.append({'type': 'Orphaned file',
+                                'name': file,
+                                'size': filesizeformat(os.path.getsize(path + file)),
+                                'source': mark_safe(link)})
     path = settings.MEDIA_ROOT + 'IIIF/'
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     for file in files:
@@ -86,11 +85,10 @@ def index(request):
             orphaned_files_count += 1
             link = '<a class="button" download target="_blank" href="/media/IIIF/' + file + '">'
             link += 'Download</a>'
-            orphan_data.append({
-                'type': 'Orphaned IIIF file',
-                'name': file,
-                'size': filesizeformat(os.path.getsize(path + file)),
-                'source': mark_safe(link)})
+            orphan_data.append({'type': 'Orphaned IIIF file',
+                                'name': file,
+                                'size': filesizeformat(os.path.getsize(path + file)),
+                                'source': mark_safe(link)})
     tables['orphans'] = OrphanTable(orphan_data)
     tables['orphans'].tab = '#tab-orphans'
     for name, table in tables.items():
@@ -99,11 +97,9 @@ def index(request):
     statvfs = os.statvfs('/var/www/html')
     disk_space = statvfs.f_frsize * statvfs.f_blocks
     free_space = statvfs.f_frsize * statvfs.f_bavail  # available space without reserved blocks
-    disk_space_values = {
-        'total': statvfs.f_frsize * statvfs.f_blocks,
-        'free': statvfs.f_frsize * statvfs.f_bavail,
-        'percent': 100 - math.ceil(free_space / (disk_space / 100))
-    }
+    disk_space_values = {'total': statvfs.f_frsize * statvfs.f_blocks,
+                         'free': statvfs.f_frsize * statvfs.f_bavail,
+                         'percent': 100 - math.ceil(free_space / (disk_space / 100))}
     return render(request, 'maps/files/index.html', {
         'tables': tables, 'disk_space_values': disk_space_values,
         'orphaned_files_count': orphaned_files_count})

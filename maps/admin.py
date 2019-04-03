@@ -24,16 +24,14 @@ class DiaumaDraggableMPTTAdmin(DraggableMPTTAdmin):
     list_display_links = ('something',)
 
     def indented_name(self, instance):
-        return format_html(
-            '<div style="text-indent:{}px">{}</div>',
-            instance._mpttfield('level') * self.mptt_level_indent,
-            instance.name,)
+        return format_html('<div style="text-indent:{}px">{}</div>',
+                           instance._mpttfield('level') * self.mptt_level_indent,
+                           instance.name,)
 
 
 admin.site.register(File, FileAdmin)
 admin.site.register([Map, Institute, Place, Person, Reference])
-admin.site.register(
-    Type,
-    DiaumaDraggableMPTTAdmin,
-    list_display=('tree_actions', 'indented_name'),
-    list_display_links=('indented_name',))
+admin.site.register(Type,
+                    DiaumaDraggableMPTTAdmin,
+                    list_display=('tree_actions', 'indented_name'),
+                    list_display_links=('indented_name',))
