@@ -81,12 +81,6 @@
                             <li class="{% if 'type' in request.resolver_match.url_name %}active{% endif %}">
                                 <a href="{% url 'maps:type' %}">{% trans "types"|capfirst %}</a>
                             </li>
-                            <li class="{% if 'network' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:network' %}">{% trans "network"|capfirst %}</a>
-                            </li>
-                            <li class="{% if 'leaflet' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:leaflet' %}">Overlay</a>
-                            </li>
                         {% endif %}
                     </ul>
                     <ul class="nav navbar-nav">
@@ -94,8 +88,14 @@
                             <li class="{% if 'about2' in request.resolver_match.url_name %}active{% endif %}">
                                 <a href="{% url 'maps:about2' %}">{% trans 'about'|capfirst %}</a>
                             </li>
+                            <li class="{% if 'leaflet' in request.resolver_match.url_name %}active{% endif %}">
+                                <a href="{% url 'maps:leaflet' %}">Overlay</a>
+                            </li>
                             <li class="{% if 'filter' in request.resolver_match.url_name %}active{% endif %}">
                                 <a href="{% url 'maps:search2' %}">{% trans 'search'|capfirst %}</a>
+                            </li>
+                            <li class="{% if 'network' in request.resolver_match.url_name %}active{% endif %}">
+                                <a href="{% url 'maps:network' %}">{% trans "network"|capfirst %}</a>
                             </li>
                         {% endif %}
                     </ul>
