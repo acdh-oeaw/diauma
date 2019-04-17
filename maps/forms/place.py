@@ -24,14 +24,12 @@ class PlaceForm(BaseForm):
         nodes_html = self.get_nodes_html(Type.objects.get(name='Place', parent=None), selected_ids)
         self.fields['geonames_id'].widget = GeonamesWidget()
         self.helper.layout = Layout(
-            Div(
-                HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
+            Div(HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                 'name',
                 'modern_name',
                 'geonames_id',
                 css_class='form-float'),
-            Div(
-                HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
+            Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>'),
                 'info'),

@@ -8,15 +8,15 @@ from maps.model.map import Map
 from maps.model.person import Person
 from maps.model.reference import Reference
 from maps.util import truncate_string
+from maps.forms.network import NetworkForm
 
 
 @login_required
 def index(request):
-    options = {
-        'width': '1140',
-        'height': '800',
-        'link_distance': '80',
-        'charge': '-800'}
+    options = {'width': '1140',
+               'height': '800',
+               'link_distance': '80',
+               'charge': '-800'}
     nodes = ''
     edges = ''
     for entity in Map.objects.all():
@@ -45,10 +45,9 @@ def index(request):
     #    nodes += add_node(entity, '#4088c3')
 
     network_data = "graph = {'nodes': [" + nodes + "], links: [" + edges + "]};"
-    return render(
-        request,
-        'maps/network.html',
-        {'network_data': mark_safe(network_data), 'network_options': options})
+    return render(request, 'maps/network.html', {'network_data': mark_safe(network_data),
+                                                 'form': NetworkForm(),
+                                                 'network_options': options})
 
 
 def add_node(entity, color):

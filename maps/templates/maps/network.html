@@ -7,6 +7,11 @@
     {% block breadcrumbs %}
         {% breadcrumb "network" "maps:network" %}
     {% endblock %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
     <link rel="stylesheet" href="{% static 'webpage/css/d3.css' %}" />
     <script src="{% static 'webpage/libraries/d3/d3-3.5.17.min.js' %}"></script>
     <svg id="network-svg"></svg>

@@ -40,8 +40,7 @@ class PersonForm(BaseForm):
         selected_ids = [o.id for o in instance.person_type.all()] if instance else []
         nodes_html = self.get_nodes_html(Type.objects.get(name='Person', parent=None), selected_ids)
         self.helper.layout = Layout(
-            Div(
-                HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
+            Div(HTML('<div class="form-header">' + ugettext('data').capitalize() + '</div>'),
                 'name',
                 'person_location',
                 'person_institutes',
@@ -51,8 +50,7 @@ class PersonForm(BaseForm):
                 'date_end',
                 HTML('</div><div style="clear:both;"></div>'),
                 css_class='form-float'),
-            Div(
-                HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
+            Div(HTML('<div class="form-header">' + ugettext('types').capitalize() + '</div>'),
                 HTML(nodes_html),
                 HTML('<div style="clear:both;"></div>'),
                 'info'),
