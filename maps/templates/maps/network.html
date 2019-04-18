@@ -4,19 +4,19 @@
 {% load i18n %}
 {% block title %}{% trans "network"|capfirst %}{% endblock %}
 {% block content %}
+    <link rel="stylesheet" href="{% static 'webpage/css/d3.css' %}" />
     <link rel="stylesheet" href="{% static 'webpage/libraries/huebee-2.0.0/huebee.min.css' %}" />
+    <script src="{% static 'webpage/libraries/d3/d3-3.5.17.min.js' %}"></script>
     <script src="{% static 'webpage/libraries/huebee-2.0.0/huebee.pkgd.min.js' %}"></script>
     {% block breadcrumbs %}
         {% breadcrumb "network" "maps:network" %}
     {% endblock %}
+    <svg id="network-svg"></svg>
     <form method="post">
         {% csrf_token %}
         {{ form }}
-        <input type="submit" value="Submit">
+        <input type="submit" value="{% trans 'apply'|capfirst %}">
     </form>
-    <link rel="stylesheet" href="{% static 'webpage/css/d3.css' %}" />
-    <script src="{% static 'webpage/libraries/d3/d3-3.5.17.min.js' %}"></script>
-    <svg id="network-svg"></svg>
     <script>
         function dragstarted(d) {
             d3.event.sourceEvent.stopPropagation();
