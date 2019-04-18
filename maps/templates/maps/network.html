@@ -4,6 +4,8 @@
 {% load i18n %}
 {% block title %}{% trans "network"|capfirst %}{% endblock %}
 {% block content %}
+    <link rel="stylesheet" href="{% static 'webpage/libraries/huebee-2.0.0/huebee.min.css' %}" />
+    <script src="{% static 'webpage/libraries/huebee-2.0.0/huebee.pkgd.min.js' %}"></script>
     {% block breadcrumbs %}
         {% breadcrumb "network" "maps:network" %}
     {% endblock %}
