@@ -13,14 +13,26 @@ from maps.forms.network import NetworkForm
 
 @login_required
 def index(request):
-    options = {'width': '1140',
-               'height': '800',
-               'link_distance': '80',
-               'charge': '-800'}
+    options = {'width': '1140', 'height': '800', 'link_distance': '80', 'charge': '-800'}
+
     nodes = ''
     edges = ''
+    if request.method == 'POST':
+        form = NetworkForm(request.POST)
+        colors = {
+            'map': form['color_map'].data,
+            'reference': form['color_reference'].data,
+            'person': form['color_person'].data,
+            'institute': form['color_institute'].data}
+    else:
+        form = NetworkForm()
+        colors = {
+            'map': form['color_map'].initial,
+            'reference': form['color_reference'].initial,
+            'person': form['color_person'].initial,
+            'institute': form['color_institute'].initial}
     for entity in Map.objects.all():
-        nodes += add_node(entity, '#34b522')
+        nodes += add_node(entity, colors['map'])
         edges += add_edge(entity, Person.objects.filter(author=entity))
         edges += add_edge(entity, Institute.objects.filter(publisher=entity))
         edges += add_edge(entity, Reference.objects.filter(reference=entity))
@@ -30,15 +42,15 @@ def index(request):
         edges += add_edge(entity, Map.objects.filter(base=entity))
 
     for entity in Reference.objects.all():
-        nodes += add_node(entity, '#34623c')
+        nodes += add_node(entity, colors['reference'])
 
     for entity in Person.objects.all():
-        nodes += add_node(entity, '#ffa500')
+        nodes += add_node(entity, colors['person'])
         # edges += add_edge(entity, Place.objects.filter(person_location=entity))
         edges += add_edge(entity, Institute.objects.filter(person_institutes=entity))
 
     for entity in Institute.objects.all():
-        nodes += add_node(entity, '#ee82ee')
+        nodes += add_node(entity, colors['institute'])
         # edges += add_edge(entity, Place.objects.filter(institute_location=entity))
 
     # for entity in Place.objects.all():
@@ -46,7 +58,7 @@ def index(request):
 
     network_data = "graph = {'nodes': [" + nodes + "], links: [" + edges + "]};"
     return render(request, 'maps/network.html', {'network_data': mark_safe(network_data),
-                                                 'form': NetworkForm(),
+                                                 'form': form,
                                                  'network_options': options})
 
 
