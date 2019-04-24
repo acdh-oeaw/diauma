@@ -8,15 +8,18 @@
     <link rel="stylesheet" href="{% static 'webpage/libraries/huebee-2.0.0/huebee.min.css' %}" />
     <script src="{% static 'webpage/libraries/d3/d3-3.5.17.min.js' %}"></script>
     <script src="{% static 'webpage/libraries/huebee-2.0.0/huebee.pkgd.min.js' %}"></script>
+    <script src="{% static 'webpage/libraries/saveSvgAsPng-1.4.5/saveSvgAsPng.js' %}"></script>
     {% block breadcrumbs %}
         {% breadcrumb "network" "maps:network" %}
     {% endblock %}
     <svg id="network-svg"></svg>
     <form method="post">
         {% csrf_token %}
+        <a class="button" onclick="saveSvgAsPng(d3.select('svg').node(), 'network.png')">{% trans 'download'|capfirst %}</a>
         {{ form }}
         <input type="submit" value="{% trans 'apply'|capfirst %}">
     </form>
+
     <script>
         function dragstarted(d) {
             d3.event.sourceEvent.stopPropagation();
