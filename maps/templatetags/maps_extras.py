@@ -24,7 +24,7 @@ def display_node_count(node, root_name):
 @register.filter(name='display_image')
 def display_image(file):
     """ Returns an image with css class preview and a link to the image itself, if available."""
-    if not default_storage.exists(file.file):
+    if not default_storage.exists(str(file.file)):
         text = '<p class="error">' + ugettext("The associated file doesn't exist!") + '</p>'
         return mark_safe(text)
     if util.get_mime_type(file.file.name).startswith('image'):
@@ -44,7 +44,7 @@ def mime_type(file_name):
 
 @register.filter(name='file_exists')
 def file_exists(path):
-    if default_storage.exists(path):
+    if default_storage.exists(str(path)):
         return True
     return False   # pragma: no cover
 

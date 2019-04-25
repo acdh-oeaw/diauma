@@ -36,8 +36,7 @@ def index(request):
     if places:
         table = PlaceTable(places)
         result_tables['Places'] = table
-    return render(
-        request,
-        'maps/search/index.html',
-        {'search_term': search_term,
-         'result_tables': result_tables})
+    return render(request,
+                  'maps/search2/index.html',
+                  {'search_term': search_term,
+                   'result_tables': result_tables})

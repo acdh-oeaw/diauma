@@ -14,13 +14,13 @@
         <input id="search-term" name="search-term" type="text" style="width: 10em;" value="{{ search_term }}" />
         <button type="submit" style="margin-right:0;">{% trans "search"|capfirst %}</button>
     </form>
-    {% if search_term and not result_tables %}
+    {% if search_term and not table %}
         <p style="margin-top:1em;">
             {% blocktrans with search_term as name %}No results for: {{ name }}{% endblocktrans %}
         </p>
     {% endif %}
-    {% for label, table in result_tables.items %}
+    {% if table %}
         <h3>{{ label }}</h3>
         {% render_table table %}
-    {% endfor %}
+    {% endif %}
 {% endblock %}

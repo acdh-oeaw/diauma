@@ -55,7 +55,7 @@
                             {% trans "hello"|capfirst %} {{ user.get_username }},
                             <a href="{% url 'webpage:logout' %}">{% trans "logout"|capfirst %}</a>
                         </span>
-                        <form id="search-form" action="{% url 'maps:search' %}" method="post">
+                        <form id="search-form" action="{% url 'maps:search2' %}" method="post">
                             {% csrf_token %}
                             <input id="search-term" name="search-term" type="text" placeholder="{% trans 'search term'|capfirst %}" />
                             <button class="search-button" type="submit">{% trans "search"|capfirst %}</button>

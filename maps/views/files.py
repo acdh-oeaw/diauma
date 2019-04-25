@@ -35,23 +35,22 @@ def index(request):
     tables['files'].tab = '#tab-file'
     tables['scans'].tab = '#tab-scan'
     orphan_data = []
-
     # Get objects whose files are missing
     for file in file_objects:
-        if not default_storage.exists(file.file):
+        if not default_storage.exists(str(file.file)):
             url_ = reverse('maps:file-detail', kwargs={'pk': file.pk})
-            orphan_data.append({
-                'type': 'Missing file',
-                'name': file,
-                'source': mark_safe('<a href="' + url_ + '">Link</a>')})
+            orphan_data.append({'type': 'Missing file',
+                                'name': file,
+                                'source': mark_safe('<a href="' + url_ + '">Link</a>')})
+
+    print('after')
     for scan in scan_objects:
-        if not default_storage.exists(scan.file):
+        if not default_storage.exists(str(scan.file)):
             url_ = reverse('maps:scan-detail', kwargs={'pk': scan.pk})
-            orphan_data.append({
-                'type': 'Missing scan',
-                'name': scan,
-                'source': mark_safe('<a href="' + url_ + '">Link</a>')})
-    # Todo: write a loop for orphaned files
+            orphan_data.append({'type': 'Missing scan',
+                                'name': scan,
+                                'source': mark_safe('<a href="' + url_ + '">Link</a>')})
+    print('yes')
     # Get orphaned files
     orphaned_files_count = 0
     path = settings.MEDIA_ROOT + 'scan/'
@@ -61,11 +60,10 @@ def index(request):
             orphaned_files_count += 1
             link = '<a class="button" download target="_blank" href="/media/scan/' + file + '">'
             link += 'Download</a>'
-            orphan_data.append({
-                'type': 'Orphaned scan',
-                'name': file,
-                'size': filesizeformat(os.path.getsize(path + file)),
-                'source': mark_safe(link)})
+            orphan_data.append({'type': 'Orphaned scan',
+                                'name': file,
+                                'size': filesizeformat(os.path.getsize(path + file)),
+                                'source': mark_safe(link)})
     path = settings.MEDIA_ROOT + 'file/'
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     for file in files:

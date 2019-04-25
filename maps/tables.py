@@ -164,6 +164,23 @@ class MapTable(tables.Table):
         return html
 
 
+class SearchTable(tables.Table):
+
+    class Meta:
+        model = Map
+        attrs = {'class': 'paleblue'}
+        fields = ['name', 'info']
+        order_by = 'name'
+
+    @staticmethod
+    def render_name(record):
+        return link(record)
+
+    @staticmethod
+    def render_info(record):
+        return mark_safe(truncate_string(record.info, 5))
+
+
 class ReferenceTable(tables.Table):
     map_count = tables.Column(accessor='map_count', verbose_name=ugettext('maps').capitalize())
 
@@ -228,7 +245,7 @@ class FileTable(tables.Table):
 
     @staticmethod
     def render_file(record):
-        if default_storage.exists(record.file):
+        if default_storage.exists(str(record.file)):
             return filesizeformat(record.file.size)
         return mark_safe('<span class="error">Missing file!</span>')  # pragma: no cover
 
@@ -274,7 +291,7 @@ class ScanTable(tables.Table):
 
     @staticmethod
     def render_file(record):
-        if default_storage.exists(record.file):
+        if default_storage.exists(str(record.file)):
             return filesizeformat(record.file.size)
         return mark_safe('<span class="error">Missing file!</span>')  # pragma: no cover
 
