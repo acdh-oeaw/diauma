@@ -42,15 +42,12 @@ def index(request):
             orphan_data.append({'type': 'Missing file',
                                 'name': file,
                                 'source': mark_safe('<a href="' + url_ + '">Link</a>')})
-
-    print('after')
     for scan in scan_objects:
         if not default_storage.exists(str(scan.file)):
             url_ = reverse('maps:scan-detail', kwargs={'pk': scan.pk})
             orphan_data.append({'type': 'Missing scan',
                                 'name': scan,
                                 'source': mark_safe('<a href="' + url_ + '">Link</a>')})
-    print('yes')
     # Get orphaned files
     orphaned_files_count = 0
     path = settings.MEDIA_ROOT + 'scan/'
