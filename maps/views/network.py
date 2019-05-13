@@ -14,7 +14,6 @@ from maps.forms.network import NetworkForm
 @login_required
 def index(request):
     options = {'width': '1140', 'height': '800', 'link_distance': '80', 'charge': '-800'}
-
     nodes = ''
     edges = ''
     if request.method == 'POST':
