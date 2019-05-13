@@ -9,9 +9,7 @@
     <script src="{% static 'webpage/libraries/d3/d3-3.5.17.min.js' %}"></script>
     <script src="{% static 'webpage/libraries/huebee-2.0.0/huebee.pkgd.min.js' %}"></script>
     <script src="{% static 'webpage/libraries/saveSvgAsPng-1.4.5/saveSvgAsPng.js' %}"></script>
-    {% block breadcrumbs %}
-        {% breadcrumb "network" "maps:network" %}
-    {% endblock %}
+    <h2>{% trans 'network'|capfirst %}</h2>
     <svg id="network-svg"></svg>
     <form method="post">
         {% csrf_token %}

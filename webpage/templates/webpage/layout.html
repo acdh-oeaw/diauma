@@ -86,16 +86,19 @@
                     <ul class="nav navbar-nav">
                         {% if user.is_authenticated %}
                             <li class="{% if 'about2' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:about2' %}">{% trans 'Get to know DIAUMA' %}</a>
+                                <a href="{% url 'maps:about2' %}">{% trans 'about'|capfirst %}</a>
                             </li>
                             <li class="{% if 'leaflet' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:leaflet' %}">{% trans 'Visualisation of the collection' %}</a>
+                                <a href="{% url 'maps:leaflet' %}">{% trans 'overlay Maps'|capfirst %}</a>
                             </li>
                             <li class="{% if 'filter' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:search2' %}">{% trans 'Browse the collection' %}</a>
+                                <a href="{% url 'maps:search2' %}">{% trans 'browse'|capfirst %}</a>
                             </li>
                             <li class="{% if 'network' in request.resolver_match.url_name %}active{% endif %}">
                                 <a href="{% url 'maps:network' %}">{% trans "network"|capfirst %}</a>
+                            </li>
+                            <li class="{% if 'team' in request.resolver_match.url_name %}active{% endif %}">
+                                <a href="{% url 'maps:team' %}">{% trans "team"|capfirst %}</a>
                             </li>
                         {% endif %}
                     </ul>

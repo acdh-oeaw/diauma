@@ -3,11 +3,9 @@
 {% load django_bootstrap_breadcrumbs %}
 {% load render_table from django_tables2 %}
 {% load i18n %}
-{% block title %}{% trans "search"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "search" "" %}
-{% endblock %}
+{% block title %}{% trans "browse"|capfirst %}{% endblock %}
 {% block content %}
+    <h2>{% trans 'browse'|capfirst %}</h2>
     <form action="{% url 'maps:search' %}" method="post">
         {% csrf_token %}
         <input id="search-term" name="search-term" type="text" style="width: 10em;" value="{{ search_term }}" />

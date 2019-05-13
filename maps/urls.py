@@ -2,7 +2,7 @@
 from django.conf.urls import url
 
 from .views import (about2, changelog, files, institute, leaflet, map, network, person, place,
-                    reference, search, search2, type)
+                    reference, search, search2, team, type)
 
 app_name = 'maps'
 
@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^search2/$', search2.index, name='search2'),
     url(r'^about2/$', about2.index, name='about2'),
     url(r'^network/$', network.index, name='network'),
+    url(r'^team/$', team.index, name='team'),
     url(r'^leaflet/$', leaflet.index, name='leaflet'),
 
     url(r'^map/$', map.index, name='map'),
