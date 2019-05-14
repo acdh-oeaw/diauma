@@ -1,13 +1,14 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.conf.urls import url
 
-from .views import (about2, changelog, files, institute, leaflet, map, network, person, place,
-                    reference, search, search2, team, type)
+from .views import (about2, changelog, files, institute, imprint, leaflet, map, network, person,
+                    place, reference, search, search2, team, type)
 
 app_name = 'maps'
 
 urlpatterns = [
     url(r'^changelog/$', changelog.index, name='changelog'),
+    url(r'^imprint/$', imprint.index, name='imprint'),
     url(r'^search/$', search.index, name='search'),
     url(r'^search2/$', search2.index, name='search2'),
     url(r'^about2/$', about2.index, name='about2'),
