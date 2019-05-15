@@ -1,0 +1,73 @@
+{% extends "webpage/layout.html" %}
+{% load i18n %}
+{% load django_bootstrap_breadcrumbs %}
+{% load maps_extras %}
+{% load humanize %}
+{% load render_table from django_tables2 %}
+{% block title %}{% trans "map"|capfirst %}{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>{{ map.name }}</h2>
+    {% if map.title %}
+        <p>{% trans "title"|capfirst %}: {{ map.title }}</p>
+    {% endif %}
+    <div class="detail-column">
+        <h3>{% trans "information"|capfirst %}</h3>
+        {% if map.map_id %}
+            <p>{% trans "map"|capfirst %} ID: {{ map.map_id }}</p>
+        {% endif %}
+        {% if map.scale %}
+            <p>{% trans "scale"|capfirst %}: 1:{{ map.scale|intcomma }}</p>
+        {% endif %}
+        {% if map.width %}
+            <p>{% trans "width"|capfirst %}: {{ map.width }} cm</p>
+        {% endif %}
+        {% if map.height %}
+            <p>{% trans "height"|capfirst %}: {{ map.height }} cm</p>
+        {% endif %}
+        {% if map.date_created %}
+        <p>
+            {% trans "creation date"|capfirst %}: {{ map.date_created|format_date:'%Y' }}
+            {% if map.date_created2 %}
+                - {{ map.date_created2|format_date }}
+            {% endif %}
+        </p>
+        {% endif %}
+        {% if map.date_content %}
+        <p>
+            {% trans "content date"|capfirst %}: {{ map.date_content|format_date:'%Y' }}
+            {% if map.date_content2 %}
+                - {{ map.date_content2|format_date:'%Y' }}
+            {% endif %}
+        </p>
+        {% endif %}
+    </div>
+    <div class="detail-column">
+        {% if has_base %}
+            <p>{% trans "has base map"|capfirst %}: {{ has_base }}</p>
+        {% endif %}
+        {% if copy_of %}
+            <p>{% trans "is copy of"|capfirst %}: {{ copy_of }}</p>
+        {% endif %}
+        {% autoescape off %}
+        {% if links.authors %}
+            <p>{% trans "created by"|capfirst %}: {{ links.authors|join:', ' }}</p>
+        {% endif %}
+        {% if links.publishers %}
+            <p>{% trans "published by"|capfirst %}: {{ links.publishers|join:', ' }}</p>
+        {% endif %}
+        {% if links.references %}
+            <p>{% trans "reference"|capfirst %}: {{ links.references|join:', ' }}</p>
+        {% endif %}
+        {% endautoescape %}
+        {% if issued_at %}
+            <p>{% trans "issued at"|capfirst %}: {{ issued_at }}</p>
+        {% endif %}
+        {% if location_at %}
+            <p>{% trans "located at"|capfirst %}: {{ location_at }}</p>
+        {% endif %}
+    </div>
+    <div style="clear:both;"></div>
+    {{ map|display_info }}
+</div>
+{% endblock %}

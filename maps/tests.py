@@ -162,7 +162,7 @@ class MapsTest(TestCase):
         Institute.objects.create(name="Umbrella Corporation")
         Person.objects.create(name="Alice")
         Reference.objects.create(name="Grimoire A")
-        rv = self.client.post(reverse('maps:search2'), {'search-term': 'a'}, follow=True)
+        rv = self.client.post(reverse('maps:search'), {'search-term': 'a'}, follow=True)
         self.assertContains(rv, 'Atlantis')
         self.assertContains(rv, 'Valhalla')
         self.assertContains(rv, 'Umbrella')

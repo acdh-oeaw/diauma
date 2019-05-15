@@ -2,8 +2,10 @@
 import django_tables2 as tables
 from django.core.files.storage import default_storage
 from django.template.defaultfilters import filesizeformat
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext
+from markupsafe import Markup
 
 from maps.model.base import BaseModel
 from maps.model.file import File
@@ -105,6 +107,37 @@ class PlaceTable(tables.Table):
     @staticmethod
     def render_info(record):
         return mark_safe(truncate_string(record.info, 16))
+
+
+class BrowseTable(tables.Table):
+
+    class Meta:
+        model = Map
+        attrs = {'class': 'paleblue'}
+        fields = ['name', 'date_content', 'info']
+        order_by = 'name'
+
+    def __init__(self, *args, c1_name="", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.base_columns['date_content'].verbose_name = ugettext('content').capitalize()
+
+    @staticmethod
+    def render_name(record):
+        url = reverse('maps:map-view', kwargs={'pk': record.id})
+        return Markup('<a href = "' + url + '">' + truncate_string(record.name) + '</a>')
+
+    @staticmethod
+    def render_info(record):
+        return mark_safe(truncate_string(record.info, 5))
+
+    @staticmethod
+    def render_date_content(record):
+        html = '-'
+        if record.date_content:
+            html = format_date(record.date_content, '%Y')
+            if record.date_content2:
+                html += ' - ' + format_date(record.date_content2, '%Y')
+        return html
 
 
 class MapTable(tables.Table):

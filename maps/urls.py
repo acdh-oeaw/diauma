@@ -1,8 +1,8 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.conf.urls import url
 
-from .views import (about2, changelog, files, institute, imprint, leaflet, map, network, person,
-                    place, reference, search, search2, team, type)
+from .views import (about2, browse, changelog, files, imprint, institute, leaflet, map, network,
+                    person, place, reference, search, team, type)
 
 app_name = 'maps'
 
@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^changelog/$', changelog.index, name='changelog'),
     url(r'^imprint/$', imprint.index, name='imprint'),
     url(r'^search/$', search.index, name='search'),
-    url(r'^search2/$', search2.index, name='search2'),
+    url(r'^browse/$', browse.index, name='browse'),
     url(r'^about2/$', about2.index, name='about2'),
     url(r'^network/$', network.index, name='network'),
     url(r'^team/$', team.index, name='team'),
@@ -18,6 +18,7 @@ urlpatterns = [
 
     url(r'^map/$', map.index, name='map'),
     url(r'^map/detail/(?P<pk>\d+)/$', map.detail, name='map-detail'),
+    url(r'^map/view/(?P<pk>\d+)/$', map.view, name='map-view'),
     url(r'^map/create/$', map.Create.as_view(), name='map-create'),
     url(r'^map/update/(?P<pk>\d+)/$', map.Update.as_view(), name='map-update'),
     url(r'^map/delete/(?P<pk>\d+)/$', map.Delete.as_view(), name='map-delete'),

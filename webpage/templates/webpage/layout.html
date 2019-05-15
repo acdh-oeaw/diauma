@@ -55,7 +55,7 @@
                             {% trans "hello"|capfirst %} {{ user.get_username }},
                             <a href="{% url 'webpage:logout' %}">{% trans "logout"|capfirst %}</a>
                         </span>
-                        <form id="search-form" action="{% url 'maps:search2' %}" method="post">
+                        <form id="search-form" action="{% url 'maps:search' %}" method="post">
                             {% csrf_token %}
                             <input id="search-term" name="search-term" type="text" placeholder="{% trans 'search term'|capfirst %}" />
                             <button class="search-button" type="submit">{% trans "search"|capfirst %}</button>
@@ -92,7 +92,7 @@
                                 <a href="{% url 'maps:leaflet' %}">{% trans 'overlay Maps'|capfirst %}</a>
                             </li>
                             <li class="{% if 'filter' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:search2' %}">{% trans 'browse'|capfirst %}</a>
+                                <a href="{% url 'maps:browse' %}">{% trans 'browse'|capfirst %}</a>
                             </li>
                             <li class="{% if 'network' in request.resolver_match.url_name %}active{% endif %}">
                                 <a href="{% url 'maps:network' %}">{% trans "network"|capfirst %}</a>

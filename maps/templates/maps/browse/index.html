@@ -1,0 +1,11 @@
+{% extends "webpage/layout.html" %}
+{% load maps_extras %}
+{% load django_bootstrap_breadcrumbs %}
+{% load render_table from django_tables2 %}
+{% load i18n %}
+{% block title %}{% trans "browse"|capfirst %}{% endblock %}
+{% block content %}
+    <h2>{% trans 'browse'|capfirst %}</h2>
+    <h3>{{ label }}</h3>
+    {% render_table table %}
+{% endblock %}
