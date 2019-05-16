@@ -18,18 +18,16 @@ def index(request):
     edges = ''
     if request.method == 'POST':
         form = NetworkForm(request.POST)
-        colors = {
-            'map': form['color_map'].data,
-            'reference': form['color_reference'].data,
-            'person': form['color_person'].data,
-            'institute': form['color_institute'].data}
+        colors = {'map': form['color_map'].data,
+                  'reference': form['color_reference'].data,
+                  'person': form['color_person'].data,
+                  'institute': form['color_institute'].data}
     else:
         form = NetworkForm()
-        colors = {
-            'map': form['color_map'].initial,
-            'reference': form['color_reference'].initial,
-            'person': form['color_person'].initial,
-            'institute': form['color_institute'].initial}
+        colors = {'map': form['color_map'].initial,
+                  'reference': form['color_reference'].initial,
+                  'person': form['color_person'].initial,
+                  'institute': form['color_institute'].initial}
     for entity in Map.objects.all():
         nodes += add_node(entity, colors['map'])
         edges += add_edge(entity, Person.objects.filter(author=entity))

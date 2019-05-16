@@ -6,6 +6,10 @@
 {% block title %}{% trans "browse"|capfirst %}{% endblock %}
 {% block content %}
     <h2>{% trans 'browse'|capfirst %}</h2>
-    <h3>{{ label }}</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="{% trans 'apply'|capfirst %}">
+    </form>
     {% render_table table %}
 {% endblock %}
