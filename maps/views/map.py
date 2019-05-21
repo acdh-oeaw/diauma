@@ -31,26 +31,6 @@ def index(request):
 
 
 @login_required
-def view(request, pk):
-    map_ = Map.objects.get(pk=pk)
-    links = {'authors': [], 'references': [], 'publishers': [], 'maps': []}
-    for author in Person.objects.filter(author=map_):
-        links['authors'].append(author.name)
-    for reference in Reference.objects.filter(reference=map_):
-        links['references'].append(reference.name)
-    for publisher in Institute.objects.filter(publisher=map_):
-        links['publishers'].append(publisher.name)
-    return render(request, 'maps/map/view.html', {
-        'map': map_,
-        'links': links,
-        'issued_at': get_object_or_None(Place, issued=map_),
-        'location_at': get_object_or_None(Place, map_location=map_),
-        'copy_of': get_object_or_None(Map, copy=map_),
-        'has_base': get_object_or_None(Map, base=map_),
-        'types': Type.objects.filter(map_type=map_)})
-
-
-@login_required
 def detail(request, pk):
     map_ = Map.objects.get(pk=pk)
     links = {'authors': [], 'references': [], 'publishers': [], 'maps': []}

@@ -1,17 +1,13 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
-from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from maps.model.file import File
 from maps.model.institute import Institute
 from maps.model.map import Map
 from maps.model.person import Person
 from maps.model.place import Place
 from maps.model.reference import Reference
-from maps.model.scan import Scan
 from maps.model.type import Type
 
 
@@ -54,6 +50,13 @@ class MapsTest(TestCase):
         rv = self.client.get(reverse('maps:map-detail', kwargs={'pk': map_.id}), follow=True)
         self.assertContains(rv, 'Hugo')
         self.assertContains(rv, 'Base map')
+
+        # Test browse
+        rv = self.client.get(reverse('maps:browse'))
+        self.assertContains(rv, 'Person')
+        rv = self.client.post(reverse('maps:map-view', kwargs={'pk': map_.id}))
+        self.assertContains(rv, 'Hugo')
+
         rv = self.client.post(reverse('maps:map-delete', kwargs={'pk': map_.id}), follow=True)
         self.assertContains(rv, 'An entry has been deleted.')
 

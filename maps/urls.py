@@ -10,15 +10,16 @@ urlpatterns = [
     url(r'^changelog/$', changelog.index, name='changelog'),
     url(r'^imprint/$', imprint.index, name='imprint'),
     url(r'^search/$', search.index, name='search'),
-    url(r'^browse/$', browse.index, name='browse'),
     url(r'^about2/$', about2.index, name='about2'),
     url(r'^network/$', network.index, name='network'),
     url(r'^team/$', team.index, name='team'),
     url(r'^leaflet/$', leaflet.index, name='leaflet'),
 
+    url(r'^browse/$', browse.index, name='browse'),
+    url(r'^browse/view/(?P<pk>\d+)/$', browse.view, name='map-view'),
+
     url(r'^map/$', map.index, name='map'),
     url(r'^map/detail/(?P<pk>\d+)/$', map.detail, name='map-detail'),
-    url(r'^map/view/(?P<pk>\d+)/$', map.view, name='map-view'),
     url(r'^map/create/$', map.Create.as_view(), name='map-create'),
     url(r'^map/update/(?P<pk>\d+)/$', map.Update.as_view(), name='map-update'),
     url(r'^map/delete/(?P<pk>\d+)/$', map.Delete.as_view(), name='map-delete'),

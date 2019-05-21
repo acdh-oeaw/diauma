@@ -41,8 +41,6 @@
             {% endif %}
         </p>
         {% endif %}
-    </div>
-    <div class="detail-column">
         {% if has_base %}
             <p>{% trans "has base map"|capfirst %}: {{ has_base }}</p>
         {% endif %}
@@ -65,6 +63,23 @@
         {% endif %}
         {% if location_at %}
             <p>{% trans "located at"|capfirst %}: {{ location_at }}</p>
+        {% endif %}
+    </div>
+    <div class="detail-column">
+        {% if iiif %}
+            <div id="seadragon-toolbar"></div>
+            <div id="seadragon"></div>
+            <script src="{{ iiif.library_path|add:'openseadragon.min.js' }}"></script>
+            <script>
+                var viewer = OpenSeadragon({
+                    id: "seadragon",
+                    prefixUrl: "{{ iiif.library_path|add:'images/'  }}",
+                    toolbar: "seadragon-toolbar",
+                    tileSources: "{{ iiif.tile_sources }}",
+                });
+            </script>
+        {% elif scan %}
+            {{ scan|display_image }}
         {% endif %}
     </div>
     <div style="clear:both;"></div>

@@ -7,8 +7,8 @@ from maps.model.person import Person
 
 
 class BrowseForm(forms.Form):
-    choices = ((1, ugettext('all').capitalize()),)
+    choices = ((0, ugettext('all').capitalize()),)
     for person in Person.objects.all():
         if Map.objects.filter(map_persons=person):
             choices += ((person.id, person.name),)
-    person = forms.ChoiceField(choices=choices)
+    person = forms.ChoiceField(choices=choices, required=False)
