@@ -91,7 +91,7 @@
                             <li class="{% if 'leaflet' in request.resolver_match.url_name %}active{% endif %}">
                                 <a href="{% url 'maps:leaflet' %}">{% trans 'overlay Maps'|capfirst %}</a>
                             </li>
-                            <li class="{% if 'filter' in request.resolver_match.url_name %}active{% endif %}">
+                            <li class="{% if 'browse' in request.resolver_match.url_name %}active{% endif %}">
                                 <a href="{% url 'maps:browse' %}">{% trans 'browse'|capfirst %}</a>
                             </li>
                             <li class="{% if 'network' in request.resolver_match.url_name %}active{% endif %}">

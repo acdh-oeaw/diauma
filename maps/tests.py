@@ -54,7 +54,7 @@ class MapsTest(TestCase):
         # Test browse
         rv = self.client.get(reverse('maps:browse'))
         self.assertContains(rv, 'Person')
-        rv = self.client.post(reverse('maps:map-view', kwargs={'pk': map_.id}))
+        rv = self.client.post(reverse('maps:browse-view', kwargs={'pk': map_.id}))
         self.assertContains(rv, 'Hugo')
 
         rv = self.client.post(reverse('maps:map-delete', kwargs={'pk': map_.id}), follow=True)

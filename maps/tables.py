@@ -123,7 +123,7 @@ class BrowseTable(tables.Table):
 
     @staticmethod
     def render_name(record):
-        url = reverse('maps:map-view', kwargs={'pk': record.id})
+        url = reverse('maps:browse-view', kwargs={'pk': record.id})
         return Markup('<a href = "' + url + '">' + truncate_string(record.name) + '</a>')
 
     @staticmethod
