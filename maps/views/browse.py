@@ -23,12 +23,12 @@ from maps.tables import BrowseTable
 def index(request):
     form = BrowseForm(request.POST)
     table = BrowseTable(Map.objects.all())
-    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     if request.method == 'POST':
         table = BrowseTable(Map.objects.all())
         if form['person'].data and form['person'].data != '0':
             person = Person.objects.get(pk=form['person'].data)
             table = BrowseTable(Map.objects.filter(map_persons=person))
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     return render(request, 'maps/browse/index.html', {'table': table, 'form': form})
 
 
