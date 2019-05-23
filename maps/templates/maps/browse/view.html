@@ -11,8 +11,24 @@
     {% if map.title %}
         <p>{% trans "title"|capfirst %}: {{ map.title }}</p>
     {% endif %}
-    <div class="detail-column">
-        <h3>{% trans "information"|capfirst %}</h3>
+    <div>
+        {% if iiif %}
+            <div id="seadragon-toolbar"></div>
+            <div id="seadragon"></div>
+            <script src="{{ iiif.library_path|add:'openseadragon.min.js' }}"></script>
+            <script>
+                var viewer = OpenSeadragon({
+                    id: "seadragon",
+                    prefixUrl: "{{ iiif.library_path|add:'images/'  }}",
+                    toolbar: "seadragon-toolbar",
+                    tileSources: "{{ iiif.tile_sources }}",
+                });
+            </script>
+        {% elif scan %}
+            {{ scan|display_image }}
+        {% endif %}
+    </div>
+    <div>
         {% if map.map_id %}
             <p>{% trans "map"|capfirst %} ID: {{ map.map_id }}</p>
         {% endif %}
@@ -65,24 +81,6 @@
             <p>{% trans "located at"|capfirst %}: {{ location_at }}</p>
         {% endif %}
     </div>
-    <div class="detail-column">
-        {% if iiif %}
-            <div id="seadragon-toolbar"></div>
-            <div id="seadragon"></div>
-            <script src="{{ iiif.library_path|add:'openseadragon.min.js' }}"></script>
-            <script>
-                var viewer = OpenSeadragon({
-                    id: "seadragon",
-                    prefixUrl: "{{ iiif.library_path|add:'images/'  }}",
-                    toolbar: "seadragon-toolbar",
-                    tileSources: "{{ iiif.tile_sources }}",
-                });
-            </script>
-        {% elif scan %}
-            {{ scan|display_image }}
-        {% endif %}
-    </div>
-    <div style="clear:both;"></div>
     {{ map|display_info }}
 </div>
 {% endblock %}

@@ -6,6 +6,7 @@ from annoying.functions import get_object_or_None
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django_tables2 import RequestConfig
 
 from maps.forms.browse import BrowseForm
 from maps.model.institute import Institute
@@ -22,6 +23,7 @@ from maps.tables import BrowseTable
 def index(request):
     form = BrowseForm(request.POST)
     table = BrowseTable(Map.objects.all())
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     if request.method == 'POST':
         table = BrowseTable(Map.objects.all())
         if form['person'].data and form['person'].data != '0':
