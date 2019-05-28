@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Diauma\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-28 12:15+0200\n"
-"PO-Revision-Date: 2019-05-28 12:18+0200\n"
+"POT-Creation-Date: 2019-05-28 12:27+0200\n"
+"PO-Revision-Date: 2019-05-28 12:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -22,8 +22,8 @@ msgid "change"
 msgstr "change"
 
 #: maps/forms/browse.py:10
-msgid "all"
-msgstr "all"
+msgid "All"
+msgstr "All"
 
 #: maps/forms/file.py:24 maps/forms/file.py:31 maps/forms/institute.py:20
 #: maps/forms/map.py:20 maps/forms/map.py:27 maps/forms/map.py:85
