@@ -89,7 +89,7 @@
                                 <a href="{% url 'maps:about2' %}">{% trans 'about'|capfirst %}</a>
                             </li>
                             <li class="{% if 'leaflet' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:leaflet' %}">{% trans 'overlay Maps'|capfirst %}</a>
+                                <a href="{% url 'maps:leaflet' %}">{% trans 'overlay maps'|capfirst %}</a>
                             </li>
                             <li class="{% if 'browse' in request.resolver_match.url_name %}active{% endif %}">
                                 <a href="{% url 'maps:browse' %}">{% trans 'browse'|capfirst %}</a>
