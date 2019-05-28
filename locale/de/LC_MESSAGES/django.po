@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-28 12:27+0200\n"
-"PO-Revision-Date: 2019-05-28 12:27+0200\n"
+"POT-Creation-Date: 2019-05-28 12:33+0200\n"
+"PO-Revision-Date: 2019-05-28 12:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -603,13 +603,20 @@ msgstr "Passwort"
 
 #: webpage/templates/webpage/table.html:15
 #: webpage/templates/webpage/table.html:42
-msgid "Previous"
+msgid "previous"
 msgstr "Voriges"
+
+#: webpage/templates/webpage/table.html:21
+msgid "go to"
+msgstr "gehe zu"
 
 #: webpage/templates/webpage/table.html:32
 #: webpage/templates/webpage/table.html:67
-msgid "Next"
+msgid "next"
 msgstr "Nächstes"
+
+#~ msgid "Next"
+#~ msgstr "Nächstes"
 
 #~ msgid "leaflet"
 #~ msgstr "leaflet"

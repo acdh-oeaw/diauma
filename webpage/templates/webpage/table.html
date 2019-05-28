@@ -12,13 +12,13 @@
             {% block pagination.previous.goto %}
                 <li class="previous">
                     <a href="{% querystring table.prefixed_page_field=table.page.previous_page_number %}{{table.tab}}">
-                        {% trans "Previous" %}
+                        {% trans "previous"|capfirst %}
                     </a>
                 </li>
             {% endblock pagination.previous.goto %}
         {% endif %}
         <li>
-            <span style="color:#000000;">Goto:</span>
+            <span style="color:#000000;">{% trans "go to"|capfirst %}:</span>
             <select class="form-control" id="goto" onchange="javascript:location.href = this.value;">
                 {% for p in table.paginator.page_range %}
                     <option value="{% querystring table.prefixed_page_field=p %}">{{ p }}</option>
@@ -29,7 +29,7 @@
             {% block pagination.next.goto %}
             <li class="next">
                 <a href="{% querystring table.prefixed_page_field=table.page.next_page_number %}{{table.tab}}">
-                    {% trans "Next" %}
+                    {% trans "next"|capfirst %}
                 </a>
             </li>
             {% endblock pagination.next.goto %}
@@ -39,7 +39,7 @@
             {% block pagination.previous %}
                 <li class="previous">
                     <a href="{% querystring table.prefixed_page_field=table.page.previous_page_number %}{{table.tab}}">
-                        {% trans "Previous" %}
+                        {% trans "previous"|capfirst %}
                     </a>
                 </li>
             {% endblock pagination.previous %}
@@ -64,7 +64,7 @@
             {% block pagination.next %}
                 <li class="next">
                     <a href="{% querystring table.prefixed_page_field=table.page.next_page_number %}{{table.tab}}">
-                        {% trans "Next" %}
+                        {% trans "next"|capfirst %}
                     </a>
                 </li>
             {% endblock pagination.next %}
