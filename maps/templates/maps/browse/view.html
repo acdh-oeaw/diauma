@@ -7,10 +7,13 @@
 {% block title %}{% trans "map"|capfirst %}{% endblock %}
 {% block content %}
 <div class="container">
-    <h2>{{ map.name }}</h2>
-    {% if map.title %}
-        <p>{% trans "title"|capfirst %}: {{ map.title }}</p>
-    {% endif %}
+    <h2>
+        {% if map.title %}
+            {{ map.title }}
+        {% else %}
+            {{ map.name }}
+        {% endif %}
+    </h2>
     <div>
         {% if iiif %}
             <div id="seadragon-toolbar"></div>
