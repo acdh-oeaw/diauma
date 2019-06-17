@@ -4,36 +4,143 @@
 {% load i18n %}
 {% block title %}{% trans "team"|capfirst %}{% endblock %}
 {% block content %}
-    <h2>Team</h2>
-    <h3>Project Lead</h3>
-    <h4>PD Dr. Manfred Glauninger</h4>
-    <p>
-        <a href="mailto:Manfred.Glauninger@univie.ac.at">Manfred.Glauninger@univie.ac.at</a>
-    </p>
-    <h3>Research</h3>
-    <h4>Jan David Zimmermann, BA MA</h4>
-    <p>
-        <a href="mailto:JanDavid.Zimmermann@oeaw.ac.at">JanDavid.Zimmermann@oeaw.ac.at</a>
-    </p>
-    <h4>Klemens Wagner, BA</h4>
-    <p>
-        <a href="mailto:Klemens.Wagner@oeaw.ac.at">Klemens.Wagner@oeaw.ac.at</a>
-    </p>
-    <h4>Claudia Hackl, BA</h4>
-    <p>
-        <a href="mailto:Claudia.Hackl@oeaw.ac.at">Claudia.Hackl@oeaw.ac.at</a>
-    </p>
-    <h3>Software Development</h3>
-    <h4>Alexander Watzinger</h4>
-    <p>
-        <a href="mailto:alexander.watzinger@oeaw.ac.at">alexander.watzinger@oeaw.ac.at</a>
-    </p>
-    <p>
-        A software developer with a special interest in data modeling and scientific web applications.
-    </p>
-    <h3>Coopted</h3>
-    <h4>Univ. Prof. Dr. Alexandra N. Lenz</h4>
-    <p>
-        <a href="mailto:alexandra.lenz@oeaw.ac.at">alexandra.lenz@oeaw.ac.at</a>
-    </p>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE == 'en' %}
+        <h2>Project Lead</h2>
+        <h3>PD Dr. Manfred Glauninger</h3>
+        <p>
+            <a href="mailto:Manfred.Glauninger@univie.ac.at">Manfred.Glauninger@univie.ac.at</a>
+        <p>
+            Manfred Glauninger is a sociolinguist at the research department ‘Variation und Wandel des
+            Deutschen in Österreich’ (‘Variation and Change of German in Austria’) at the ACDH and
+            teaches at the Department of German Studies of the University of Vienna.
+        </p>
+        <p>
+            Subscribing to a radical (operative) constructivist view of science, he is mainly interested in a
+            comprehensive theorizing of the ‘social meaning’ of language and its communicative
+            functionality as well as in scientific knowledge as a convention.
+        </p>
+        </p>
+        <h2>Research</h2>
+        <h3>Jan David Zimmermann, BA MA</h3>
+        <p>
+            <a href="mailto:JanDavid.Zimmermann@oeaw.ac.at">JanDavid.Zimmermann@oeaw.ac.at</a>
+        </p>
+        <p>
+            Jan David Zimmermann graduated from the University of Vienna with a Master’s degree in
+            History and Philosophy of science after receiving a Bachelor’s in creative writing from the
+            University of Applied Arts Vienna. He is currently working on his dissertation on the history of
+            linguistics with a special focus on linguistic cartography during the first half of the 20th
+            century. He has been a holder oft he ÖAW-Doc scholarship since 2017.
+        </p>
+        <p>
+            Within the project ‘Österreichische Dialektkartographie 1924-1956. Digitalisierung,
+            Kontextualisierung, Visualisierung’ he did conceptual, theoratical and coordinating work as
+            well as participating in the digitalization and the acqusition of meta data.
+        </p>
+        <h3>Klemens Wagner, BA</h3>
+        <p>
+            <a href="mailto:Klemens.Wagner@oeaw.ac.at">Klemens.Wagner@oeaw.ac.at</a>
+        </p>
+        <p>
+            Klemens Wagner is part of the DIAUMA team as a student assistant. He is mainly tasked with
+            work on the database as well as digitizing and editing the maps. He is currently working on his
+            Master’s degree in German Studies at the University of Vienna and writing on his thesis about
+            Eberhard Kranzmayer.
+        </p>
+        <h3>Claudia Hackl, BA</h3>
+        <p>
+            <a href="mailto:Claudia.Hackl@oeaw.ac.at">Claudia.Hackl@oeaw.ac.at</a>
+        </p>
+        <p>
+            Claudia Hackl is part of the DIAUMA team as a student assistant. Her responsibilities includes,
+            among other tasks, the implementation of the georeferencing process and digitizing maps for
+            the web platform. She is currently studying to complete her teacher training (German and IT)
+            at the University of Vienna.
+        </p>
+        <h2>Software Development</h2>
+        <h3>Alexander Watzinger</h3>
+        <p>
+            <a href="mailto:alexander.watzinger@oeaw.ac.at">alexander.watzinger@oeaw.ac.at</a>
+        </p>
+        <p>
+            Alexander Watzinger is a software developer with a special interest in data modeling and
+            scientific open source web applications.
+        </p>
+        <h2>Coopted</h2>
+        <h3>Univ. Prof. Dr. Alexandra N. Lenz</h3>
+        <p>
+            <a href="mailto:alexandra.lenz@oeaw.ac.at">alexandra.lenz@oeaw.ac.at</a>
+        </p>
+    {% else %}
+        <h2>Projektleitung</h2>
+        <h3>PD Dr. Manfred Glauninger</h3>
+        <p>
+            <a href="mailto:Manfred.Glauninger@univie.ac.at">Manfred.Glauninger@univie.ac.at</a>
+        </p>
+        <p>
+            Manfred Glauninger ist Soziolinguist an der Forschungsabteilung “Variation und Wandel des
+            Deutschen in Österreich” am ACDH und lehrt am Institut für Germanistik der Universität Wien.
+        </p>
+        <p>
+            Vor dem Hintergrund einer radikal (operativ) konstruktivistischen Wissenschaftsauffassung
+            liegt sein Hauptinteresse in der Bildung einer umfassenden Theorie der „sozialen
+            Bedeutung“ von Sprache und deren kommunikativen Funktionalität sowie im Verständnis von
+            wissenschaftlichem Wissens als gesamtgesellschaftlicher Konvention.
+        </p>
+        <h2>Forschung</h2>
+        <h3>Jan David Zimmermann, BA MA</h3>
+        <p>
+            <a href="mailto:JanDavid.Zimmermann@oeaw.ac.at">JanDavid.Zimmermann@oeaw.ac.at</a>
+        </p>
+        <p>
+            Jan David Zimmermann absolvierte einen interdisziplinären Master in
+            Wissenschaftsgeschichte und Wissenschaftsphilosophie (HPS – History and Philosophy of
+            Science) an der Universität Wien sowie ein Bachelorstudium Kreatives Schreiben
+            (Sprachkunst) an der Universität für angewandte Kunst. Derzeit arbeitet er an seiner
+            Dissertation zur Geschichte der Sprachwissenschaft mit besonderem Fokus auf die
+            Sprachkartographie in der ersten Hälfte des 20. Jahrhunderts. Seit Dezember 2017 ist er durch
+            ein ÖAW-DOC-Stipendium finanziert.
+        </p>
+        <p>
+            Im Rahmen des vorliegenden Projektes ‘Österreichische Dialektkartographie 1924-1956.
+            Digitalisierung, Kontextualisierung, Visualisierung’ hat er sowohl konzeptuelle, theoretische
+            und koordinative Funktionen übernommen, als auch direkt am Prozess der Digitalisierung und
+            Metadatenerhebung mitgewirkt.
+        </p>
+        <h3>Klemens Wagner, BA</h3>
+        <p>
+            <a href="mailto:Klemens.Wagner@oeaw.ac.at">Klemens.Wagner@oeaw.ac.at</a>
+        </p>
+        <p>
+            Klemens Wagner ist studentischer Mitarbeiter des DIAUMA Projekts. Er ist hauptsächlich mit
+            der Pflege der Datenbank sowie dem Digitalisieren und Nachbearbeiten der Dialektkartenbeschäftigt.
+            Er studiert im Master Deutsche Philologie an der Universität Wien und schreibt
+            an seiner Abschlussarbeit über Eberhard Kranzmayer.
+        </p>
+        <h3>Claudia Hackl, BA</h3>
+        <p>
+            <a href="mailto:Claudia.Hackl@oeaw.ac.at">Claudia.Hackl@oeaw.ac.at</a>
+        </p>
+        <p>
+            Claudia Hackl ist studentische Mitarbeiterin des DIAUMA Projekts. Ihre Aufgaben umfassen
+            unter anderem die Durchführung der Georeferenzierung sowie das Digitalisieren der
+            Dialektkarten für die Datenbank. Sie studiert das Magisterstudium Lehramt mit den Fächern
+            Deutsche Philologie und Informatik und Informatikmanagement an der Universität Wien.
+        </p>
+        <h2>Software Entwicklung</h2>
+        <h3>Alexander Watzinger</h3>
+        <p>
+            <a href="mailto:alexander.watzinger@oeaw.ac.at">alexander.watzinger@oeaw.ac.at</a>
+        </p>
+        <p>
+            Alexander Watzinger ist Softwareentwickler mit besonderem Interesse in Datenmodellierung und
+            wissenschaftlichen Open Source Web-Anwendungen.
+        </p>
+        <h2>Kooptiert</h2>
+        <h3>Univ. Prof. Dr. Alexandra N. Lenz</h3>
+        <p>
+            <a href="mailto:alexandra.lenz@oeaw.ac.at">alexandra.lenz@oeaw.ac.at</a>
+        </p>
+    {% endif %}
 {% endblock %}
