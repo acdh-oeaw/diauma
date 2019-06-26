@@ -7,67 +7,130 @@
 {% block content %}
 <div class="container">
     <h2>Get to know DIAUMA</h2>
-    <p>Projektbeschreibung DIAUMA (Digitizing Austrian Dialect Maps)</p>
-    <p>
-        Digitalisierungsprojekt:
-        <strong>Österreichische Dialetkartographie 1924-1956. Digitalisierung, Kontextualisierung, Visualisierung.</strong>
-    </p>
-    <p>
-        Förderprogramm: Go!Digital 2.0<br/>
-        Projektnummer.: GD 2016/24
-    <p/>
-    <p>
-        Das zentrale Vorhaben unseres Projektes war die <strong>Digitalisierung</strong> historischer Sprach-und Dialektkarten
-        des (mittel-)europäischen Raums aus den Jahren 1924-1956 und die Sammlung der historischen Informationen
-        über diese Karten in einer Datenbank. Diese historischen Daten schafften dabei die Grundlage für eine
-        kritische Beschreibung, also eine historische <strong>Kontextualisierung</strong> des Materials. So finden sich in der
-        Datenbank Informationen zu den Erstellern und Kartenzeichnern solcher Karten, zum institutionellen Hintergrund,
-        zu dem Jahr aus dem eine solche Karte stammt, zu dem Verlag, in dem sie erschien und einiges mehr.
-        Sowohl die Scans der Karten wie auch deren Daten kann man sich online und frei verfügbar ansehen,
-        sie sind also in Form einer digitalen <strong>Visualisierung</strong> zugänglich.
-    </p>
-    <p>Aber was sind nun Sprachkarten genau? Was kann man sich darunter vorstellen?</p>
-    <p>
-        Sprachkarten sind, kurz und bündig formuliert, Karten des geographischen Raumes, in denen Informationen
-        über den Sprachgebrauch in den jeweiligen Gebieten eingezeichnet und dargestellt sind. Die Sammlung solcher
-        sprachlichen Informationen, die dann in einem weiteren Schritt auf Karten gezeichnet werden, kann über direkte
-        Sprachaufnahmen vor Ort geschehen, oder aber durch Fragebogen, die an die jeweiligen Orte gesendet werden,
-        die man untersuchen möchte. Man kann Dialekte, also Mundarten untersuchen, kann aber natürlich auch Nationalsprachen
-        untersuchen und erheben.
-    <p>
-        Diese Praxis des Kartenzeichnens – die Sprachkartographie – hängt, wie man schon am Namen erkennen kann,
-        mit zwei wissenschaftlichen Disziplinen zusammen: mit der Geographie und der Sprachwissenschaft.
-        Dabei hatte die Sprachkartographie gleichzeitig starke Verbindungen zur Kulturgeographie, da Sprache ein wichtiges Merkmal
-        menschlicher Kultur darstellt und somit auch für kulturgeographische Forschungen von Interesse war.
-    </p>
-    <p>
-        So kam man schließlich auch auf die Idee, Spracheerhebungen zu machen und diese Daten dann auf Karten darzustellen. Dies
-        machte man schließlich nicht nur mit verschiedenen Sprachen wie Deutsch, Tschechisch etc. sondern auch mit verschiedenen
-        Dialekten, wie den deutschen Dialekten in Deutschland oder in Österreich. Dabei entwickelten sich verschiedene Schulen der
-        Sprachkartographie mit dem Sprachatlas des deutschen Reiches (in Marburg an der Lahn in Hessen) als großes Vorbild. In
-        Österreich wurde eine solche sprachwissenschaftliche Form der Sprachkartographie von Dialektforschern der Akademie der
-        Wissenschaften in Wien betrieben: die sogenannte Wiener Dialektologische Schule, die in erster Linie ein Dialektwörterbuch
-        der bairischen Mundarten vorbereitete, begann ab den 1920er Jahren vermehrt mit der Produktion von solchen Sprachkarten,
-        die die entsprechenden Dialekte kartographisch visualisierten.  Dabei zeigt sich aus heutiger und kritischer Perspektive ganz klar,
-        dass mit der Kartierung von Raum und Sprache immer auch spezifische politische Konzepte eine große Rolle spielen. Im Fall
-        der Dialektologie des Deutschen, also jener Disziplin, die die deutschen Mundarten untersucht, hat man es gerade in der
-        ersten Hälfte des 20. Jahrhunderts mit politischen Ideen des Deutschnationalismus, des großdeutschen Denkens oder des Nationalsozialismus zu tun.
-        Auch im Fall der uns vorliegenden Karten ist klargeworden, dass politisch-ideologische Vorstellungen davon, was das „Deutschtum“
-        sein soll, in der Kartierung von Sprache einen hohen Stellenwert besaßen. Die „völkische“ Idee einer deutschen Vormachtstellung
-        in Europa sowie expansive Bestrebungen zur Zeit des Nationalsozialismus und des Zweiten Weltkriegs werden anhand der Kartierung
-        von Sprache offenbar. Dabei muss man aber auch differenzieren: Selbstverständlich ist nicht jede Sprachkarte ideologisch,
-        allerdings war jedwede Expansions-und Geopolitik immer kartographisch fundiert!
-    </p>
-    <p>
-        Was sich in Bezug auf Sprachkarten auch zeigt ist, dass es eine sehr bestimmte Wirkung auf den/die Betrachter/in einer Karte hat,
-        wenn ein so dynamisches Phänomen wie Sprache im Sinne eines Territorial-Prinzips abgesteckt wird. Dadurch suggerieren Karten immer
-        eine gewisse Statik und Starrheit, die dynamische Prozesse nicht einzufangen und darzustellen vermögen.
-    </p>
-    <p>
-        Das Projekt <strong>Österreichische Dialektkartographie 1924-1956. Digitalisierung, Kontextualisierung, Visualisierung</strong>
-        ist ein Kooperationsprojekt des „Wörterbuchs bairischer Mundarten in Österreich“ (WBÖ) an der Abteilung „Variation und Wandel des
-        Deutschen in Österreich“ (VaWADiÖ) und stellt zudem ein Satellitenprojekt des Spezialforschungsbereichs „Deutsch in Österreich“
-        (Universität Wien, Universität Graz, Universität Salzburg, ÖAW) dar.
-    <p/>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE == 'en' %}
+        <p>Project description DIAUMA (Digitizing Austrian Dialect Maps)</p>
+        <p>
+            Digitalization project:
+            <strong>Österreichische Dialetkartographie 1924-1956. Digitalisierung, Kontextualisierung, Visualisierung.</strong>
+        </p>
+        <p>
+            Funding programme: Go!Digital 2.0<br/>
+            Project number.: GD 2016/24
+        <p/>
+        <p>
+            The main goal of this project is the <strong>digitalization</strong> of historical language- and dialect maps of the central-European
+            area between the years 1924-1956, as well as the collection of historical information about those maps within a database.
+            This historical information will become the basis for a critical description, i.e. a historical <strong>contextualization</strong> of the
+            material. As such, the database will contain information on the editor, designer, publisher, institutional background,
+            and year of creation of each map, along with other pertinent data. This information will combine with scans of the maps
+            to form data <strong>visualizations</strong>, which the project will make available online for free viewing.
+        </p>
+        <p>
+            A linguistic map, in short, is a representation of a geographical space which is enriched with information about language
+            use within said space. The linguistic data is usually collected through direct local recordings or questionnaires answered
+            by residents of a given area; then, it is drawn onto the corresponding area on the map. Many linguistic maps represent national
+            languages, but it is also possible to examine and represent dialects.
+        </p>
+        <p>
+            The practice of creating linguistic maps – linguistic cartography – falls within the scientific field of linguistic geography,
+            which itself draws upon, as might be expected, the fields of geography and linguistics. Linguistic geography also maintains strong
+            ties with cultural geography; language is an integral part of human culture, and as such, cultural geographers have often been led to
+            consider language in their research.
+        </p>
+        <p>
+            Linguistic geography has its roots in the late 19th century, when linguists conceived the idea of distributing language surveys and
+            projecting the data collected from them onto maps. These initial studies, which took the Sprachatlas des deutschen Reiches
+            (‘Language Atlas of the German Realm’) of Marburg as their common model, were concerned not only with discrete languages, such as
+            German or Czech, but also with different dialects, such as the German dialects in Germany and Austria. The Austrian Academy of Sciences
+            itself contributed several early linguistic maps; the so-called Wiener Dialektologische Schule (‘Viennese Dialectological School’),
+            whose main objective was to collect data for a dialect dictionary of the Bavarian dialects in Austria, began producing linguistic maps in the 1920s.
+        </p>
+        <p>
+            From a modern and critical point of view, it becomes clear that, when mapping space and language, specific political concepts inevitably
+            come into play. In the case of German dialectology – the discipline which researches German dialects – in the first half of the 20th century,
+            those concepts were German nationalism, German imperialism, and National Socialism. This fact is evident throughout the present project: political
+            and ideological views on what Germanity is supposed to be are actually very important for the mapping process. The nationalistic idea about a German
+            supremacy within and over Europe, as well as strong efforts of territorial expansion during the time of National Socialism and the Second World War,
+            becomes visible when examining the mapping of language. While not every linguistic map of the period was, in itself, ideological, every political or
+            territorial expansion had a geographical impact that could be represented on a map.
+        </p>
+        <p>
+            Engaging with these linguistic maps also demonstrates that, when so dynamic a phenomenon as language is treated in a territorial sense—that is,
+            illustrated on a map—, that treatment has a very misleading effect on the viewer. The stasis and rigidity suggested by linguistic maps precludes
+            them from giving an accurate representation of language; in terms of that objective, thus, a linguistic map may be viewed as a contradictory, even
+            futile, work. However, a linguistic map also lends insight through its contradictions, revealing to viewers the spatial, historical, sociopoltical,
+            and linguistic ideologies employed in its creation.
+         </p>
+        <p>
+            The project <strong>Österreichische Dialektkartographie 1924-1956. Digitalisierung, Kontextualisierung, Visualisierung</strong>
+            is a cooperation project with „Wörterbuchs bairischer Mundarten in Österreich“ (WBÖ) at the institute „Variation und Wandel des
+            Deutschen in Österreich“ (VaWADiÖ) and is also a satellite project of the special research branch „Deutsch in Österreich“
+            (University of Vienna, University of Graz, University of Salzburg, ÖAW).
+        </p>
+    {% else %}
+        <p>Projektbeschreibung DIAUMA (Digitizing Austrian Dialect Maps)</p>
+        <p>
+            Digitalisierungsprojekt:
+            <strong>Österreichische Dialetkartographie 1924-1956. Digitalisierung, Kontextualisierung, Visualisierung.</strong>
+        </p>
+        <p>
+            Förderprogramm: Go!Digital 2.0<br/>
+            Projektnummer.: GD 2016/24
+        <p/>
+        <p>
+            Das zentrale Vorhaben unseres Projektes war die <strong>Digitalisierung</strong> historischer Sprach-und Dialektkarten
+            des (mittel-)europäischen Raums aus den Jahren 1924-1956 und die Sammlung der historischen Informationen
+            über diese Karten in einer Datenbank. Diese historischen Daten schafften dabei die Grundlage für eine
+            kritische Beschreibung, also eine historische <strong>Kontextualisierung</strong> des Materials. So finden sich in der
+            Datenbank Informationen zu den Erstellern und Kartenzeichnern solcher Karten, zum institutionellen Hintergrund,
+            zu dem Jahr aus dem eine solche Karte stammt, zu dem Verlag, in dem sie erschien und einiges mehr.
+            Sowohl die Scans der Karten wie auch deren Daten kann man sich online und frei verfügbar ansehen,
+            sie sind also in Form einer digitalen <strong>Visualisierung</strong> zugänglich.
+        </p>
+        <p>Aber was sind nun Sprachkarten genau? Was kann man sich darunter vorstellen?</p>
+        <p>
+            Sprachkarten sind, kurz und bündig formuliert, Karten des geographischen Raumes, in denen Informationen
+            über den Sprachgebrauch in den jeweiligen Gebieten eingezeichnet und dargestellt sind. Die Sammlung solcher
+            sprachlichen Informationen, die dann in einem weiteren Schritt auf Karten gezeichnet werden, kann über direkte
+            Sprachaufnahmen vor Ort geschehen, oder aber durch Fragebogen, die an die jeweiligen Orte gesendet werden,
+            die man untersuchen möchte. Man kann Dialekte, also Mundarten untersuchen, kann aber natürlich auch Nationalsprachen
+            untersuchen und erheben.
+        <p>
+            Diese Praxis des Kartenzeichnens – die Sprachkartographie – hängt, wie man schon am Namen erkennen kann,
+            mit zwei wissenschaftlichen Disziplinen zusammen: mit der Geographie und der Sprachwissenschaft.
+            Dabei hatte die Sprachkartographie gleichzeitig starke Verbindungen zur Kulturgeographie, da Sprache ein wichtiges Merkmal
+            menschlicher Kultur darstellt und somit auch für kulturgeographische Forschungen von Interesse war.
+        </p>
+        <p>
+            So kam man schließlich auch auf die Idee, Spracheerhebungen zu machen und diese Daten dann auf Karten darzustellen. Dies
+            machte man schließlich nicht nur mit verschiedenen Sprachen wie Deutsch, Tschechisch etc. sondern auch mit verschiedenen
+            Dialekten, wie den deutschen Dialekten in Deutschland oder in Österreich. Dabei entwickelten sich verschiedene Schulen der
+            Sprachkartographie mit dem Sprachatlas des deutschen Reiches (in Marburg an der Lahn in Hessen) als großes Vorbild. In
+            Österreich wurde eine solche sprachwissenschaftliche Form der Sprachkartographie von Dialektforschern der Akademie der
+            Wissenschaften in Wien betrieben: die sogenannte Wiener Dialektologische Schule, die in erster Linie ein Dialektwörterbuch
+            der bairischen Mundarten vorbereitete, begann ab den 1920er Jahren vermehrt mit der Produktion von solchen Sprachkarten,
+            die die entsprechenden Dialekte kartographisch visualisierten.  Dabei zeigt sich aus heutiger und kritischer Perspektive ganz klar,
+            dass mit der Kartierung von Raum und Sprache immer auch spezifische politische Konzepte eine große Rolle spielen. Im Fall
+            der Dialektologie des Deutschen, also jener Disziplin, die die deutschen Mundarten untersucht, hat man es gerade in der
+            ersten Hälfte des 20. Jahrhunderts mit politischen Ideen des Deutschnationalismus, des großdeutschen Denkens oder des Nationalsozialismus zu tun.
+            Auch im Fall der uns vorliegenden Karten ist klargeworden, dass politisch-ideologische Vorstellungen davon, was das „Deutschtum“
+            sein soll, in der Kartierung von Sprache einen hohen Stellenwert besaßen. Die „völkische“ Idee einer deutschen Vormachtstellung
+            in Europa sowie expansive Bestrebungen zur Zeit des Nationalsozialismus und des Zweiten Weltkriegs werden anhand der Kartierung
+            von Sprache offenbar. Dabei muss man aber auch differenzieren: Selbstverständlich ist nicht jede Sprachkarte ideologisch,
+            allerdings war jedwede Expansions-und Geopolitik immer kartographisch fundiert!
+        </p>
+        <p>
+            Was sich in Bezug auf Sprachkarten auch zeigt ist, dass es eine sehr bestimmte Wirkung auf den/die Betrachter/in einer Karte hat,
+            wenn ein so dynamisches Phänomen wie Sprache im Sinne eines Territorial-Prinzips abgesteckt wird. Dadurch suggerieren Karten immer
+            eine gewisse Statik und Starrheit, die dynamische Prozesse nicht einzufangen und darzustellen vermögen.
+        </p>
+        <p>
+            Das Projekt <strong>Österreichische Dialektkartographie 1924-1956. Digitalisierung, Kontextualisierung, Visualisierung</strong>
+            ist ein Kooperationsprojekt des „Wörterbuchs bairischer Mundarten in Österreich“ (WBÖ) an der Abteilung „Variation und Wandel des
+            Deutschen in Österreich“ (VaWADiÖ) und stellt zudem ein Satellitenprojekt des Spezialforschungsbereichs „Deutsch in Österreich“
+            (Universität Wien, Universität Graz, Universität Salzburg, ÖAW) dar.
+        <p/>
+    {% endif %}
 </div>
 {% endblock %}
