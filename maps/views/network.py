@@ -1,17 +1,15 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
 
+from maps.forms.network import NetworkForm
 from maps.model.institute import Institute
 from maps.model.map import Map
 from maps.model.person import Person
 from maps.model.reference import Reference
 from maps.util import truncate_string
-from maps.forms.network import NetworkForm
 
 
-@login_required
 def index(request):
     options = {'width': '1140', 'height': '800', 'link_distance': '80', 'charge': '-800'}
     nodes = ''

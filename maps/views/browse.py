@@ -4,7 +4,6 @@ from os.path import basename, splitext
 
 from annoying.functions import get_object_or_None
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django_tables2 import RequestConfig
 
@@ -19,7 +18,6 @@ from maps.model.type import Type
 from maps.tables import BrowseTable
 
 
-@login_required
 def index(request):
     form = BrowseForm(request.POST)
     table = BrowseTable(Map.objects.all())
@@ -39,7 +37,6 @@ def index(request):
     return render(request, 'maps/browse/index.html', {'table': table, 'form': form})
 
 
-@login_required
 def view(request, pk):
     map_ = Map.objects.get(pk=pk)
     links = {'authors': [], 'references': [], 'publishers': [], 'maps': []}

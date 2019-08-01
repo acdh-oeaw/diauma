@@ -34,7 +34,7 @@
     <nav class="navbar navbar-default navbar-static-top procustom-navbar" id="top-procustom-navbar">
         <div class="container">
             <div style="float:left;margin-right:2em;">
-                <a href="{% url 'webpage:about' %}" class="navlink">
+                <a href="{% url 'webpage:index' %}" class="navlink">
                     <img src="{% static 'webpage/img/logo.png' %}" id="logo" alt="Diauma" />
                 </a>
             </div>
@@ -62,11 +62,11 @@
                         </form>
                     </div>
                 {% endif %}
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        {% if user.is_authenticated %}
-                            <li class="{% if 'about' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'webpage:about' %}">{% trans "about"|capfirst %}</a>
+                <div class="collapse navbar-collapse">
+                    {% if user.is_authenticated %}
+                        <ul class="nav navbar-nav">
+                            <li class="{% if 'index' in request.resolver_match.url_name %}active{% endif %}">
+                                <a href="{% url 'maps:index' %}">{% trans "latest"|capfirst %}</a>
                             </li>
                             {% with 'map reference person institute place' as list %}
                                 {% for item in list.split %}
@@ -81,28 +81,26 @@
                             <li class="{% if 'type' in request.resolver_match.url_name %}active{% endif %}">
                                 <a href="{% url 'maps:type' %}">{% trans "types"|capfirst %}</a>
                             </li>
-                        {% endif %}
+                        </ul>
+                    {% endif %}
+                    <ul class="nav navbar-nav" style="width:600px;">
+                        <li class="{% if 'index' in request.resolver_match.url_name %}active{% endif %}">
+                            <a href="{% url 'webpage:index' %}">{% trans 'about'|capfirst %}</a>
+                        </li>
+                        <li class="{% if 'leaflet' in request.resolver_match.url_name %}active{% endif %}">
+                            <a href="{% url 'maps:leaflet' %}">{% trans 'overlay maps'|capfirst %}</a>
+                        </li>
+                        <li class="{% if 'browse' in request.resolver_match.url_name %}active{% endif %}">
+                            <a href="{% url 'maps:browse' %}">{% trans 'browse'|capfirst %}</a>
+                        </li>
+                        <li class="{% if 'network' in request.resolver_match.url_name %}active{% endif %}">
+                            <a href="{% url 'maps:network' %}">{% trans "network"|capfirst %}</a>
+                        </li>
+                        <li class="{% if 'team' in request.resolver_match.url_name %}active{% endif %}">
+                            <a href="{% url 'maps:team' %}">{% trans "team"|capfirst %}</a>
+                        </li>
                     </ul>
-                    <ul class="nav navbar-nav">
-                        {% if user.is_authenticated %}
-                            <li class="{% if 'about2' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:about2' %}">{% trans 'about'|capfirst %}</a>
-                            </li>
-                            <li class="{% if 'leaflet' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:leaflet' %}">{% trans 'overlay maps'|capfirst %}</a>
-                            </li>
-                            <li class="{% if 'browse' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:browse' %}">{% trans 'browse'|capfirst %}</a>
-                            </li>
-                            <li class="{% if 'network' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:network' %}">{% trans "network"|capfirst %}</a>
-                            </li>
-                            <li class="{% if 'team' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:team' %}">{% trans "team"|capfirst %}</a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                    <div style="float:right;margin-top:1em;">
+                    <div style="float:right;margin-top:-1.5em;">
                         <form action="{% url 'set_language' %}" method="post" id="language-form">
                             {% csrf_token %}
                             <input name="next" type="hidden" value="{{ request.get_full_path }}" />

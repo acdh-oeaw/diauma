@@ -1,7 +1,7 @@
 # Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.conf.urls import url
 
-from .views import (about2, browse, changelog, files, imprint, institute, leaflet, map, network,
+from .views import (index, browse, changelog, files, imprint, institute, leaflet, map, network,
                     person, place, reference, search, team, type)
 
 app_name = 'maps'
@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^changelog/$', changelog.index, name='changelog'),
     url(r'^imprint/$', imprint.index, name='imprint'),
     url(r'^search/$', search.index, name='search'),
-    url(r'^about2/$', about2.index, name='about2'),
+    url(r'^index/$', index.index, name='index'),
     url(r'^network/$', network.index, name='network'),
     url(r'^team/$', team.index, name='team'),
     url(r'^leaflet/$', leaflet.index, name='leaflet'),

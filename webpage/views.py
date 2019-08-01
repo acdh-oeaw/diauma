@@ -12,11 +12,10 @@ def user_logout(request):
     return redirect('/login')
 
 
-def about(request):
-    table = MapTable(Map.objects.all().order_by('-created_date')[:10:1], order_by='-created_date')
-    RequestConfig(request).configure(table)
-    return render(request, 'webpage/about.html', {'table': table})
-
-
 def handler404(request, exception):
     return render(request, 'webpage/404-error.html')
+
+
+def index(request):
+    return render(request, 'webpage/index.html')
+
