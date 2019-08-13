@@ -12,6 +12,11 @@
     <script src="{% static 'webpage/libraries/leaflet-1.3.4/leaflet.js' %}"></script>
     <script src="{% static 'webpage/libraries/leaflet-1.3.4/fullscreen/Leaflet.fullscreen.min.js' %}"></script>
     <h2>{% trans "overlay maps"|capfirst %}</h2>
+    {% for id, map in overlay_maps.items %}
+        <p>
+            {{ map.name }}
+        </p>
+    {% endfor %}
     <strong>{% trans "opacity"|capfirst %}</strong>
     <input  id="opacitySlider"
             type="range"
