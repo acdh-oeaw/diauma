@@ -13,7 +13,9 @@ urlpatterns = [
     url(r'^index/$', index.index, name='index'),
     url(r'^network/$', network.index, name='network'),
     url(r'^team/$', team.index, name='team'),
+
     url(r'^leaflet/$', leaflet.index, name='leaflet'),
+    url(r'^leaflet/detail/(?P<id_>\d+)/$', leaflet.detail, name='leaflet-detail'),
 
     url(r'^browse/$', browse.index, name='browse'),
     url(r'^browse/view/(?P<pk>\d+)/$', browse.view, name='browse-view'),

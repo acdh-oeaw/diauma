@@ -37,5 +37,3 @@ myenv/*
 3.5_myenv/*
 staticfiles/*
 
-# maps for testing
-webpage/static/webpage/maps/*
