@@ -6,6 +6,25 @@
 {% block title %}{% trans "browse"|capfirst %}{% endblock %}
 {% block content %}
     <h2>{% trans 'browse'|capfirst %}</h2>
+    <p>
+        Willkommen im interaktiven Suchbereich der DIAUMA-Datenbank! Hier ist es
+        möglich, die in der Datenbank eingepflegten Karten gezielt zu suchen.
+    </p>
+    <p>
+        Als erste Filteroption steht Ihnen die Auswahl der Personen zur Verfügung. Hier
+        können Sie auswählen, dass beispielsweise nur Karten von "Eberhard Kranzmayer"
+        oder "Arnold Hillen Ziegfeld" etc. angezeigt werden. Da alle Karten der
+        Datenbank den jeweiligen Autor*innen/ Kartenzeichner*innen zugeordnet sind, ist
+        dies eine simple Möglichkeit, sich einen Überblick über die jeweiligen Personen
+        und ihre Karten zu verschaffen.
+    </p>
+    <p>
+        Weiters kann man nach den References filtern, also nach jenen „Sammlungen“, Sets
+        oder (abgeschlossene) Atlaswerken, welche die aufgenommenen Karten beinhalten.
+        Als Namen der Karten sehen Sie die Titel der Karten oder Titel, die ihnen von
+        uns zur Erleichterung der Identifikation (und bei Eindeutigkeit der Thematik)
+        verliehen wurden.
+    </p>
     <form method="post">
         {% csrf_token %}
         {{ form }}
