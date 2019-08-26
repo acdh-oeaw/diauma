@@ -62,7 +62,7 @@
                         </form>
                     </div>
                 {% endif %}
-                <div class="collapse navbar-collapse">
+                <div class="navbar-collapse">
                     {% if user.is_authenticated %}
                         <ul class="nav navbar-nav">
                             <li class="{% if 'index' in request.resolver_match.url_name %}active{% endif %}">

@@ -4,32 +4,54 @@
 {% load django_bootstrap_breadcrumbs %}
 {% load render_table from django_tables2 %}
 {% load i18n %}
-{% block title %}{% trans "overlay"|capfirst %}{% endblock %}
+{% block title %}{% trans "overlay maps"|capfirst %}{% endblock %}
 {% block content %}
     <h2>{% trans "overlay maps"|capfirst %}</h2>
-    <p>
-        Im Zuge des Projekts "Österreichische Dialektkartographie 1924-1956.
-        Digitalisierung, Kontextualisierung, Visualisierung." wurden die vorhandenen
-        Karten nicht nur digitalisiert und historisch kontextualisiert, sondern – wie im
-        Projekttitel ersichtlich – auch visualisiert. Dies betrifft die Durchführung der
-        Georeferenzierung ausgewählter Karten und die Darstellung dieser. Das
-        Georeferenzieren ist das Zuweisen raumbezogener Information, die man auch die
-        Georeferenz nennt, zu einem Satz an Daten, die in unserem Falle die Karten
-        darstellen. Dies bedeutet, dass historische Karten mit aktuellen geographischen
-        Koordinaten versehen werden, wodurch sich ein Vergleich historischer mit
-        gegenwärtigen geographischen Räumen anstellen lässt.
-    </p>
-    <p>
-        Georeferenziert wurde mit Hilfe des Open Source Programms QGIS3. Dieses bot die
-        Basis für die Durchführung der Visualisierungsarbeit. Dargestellt sind die
-        georeferenzierten historischen Karten in einer Applikation, die es Ihnen
-        ermöglicht, selbst zu entscheiden, welche Karte Sie im Kontext einer
-        Kartendarstellung von z.B. google maps betrachten wollen. Durch den
-        Schieberegler lässt sich die Transparenz von Vordergrund (historische Karte) und
-        Hintergrund (aktuelle Kartendarstellungen) verändern, wodurch man historische
-        Grenzziehungen und Kartendarstellungen des europäischen Raumes mit gegenwärtigen
-        vergleichen kann.
-    </p>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE == 'en' %}
+        <p>
+            The existing maps have not only been digitized and contextualized in the course of the
+            project „Austrian Dialect Cartography 1924-1956. Digitalization, Contextualization,
+            Visualization.“ but – as is evident by the project’s name – they have also been
+            visualized. This means that certain maps have been  georeferenced completely.
+            Georeferencing is the addition of spatial information to a set of data. In our case,
+            this means that the historical maps in our collection are enriched with current
+            geographical data, facilitating a comparison between historical and contemporary
+            geographical spaces and or/their representation.
+        </p>
+        <p>
+            The georeferencing was carried out with the help of the open source program QGIS3.
+            Following on from this, the next step was visualization. The application in which the
+            georeferenced maps are displayed allows users to choose which map to view in the
+            context of a particular type of visualization – for example, overlaid on top of Google
+            Maps. Users can adjust the degree of transparency for the historical map to better
+            comprehend its relations to the present-day cartographical visualization.
+        </p>
+    {% else %}
+        <p>
+            Im Zuge des Projekts "Österreichische Dialektkartographie 1924-1956.
+            Digitalisierung, Kontextualisierung, Visualisierung." wurden die vorhandenen
+            Karten nicht nur digitalisiert und historisch kontextualisiert, sondern – wie im
+            Projekttitel ersichtlich – auch visualisiert. Dies betrifft die Durchführung der
+            Georeferenzierung ausgewählter Karten und die Darstellung dieser. Das
+            Georeferenzieren ist das Zuweisen raumbezogener Information, die man auch die
+            Georeferenz nennt, zu einem Satz an Daten, die in unserem Falle die Karten
+            darstellen. Dies bedeutet, dass historische Karten mit aktuellen geographischen
+            Koordinaten versehen werden, wodurch sich ein Vergleich historischer mit
+            gegenwärtigen geographischen Räumen anstellen lässt.
+        </p>
+        <p>
+            Georeferenziert wurde mit Hilfe des Open Source Programms QGIS3. Dieses bot die
+            Basis für die Durchführung der Visualisierungsarbeit. Dargestellt sind die
+            georeferenzierten historischen Karten in einer Applikation, die es Ihnen
+            ermöglicht, selbst zu entscheiden, welche Karte Sie im Kontext einer
+            Kartendarstellung von z.B. google maps betrachten wollen. Durch den
+            Schieberegler lässt sich die Transparenz von Vordergrund (historische Karte) und
+            Hintergrund (aktuelle Kartendarstellungen) verändern, wodurch man historische
+            Grenzziehungen und Kartendarstellungen des europäischen Raumes mit gegenwärtigen
+            vergleichen kann.
+        </p>
+    {% endif %}
     {% for id, map in overlay_maps.items %}
         <p>
             <a href="{% url 'maps:leaflet-detail' id %}">{{ map.name }}</a>
