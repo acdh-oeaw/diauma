@@ -39,7 +39,7 @@
         L.control.layers(baseMaps, controls).addTo(map);
         baseMaps.OpenStreetMap.addTo(map);
 
-        var imageUrl = '/static/webpage/maps/{{ overlay_map.file }}';
+        var imageUrl = '/static/webpage/maps/{{ overlay_map.file }}.png';
         var imageBounds = {{ overlay_map.image_bounds }};
         var overlay = L.imageOverlay(imageUrl, imageBounds);
         overlay.addTo(map);

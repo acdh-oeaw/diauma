@@ -54,7 +54,10 @@
     {% endif %}
     {% for id, map in overlay_maps.items %}
         <p>
-            <a href="{% url 'maps:leaflet-detail' id %}">{{ map.name }}</a>
+            <a href="{% url 'maps:leaflet-detail' id %}">
+                <img src="/static/webpage/maps/{{ map.file }}_small.png" style="width:200px;" alt="{{ map.name }}" /><br/>
+                {{ map.name }}
+            </a>
         </p>
     {% endfor %}
 {% endblock %}
