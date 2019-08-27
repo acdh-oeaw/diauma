@@ -1,4 +1,4 @@
-Django==2.2
+django==2.2.4
 django-annoying==0.10.4
 django-autocomplete-light==3.3.2
 django-bootstrap-breadcrumbs==0.9.1
