@@ -3,7 +3,7 @@
 
 PROJECT_METADATA = {
     'title': 'Diauma',
-    'version': '0.20.0',
+    'version': '1.0.0',
     'author': 'Alexander Watzinger',
     'subtitle': 'Austrian Dialect Cartography 1924–1956. Digitalisation, Contextualisation, Visualisation',
     'description': '',
