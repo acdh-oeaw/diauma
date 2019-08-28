@@ -32,6 +32,11 @@
         {% endif %}
     </div>
     <div>
+        <p>
+            <a class="button" download target="_blank" href="{{ scan.file.url }}">{% trans 'download'|capfirst %}</a>
+        </p>
+    </div>
+    <div>
         {% if map.map_id %}
             <p>{% trans "map"|capfirst %} ID: {{ map.map_id }}</p>
         {% endif %}
