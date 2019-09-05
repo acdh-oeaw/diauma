@@ -5,6 +5,7 @@ docs/html/.doctrees
 
 # media
 media/*
+webpage/static/webpage/maps/*
 
 # test coverage
 .coverage
