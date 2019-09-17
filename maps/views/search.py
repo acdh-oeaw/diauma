@@ -6,8 +6,9 @@ from maps.model.institute import Institute
 from maps.model.map import Map
 from maps.model.person import Person
 from maps.model.place import Place
+from maps.model.scan import Scan
 from maps.model.reference import Reference
-from maps.tables import InstituteTable, MapTable, PersonTable, PlaceTable, ReferenceTable
+from maps.tables import InstituteTable, MapTable, PersonTable, PlaceTable, ReferenceTable, ScanTable
 
 
 @login_required
@@ -37,5 +38,9 @@ def index(request):
     if places:
         table = PlaceTable(places)
         result_tables['Places'] = table
+    scans = Scan.objects.filter(name__icontains=search_term)
+    if scans:
+        table = ScanTable(scans)
+        result_tables['Scans'] = table
     return render(request, 'maps/search/index.html',
                   {'search_term': search_term, 'result_tables': result_tables})
