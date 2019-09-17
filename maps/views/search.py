@@ -16,7 +16,8 @@ def index(request):
     if not search_term:
         return render(request, 'maps/search/index.html')
     result_tables = {}
-    maps = Map.objects.filter(name__icontains=search_term)
+    maps = Map.objects.filter(name__icontains=search_term) or \
+           Map.objects.filter(title__icontains=search_term)
     if maps:
         table = MapTable(maps)
         result_tables['Maps'] = table
