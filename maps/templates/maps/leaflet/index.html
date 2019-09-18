@@ -27,6 +27,10 @@
             Maps. Users can adjust the degree of transparency for the historical map to better
             comprehend its relations to the present-day cartographical visualization.
         </p>
+        <p>
+            For more information about base maps take a look
+            <a href="/maps/leaflet/base-map-info">here</a>.
+        </p>
     {% else %}
         <p>
             Im Zuge des Projekts "Österreichische Dialektkartographie 1924-1956.
@@ -51,13 +55,33 @@
             Grenzziehungen und Kartendarstellungen des europäischen Raumes mit gegenwärtigen
             vergleichen kann.
         </p>
-    {% endif %}
-    {% for id, map in overlay_maps.items %}
         <p>
-            <a href="{% url 'maps:leaflet-detail' id %}">
-                <img src="/static/webpage/maps/{{ map.file }}_small.png" style="width:200px;" alt="{{ map.name }}" /><br/>
-                {{ map.name }}
-            </a>
+            Die georeferenzierten Karten können in zwei Gruppen eingeteilt werden: Erstens stammen
+            sie aus dem Bereich der Geopolitik, suggestiven Kartographie(Propagandakartographie)
+            und der Kulturgeographie. Zweitens haben wir Karten zur Georeferenzierung ausgewählt,
+            die sich der Kategorie „Base map“ (Grundkarte) zuordnen lassen. Mehr Informationen über
+            Grundkarten finden Sie <a href="/maps/leaflet/base-map-info">hier</a>.
         </p>
-    {% endfor %}
+    {% endif %}
+    <table>
+        {% for id, map in overlay_maps.items %}
+            <tr>
+                <td style="padding-top:2em;">
+                    <a href="{% url 'maps:leaflet-detail' id %}">
+                        <img src="/static/webpage/maps/{{ map.file }}_small.png" style="width:200px;" alt="{{ map.name }}" /><br/>
+                    </a>
+                </td>
+                <td style="white-space:normal;width:50em;padding-left:2em;">
+                    <p><a href="{% url 'maps:leaflet-detail' id %}">{{ map.name }}</a></p>
+                    {% if LANGUAGE_CODE == 'en' %}
+                        {{ map.desc_en }}
+                    {% else %}
+                        {{ map.desc_de }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p></p>
+
 {% endblock %}
