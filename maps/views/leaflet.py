@@ -82,8 +82,8 @@ overlay_maps = {
         'image_bounds':
             '[[38.15344733677644,-6.006739041944185],[54.3202806361776,31.031465705865532]]'},
     9: {'name': 'Base map 8',
-        'desc_de': '''Diese Karte weist große Ähnlichkeit mit den Basemaps 1-3
-                    auf und stammt auch aus der NS-Zeit.''',
+        'desc_de': '''Diese Karte weist große Ähnlichkeit mit den Basemaps 2-3 auf und stammt
+                    auch aus der NS-Zeit.''',
         'desc_en': '''''',
         'file': 'base_map_8',
         'map_view': '[47.5, 12], 6',
