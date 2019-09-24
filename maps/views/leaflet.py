@@ -21,6 +21,20 @@ overlay_maps = {
         'image_bounds':
             '[[45.97176765332074,8.872319003368014],[50.62979084349124,17.53537112942797]]'},
     2: {'name': 'Base map 1',
+        'desc_de': '''''',
+        'desc_en': '''''',
+        'file': 'base_map_1',
+        'map_view': '[47.5, 12], 6',
+        'image_bounds':
+            '[[43.69731851142412,5.700709620032184],[52.26433682032963,21.087544094639437]]'},
+    3: {'name': 'Base map 2',
+        'desc_de': '''''',
+        'desc_en': '''''',
+        'file': 'base_map_2',
+        'map_view': '[47.5, 12], 6',
+        'image_bounds':
+            '[[43.55127925562619,7.226301417671309],[52.14825889446757,21.51851278814816]]'},
+    4: {'name': 'Base map 3',
         'desc_de': '''Diese Grundkarte wurde im Rahmen einer Probedruckserie in
                     den 1940er Jahren erstellt und gehört zu Kranzmayers Dialektatlas,
                     heute als DAÖ (Dialektatlas Österreichs und seiner Nachbarländer)
@@ -28,11 +42,11 @@ overlay_maps = {
                     dem „Anschluss“ und nach dem „Münchner Abkommen“, da sowohl die
                     Protektoratsgrenze als auch die Gaue bereits eingezeichnet sind.''',
         'desc_en': '''''',
-        'file': 'base_map_1',
-        'map_view': '[47.5, 12], 6',
+        'file': 'base_map_3',
+        'map_view': '[48, 12], 6',
         'image_bounds':
             '[[43.69775375473325,7.042934392227642],[51.78800884283471,19.210591698304047]]'},
-    3: {'name': 'Base map 4',
+    5: {'name': 'Base map 4',
         'desc_de': '''Bei dieser Karte ist "Grundkarte" explizit als
                     Titelbezeichnung angegeben. Sie stammt aus der Zeit vor dem
                     „Anschluss“ und ist möglicherweise aus der Zeit der Ersten Republik.''',
@@ -41,7 +55,7 @@ overlay_maps = {
         'map_view': '[47.7, 14], 6',
         'image_bounds':
             '[[43.6601720195,8.73240499166],[51.678343824,19.298092196]]'},
-    4: {'name': 'Base map 5',
+    6: {'name': 'Base map 5',
         'desc_de': '''Bei dieser Karte findet sich in der Legende die Bezeichnung
                     “Zeichenerklärung der Grundkarte”. Die Karte visualisiert bereits die
                     neun Bundesländer Österreichs, allerdings ebenso Landesgrenzen von
@@ -51,7 +65,14 @@ overlay_maps = {
         'map_view': '[47.5, 12], 6',
         'image_bounds':
             '[[42.98206627717041,7.02351677827924],[51.620452835760695,19.552685375110624]]'},
-    5: {'name': 'Base map 7',
+    7: {'name': 'Base map 6',
+        'desc_de': '''''',
+        'desc_en': '''''',
+        'file': 'base_map_6',
+        'map_view': '[48, 14], 6',
+        'image_bounds':
+            '[[43.83483708049341,8.653324157592056],[51.81572278925359,18.830618545775383]]'},
+    8: {'name': 'Base map 7',
         'desc_de': '''Diese Basemap ist auch als Grundkarte bezeichnet und stammt
                     aus dem Jahr 1970, jene Zeit, als eine zweite Probedruckserie von
                     Kranzmayers Dialektatlas erstellt wurde.''',
@@ -60,7 +81,7 @@ overlay_maps = {
         'map_view': '[47.5, 12], 6',
         'image_bounds':
             '[[38.15344733677644,-6.006739041944185],[54.3202806361776,31.031465705865532]]'},
-    6: {'name': 'Base map 8',
+    9: {'name': 'Base map 8',
         'desc_de': '''Diese Karte weist große Ähnlichkeit mit den Basemaps 1-3
                     auf und stammt auch aus der NS-Zeit.''',
         'desc_en': '''''',
