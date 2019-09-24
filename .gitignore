@@ -6,6 +6,8 @@ docs/html/.doctrees
 # media
 media/*
 webpage/static/webpage/maps/base_map_0.png
+webpage/static/webpage/maps/base_map_1.png
+webpage/static/webpage/maps/base_map_2.png
 
 # test coverage
 .coverage
