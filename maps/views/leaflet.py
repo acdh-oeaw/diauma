@@ -3,7 +3,14 @@
 from django.shortcuts import render
 
 overlay_maps = {
-    0: {'name': 'Suggestiv Karte von Kärnten',
+    0: {'name': 'Sprachenkarte von Kärnten',
+        'desc_de': '''''',
+        'desc_en': '''''',
+        'file': 'suggestiv_kaernten',
+        'map_view': '[46.5, 14], 8',
+        'image_bounds':
+            '[[45.65171024913483,12.437753704352426],[47.29437290743704,15.67192558457878]]'},
+    11: {'name': 'Kärntner Abwehrkämpfe',
         'desc_de': '''''',
         'desc_en': '''''',
         'file': 'suggestiv_kaernten',
