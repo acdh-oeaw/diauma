@@ -10,38 +10,50 @@
     {% breadcrumb "base maps" '' %}
 {% endblock %}
 {% block content %}
-    <h2>{% trans "base maps"|capfirst %}</h2>
+    <h2>{% trans "basemaps"|capfirst %}</h2>
     {% get_current_language as LANGUAGE_CODE %}
     {% if LANGUAGE_CODE == 'en' %}
-        Coming soon ...
+        <p>
+            Basemaps are topographical maps used in dialectology to fuse the geographical space with
+            linguistic phenomena. Thus, basemaps are dialectological basics and raise the following
+            questions: What is the displayed topographical representation? Which are the chosen
+            political and territorial borders?  What topographical sector is used in the map itself?
+        </p>
+        <p>
+            In our case we chose the category basemap for maps which had “Grundkarte”(basemap) as
+            their title (e.g. basemap 4), for maps which were used as a basemap to produce other
+            maps (e.g. basemap 0), or for maps which had the function and properties of a basemap
+            in the context of test prints for Eberhard Kranzmayer’s dialect atlas (e.g. basemap 1).
+            We differentiated between 10 basemap-categories according to specific cartographical
+            properties. These ten categories mainly refer to Eberhard Kranzmayer’s atlas.
+        </p>
     {% else %}
         <p>
-            Grundkarten (base maps) sind im dialektologischen Kontext
-            <strong>topographische</strong> Karten,
-            die verwendet werden, um den <strong>geographischen Raum</strong> mit der Ebene der
-            linguistischen Phänomene in diesem Raum (also etwa die Verbreitung von
-            bestimmten Dialektwörtern) zu fusionieren. Grundkarten sind also dialektologische
-            Grundlagen: Welche topographische Raumdarstellung wird verwendet, um
-            dann linguistische Phänomene einzuzeichnen? Welche (politischen,
-            territorialen) Grenzziehungen werden dabei in dieser topographischen
-            Karte gewählt? Welcher Kartenausschnitt wird ausgesucht?
+            Grundkarten (basemaps) sind im dialektologischen Kontext <strong>topographische</strong>
+            Karten, die
+            verwendet werden, um den <strong>geographischen Raum</strong> mit der Ebene der
+            linguistischen Phänomene
+            in diesem Raum (also etwa die Verbreitung von bestimmten Dialektwörtern) zu fusionieren.
+            Grundkarten sind also dialektologische Grundlagen: Welche topographische Raumdarstellung
+            wird verwendet, um linguistische Phänomene einzuzeichnen? Welche
+            (politischen, territorialen) Grenzziehungen werden dabei in dieser
+            topographischen Karte gewählt? Welcher Kartenausschnitt wird ausgesucht?
         </p>
         <p>
-            Im vorliegenden Fall haben wir jene Karten als Grundkarten bezeichnet,
-            die entweder selbst eine solche Betitelung trugen (z.B.: Basemap 4),
-            oder ganz klar als solche in der Produktion von weiteren Karten
-            verwendet wurden (z.B.: Base map 0), oder aber jene Karten, die im
-            Kontext der Atlasunternehmung von Eberhard Kranzmayer in Form von Probedrucken als
-            Grundkarten zu bezeichnen sind (z.B.:
-            Base map 1). Bei genauer Betrachtung der <strong>kartographischen</strong>
-            Eigenschaften dieser Karten haben wir zwischen 10 verschiedenen
-            Basemaps differenziert, die sich weitgehend auf Eberhard Kranzmayers Atlaswerk beziehen.
+            Im vorliegenden Fall haben wir jene Karten als Grundkarten bezeichnet, die entweder
+            selbst eine solche Betitelung trugen (z.B.: basemap 4) oder ganz klar als solche in der
+            Produktion von weiteren Karten verwendet wurden (z.B.: basemap 0) oder aber jene Karten,
+            die im Kontext der Atlasunternehmung von Eberhard Kranzmayer in Form von Probedrucken
+            als Grundkarten zu bezeichnen sind (z.B.: basemap 1). Bei genauer Betrachtung der
+            <strong>kartographischen</strong> Eigenschaften dieser Karten haben wir zwischen 10
+            verschiedenen basemaps differenziert, die sich weitgehend auf Eberhard Kranzmayers
+            Atlaswerk beziehen.
         </p>
         <p>
-            Dass es sich bei den diversen Karten der Probedruckseries um
-            verschiedene Basemap-Kategorien handelt, kann man nur bei genauer
-            Betrachtung erkennen, da sich manche Grundkarten kaum, oder nur in
-            kleinen kartographischen und topographischen Details unterscheiden.
+            Dass es sich bei den diversen Karten der Probedruckserie um verschiedene
+            basemap-Kategorien handelt, kann man nur bei genauer Betrachtung erkennen, da sich
+            manche Grundkarten kaum oder nur in kleinen kartographischen und topographischen
+            Details unterscheiden.
         </p>
     {% endif %}
 {% endblock %}
