@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-28 13:18+0200\n"
-"PO-Revision-Date: 2019-08-28 13:20+0200\n"
+"POT-Creation-Date: 2019-09-27 09:59+0200\n"
+"PO-Revision-Date: 2019-09-27 10:00+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -449,6 +449,17 @@ msgstr "neuesten Karten"
 msgid "members"
 msgstr "Mitglieder"
 
+#: maps/templates/maps/leaflet/base_map_info.html:7
+#: maps/templates/maps/leaflet/index.html:7
+#: maps/templates/maps/leaflet/index.html:9
+#: webpage/templates/webpage/layout.html:91
+msgid "overlay maps"
+msgstr "Georeferenzierte Karten"
+
+#: maps/templates/maps/leaflet/base_map_info.html:13
+msgid "basemaps"
+msgstr "basemaps"
+
 #: maps/templates/maps/leaflet/detail.html:7
 msgid "overlay"
 msgstr "overlay"
@@ -456,12 +467,6 @@ msgstr "overlay"
 #: maps/templates/maps/leaflet/detail.html:19
 msgid "opacity"
 msgstr "Durchsichtigkeit"
-
-#: maps/templates/maps/leaflet/index.html:7
-#: maps/templates/maps/leaflet/index.html:9
-#: webpage/templates/webpage/layout.html:91
-msgid "overlay maps"
-msgstr "Georeferenzierte Karten"
 
 #: maps/templates/maps/map/detail.html:20
 msgid "copies"

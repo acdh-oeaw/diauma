@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Diauma\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-28 13:18+0200\n"
-"PO-Revision-Date: 2019-08-28 13:18+0200\n"
+"POT-Creation-Date: 2019-09-27 09:59+0200\n"
+"PO-Revision-Date: 2019-09-27 10:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -418,10 +418,8 @@ msgid "Entries without a file with a link to the entry."
 msgstr "Entries without a file with a link to the entry."
 
 #: maps/templates/maps/files/index.html:61
-msgid ""
-"Files that exist but have no related database entries with a download link."
-msgstr ""
-"Files that exist but have no related database entries with a download link."
+msgid "Files that exist but have no related database entries with a download link."
+msgstr "Files that exist but have no related database entries with a download link."
 
 #: maps/templates/maps/files/index.html:65
 msgid "Congratulation, no orphaned files or data entries found."
@@ -447,6 +445,17 @@ msgstr "latest maps"
 msgid "members"
 msgstr "members"
 
+#: maps/templates/maps/leaflet/base_map_info.html:7
+#: maps/templates/maps/leaflet/index.html:7
+#: maps/templates/maps/leaflet/index.html:9
+#: webpage/templates/webpage/layout.html:91
+msgid "overlay maps"
+msgstr "overlay maps"
+
+#: maps/templates/maps/leaflet/base_map_info.html:13
+msgid "basemaps"
+msgstr "basemaps"
+
 #: maps/templates/maps/leaflet/detail.html:7
 msgid "overlay"
 msgstr "overlay"
@@ -454,12 +463,6 @@ msgstr "overlay"
 #: maps/templates/maps/leaflet/detail.html:19
 msgid "opacity"
 msgstr "opacity"
-
-#: maps/templates/maps/leaflet/index.html:7
-#: maps/templates/maps/leaflet/index.html:9
-#: webpage/templates/webpage/layout.html:91
-msgid "overlay maps"
-msgstr "overlay maps"
 
 #: maps/templates/maps/map/detail.html:20
 msgid "copies"
@@ -626,10 +629,7 @@ msgstr "next"
 #~ msgstr "Search in GeoNames"
 
 #~ msgid "info geonames"
-#~ msgstr ""
-#~ "You can search at GeoNames for corresponding entries for the value of the "
-#~ "'Name' field. If entries are found you can choose one from a list to "
-#~ "automatically fill the 'GeoNamesId' field."
+#~ msgstr "You can search at GeoNames for corresponding entries for the value of the 'Name' field. If entries are found you can choose one from a list to automatically fill the 'GeoNamesId' field."
 
 #~ msgid "No matching results found at GeoNames."
 #~ msgstr "No matching results found at GeoNames."
