@@ -35,7 +35,7 @@ def index(request):
             reference = Reference.objects.get(pk=form['reference'].data)
             table = BrowseTable(Map.objects.filter(map_references=reference))
         # Don't use pagination because form values would be lost if paging afterwards
-        RequestConfig(request).configure(table, paginate=False)
+        RequestConfig(request, paginate=False).configure(table)
     return render(request, 'maps/browse/index.html', {'table': table, 'form': form})
 
 
