@@ -21,6 +21,7 @@ from maps.tables import BrowseTable
 def index(request):
     form = BrowseForm(request.POST)
     table = BrowseTable(Map.objects.all())
+    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
     if request.method == 'POST':
         table = BrowseTable(Map.objects.all())
         if form['person'].data and form['person'].data != '0' and form['reference'].data and form['reference'].data != '0':
@@ -34,10 +35,7 @@ def index(request):
             reference = Reference.objects.get(pk=form['reference'].data)
             table = BrowseTable(Map.objects.filter(map_references=reference))
         # Don't use pagination because form values would be lost if paging afterwards
-        RequestConfig(request).configure(table)
-    else:
-        RequestConfig(request,
-                      paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
+        RequestConfig(request).configure(table, paginate=False)
     return render(request, 'maps/browse/index.html', {'table': table, 'form': form})
 
 
