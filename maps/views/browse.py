@@ -33,7 +33,10 @@ def index(request):
             table = BrowseTable(Map.objects.filter(map_persons=person))
         elif form['reference'].data and form['reference'].data != '0':
             reference = Reference.objects.get(pk=form['reference'].data)
-            table = BrowseTable(Map.objects.filter(map_references=reference))
+            query_set = Map.objects.filter(map_references=reference)
+            for sub in Reference.objects.filter(super=reference):
+                query_set = query_set | Map.objects.filter(map_references=sub)
+            table = BrowseTable(query_set)
         # Don't use pagination because form values would be lost if paging afterwards
         RequestConfig(request, paginate=False).configure(table)
     return render(request, 'maps/browse/index.html', {'table': table, 'form': form})
