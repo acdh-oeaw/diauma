@@ -1,8 +1,15 @@
 import psycopg2.extras
 import time
 
-#  Extract meta data for scans from database and export to Lido format
-#  This is work in progress
+# Extract meta data of scans from database and export to LIDO format
+# This is work in progress
+#
+# Links:
+# http://www.lido-schema.org
+# http://www.w3.org/2001/XMLSchema-instance
+# http://www.lido-schema.org
+# http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd
+# https://en.wikipedia.org/wiki/LIDO
 
 
 def connect():
