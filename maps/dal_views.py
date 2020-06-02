@@ -1,4 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from dal import autocomplete
 
 from maps.model.file import File

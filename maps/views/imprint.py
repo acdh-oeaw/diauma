@@ -1,4 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 import urllib.request
 
 from django.shortcuts import render

@@ -1,5 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
-
 from os.path import basename, splitext
 
 from annoying.functions import get_object_or_None

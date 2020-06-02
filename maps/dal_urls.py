@@ -1,4 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.conf.urls import url
 
 from maps.model.file import File

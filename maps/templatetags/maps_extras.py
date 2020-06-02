@@ -1,4 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django import template
 from django.core.files.storage import default_storage
 from django.db.models import Count

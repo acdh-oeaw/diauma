@@ -1,4 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django import forms
 from django.utils.translation import ugettext_lazy
 

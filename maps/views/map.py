@@ -1,4 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from annoying.functions import get_object_or_None
 from django.conf import settings
 from django.contrib import messages

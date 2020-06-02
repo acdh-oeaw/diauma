@@ -1,4 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.contrib import admin
 from django.utils.html import format_html
 from mptt.admin import DraggableMPTTAdmin

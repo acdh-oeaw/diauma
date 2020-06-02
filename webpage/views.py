@@ -1,4 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.contrib.auth import logout
 from django.shortcuts import redirect, render
 from django_tables2 import RequestConfig

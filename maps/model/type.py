@@ -1,4 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.db.models import (CASCADE, CharField, TextField)
 from mptt.models import MPTTModel, TreeForeignKey
 

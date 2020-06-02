@@ -1,4 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from django.http import HttpResponse

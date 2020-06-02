@@ -1,4 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Div, HTML, Layout, Submit
 from dal import autocomplete

@@ -1,5 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
-
 from django.shortcuts import render
 
 overlay_maps = {

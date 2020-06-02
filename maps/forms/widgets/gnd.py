@@ -1,4 +1,3 @@
-# Created by Alexander Watzinger at the ACDH. Please see README.md for licensing information
 from django.forms import widgets
 from django.utils.safestring import mark_safe
 
