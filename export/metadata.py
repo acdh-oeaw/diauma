@@ -1,5 +1,7 @@
 import psycopg2.extras
 import time
+import lxml.etree
+import lxml.builder
 
 # Extract meta data of scans from database and export to LIDO format
 # This is work in progress
@@ -32,14 +34,33 @@ def get_cursor():
 def export_diauma():  # pragma: no cover
     start = time.time()
     cursor = get_cursor()
-    output = ''
     sql = """
         SELECT name FROM maps_scan;
     """
     cursor.execute(sql)
     for row in cursor.fetchall():
-        output += row.name + '\n'
-    print(output)
+        e = lxml.builder.ElementMaker()
+        root = e.root
+        doc = e.doc
+        field1 = e.appellationValue
+        field2 = e.field2
+        the_doc = root(
+            doc(
+                field1(row.name),
+                field2('some test value', name='this is a test name'),
+            )
+        )
+        # the_doc.append(FIELD2('another value again', name='hithere'))
+
+        with open("output.txt", "w") as file_:
+            print(lxml.etree.tostring(the_doc,
+                                      encoding="UTF-8",
+                                      xml_declaration=True,
+                                      pretty_print=True,
+                                      method='xml').decode('UTF-8'),
+                  file=file_)
+
+        break
     print('Execution time: ' + str(int(time.time() - start)) + ' seconds')
 
 
