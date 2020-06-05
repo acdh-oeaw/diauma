@@ -1,7 +1,8 @@
-import psycopg2.extras
 import time
-import lxml.etree
-import lxml.builder
+
+import psycopg2.extras
+from lxml import etree
+
 
 # Extract meta data of scans from database and export to LIDO format
 # This is work in progress
@@ -39,29 +40,43 @@ def export_diauma():  # pragma: no cover
     """
     cursor.execute(sql)
     for row in cursor.fetchall():
-        e = lxml.builder.ElementMaker()
-        root = e.root
-        doc = e.doc
-        field1 = e.appellationValue
-        field2 = e.field2
-        the_doc = root(
-            doc(
-                field1(row.name),
-                field2('some test value', name='this is a test name'),
-            )
-        )
-        # the_doc.append(FIELD2('another value again', name='hithere'))
+        root = etree.Element('lidoWrap', xmlns="http://www.lido-schema.org")
+        lido = etree.SubElement(root, 'lido')
+        rec_id = etree.SubElement(lido, 'lidoRecID')
+        category = etree.SubElement(lido, 'category')
+        metadata = etree.SubElement(lido, 'descriptiveMetadata')
+        object_id_wrap = etree.SubElement(metadata, 'objectIdentificationWrap')
+        title_wrap = etree.SubElement(object_id_wrap, 'titleWrap')
+        title_set = etree.SubElement(title_wrap, 'titleSet')
+        appellation_value = etree.SubElement(title_set, 'appellationValue')
+        appellation_value.text = row.name
+        source_appellation = etree.SubElement(title_set, 'sourceAppellation')
+        source_appellation.text = 'Appellation according source'
 
-        with open("output.txt", "w") as file_:
-            print(lxml.etree.tostring(the_doc,
-                                      encoding="UTF-8",
-                                      xml_declaration=True,
-                                      pretty_print=True,
-                                      method='xml').decode('UTF-8'),
-                  file=file_)
-
+        print(etree.tostring(root,
+                             encoding='UTF-8',
+                             xml_declaration=True,
+                             pretty_print=True,
+                             method='xml').decode('UTF-8'))
         break
     print('Execution time: ' + str(int(time.time() - start)) + ' seconds')
 
 
 export_diauma()
+
+# First try with ElementMaker
+
+# e = builder.ElementMaker(namespace="http://www.lido-schema.org",
+#                          nsmap={'lidoWrap': "http://www.lido-schema.org"})
+# root = e.root
+# doc = e.doc
+# field1 = e.appellationValue
+# field2 = e.field2
+# the_doc = root(doc(field1(row.name),))#
+# with open("output.txt", "w") as file_:
+#     print(etree.tostring(the_doc,
+#                               encoding="UTF-8",
+#                               xml_declaration=True,
+#                               pretty_print=True,
+#                               method='xml').decode('UTF-8'),
+#           file=file_)
