@@ -7,12 +7,18 @@ from lxml import etree
 # Extract meta data of scans from database and export to LIDO format
 # This is work in progress
 #
+# Running script:
+# python3 export.py
+#
+# Testing schema (libxml2-utils package required):
+# xmllint --schema http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd export.xml
+#
 # Links:
 # http://www.lido-schema.org
 # http://www.w3.org/2001/XMLSchema-instance
-# http://www.lido-schema.org
-# http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd
+# http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd
 # https://en.wikipedia.org/wiki/LIDO
+
 
 
 def connect():
@@ -40,9 +46,14 @@ def export_diauma():  # pragma: no cover
     """
     cursor.execute(sql)
     for row in cursor.fetchall():
-        root = etree.Element('lidoWrap', xmlns="http://www.lido-schema.org")
+        root = etree.Element('lidoWrap',
+                             xmlns='http://www.lido-schema.org',
+                             nsmap={'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+                                    'ww': 'http://www.lido-schema.org'})
+        # xsi:schemaLocation: 'http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd'
         lido = etree.SubElement(root, 'lido')
-        rec_id = etree.SubElement(lido, 'lidoRecID')
+        rec_id = etree.SubElement(lido, 'lidoRecID', ww='', nsmap={'type': 'PID'})
+        '<lidoRecID ww:type="PID">https://diauma.acdh.oeaw.ac.at/maps/reference/detail/25/</lidoRecID>'
         category = etree.SubElement(lido, 'category')
         metadata = etree.SubElement(lido, 'descriptiveMetadata')
         object_id_wrap = etree.SubElement(metadata, 'objectIdentificationWrap')
@@ -52,13 +63,15 @@ def export_diauma():  # pragma: no cover
         appellation_value.text = row.name
         source_appellation = etree.SubElement(title_set, 'sourceAppellation')
         source_appellation.text = 'Appellation according source'
-
-        print(etree.tostring(root,
-                             encoding='UTF-8',
-                             xml_declaration=True,
-                             pretty_print=True,
-                             method='xml').decode('UTF-8'))
         break
+    xml = etree.tostring(root,
+                         encoding='UTF-8',
+                         xml_declaration=True,
+                         pretty_print=True,
+                         method='xml').decode('UTF-8')
+    print(xml)
+    with open('export.xml', 'w') as file:
+        file.write(xml)
     print('Execution time: ' + str(int(time.time() - start)) + ' seconds')
 
 
