@@ -18,8 +18,7 @@ from lxml import etree
 # http://www.w3.org/2001/XMLSchema-instance
 # http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd
 # https://en.wikipedia.org/wiki/LIDO
-
-
+# https://lxml.de/tutorial.html
 
 def connect():
     try:
