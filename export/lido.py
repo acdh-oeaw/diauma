@@ -5,10 +5,7 @@ from lxml import etree
 
 
 # Extract meta data of scans from database and export to LIDO format
-# This is work in progress
-#
-# Running script:
-# python3 export.py
+# This is work in progress and not for productive use.
 #
 # Testing schema (libxml2-utils package required):
 # xmllint --schema http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd export.xml
