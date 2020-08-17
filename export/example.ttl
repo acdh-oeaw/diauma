@@ -1,0 +1,14 @@
+@prefix acdh: <https://vocabs.acdh.oeaw.ac.at/schema#>.
+@prefix acdhi: <https://id.acdh.oeaw.ac.at/>.
+
+
+https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasTitle "I.Entwürfe ausserhalb der Lieferungen_0002"@de.
+https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasDigitisingAgent acdhi:jdzimmermann.
+
+https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasCreator acdhi:awatzinger.
+https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasRelatedDiscipline <link_to_vocabs>.
+https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasCreatedDateOriginal "1980".
+https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasCoverageStartDate "1962-01-01".
+https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasCoverageEndDate "1962-12-31".
+
+https://diauma.acdh.oeaw.ac.at/maps/map/detail/793/ acdh:hasUrl "https://diauma.acdh.oeaw.ac.at/maps/map/detail/793".
