@@ -6,7 +6,6 @@ import psycopg2.extras
 # Extract (additional) meta data of scans from database and export to ttl format
 # This is work in progress and not for productive use.
 #
-# To do: check SQL joins (use left join?)
 
 def connect():
     try:
@@ -37,7 +36,15 @@ def get_prefix(row):
 def export_diauma():  # pragma: no cover
     start = time.time()
     cursor = get_cursor()
-    agents = {18: 'acdhi:chackl', 19: 'acdhi:jdzimmermann'}
+    science_domains = {
+        181: '401',  # Agricultural
+        71: '504006',  # Demographic
+        63: '504009',  # Ethnologic
+        7: '602',  # Linguistic
+        42: '509021',  # Military
+        38: '506011',  # Political
+        192: '105409'  # Topographic
+    }
     creators = {6: 'ekranzmayer',
                 9: 'fwrede',
                 12: 'mwutte',
@@ -78,6 +85,8 @@ def export_diauma():  # pragma: no cover
         prefix = get_prefix(row)
         ttl += prefix + 'hasTitle "' + row.name + '"@de.\n'
         ttl += prefix + 'hasUrl "' + detail_url + str(row.map_id) + '".\n'
+        ttl += prefix + 'hasDigitisingAgent acdhi:chackl.\n'
+        ttl += prefix + 'hasDigitisingAgent acdhi:jdzimmermann.\n'
         if row.date_created:
             ttl += prefix + 'hasCreatedDateOriginal "' + str(row.date_created)[:4] + '".\n'
         if row.date_content:
@@ -88,8 +97,13 @@ def export_diauma():  # pragma: no cover
         cursor.execute(creator_sql, {'map_id': row.map_id})
         for row_creator in cursor.fetchall():
             ttl += prefix + 'hasCreator ' + 'acdhi:' + creators[row_creator.person_id] + '.\n'
-        # if row.person_id:
-        #    ttl += identifier + ' acdh:hasDigitisingAgent ' + agents[row.person_id] + '.\n'
+        science_sql = "SELECT type_id FROM maps_map_map_type WHERE map_id = %(map_id)s;"
+        cursor.execute(science_sql, {'map_id': row.map_id})
+        for row_type in cursor.fetchall():
+            if row_type.type_id not in science_domains:
+                continue
+            link = 'https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/' + science_domains[row_type.type_id]
+            ttl += prefix + 'hasRelatedDiscipline <' + link + '>.\n'
         ttl += '\n'
     with open('diauma_metadata.ttl', 'w') as file:
         # print(ttl)

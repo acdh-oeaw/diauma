@@ -7,7 +7,6 @@ https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasCreated
 https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasCoverageStartDate "1962-01-01".
 https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasCoverageEndDate "1962-12-31".
 https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasCreator acdhi:awatzinger.
-
 https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasDigitisingAgent acdhi:jdzimmermann.
-https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasRelatedDiscipline <link_to_vocabs>.
 
+https://id.acdh.oeaw.ac.at/diauma/Scans/Diverse/Diverse_0001.tif acdh:hasRelatedDiscipline <link_to_vocabs>.
