@@ -25,12 +25,12 @@ def get_cursor():
 
 
 def get_prefix(row):
-    identifier = 'https://id.acdh.oeaw.ac.at/diauma/Scans/'
+    identifier = '<https://id.acdh.oeaw.ac.at/diauma/Scans/'
     name = row.file.replace('scan/', '')  # remove prefix
     name = name.replace('Ausserhalb', 'Auerhalb')  # synchronize identifier
     if '_' in name:  # Add sub directory
         identifier += name.split('_', 1)[0] + '/'
-    return identifier + name + ' acdh:'
+    return identifier + name + '> acdh:'
 
 
 def export_diauma():  # pragma: no cover
