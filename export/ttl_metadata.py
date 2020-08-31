@@ -32,7 +32,7 @@ def get_prefix(row):
     filename, file_extension = os.path.splitext(name)
     name = filename.replace('.', '') + file_extension  # remove dots from file name
     if '_' in name:  # Add sub directory
-        identifier += name.split('_', 1)[0] + '/'
+        identifier += str(name.rsplit('_', 1)) + '/'
     return identifier + name + ' acdh:'
 
 
