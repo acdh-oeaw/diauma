@@ -1,3 +1,4 @@
+import os
 import time
 
 import psycopg2.extras
@@ -28,6 +29,8 @@ def get_prefix(row):
     identifier = 'https://id.acdh.oeaw.ac.at/diauma/Scans/'
     name = row.file.replace('scan/', '')  # remove prefix
     name = name.replace('Ausserhalb', 'Auerhalb')  # synchronize identifier
+    filename, file_extension = os.path.splitext(name)
+    name = filename.replace('.', '') + file_extension  # remove dots from file name
     if '_' in name:  # Add sub directory
         identifier += name.split('_', 1)[0] + '/'
     return identifier + name + ' acdh:'
