@@ -10,7 +10,7 @@ import psycopg2.extras
 
 def connect():
     try:
-        connection_ = psycopg2.connect(database='diauma', user='diauma', password='diauma')
+        connection_ = psycopg2.connect(database='diauma_09_11', user='diauma', password='diauma')
         connection_.autocommit = True
         return connection_
     except Exception as e:  # pragma: no cover
@@ -39,15 +39,16 @@ def get_prefix(row):
 def export_diauma():  # pragma: no cover
     start = time.time()
     cursor = get_cursor()
-    science_domains = {
-        181: '401',  # Agricultural
-        71: '504006',  # Demographic
-        63: '504009',  # Ethnologic
-        7: '602',  # Linguistic
-        42: '509021',  # Military
-        38: '506011',  # Political
-        192: '105409'  # Topographic
-    }
+    licenses = {110: ''}  # CC-BY 4.0
+
+    science_domains = {181: '401',  # Agricultural
+                       71: '504006',  # Demographic
+                       63: '504009',  # Ethnologic
+                       7: '602',  # Linguistic
+                       42: '509021',  # Military
+                       38: '506011',  # Political
+                       192: '105409'}  # Topographic
+
     creators = {6: 'ekranzmayer',
                 9: 'fwrede',
                 12: 'mwutte',
@@ -88,29 +89,45 @@ def export_diauma():  # pragma: no cover
         prefix = get_prefix(row)
         ttl += prefix + 'hasTitle "' + row.name + '"@de.\n'
         ttl += prefix + 'hasUrl "' + detail_url + str(row.map_id) + '".\n'
+
+        # Digitising agents
         ttl += prefix + 'hasDigitisingAgent acdhi:chackl.\n'
         ttl += prefix + 'hasDigitisingAgent acdhi:jdzimmermann.\n'
         ttl += prefix + 'hasDigitisingAgent acdhi:kwagner.\n'
+
+        # Dates
         if row.date_created:
             ttl += prefix + 'hasCreatedDateOriginal "' + str(row.date_created)[:4] + '".\n'
         if row.date_content:
             ttl += prefix + 'hasCoverageStartDate "' + str(row.date_content) + '".\n'
         if row.date_content2:
             ttl += prefix + 'hasCoverageEndDate "' + str(row.date_content2) + '".\n'
+
+        # Map creator
         creator_sql = "SELECT person_id FROM maps_map_map_persons WHERE map_id = %(map_id)s;"
         cursor.execute(creator_sql, {'map_id': row.map_id})
         for row_creator in cursor.fetchall():
             ttl += prefix + 'hasCreator ' + 'acdhi:' + creators[row_creator.person_id] + '.\n'
+
+        # Related disciplines
         science_sql = "SELECT type_id FROM maps_map_map_type WHERE map_id = %(map_id)s;"
         cursor.execute(science_sql, {'map_id': row.map_id})
         for row_type in cursor.fetchall():
             if row_type.type_id not in science_domains:
                 continue
-            link = 'https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/' + science_domains[row_type.type_id]
+            link = 'https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/' + \
+                   science_domains[row_type.type_id]
             ttl += prefix + 'hasRelatedDiscipline <' + link + '>.\n'
+
+        # Licenses
+        license_sql = "SELECT type_id FROM maps_scan_scan_type WHERE scan_id = %(scan_id)s;"
+        cursor.execute(license_sql, {'scan_id': row.id})
+        for row_license in cursor.fetchall():
+            if row_license.type_id in licenses:
+                pass  # todo: add license to ttl (use ARCHE identifier from licenses dict)
+
         ttl += '\n'
     with open('diauma_metadata.ttl', 'w') as file:
-        # print(ttl)
         file.write(ttl)
     print('Execution time: ' + str(int(time.time() - start)) + ' seconds')
 
