@@ -90,6 +90,7 @@ def export_diauma():  # pragma: no cover
         ttl += prefix + 'hasUrl "' + detail_url + str(row.map_id) + '".\n'
         ttl += prefix + 'hasDigitisingAgent acdhi:chackl.\n'
         ttl += prefix + 'hasDigitisingAgent acdhi:jdzimmermann.\n'
+        ttl += prefix + 'hasDigitisingAgent acdhi:kwagner.\n'
         if row.date_created:
             ttl += prefix + 'hasCreatedDateOriginal "' + str(row.date_created)[:4] + '".\n'
         if row.date_content:
