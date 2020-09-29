@@ -10,7 +10,7 @@ import psycopg2.extras
 
 def connect():
     try:
-        connection_ = psycopg2.connect(database='diauma_09_11', user='diauma', password='diauma')
+        connection_ = psycopg2.connect(database='diauma', user='diauma', password='diauma')
         connection_.autocommit = True
         return connection_
     except Exception as e:  # pragma: no cover
@@ -19,7 +19,7 @@ def connect():
 
 
 connection = connect()
-
+file_list = []
 
 def get_cursor():
     return connection.cursor(cursor_factory=psycopg2.extras.NamedTupleCursor)
@@ -31,8 +31,9 @@ def get_prefix(row):
     name = name.replace('Ausserhalb', 'Auerhalb')  # synchronize identifier
     filename, file_extension = os.path.splitext(name)
     name = filename.replace('.', '') + file_extension  # remove dots from file name
-    if '_' in name:  # Add sub directory
-        identifier += str(name.rsplit('_', 1)[0]) + '/'
+    # if '_' in name:  # Add sub directory
+    #    identifier += str(name.rsplit('_', 1)[0]) + '/'
+    file_list.append(name)
     return identifier + name + '> acdh:'
 
 
@@ -82,10 +83,21 @@ def export_diauma():  # pragma: no cover
         FROM maps_scan s
         JOIN maps_scan_scan_map ms ON s.id = ms.scan_id
         JOIN maps_map m ON ms.map_id = m.id
-        ORDER BY s.id;
-    """
+        ORDER BY s.id;"""
     cursor.execute(sql)
     for row in cursor.fetchall():
+
+        # Licenses
+        license_sql = "SELECT type_id FROM maps_scan_scan_type WHERE scan_id = %(scan_id)s;"
+        cursor.execute(license_sql, {'scan_id': row.id})
+        licence_ok = False
+        for row_license in cursor.fetchall():
+            if row_license.type_id == 110:  # CC-BY 4.0
+                licence_ok = True
+                break
+        if not licence_ok:  # Only accept CC-BY 4.0, discard others
+            continue
+
         prefix = get_prefix(row)
         ttl += prefix + 'hasTitle "' + row.name + '"@de.\n'
         ttl += prefix + 'hasUrl "' + detail_url + str(row.map_id) + '".\n'
@@ -118,17 +130,11 @@ def export_diauma():  # pragma: no cover
             link = 'https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/' + \
                    science_domains[row_type.type_id]
             ttl += prefix + 'hasRelatedDiscipline <' + link + '>.\n'
-
-        # Licenses
-        license_sql = "SELECT type_id FROM maps_scan_scan_type WHERE scan_id = %(scan_id)s;"
-        cursor.execute(license_sql, {'scan_id': row.id})
-        for row_license in cursor.fetchall():
-            if row_license.type_id in licenses:
-                pass  # todo: add license to ttl (use ARCHE identifier from licenses dict)
-
         ttl += '\n'
     with open('diauma_metadata.ttl', 'w') as file:
         file.write(ttl)
+    with open('diauma_filelist.ttl', 'w') as file:
+        file.write('\n'.join(file_list))
     print('Execution time: ' + str(int(time.time() - start)) + ' seconds')
 
 

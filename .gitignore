@@ -9,6 +9,7 @@ webpage/static/webpage/maps/base_map_0.png
 
 # export
 export/diauma_metadata.ttl
+export/diauma_filelist.ttl
 
 # test coverage
 .coverage
