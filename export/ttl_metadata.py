@@ -6,7 +6,6 @@ import psycopg2.extras
 
 # Extract (additional) meta data of scans from database and export to ttl format
 # This is work in progress and not for productive use.
-#
 
 def connect():
     try:

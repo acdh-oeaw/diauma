@@ -72,20 +72,3 @@ def export_diauma():  # pragma: no cover
 
 
 export_diauma()
-
-# First try with ElementMaker
-
-# e = builder.ElementMaker(namespace="http://www.lido-schema.org",
-#                          nsmap={'lidoWrap': "http://www.lido-schema.org"})
-# root = e.root
-# doc = e.doc
-# field1 = e.appellationValue
-# field2 = e.field2
-# the_doc = root(doc(field1(row.name),))#
-# with open("output.txt", "w") as file_:
-#     print(etree.tostring(the_doc,
-#                               encoding="UTF-8",
-#                               xml_declaration=True,
-#                               pretty_print=True,
-#                               method='xml').decode('UTF-8'),
-#           file=file_)
