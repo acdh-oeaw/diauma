@@ -1,24 +1,27 @@
+**Important notice**: this project is archived and not actively development
+ or suitable for productive use anymore.
+
 # About
 
 Diauma is a web application to manage maps and associated data for the project:
 
-Austrian Dialect Cartography 1924–1956: Digitalisation Contextualisation and Visualisation: 
-https://www.oeaw.ac.at/acdh/projects/austrian-dialect-cartography
+Austrian Dialect Cartography 1924–1956: Digitalisation Contextualisation and
+Visualisation: https://www.oeaw.ac.at/acdh/projects/austrian-dialect-cartography
 
-It is a Django 1.11 web application, written in Python 3, developed at the Austrian Centre for Digital Humanities (ACDH)
-and based on the Cremation Bronze Age Burials application (CBAB) project.
-
-# Important Notice
-
-This application is still in development and not for productive use.
+It is a Django 1.11 web application, written in Python 3, developed at the
+Austrian Centre for Digital Humanities and Cultural Heritage (ACDH-CH ) and
+based on the Cremation Bronze Age Burials application (CBAB) project.
 
 # Licensing
 
-All code unless otherwise noted is licensed under the terms of the MIT License (MIT).
-Please refer to the file COPYING in the root directory of this repository.
+All code unless otherwise noted is licensed under the terms of the MIT License
+(MIT). Please refer to the file COPYING in the root directory of this
+repository.
 
-All documentation and images unless otherwise noted are licensed under the terms of Creative Commons Attribution-ShareAlike 4.0 International License.
-To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/
+All documentation and images unless otherwise noted are licensed under the
+terms of Creative Commons Attribution-ShareAlike 4.0 International License.
+To view a copy of this license, visit
+https://creativecommons.org/licenses/by-sa/4.0/
 
 # Install
 
