@@ -4,7 +4,6 @@ __pycache__/
 docs/html/.doctrees
 
 # media
-media/*
 webpage/static/webpage/maps/base_map_0.png
 
 # export
