@@ -21,7 +21,7 @@ from lxml import etree
 def connect():
     try:
         connection_ = psycopg2.connect(
-            database="diauma", user="diauma", password="diauma"
+            database="diauma", user="postgres", password="postgres"
         )
         connection_.autocommit = True
         return connection_
