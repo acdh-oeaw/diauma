@@ -22,72 +22,80 @@ from maps.util import get_selected_nodes
 @login_required
 def index(request):
     table = ReferenceTable(Reference.objects.all())
-    RequestConfig(request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
-    return render(request, 'maps/reference/index.html', {'reference_table': table})
+    RequestConfig(
+        request, paginate={"per_page": settings.TABLE_ITEMS_PER_PAGE}
+    ).configure(table)
+    return render(request, "maps/reference/index.html", {"reference_table": table})
 
 
 @login_required
 def detail(request, pk):
     reference = Reference.objects.get(pk=pk)
     tables = {}
-    tables['maps'] = MapTable(Map.objects.filter(map_references=reference))
-    tables['maps'].tab = '#maps'
-    tables['subs'] = ReferenceTable(Reference.objects.filter(super_id=reference.id))
-    tables['subs'].tab = '#subs'
-    tables['files'] = FileTable(File.objects.filter(file_reference=reference))
-    tables['files'].tab = '#files'
-    tables['scans'] = ScanTable(Scan.objects.filter(scan_reference=reference))
-    tables['scans'].tab = '#files'
+    tables["maps"] = MapTable(Map.objects.filter(map_references=reference))
+    tables["maps"].tab = "#maps"
+    tables["subs"] = ReferenceTable(Reference.objects.filter(super_id=reference.id))
+    tables["subs"].tab = "#subs"
+    tables["files"] = FileTable(File.objects.filter(file_reference=reference))
+    tables["files"].tab = "#files"
+    tables["scans"] = ScanTable(Scan.objects.filter(scan_reference=reference))
+    tables["scans"].tab = "#files"
     for name, table in tables.items():
         RequestConfig(
-            request, paginate={'per_page': settings.TABLE_ITEMS_PER_PAGE}).configure(table)
-    return render(request, 'maps/reference/detail.html', {
-        'reference': reference,
-        'has_super': get_object_or_None(Reference, sub=reference),
-        'tables': tables,
-        'types': Type.objects.filter(reference_type=reference)})
+            request, paginate={"per_page": settings.TABLE_ITEMS_PER_PAGE}
+        ).configure(table)
+    return render(
+        request,
+        "maps/reference/detail.html",
+        {
+            "reference": reference,
+            "has_super": get_object_or_None(Reference, sub=reference),
+            "tables": tables,
+            "types": Type.objects.filter(reference_type=reference),
+        },
+    )
 
 
 class Create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Reference
-    template_name = 'maps/reference/create.html'
+    template_name = "maps/reference/create.html"
     form_class = ReferenceForm
-    success_message = 'An entry has been created.'
+    success_message = "An entry has been created."
 
     def post(self, request, **kwargs):
         request.POST = request.POST.copy()
-        request.POST.setlist('reference_type', get_selected_nodes('Reference', request))
+        request.POST.setlist("reference_type", get_selected_nodes("Reference", request))
         return super(Create, self).post(request, **kwargs)
 
     def dispatch(self, *args, **kwargs):
         return super(Create, self).dispatch(*args, **kwargs)
 
     def get_success_url(self):
-        return reverse('maps:reference-detail', kwargs={'pk': self.object.pk})
+        return reverse("maps:reference-detail", kwargs={"pk": self.object.pk})
 
 
 class Update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Reference
-    template_name = 'maps/reference/update.html'
+    template_name = "maps/reference/update.html"
     form_class = ReferenceForm
-    success_message = 'An entry has been updated.'
+    success_message = "An entry has been updated."
 
     def post(self, request, **kwargs):
         request.POST = request.POST.copy()
-        request.POST.setlist('reference_type', get_selected_nodes('Reference', request))
+        request.POST.setlist("reference_type", get_selected_nodes("Reference", request))
         return super(Update, self).post(request, **kwargs)
 
     def dispatch(self, *args, **kwargs):
         return super(Update, self).dispatch(*args, **kwargs)
 
     def get_success_url(self):
-        return reverse('maps:reference-detail', kwargs={'pk': self.object.pk})
+        return reverse("maps:reference-detail", kwargs={"pk": self.object.pk})
 
 
 class Delete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Reference
-    success_url = reverse_lazy('maps:reference')
-    success_message = 'An entry has been deleted.'
+    success_url = reverse_lazy("maps:reference")
+    success_message = "An entry has been deleted."
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)

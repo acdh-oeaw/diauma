@@ -8,13 +8,12 @@ from maps.tables import MapTable
 
 def user_logout(request):
     logout(request)
-    return redirect('/login')
+    return redirect("/login")
 
 
 def handler404(request, exception):
-    return render(request, 'webpage/404-error.html')
+    return render(request, "webpage/404-error.html")
 
 
 def index(request):
-    return render(request, 'webpage/index.html')
-
+    return render(request, "webpage/index.html")

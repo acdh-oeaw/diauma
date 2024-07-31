@@ -1,4 +1,4 @@
-from django.db.models import (DateTimeField, Model)
+from django.db.models import DateTimeField, Model
 
 
 class BaseModel(Model):
@@ -7,4 +7,4 @@ class BaseModel(Model):
 
     class Meta:
         abstract = True
-        ordering = ['name']
+        ordering = ["name"]

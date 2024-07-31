@@ -9,27 +9,42 @@ from maps.model.reference import Reference
 from maps.model.scan import Scan
 from . import dal_views
 
-app_name = 'map-ac'
+app_name = "map-ac"
 
 urlpatterns = [
-    url(r'^persons-autocomplete/$',
+    url(
+        r"^persons-autocomplete/$",
         dal_views.PersonsAutocomplete.as_view(model=Person),
-        name='persons-autocomplete'),
-    url(r'^references-autocomplete/$',
+        name="persons-autocomplete",
+    ),
+    url(
+        r"^references-autocomplete/$",
         dal_views.ReferencesAutocomplete.as_view(model=Reference),
-        name='references-autocomplete'),
-    url(r'^institute-autocomplete/$',
+        name="references-autocomplete",
+    ),
+    url(
+        r"^institute-autocomplete/$",
         dal_views.InstituteAutocomplete.as_view(model=Institute),
-        name='institute-autocomplete'),
-    url(r'^place-autocomplete/$',
+        name="institute-autocomplete",
+    ),
+    url(
+        r"^place-autocomplete/$",
         dal_views.PlaceAutocomplete.as_view(model=Place),
-        name='place-autocomplete'),
-    url(r'^map-autocomplete/$',
+        name="place-autocomplete",
+    ),
+    url(
+        r"^map-autocomplete/$",
         dal_views.MapAutocomplete.as_view(model=Map),
-        name='map-autocomplete'),
-    url(r'^file-autocomplete/$',
+        name="map-autocomplete",
+    ),
+    url(
+        r"^file-autocomplete/$",
         dal_views.FileAutocomplete.as_view(model=File),
-        name='file-autocomplete'),
-    url(r'^scan-autocomplete/$',
+        name="file-autocomplete",
+    ),
+    url(
+        r"^scan-autocomplete/$",
         dal_views.ScanAutocomplete.as_view(model=Scan),
-        name='scan-autocomplete')]
+        name="scan-autocomplete",
+    ),
+]

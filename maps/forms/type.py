@@ -1,23 +1,22 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Div, HTML, Layout, Submit
 from django import forms
-from django.utils.translation import ugettext
+from django.utils.translation import gettext
 
 from maps.model.type import Type
 from ..util import sanitize
 
 
 class TypeForm(forms.ModelForm):
-
     class Meta:
         model = Type
-        fields = ('name', 'parent', 'info')
+        fields = ("name", "parent", "info")
 
     def __init__(self, *args, **kwargs):
         super(TypeForm, self).__init__(*args, **kwargs)
-        instance = kwargs.get('instance')
+        instance = kwargs.get("instance")
         if not instance:
-            parent = kwargs['initial']['parent']
+            parent = kwargs["initial"]["parent"]
         else:
             ancestors = instance.get_ancestors()
             parent = list(ancestors)[-1]
@@ -25,12 +24,10 @@ class TypeForm(forms.ModelForm):
         root = ancestors[0] if ancestors else parent
         nodes_html = self.get_nodes_html(root, parent, True)
         self.helper = FormHelper()
-        self.helper.add_input(Submit('submit', ugettext('submit').capitalize()))
+        self.helper.add_input(Submit("submit", gettext("submit").capitalize()))
         self.helper.layout = Layout(
-            'name',
-            Div('parent', css_class='hidden'),
-            Div(HTML(nodes_html)),
-            'info')
+            "name", Div("parent", css_class="hidden"), Div(HTML(nodes_html)), "info"
+        )
 
     @staticmethod
     def get_nodes_html(root, selected, with_root=False):
@@ -44,10 +41,11 @@ class TypeForm(forms.ModelForm):
                         readonly="readonly" value="{selected_name}" placeholder="Select" />
                 </div>
             </div>""".format(
-                field='map-type-' + sanitize(root.name),
-                node_name=root.name,
-                selected_id=selected.id,
-                selected_name=selected.name)
+            field="map-type-" + sanitize(root.name),
+            node_name=root.name,
+            selected_id=selected.id,
+            selected_name=selected.name,
+        )
         overlay_html = """
             <div id="{field}-overlay" class="overlay" style="display:none">
                 <div id="{field}-dialog" class="overlay-container">
@@ -71,7 +69,8 @@ class TypeForm(forms.ModelForm):
                     }});
                 }});
             </script>""".format(
-                field='map-type-' + sanitize(root.name),
-                node_name=root.name,
-                tree_data=root.get_tree_data([selected.id], with_root))
+            field="map-type-" + sanitize(root.name),
+            node_name=root.name,
+            tree_data=root.get_tree_data([selected.id], with_root),
+        )
         return html + overlay_html

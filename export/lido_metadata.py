@@ -17,9 +17,12 @@ from lxml import etree
 # https://en.wikipedia.org/wiki/LIDO
 # https://lxml.de/tutorial.html
 
+
 def connect():
     try:
-        connection_ = psycopg2.connect(database='diauma', user='diauma', password='diauma')
+        connection_ = psycopg2.connect(
+            database="diauma", user="diauma", password="diauma"
+        )
         connection_.autocommit = True
         return connection_
     except Exception as e:  # pragma: no cover
@@ -42,33 +45,35 @@ def export_diauma():  # pragma: no cover
     """
     cursor.execute(sql)
     for row in cursor.fetchall():
-        root = etree.Element('lidoWrap',
-                             xmlns='http://www.lido-schema.org',
-                             nsmap={'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-                                    'ww': 'http://www.lido-schema.org'})
+        root = etree.Element(
+            "lidoWrap",
+            xmlns="http://www.lido-schema.org",
+            nsmap={
+                "xsi": "http://www.w3.org/2001/XMLSchema-instance",
+                "ww": "http://www.lido-schema.org",
+            },
+        )
         # xsi:schemaLocation: 'http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd'
-        lido = etree.SubElement(root, 'lido')
-        rec_id = etree.SubElement(lido, 'lidoRecID', ww='', nsmap={'type': 'PID'})
+        lido = etree.SubElement(root, "lido")
+        rec_id = etree.SubElement(lido, "lidoRecID", ww="", nsmap={"type": "PID"})
         '<lidoRecID ww:type="PID">https://diauma.acdh.oeaw.ac.at/maps/reference/detail/25/</lidoRecID>'
-        category = etree.SubElement(lido, 'category')
-        metadata = etree.SubElement(lido, 'descriptiveMetadata')
-        object_id_wrap = etree.SubElement(metadata, 'objectIdentificationWrap')
-        title_wrap = etree.SubElement(object_id_wrap, 'titleWrap')
-        title_set = etree.SubElement(title_wrap, 'titleSet')
-        appellation_value = etree.SubElement(title_set, 'appellationValue')
+        category = etree.SubElement(lido, "category")
+        metadata = etree.SubElement(lido, "descriptiveMetadata")
+        object_id_wrap = etree.SubElement(metadata, "objectIdentificationWrap")
+        title_wrap = etree.SubElement(object_id_wrap, "titleWrap")
+        title_set = etree.SubElement(title_wrap, "titleSet")
+        appellation_value = etree.SubElement(title_set, "appellationValue")
         appellation_value.text = row.name
-        source_appellation = etree.SubElement(title_set, 'sourceAppellation')
-        source_appellation.text = 'Appellation according source'
+        source_appellation = etree.SubElement(title_set, "sourceAppellation")
+        source_appellation.text = "Appellation according source"
         break
-    xml = etree.tostring(root,
-                         encoding='UTF-8',
-                         xml_declaration=True,
-                         pretty_print=True,
-                         method='xml').decode('UTF-8')
+    xml = etree.tostring(
+        root, encoding="UTF-8", xml_declaration=True, pretty_print=True, method="xml"
+    ).decode("UTF-8")
     print(xml)
-    with open('export.xml', 'w') as file:
+    with open("export.xml", "w") as file:
         file.write(xml)
-    print('Execution time: ' + str(int(time.time() - start)) + ' seconds')
+    print("Execution time: " + str(int(time.time() - start)) + " seconds")
 
 
 export_diauma()

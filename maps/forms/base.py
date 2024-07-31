@@ -1,25 +1,26 @@
 from django import forms
-from django.utils.translation import ugettext
+from django.utils.translation import gettext
 
 from ..util import sanitize
 
 
 class BaseForm(forms.ModelForm):
-
     @staticmethod
     def get_nodes_html(root, selected_ids):
-        html = ''
-        overlay_html = ''
+        html = ""
+        overlay_html = ""
         for node in root.get_children():
             selected_ids_string = []
-            selected_name_string = ''
+            selected_name_string = ""
             for child in node.get_descendants():
                 if child.id in selected_ids:
                     selected_ids_string.append(str(child.id))
-                    selected_name_string += '<span title="' + child.info.replace('"', "'") + '">'
-                    selected_name_string += child.name + '</span><br />'
-            selected_ids_string = ','.join(selected_ids_string)
-            tooltip = ''
+                    selected_name_string += (
+                        '<span title="' + child.info.replace('"', "'") + '">'
+                    )
+                    selected_name_string += child.name + "</span><br />"
+            selected_ids_string = ",".join(selected_ids_string)
+            tooltip = ""
             if node.info:
                 title = node.info.replace('"', "'")
                 tooltip = '<span class="diauma-tooltip" title="' + title + '">i</span>'
@@ -38,12 +39,13 @@ class BaseForm(forms.ModelForm):
                         </div>
                     </div>
                 </div>""".format(
-                    change=ugettext('change').capitalize(),
-                    tooltip=tooltip,
-                    field='map-type-' + sanitize(node.name),
-                    node_name=node.name,
-                    selected_ids_string=selected_ids_string,
-                    selected_name_string=selected_name_string)
+                change=gettext("change").capitalize(),
+                tooltip=tooltip,
+                field="map-type-" + sanitize(node.name),
+                node_name=node.name,
+                selected_ids_string=selected_ids_string,
+                selected_name_string=selected_name_string,
+            )
             overlay_html += """
                 <div id="{field}-overlay" class="overlay" style="display:none">
                     <div id="{field}-dialog" class="overlay-container">
@@ -65,7 +67,8 @@ class BaseForm(forms.ModelForm):
                         }});
                     }});
                 </script>""".format(
-                    field='map-type-' + sanitize(node.name),
-                    node_name=node.name,
-                    tree_data=node.get_tree_data(selected_ids))
+                field="map-type-" + sanitize(node.name),
+                node_name=node.name,
+                tree_data=node.get_tree_data(selected_ids),
+            )
         return html + overlay_html
