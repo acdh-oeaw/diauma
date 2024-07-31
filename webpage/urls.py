@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
 from django.http import HttpResponse
 from django.views.generic.base import RedirectView
@@ -10,7 +10,7 @@ app_name = "webpage"
 favicon_view = RedirectView.as_view(url="/static/favicon.ico", permanent=True)
 
 urlpatterns = [
-    path("favicon\.ico", favicon_view),
+    re_path(r"favicon\.ico", favicon_view),
     path(
         "robots.txt",
         lambda x: HttpResponse("User-Agent: *", content_type="text/plain"),
@@ -23,7 +23,7 @@ urlpatterns = [
         auth_views.LoginView.as_view(template_name="webpage/login.html"),
         name="login",
     ),
-    path("docs/(?P<path>.*)", serve, {"document_root": "docs/html"}, "docs"),
+    re_path(r"docs/(?P<path>.*)", serve, {"document_root": "docs/html"}, "docs"),
 ]
 
 handler404 = "webpage.views.handler404"
