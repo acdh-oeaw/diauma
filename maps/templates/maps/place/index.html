@@ -1,12 +1,9 @@
 {% extends "webpage/layout.html" %}
 {% load maps_extras %}
-{% load django_bootstrap_breadcrumbs %}
+
 {% load render_table from django_tables2 %}
 {% load i18n %}
 {% block title %}{% trans "place"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "place" "maps:place" %}
-{% endblock %}
 {% block content %}
     <div class="button-bar">
         <a class="button" href="{% url 'maps:place-create' %}">{% trans "place"|capfirst %} +</a>

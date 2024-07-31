@@ -1,15 +1,10 @@
 {% extends "webpage/layout.html" %}
-{% load django_bootstrap_breadcrumbs %}
+
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% block title %}{% trans "files"|capfirst %}{% endblock %}
 {% block content %}
     <div class="container">
-        {% block breadcrumbs %}
-            {% breadcrumb "files" "maps:files-index" %}
-            {% trans "scan +"|capfirst as add_file %}
-            {% breadcrumb add_file '' %}
-        {% endblock %}
         <div class="panel-body">
             {% crispy form %}
         </div>

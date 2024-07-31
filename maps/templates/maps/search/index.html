@@ -1,12 +1,9 @@
 {% extends "webpage/layout.html" %}
 {% load maps_extras %}
-{% load django_bootstrap_breadcrumbs %}
+
 {% load render_table from django_tables2 %}
 {% load i18n %}
 {% block title %}{% trans "search"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "search" "" %}
-{% endblock %}
 {% block content %}
     <form action="{% url 'maps:search' %}" method="post">
         {% csrf_token %}

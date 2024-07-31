@@ -1,14 +1,10 @@
 {% extends "webpage/layout.html" %}
 {% load maps_extras %}
 {% load static %}
-{% load django_bootstrap_breadcrumbs %}
+
 {% load render_table from django_tables2 %}
 {% load i18n %}
 {% block title %}{% trans "overlay maps"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "overlay maps" "maps:leaflet" %}
-    {% breadcrumb "base maps" '' %}
-{% endblock %}
 {% block content %}
     <h2>{% trans "basemaps"|capfirst %}</h2>
     {% get_current_language as LANGUAGE_CODE %}

@@ -1,13 +1,10 @@
 {% extends "webpage/layout.html" %}
 {% load maps_extras %}
 {% load static %}
-{% load django_bootstrap_breadcrumbs %}
+
 {% load render_table from django_tables2 %}
 {% load i18n %}
 {% block title %}{% trans "reference"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "reference" "maps:reference" %}
-{% endblock %}
 {% block content %}
     <div class="button-bar">
         <a class="button" href="{% url 'maps:reference-create' %}">{% trans "reference"|capfirst %} +</a>

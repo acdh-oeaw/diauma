@@ -1,13 +1,8 @@
 {% extends "webpage/layout.html" %}
-{% load django_bootstrap_breadcrumbs %}
+
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% block title %}{% trans "files"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "files" "maps:files-index" %}
-    {% trans "file +" as add_file %}
-    {% breadcrumb add_file '' %}
-{% endblock %}
 {% block content %}
     <div class="container">
         <div class="panel-body">

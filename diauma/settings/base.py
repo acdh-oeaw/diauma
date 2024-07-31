@@ -127,3 +127,5 @@ SECURE_HSTS_SECONDS = 31536000
 MPTT_ADMIN_LEVEL_INDENT = 20
 TABLE_ITEMS_PER_PAGE = 20
 DJANGO_TABLES2_TEMPLATE = BASE_DIR + "/webpage/templates/webpage/table.html"
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

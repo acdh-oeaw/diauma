@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path
 
 from maps.model.file import File
 from maps.model.institute import Institute
@@ -12,38 +12,38 @@ from . import dal_views
 app_name = "map-ac"
 
 urlpatterns = [
-    url(
-        r"^persons-autocomplete/$",
+    path(
+        "persons-autocomplete/",
         dal_views.PersonsAutocomplete.as_view(model=Person),
         name="persons-autocomplete",
     ),
-    url(
-        r"^references-autocomplete/$",
+    path(
+        "references-autocomplete/",
         dal_views.ReferencesAutocomplete.as_view(model=Reference),
         name="references-autocomplete",
     ),
-    url(
-        r"^institute-autocomplete/$",
+    path(
+        "institute-autocomplete/",
         dal_views.InstituteAutocomplete.as_view(model=Institute),
         name="institute-autocomplete",
     ),
-    url(
-        r"^place-autocomplete/$",
+    path(
+        "place-autocomplete/",
         dal_views.PlaceAutocomplete.as_view(model=Place),
         name="place-autocomplete",
     ),
-    url(
-        r"^map-autocomplete/$",
+    path(
+        "map-autocomplete/",
         dal_views.MapAutocomplete.as_view(model=Map),
         name="map-autocomplete",
     ),
-    url(
-        r"^file-autocomplete/$",
+    path(
+        "file-autocomplete/",
         dal_views.FileAutocomplete.as_view(model=File),
         name="file-autocomplete",
     ),
-    url(
-        r"^scan-autocomplete/$",
+    path(
+        "scan-autocomplete/",
         dal_views.ScanAutocomplete.as_view(model=Scan),
         name="scan-autocomplete",
     ),

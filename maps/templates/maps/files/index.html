@@ -1,15 +1,11 @@
 {% extends "webpage/layout.html" %}
-{% load django_bootstrap_breadcrumbs %}
+
 {% load render_table from django_tables2 %}
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% block title %}{% trans "files"|capfirst %}{% endblock %}
 {% block content %}
 <div class="container">
-    {% block breadcrumbs %}
-        {% breadcrumb "files" "maps:files-index" %}
-    {% endblock %}
-
     {% trans "total disk space"|capfirst %} <strong>{{ disk_space_values.total|filesizeformat }}</strong> -
     {% trans "free disk space"|capfirst %} <strong>{{ disk_space_values.free|filesizeformat }}</strong>
     <div id="disk_size"></div>
