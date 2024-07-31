@@ -11,7 +11,7 @@ import psycopg2.extras
 def connect():
     try:
         connection_ = psycopg2.connect(
-            database="diauma", user="diauma", password="diauma"
+            database="diauma", user="postgres", password="postgres"
         )
         connection_.autocommit = True
         return connection_
@@ -104,8 +104,8 @@ def export_diauma():  # pragma: no cover
             if row_license.type_id == 110:  # CC-BY 4.0
                 licence_ok = True
                 break
-        if not licence_ok:  # Only accept CC-BY 4.0, discard others
-            continue
+        # if not licence_ok:  # Only accept CC-BY 4.0, discard others
+        #     continue
 
         prefix = get_prefix(row)
         ttl += prefix + 'hasTitle "' + row.name + '"@de.\n'
