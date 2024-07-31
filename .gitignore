@@ -42,3 +42,4 @@ myenv/*
 3.5_myenv/*
 staticfiles/*
 
+venv/
