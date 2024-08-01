@@ -1,4 +1,5 @@
 import urllib.request
+from django.conf import settings
 
 from django.shortcuts import render
 

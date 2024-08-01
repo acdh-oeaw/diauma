@@ -18,7 +18,7 @@ class WebpageTest(TestCase):
         rv = self.client.post(reverse("webpage:login"), form_data, follow=True)
         self.assertContains(rv, "temporary")
         rv = self.client.get(reverse("webpage:logout"), follow=True)
-        self.assertContains(rv, "Username")
+        self.assertContains(rv, "Login")
         form_data = {"username": "non_exist", "password": "temporary"}
         rv = self.client.post(reverse("webpage:login"), form_data, follow=True)
         self.assertContains(rv, "Please try again.")

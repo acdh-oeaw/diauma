@@ -5,7 +5,6 @@ from .views import (
     browse,
     changelog,
     files,
-    imprint,
     institute,
     leaflet,
     map,
@@ -18,11 +17,13 @@ from .views import (
     type,
 )
 
+from webpage.views import ImprintView
+
 app_name = "maps"
 
 urlpatterns = [
     path("changelog/", changelog.index, name="changelog"),
-    path("imprint/", imprint.index, name="imprint"),
+    path("imprint/", ImprintView.as_view(), name="imprint"),
     path("search/", search.index, name="search"),
     path("index/", index.index, name="index"),
     path("network/", network.index, name="network"),
