@@ -10,7 +10,6 @@ from maps.model.scan import Scan
 
 
 class PersonsAutocomplete(autocomplete.Select2QuerySetView):
-
     def get_queryset(self):
         queryset = Person.objects.all()
         if self.q:
@@ -19,7 +18,6 @@ class PersonsAutocomplete(autocomplete.Select2QuerySetView):
 
 
 class ReferencesAutocomplete(autocomplete.Select2QuerySetView):
-
     def get_queryset(self):
         queryset = Reference.objects.all()
         if self.q:
@@ -28,7 +26,6 @@ class ReferencesAutocomplete(autocomplete.Select2QuerySetView):
 
 
 class InstituteAutocomplete(autocomplete.Select2QuerySetView):
-
     def get_queryset(self):
         queryset = Institute.objects.all()
         if self.q:
@@ -37,7 +34,6 @@ class InstituteAutocomplete(autocomplete.Select2QuerySetView):
 
 
 class PlaceAutocomplete(autocomplete.Select2QuerySetView):
-
     def get_queryset(self):
         queryset = Place.objects.all()
         if self.q:
@@ -46,7 +42,6 @@ class PlaceAutocomplete(autocomplete.Select2QuerySetView):
 
 
 class MapAutocomplete(autocomplete.Select2QuerySetView):
-
     def get_queryset(self):
         queryset = Map.objects.all()
         if self.q:
@@ -55,7 +50,6 @@ class MapAutocomplete(autocomplete.Select2QuerySetView):
 
 
 class FileAutocomplete(autocomplete.Select2QuerySetView):
-
     def get_queryset(self):
         queryset = File.objects.all()
         if self.q:
@@ -64,7 +58,6 @@ class FileAutocomplete(autocomplete.Select2QuerySetView):
 
 
 class ScanAutocomplete(autocomplete.Select2QuerySetView):
-
     def get_queryset(self):
         queryset = Scan.objects.all()
         if self.q:

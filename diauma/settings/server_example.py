@@ -1,3 +1,3 @@
 from .base import *
 
-SECRET_KEY = 'CHANGEME'
+SECRET_KEY = "CHANGEME"

@@ -1,14 +1,11 @@
 {% extends "webpage/layout.html" %}
 {% load maps_extras %}
 {% load static %}
-{% load django_bootstrap_breadcrumbs %}
+
 {% load render_table from django_tables2 %}
 {% load i18n %}
 {% block title %}Changelog{% endblock %}
 {% block content %}
-    {% block breadcrumbs %}
-        {% breadcrumb "Changelog" "maps:changelog" %}
-    {% endblock %}
     <div class="changelog">
         <div class="changelog-version">Version 1.0.0</div>
         <div class="changelog-date">2019-08-28</div>

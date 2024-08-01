@@ -4,20 +4,24 @@ from django.conf import settings
 
 
 class GeonamesWidget(widgets.NumberInput):
-    """ A widget for a GeoNames Id form field. It searches for the value from an #id_name field.
-        Fuzzy search can be toggled and search categories selected."""
+    """A widget for a GeoNames Id form field. It searches for the value from an #id_name field.
+    Fuzzy search can be toggled and search categories selected."""
 
     def render(self, name, value, attrs=None, **kwargs):
         final_attrs = self.build_attrs(self.attrs, attrs)
         output = super(GeonamesWidget, self).render(name, value, final_attrs, **kwargs)
-        codes = ''
-        tooltip = "You can search at GeoNames for corresponding entries for the value of the " \
-                  "'Name' field. If entries are found you can choose one from a list to " \
-                  "automatically fill the 'GeoNamesId' field."
-        for code in ['A', 'H', 'L', 'P', 'R', 'S', 'T', 'U', 'V']:
-            codes += '''
+        codes = ""
+        tooltip = (
+            "You can search at GeoNames for corresponding entries for the value of the "
+            "'Name' field. If entries are found you can choose one from a list to "
+            "automatically fill the 'GeoNamesId' field."
+        )
+        for code in ["A", "H", "L", "P", "R", "S", "T", "U", "V"]:
+            codes += """
                 <input name="geo_codes" value="{code}" type="checkbox" checked=checked />{code}
-                '''.format(code=code)
+                """.format(
+                code=code
+            )
         output += """
             <div class="table-cell">
                 <span id="geonames-switcher" class="button">Show</span>
@@ -39,11 +43,12 @@ class GeonamesWidget(widgets.NumberInput):
                     <select id="geonames-select" name="geonames-select"></select>
                 </p>
             </div>""".format(
-                geonames_username=settings.GEONAMES_USERNAME,
-                label='Search in GeoNames',
-                tooltip=tooltip,
-                codes=codes,
-                no_results='No matching results found at GeoNames.')
+            geonames_username=settings.GEONAMES_USERNAME,
+            label="Search in GeoNames",
+            tooltip=tooltip,
+            codes=codes,
+            no_results="No matching results found at GeoNames.",
+        )
 
         output += """
             <script>

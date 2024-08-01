@@ -1,16 +1,11 @@
 {% extends "webpage/layout.html" %}
-{% load django_bootstrap_breadcrumbs %}
+
 {% load maps_extras %}
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% block title %}{% trans "files"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "files" "maps:files-index" %}
-    {% breadcrumb "scan" '' %}
-    {% breadcrumb_safe scan.name|truncate_string '' %}
-{% endblock %}
 {% block content %}
     <div class="container">
         <ul id="tabs" class="nav nav-tabs">

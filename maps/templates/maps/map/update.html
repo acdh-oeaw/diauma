@@ -1,14 +1,9 @@
 {% extends "webpage/layout.html" %}
 {% load crispy_forms_tags %}
 {% load maps_extras %}
-{% load django_bootstrap_breadcrumbs %}
+
 {% load i18n %}
 {% block title %}{% trans "map"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "map" "maps:map" %}
-    {% breadcrumb_safe object.name|truncate_string "maps:map-detail" object.id %}
-    {% breadcrumb "update" "" %}
-{% endblock %}
 {% block content %}
     <div class="container">
         <h2>{{ object.name }}</h2>

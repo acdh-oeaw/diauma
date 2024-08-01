@@ -3,14 +3,16 @@ from django.utils.safestring import mark_safe
 
 
 class GndWidget(widgets.NumberInput):
-    """ A widget for a GND Id form field. It searches for the value from an #id_name field."""
+    """A widget for a GND Id form field. It searches for the value from an #id_name field."""
 
     def render(self, name, value, attrs=None, **kwargs):
         final_attrs = self.build_attrs(self.attrs, attrs)
         output = super(GndWidget, self).render(name, value, final_attrs, **kwargs)
-        tooltip = "You can search at GND for corresponding entries. You can use * as wildcard at" \
-                  " the end. If entries are found you can choose one from a list to " \
-                  " automatically fill the 'GND-Id' field."
+        tooltip = (
+            "You can search at GND for corresponding entries. You can use * as wildcard at"
+            " the end. If entries are found you can choose one from a list to "
+            " automatically fill the 'GND-Id' field."
+        )
         output += """
             <div class="table-cell">
                 <span id="gnd-switcher" class="button">Show</span>
@@ -28,9 +30,10 @@ class GndWidget(widgets.NumberInput):
                     <select id="gnd-select" name="gnd-select"></select>
                 </p>
             </div>""".format(
-                label='Search in GND',
-                tooltip=tooltip,
-                no_results='No matching results found at GeoNames.')
+            label="Search in GND",
+            tooltip=tooltip,
+            no_results="No matching results found at GeoNames.",
+        )
 
         output += """
             <script>

@@ -1,12 +1,8 @@
 {% extends "webpage/layout.html" %}
-{% load django_bootstrap_breadcrumbs %}
+
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% block title %}{% trans "person"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "person" "maps:person" %}
-    {% breadcrumb "+" '' %}
-{% endblock %}
 {% block content %}
     <div class="container">
         <div class="panel-body">

@@ -7,9 +7,12 @@ import psycopg2.extras
 # Extract (additional) meta data of scans from database and export to ttl format
 # This is work in progress and not for productive use.
 
+
 def connect():
     try:
-        connection_ = psycopg2.connect(database='diauma', user='diauma', password='diauma')
+        connection_ = psycopg2.connect(
+            database="diauma", user="postgres", password="postgres"
+        )
         connection_.autocommit = True
         return connection_
     except Exception as e:  # pragma: no cover
@@ -20,61 +23,66 @@ def connect():
 connection = connect()
 file_list = []
 
+
 def get_cursor():
     return connection.cursor(cursor_factory=psycopg2.extras.NamedTupleCursor)
 
 
 def get_prefix(row):
-    identifier = '<https://id.acdh.oeaw.ac.at/diauma/Scans/'
-    name = row.file.replace('scan/', '')  # remove prefix
-    name = name.replace('Ausserhalb', 'Auerhalb')  # synchronize identifier
+    identifier = "<https://id.acdh.oeaw.ac.at/diauma/Scans/"
+    name = row.file.replace("scan/", "")  # remove prefix
+    name = name.replace("Ausserhalb", "Auerhalb")  # synchronize identifier
     filename, file_extension = os.path.splitext(name)
-    name = filename.replace('.', '') + file_extension  # remove dots from file name
+    name = filename.replace(".", "") + file_extension  # remove dots from file name
     # if '_' in name:  # Add sub directory
     #    identifier += str(name.rsplit('_', 1)[0]) + '/'
     file_list.append(name)
-    return identifier + name + '> acdh:'
+    return identifier + name + "> acdh:"
 
 
 def export_diauma():  # pragma: no cover
     start = time.time()
     cursor = get_cursor()
-    licenses = {110: ''}  # CC-BY 4.0
+    licenses = {110: ""}  # CC-BY 4.0
 
-    science_domains = {181: '401',  # Agricultural
-                       71: '504006',  # Demographic
-                       63: '504009',  # Ethnologic
-                       7: '602',  # Linguistic
-                       42: '509021',  # Military
-                       38: '506011',  # Political
-                       192: '105409'}  # Topographic
+    science_domains = {
+        181: "401",  # Agricultural
+        71: "504006",  # Demographic
+        63: "504009",  # Ethnologic
+        7: "602",  # Linguistic
+        42: "509021",  # Military
+        38: "506011",  # Political
+        192: "105409",
+    }  # Topographic
 
-    creators = {6: 'ekranzmayer',
-                9: 'fwrede',
-                12: 'mwutte',
-                14: 'jazimmermann',
-                21: 'ahziegfeld',
-                22: 'earnberger',
-                23: 'hhassinger',
-                24: 'frosenkranz',
-                25: 'kbrunbauer',
-                26: 'hbona',
-                27: 'klechner',
-                28: 'aklaar',
-                29: 'lsrutschka',
-                30: 'hfirnberg',
-                31: 'fsteinhauser',
-                32: 'wkuenelt',
-                33: 'hlwerneck',
-                34: 'hmitscha-maerheim',
-                35: 'htrimmel',
-                36: 'eweber',
-                37: 'khawranek',
-                38: 'kwiche',
-                39: 'wwinkler'}
-    detail_url = 'https://diauma.acdh.oeaw.ac.at/maps/map/detail/'
-    ttl = '@prefix acdh: <https://vocabs.acdh.oeaw.ac.at/schema#>.\n'
-    ttl += '@prefix acdhi: <https://id.acdh.oeaw.ac.at/>.\n\n'
+    creators = {
+        6: "ekranzmayer",
+        9: "fwrede",
+        12: "mwutte",
+        14: "jazimmermann",
+        21: "ahziegfeld",
+        22: "earnberger",
+        23: "hhassinger",
+        24: "frosenkranz",
+        25: "kbrunbauer",
+        26: "hbona",
+        27: "klechner",
+        28: "aklaar",
+        29: "lsrutschka",
+        30: "hfirnberg",
+        31: "fsteinhauser",
+        32: "wkuenelt",
+        33: "hlwerneck",
+        34: "hmitscha-maerheim",
+        35: "htrimmel",
+        36: "eweber",
+        37: "khawranek",
+        38: "kwiche",
+        39: "wwinkler",
+    }
+    detail_url = "https://diauma.acdh.oeaw.ac.at/maps/map/detail/"
+    ttl = "@prefix acdh: <https://vocabs.acdh.oeaw.ac.at/schema#>.\n"
+    ttl += "@prefix acdhi: <https://id.acdh.oeaw.ac.at/>.\n\n"
     sql = """
         SELECT
             s.id, s.name, s.file, m.id AS map_id,
@@ -87,54 +95,68 @@ def export_diauma():  # pragma: no cover
     for row in cursor.fetchall():
 
         # Licenses
-        license_sql = "SELECT type_id FROM maps_scan_scan_type WHERE scan_id = %(scan_id)s;"
-        cursor.execute(license_sql, {'scan_id': row.id})
+        license_sql = (
+            "SELECT type_id FROM maps_scan_scan_type WHERE scan_id = %(scan_id)s;"
+        )
+        cursor.execute(license_sql, {"scan_id": row.id})
         licence_ok = False
         for row_license in cursor.fetchall():
             if row_license.type_id == 110:  # CC-BY 4.0
                 licence_ok = True
                 break
-        if not licence_ok:  # Only accept CC-BY 4.0, discard others
-            continue
+        # if not licence_ok:  # Only accept CC-BY 4.0, discard others
+        #     continue
 
         prefix = get_prefix(row)
         ttl += prefix + 'hasTitle "' + row.name + '"@de.\n'
         ttl += prefix + 'hasUrl "' + detail_url + str(row.map_id) + '".\n'
 
         # Digitising agents
-        ttl += prefix + 'hasDigitisingAgent acdhi:chackl.\n'
-        ttl += prefix + 'hasDigitisingAgent acdhi:jdzimmermann.\n'
-        ttl += prefix + 'hasDigitisingAgent acdhi:kwagner.\n'
+        ttl += prefix + "hasDigitisingAgent acdhi:chackl.\n"
+        ttl += prefix + "hasDigitisingAgent acdhi:jdzimmermann.\n"
+        ttl += prefix + "hasDigitisingAgent acdhi:kwagner.\n"
 
         # Dates
         if row.date_created:
-            ttl += prefix + 'hasCreatedDateOriginal "' + str(row.date_created)[:4] + '".\n'
+            ttl += (
+                prefix + 'hasCreatedDateOriginal "' + str(row.date_created)[:4] + '".\n'
+            )
         if row.date_content:
             ttl += prefix + 'hasCoverageStartDate "' + str(row.date_content) + '".\n'
         if row.date_content2:
             ttl += prefix + 'hasCoverageEndDate "' + str(row.date_content2) + '".\n'
 
         # Map creator
-        creator_sql = "SELECT person_id FROM maps_map_map_persons WHERE map_id = %(map_id)s;"
-        cursor.execute(creator_sql, {'map_id': row.map_id})
+        creator_sql = (
+            "SELECT person_id FROM maps_map_map_persons WHERE map_id = %(map_id)s;"
+        )
+        cursor.execute(creator_sql, {"map_id": row.map_id})
         for row_creator in cursor.fetchall():
-            ttl += prefix + 'hasCreator ' + 'acdhi:' + creators[row_creator.person_id] + '.\n'
+            ttl += (
+                prefix
+                + "hasCreator "
+                + "acdhi:"
+                + creators[row_creator.person_id]
+                + ".\n"
+            )
 
         # Related disciplines
         science_sql = "SELECT type_id FROM maps_map_map_type WHERE map_id = %(map_id)s;"
-        cursor.execute(science_sql, {'map_id': row.map_id})
+        cursor.execute(science_sql, {"map_id": row.map_id})
         for row_type in cursor.fetchall():
             if row_type.type_id not in science_domains:
                 continue
-            link = 'https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/' + \
-                   science_domains[row_type.type_id]
-            ttl += prefix + 'hasRelatedDiscipline <' + link + '>.\n'
-        ttl += '\n'
-    with open('diauma_metadata.ttl', 'w') as file:
+            link = (
+                "https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/"
+                + science_domains[row_type.type_id]
+            )
+            ttl += prefix + "hasRelatedDiscipline <" + link + ">.\n"
+        ttl += "\n"
+    with open("diauma_metadata.ttl", "w") as file:
         file.write(ttl)
-    with open('diauma_filelist.ttl', 'w') as file:
-        file.write('\n'.join(file_list))
-    print('Execution time: ' + str(int(time.time() - start)) + ' seconds')
+    with open("diauma_filelist.ttl", "w") as file:
+        file.write("\n".join(file_list))
+    print("Execution time: " + str(int(time.time() - start)) + " seconds")
 
 
 export_diauma()

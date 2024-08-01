@@ -1,12 +1,8 @@
 {% extends "webpage/layout.html" %}
-{% load django_bootstrap_breadcrumbs %}
+
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% block title %}{% trans "institute"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "institute" "maps:institute" %}
-    {% breadcrumb "+" '' %}
-{% endblock %}
 {% block content %}
     <div class="container">
         <div class="panel-body">
