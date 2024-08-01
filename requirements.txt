@@ -13,3 +13,4 @@ lxml>=5.2.2,<6
 MarkupSafe>=2.1.5,<3
 Pillow>=6.2.0  # needed because of ImageField
 psycopg2>=2.8.2,<3
+requests>=2.32.3,<3
