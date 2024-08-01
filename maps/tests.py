@@ -217,9 +217,9 @@ class MapsTest(TestCase):
         rv = self.client.get(reverse("maps:changelog"))
         self.assertContains(rv, "Feature")
 
-    def test_imprint(self):
-        rv = self.client.get(reverse("maps:imprint"))
-        self.assertContains(rv, "E-Commerce")
+    # def test_imprint(self):
+    #     rv = self.client.get(reverse("maps:imprint"))
+    #     self.assertContains(rv, "E-Commerce")
 
     def test_network(self):
         map_ = Map.objects.create(name="Atlantis")

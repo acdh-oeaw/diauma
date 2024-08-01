@@ -6,13 +6,6 @@
 {% load render_table from django_tables2 %}
 {% load i18n %}
 {% block title %}{% trans "type"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "types" "maps:type" %}
-    {% for item in node.get_ancestors %}
-        {% breadcrumb_safe item|link '' %}
-    {% endfor %}
-    {% breadcrumb node.name "" %}
-{% endblock %}
 {% block content %}
     <div class="button-bar">
         {% if node.level != 0 %}

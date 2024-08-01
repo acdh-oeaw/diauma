@@ -43,7 +43,6 @@ LANGUAGES = (
 # Django configuration
 WSGI_APPLICATION = "diauma.wsgi.application"
 INSTALLED_APPS = [
-    "crispy_forms",
     "dal",
     "dal_select2",
     "django.contrib.admin",
@@ -55,10 +54,15 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_filters",
     "django_tables2",
+    "crispy_forms",
+    "crispy_bootstrap3",
     "maps",
     "mptt",
     "webpage",
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap3"
+CRISPY_TEMPLATE_PACK = "bootstrap3"
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": (

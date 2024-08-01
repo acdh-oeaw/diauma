@@ -4,9 +4,6 @@
 {% load render_table from django_tables2 %}
 {% load i18n %}
 {% block title %}{% trans "person"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "person" "maps:person" %}
-{% endblock %}
 {% block content %}
     <div class="button-bar">
         <a class="button" href="{% url 'maps:person-create' %}">{% trans "person"|capfirst %} +</a>

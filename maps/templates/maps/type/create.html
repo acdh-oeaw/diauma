@@ -5,11 +5,6 @@
 {% load i18n %}
 {% block title %}{% trans "type"|capfirst %}{% endblock %}
 {% block content %}
-{% block breadcrumbs %}
-    {% breadcrumb "type" "maps:type" %}
-    {% breadcrumb_safe parent.name|truncate_string "maps:type-detail" parent.id %}
-    {% breadcrumb "+" '' %}
-{% endblock %}
     <div class="container">
         <div class="panel-body">
             {% crispy form %}

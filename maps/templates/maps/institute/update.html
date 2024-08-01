@@ -4,11 +4,6 @@
 {% load maps_extras %}
 {% load i18n %}
 {% block title %}{% trans "institute"|capfirst %}{% endblock %}
-{% block breadcrumbs %}
-    {% breadcrumb "institute" "maps:institute" %}
-    {% breadcrumb_safe object.name|truncate_string "maps:institute-detail" object.id %}
-    {% breadcrumb "update" "" %}
-{% endblock %}
 {% block content %}
     <div class="container">
         <h2>{{ object.name }}</h2>
