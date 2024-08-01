@@ -1,10 +1,47 @@
 import os
+from pathlib import Path
 
 SITE_ID = 1
 ALLOWED_HOSTS = []
-BASE_DIR = os.path.dirname(
-    os.path.dirname(os.path.abspath(os.path.join(__file__, "../")))
-)
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+REDMINE_ID = "8685"
+SECRET_KEY = os.environ.get("SECRET_KEY", "rlYWFdsfjlöhafljQbF")
+
+
+if os.environ.get("DEBUG"):
+    DEBUG = True
+else:
+    DEBUG = False
+
+ADD_ALLOWED_HOST = os.environ.get("ALLOWED_HOST", "*")
+
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "0.0.0.0",
+    ADD_ALLOWED_HOST,
+]
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "diauma",
+#         "PASSWORD": "postgres",
+#         "USER": "postgres",
+#         "HOST": "localhost",
+#         "PORT": "5432",
+#     }
+# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("POSTGRES_DB", "diauma"),
+        "USER": os.environ.get("POSTGRES_USER", "postgres"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
+        "HOST": os.environ.get("POSTGRES_HOST", "127.0.0.1"),
+        "PORT": os.environ.get("POSTEGRES_PORT", "5432"),
+    }
+}
 
 # File upload configuration
 FILE_UPLOAD_PERMISSIONS = 0o644
@@ -108,15 +145,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "diauma",
-        "USER": "diauma",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
 
 # Security
 SESSION_COOKIE_SECURE = False  # Activate in server.py for online instances
@@ -130,6 +158,6 @@ SECURE_HSTS_SECONDS = 31536000
 
 MPTT_ADMIN_LEVEL_INDENT = 20
 TABLE_ITEMS_PER_PAGE = 20
-DJANGO_TABLES2_TEMPLATE = BASE_DIR + "/webpage/templates/webpage/table.html"
+DJANGO_TABLES2_TEMPLATE = os.path.join(BASE_DIR, "webpage/templates/webpage/table.html")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
