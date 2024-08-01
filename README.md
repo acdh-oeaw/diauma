@@ -1,5 +1,5 @@
-**Important notice**: this project is archived and not actively development
- or suitable for productive use anymore.
+> [!WARNING]
+> The application code is currently being revised and is not yet ready for production.
 
 # About
 
@@ -31,20 +31,24 @@ To install the required libraries execute:
 
     pip install -r requirements.txt
 
+
 ### Configuration Files
 
-diauma/settings/server_example.py - adapt and rename to server.py  
-webpage/metadata.py - adapt according to your needs
+* Sensitive information is handled via environment varibles. 
+* e.g. run `set_env_variables.sh` to expose varibales from `default.env`
+
 
 
 # Tests
 
 Installation of required modules:
 
-    pip install -r requirements/requirements_test.txt
+    pip install -r requirements_test.txt
 
 Run tests with HTML coverage report:
 
-    python manage.py test --settings=diauma.settings.test
+    coverage run manage.py test -v 2
+    coverage report
+    coverage html
 
-The report will be available at: cover/index.html
+The report will be available at: htmlcov/index.html
