@@ -17,12 +17,6 @@ urlpatterns = [
     ),
     path("", views.index, name="index"),
     path("index/", views.index, name="index"),
-    path("logout/", views.user_logout, name="logout"),
-    path(
-        "login/",
-        auth_views.LoginView.as_view(template_name="webpage/login.html"),
-        name="login",
-    ),
     re_path(r"docs/(?P<path>.*)", serve, {"document_root": "docs/html"}, "docs"),
 ]
 

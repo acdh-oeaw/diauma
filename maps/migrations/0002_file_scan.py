@@ -4,50 +4,124 @@ from __future__ import unicode_literals
 
 import django.core.validators
 from django.db import migrations, models
-#import maps.models
+
+# import maps.models
 from maps.model.file import file_size, file_upload_path
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('maps', '0001_squashed_0006_auto_20171016_1324'),
+        ("maps", "0001_squashed_0006_auto_20171016_1324"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='File',
+            name="File",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('modified_date', models.DateTimeField(auto_now=True)),
-                ('name', models.CharField(max_length=255)),
-                ('file', models.FileField(upload_to='file/', validators=[file_size, django.core.validators.FileExtensionValidator(allowed_extensions=['jp2', 'jpeg', 'jpg', 'pdf', 'png', 'tif', 'tiff', 'zip'])])),
-                ('info', models.TextField(blank=True)),
-                ('file_map', models.ManyToManyField(blank=True, related_name='file_map', to='maps.Map')),
-                ('file_type', models.ManyToManyField(blank=True, related_name='file_type', to='maps.Type')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("modified_date", models.DateTimeField(auto_now=True)),
+                ("name", models.CharField(max_length=255)),
+                (
+                    "file",
+                    models.FileField(
+                        upload_to="file/",
+                        validators=[
+                            file_size,
+                            django.core.validators.FileExtensionValidator(
+                                allowed_extensions=[
+                                    "jp2",
+                                    "jpeg",
+                                    "jpg",
+                                    "pdf",
+                                    "png",
+                                    "tif",
+                                    "tiff",
+                                    "zip",
+                                ]
+                            ),
+                        ],
+                    ),
+                ),
+                ("info", models.TextField(blank=True)),
+                (
+                    "file_map",
+                    models.ManyToManyField(
+                        blank=True, related_name="file_map", to="maps.Map"
+                    ),
+                ),
+                (
+                    "file_type",
+                    models.ManyToManyField(
+                        blank=True, related_name="file_type", to="maps.Type"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['name'],
-                'abstract': False,
+                "ordering": ["name"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Scan',
+            name="Scan",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('modified_date', models.DateTimeField(auto_now=True)),
-                ('name', models.CharField(max_length=255)),
-                ('file', models.ImageField(upload_to='scan/', validators=[file_size, django.core.validators.FileExtensionValidator(allowed_extensions=['jp2', 'tif', 'tiff'])])),
-                ('info', models.TextField(blank=True)),
-                ('scan_date', models.DateField(blank=True, null=True)),
-                ('scan_map', models.ManyToManyField(blank=True, related_name='scan_map', to='maps.Map')),
-                ('scan_person', models.ManyToManyField(blank=True, related_name='scan_creator', to='maps.Person')),
-                ('scan_type', models.ManyToManyField(blank=True, related_name='scan_type', to='maps.Type')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("modified_date", models.DateTimeField(auto_now=True)),
+                ("name", models.CharField(max_length=255)),
+                (
+                    "file",
+                    models.ImageField(
+                        upload_to="scan/",
+                        validators=[
+                            file_size,
+                            django.core.validators.FileExtensionValidator(
+                                allowed_extensions=["jp2", "tif", "tiff"]
+                            ),
+                        ],
+                    ),
+                ),
+                ("info", models.TextField(blank=True)),
+                ("scan_date", models.DateField(blank=True, null=True)),
+                (
+                    "scan_map",
+                    models.ManyToManyField(
+                        blank=True, related_name="scan_map", to="maps.Map"
+                    ),
+                ),
+                (
+                    "scan_person",
+                    models.ManyToManyField(
+                        blank=True, related_name="scan_creator", to="maps.Person"
+                    ),
+                ),
+                (
+                    "scan_type",
+                    models.ManyToManyField(
+                        blank=True, related_name="scan_type", to="maps.Type"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['name'],
-                'abstract': False,
+                "ordering": ["name"],
+                "abstract": False,
             },
         ),
     ]

@@ -26,7 +26,9 @@ class ImprintView(TemplateView):
         language = self.request.LANGUAGE_CODE
         redmine_id = settings.REDMINE_ID
         if language in ["en", "de"]:
-            imprint_url = f"https://imprint.acdh.oeaw.ac.at/{redmine_id}?locale={language}"
+            imprint_url = (
+                f"https://imprint.acdh.oeaw.ac.at/{redmine_id}?locale={language}"
+            )
         else:
             imprint_url = f"https://imprint.acdh.oeaw.ac.at/{redmine_id}"
 
