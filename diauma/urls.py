@@ -8,7 +8,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("webpage.urls", namespace="webpage")),
     path("maps/", include("maps.urls", namespace="maps")),
-    path("maps-ac/", include("maps.dal_urls", namespace="maps-ac")),
+    # path("maps-ac/", include("maps.dal_urls", namespace="maps-ac")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
