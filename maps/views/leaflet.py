@@ -12,7 +12,7 @@ overlay_maps = {
             Hillen Ziegfeld, who developed the so-called suggestive cartography, drew this map. 
             The draft was produced by Martin Wutte.""",
         "file": "suggestiv_kaernten",
-        "map_view": "[46.5, 14], 8",
+        "map_view": "[46.5, 14.1], 8",
         "image_bounds": "[[45.65171024913483,12.437753704352426],[47.29437290743704,15.67192558457878]]",
     },
     11: {
@@ -27,7 +27,7 @@ overlay_maps = {
             fights of the Kingdom of Yugoslavia and of the Carinthians. 
             The draft of this map was drawn by Martin Wutte.""",
         "file": "fight_kaernten",
-        "map_view": "[46.5, 14], 8",
+        "map_view": "[46.5, 14.1], 8",
         "image_bounds": "[[45.81736611108959,12.944809777985707],[47.08563526028161,15.46338228476774]]",
     },
     1: {
@@ -40,7 +40,7 @@ overlay_maps = {
         In this process of production, tracing paper was put on the topographical basemap and 
         different linguistic phenomena were drawn onto it.""",
         "file": "base_map_0",
-        "map_view": "[47.5, 12], 6",
+        "map_view": "[47.5, 12.1], 6",
         "image_bounds": "[[45.97176765332074,8.872319003368014],[50.62979084349124,17.53537112942797]]",
     },
     2: {
@@ -53,7 +53,7 @@ overlay_maps = {
         area. The title refers to the different names of Kranzmayer’s dialect atlas during the 
         years of its production.""",
         "file": "base_map_1",
-        "map_view": "[47.5, 12], 6",
+        "map_view": "[47.5, 12.1], 6",
         "image_bounds": "[[43.69731851142412,5.700709620032184],[52.26433682032963,21.087544094639437]]",
     },
     3: {
@@ -64,7 +64,7 @@ overlay_maps = {
             Karte verweist auf eine Datierung nach dem „Anschluss“ und nach dem „Münchner Abkommen“, 
             da sowohl die „Protektorats“- Grenze als auch die „Gaue“ bereits eingezeichnet sind.""",
         "file": "base_map_2",
-        "map_view": "[47.5, 12], 6",
+        "map_view": "[47.5, 12.1], 6",
         "image_bounds": "[[43.55127925562619,7.226301417671309],[52.14825889446757,21.51851278814816]]",
     },
     4: {
@@ -74,7 +74,7 @@ overlay_maps = {
         "desc_en": """This map was produced during National Socialism, as depicted in the 
             legend and the territorial borders.""",
         "file": "base_map_3",
-        "map_view": "[48, 12], 6",
+        "map_view": "[48, 12.1], 6",
         "image_bounds": "[[43.69775375473325,7.042934392227642],[51.78800884283471,19.210591698304047]]",
     },
     5: {
@@ -85,7 +85,7 @@ overlay_maps = {
         "desc_en": """This map has „Grundkarte“(basemap) as a title and depicts the political 
             borders before the „Anschluss“.""",
         "file": "base_map_4",
-        "map_view": "[47.7, 14], 6",
+        "map_view": "[47.7, 14.1], 6",
         "image_bounds": "[[43.6601720195,8.73240499166],[51.678343824,19.298092196]]",
     },
     6: {
@@ -98,7 +98,7 @@ overlay_maps = {
             of Austria with the political borders of 1910. Yet, a specific date of the map is 
             not known.""",
         "file": "base_map_5",
-        "map_view": "[47.5, 12], 6",
+        "map_view": "[47.5, 12.1], 6",
         "image_bounds": "[[42.98206627717041,7.02351677827924],[51.620452835760695,19.552685375110624]]",
     },
     7: {
@@ -111,7 +111,7 @@ overlay_maps = {
             displays four crosses in each corner of the map for putting a a map made of tracing 
             paper on it. The map is set in the First Republic.""",
         "file": "base_map_6",
-        "map_view": "[48, 14], 6",
+        "map_view": "[48.1, 14.1], 6",
         "image_bounds": "[[43.83483708049341,8.653324157592056],[51.81572278925359,18.830618545775383]]",
     },
     8: {
@@ -123,7 +123,7 @@ overlay_maps = {
             the year 1970 when a second series of testprints of Kranzmayers dialect atlas was 
             initiated.""",
         "file": "base_map_7",
-        "map_view": "[47.5, 12], 6",
+        "map_view": "[47.5, 12.1], 6",
         "image_bounds": "[[38.15344733677644,-6.006739041944185],[54.3202806361776,31.031465705865532]]",
     },
     9: {
@@ -133,7 +133,7 @@ overlay_maps = {
         "desc_en": """This map has a lot of similarities with basemap 2-3 and was 
             created during the time of National Socialism.""",
         "file": "base_map_8",
-        "map_view": "[47.5, 12], 6",
+        "map_view": "[47.5, 12.1], 6",
         "image_bounds": "[[43.3465552934,6.22248754564],[52.0009386071,19.737694157]]",
     },
 }
