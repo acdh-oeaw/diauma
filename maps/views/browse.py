@@ -1,4 +1,3 @@
-from os.path import basename, splitext
 
 from annoying.functions import get_object_or_None
 from django.conf import settings
@@ -50,6 +49,7 @@ def index(request):
 
 
 def view(request, pk):
+    max_width = settings.III_MAX_DL_WIDTH
     map_ = Map.objects.get(pk=pk)
     links = {"authors": [], "references": [], "publishers": [], "maps": []}
     for author in Person.objects.filter(author=map_):
@@ -60,18 +60,22 @@ def view(request, pk):
         links["publishers"].append(publisher.name)
     iiif = None
     scan = None
+    tile_sources = []
+    image_sources = []
     scans = Scan.objects.filter(scan_map=map_)
-    if scans:
+    for scan in scans:
         scan = Scan.objects.filter(scan_map=map_)[:1].get()
-        if settings.IIIF_URL:
-            file_name = splitext(basename(scan.file.name))[
-                0
-            ]  # Basename without extension
-            iiif = {
-                "file_path": settings.MEDIA_ROOT + "IIIF/" + file_name,
-                "tile_sources": settings.IIIF_URL + file_name + "/info.json",
-                "library_path": "/static/webpage/libraries/openseadragon/",
-            }
+        if str(scan.file):
+            scan_file = str(scan.file).replace("scan/", "").split(".")[0]
+            tile_sources.append(f"{settings.IIIF_URL}{scan_file}.jp2/info.json")
+            image_sources.append(
+                f"{settings.IIIF_URL}{scan_file}.jp2/full/{max_width}/0/default.jpg"
+            )
+    if tile_sources:
+        iiif = {
+            "tile_sources": tile_sources,
+            "library_path": "/static/webpage/libraries/openseadragon/",
+        }
 
     return render(
         request,
@@ -79,6 +83,7 @@ def view(request, pk):
         {
             "map": map_,
             "iiif": iiif,
+            "image_sources": image_sources,
             "scan": scan,
             "links": links,
             "issued_at": get_object_or_None(Place, issued=map_),

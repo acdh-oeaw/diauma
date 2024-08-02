@@ -19,12 +19,16 @@
             <div id="seadragon-toolbar"></div>
             <div id="seadragon"></div>
             <script src="{{ iiif.library_path|add:'openseadragon.min.js' }}"></script>
+            {{ iiif.tile_sources|json_script:"hello-data" }}
             <script>
+                var tiles = JSON.parse(document.getElementById('hello-data').textContent);
+                console.log(tiles)
                 var viewer = OpenSeadragon({
                     id: "seadragon",
                     prefixUrl: "{{ iiif.library_path|add:'images/'  }}",
                     toolbar: "seadragon-toolbar",
-                    tileSources: "{{ iiif.tile_sources }}",
+                    sequenceMode: true,
+                    tileSources: tiles
                 });
             </script>
         {% elif scan %}
@@ -32,9 +36,11 @@
         {% endif %}
     </div>
     <div>
+        {% for x in image_sources %}
         <p>
-            <a class="button" download target="_blank" href="{{ scan.file.url }}">{% trans 'download'|capfirst %}</a>
+            <a class="button" download target="_blank" href="{{ x }}">{% trans 'download'|capfirst %}</a>
         </p>
+        {% endfor %}
     </div>
     <div>
         {% if map.map_id %}

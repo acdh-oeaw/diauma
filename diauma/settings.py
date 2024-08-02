@@ -22,16 +22,6 @@ ALLOWED_HOSTS = [
     ADD_ALLOWED_HOST,
 ]
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "diauma",
-#         "PASSWORD": "postgres",
-#         "USER": "postgres",
-#         "HOST": "localhost",
-#         "PORT": "5432",
-#     }
-# }
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -58,7 +48,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 MEDIA_URL = "/media/"
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"
-IIIF_URL = ""  # In case you are using IIIF for scans, e.g. https://my_iiif_server.net/
+IIIF_URL = "https://iiif.acdh.oeaw.ac.at/iiif/images/diauma/"
+III_MAX_DL_WIDTH = "1200,"
 
 # GeoNames requires a username, you can create an account at http://www.geonames.org/login
 GEONAMES_USERNAME = "CHANGE_ME"
