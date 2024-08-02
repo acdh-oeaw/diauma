@@ -17,8 +17,6 @@ def index(request):
         "charge": "-800",
     }
     network_data = f"graph = {data};"
-    with open("hansi.json", "w") as f:
-        f.write(network_data)
     return render(
         request,
         "maps/network.html",
