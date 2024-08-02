@@ -7,23 +7,40 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('maps', '0006_place_geonames_id'),
+        ("maps", "0006_place_geonames_id"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='file',
-            name='file_reference',
-            field=models.ManyToManyField(blank=True, related_name='file_reference', to='maps.Reference', verbose_name='references'),
+            model_name="file",
+            name="file_reference",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="file_reference",
+                to="maps.Reference",
+                verbose_name="references",
+            ),
         ),
         migrations.AddField(
-            model_name='reference',
-            name='super',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='sub', to='maps.Reference', verbose_name='has super'),
+            model_name="reference",
+            name="super",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="sub",
+                to="maps.Reference",
+                verbose_name="has super",
+            ),
         ),
         migrations.AddField(
-            model_name='scan',
-            name='scan_reference',
-            field=models.ManyToManyField(blank=True, related_name='scan_reference', to='maps.Reference', verbose_name='references'),
+            model_name="scan",
+            name="scan_reference",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="scan_reference",
+                to="maps.Reference",
+                verbose_name="references",
+            ),
         ),
     ]

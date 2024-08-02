@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('maps', '0005_type_info'),
+        ("maps", "0005_type_info"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='place',
-            name='geonames_id',
-            field=models.IntegerField(blank=True, null=True, verbose_name='GeoNamesId'),
+            model_name="place",
+            name="geonames_id",
+            field=models.IntegerField(blank=True, null=True, verbose_name="GeoNamesId"),
         ),
     ]

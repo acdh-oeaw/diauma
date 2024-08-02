@@ -9,224 +9,362 @@ import mptt.fields
 
 class Migration(migrations.Migration):
 
-    replaces = [('maps', '0001_initial'), ('maps', '0002_auto_20170830_1241'), ('maps', '0003_auto_20170830_1412'), ('maps', '0004_auto_20170918_1517'), ('maps', '0005_place_modern_name'), ('maps', '0006_auto_20171016_1324')]
+    replaces = [
+        ("maps", "0001_initial"),
+        ("maps", "0002_auto_20170830_1241"),
+        ("maps", "0003_auto_20170830_1412"),
+        ("maps", "0004_auto_20170918_1517"),
+        ("maps", "0005_place_modern_name"),
+        ("maps", "0006_auto_20171016_1324"),
+    ]
 
     initial = True
 
-#    dependencies = [
-#        ('files', '__first__'),
-#    ]
+    #    dependencies = [
+    #        ('files', '__first__'),
+    #    ]
 
     operations = [
         migrations.CreateModel(
-            name='Institute',
+            name="Institute",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('modified_date', models.DateTimeField(auto_now=True)),
-                ('name', models.CharField(max_length=255)),
-                ('info', models.TextField(blank=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("modified_date", models.DateTimeField(auto_now=True)),
+                ("name", models.CharField(max_length=255)),
+                ("info", models.TextField(blank=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Map',
+            name="Map",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('modified_date', models.DateTimeField(auto_now=True)),
-                ('name', models.CharField(max_length=255)),
-                ('title', models.CharField(blank=True, max_length=255)),
-                ('info', models.TextField(blank=True)),
-                ('scale', models.IntegerField(blank=True, null=True)),
-                ('width', models.FloatField(blank=True, null=True)),
-                ('height', models.FloatField(blank=True, null=True)),
-                ('date_created', models.DateField(blank=True, null=True)),
-                ('date_created2', models.DateField(blank=True, null=True)),
-                ('date_content', models.DateField(blank=True, null=True)),
-                ('date_content2', models.DateField(blank=True, null=True)),
-                ('map_base', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='base', to='maps.Map')),
-                ('map_copy', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='copy', to='maps.Map')),
-                ('map_institute', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='publisher', to='maps.Institute')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("modified_date", models.DateTimeField(auto_now=True)),
+                ("name", models.CharField(max_length=255)),
+                ("title", models.CharField(blank=True, max_length=255)),
+                ("info", models.TextField(blank=True)),
+                ("scale", models.IntegerField(blank=True, null=True)),
+                ("width", models.FloatField(blank=True, null=True)),
+                ("height", models.FloatField(blank=True, null=True)),
+                ("date_created", models.DateField(blank=True, null=True)),
+                ("date_created2", models.DateField(blank=True, null=True)),
+                ("date_content", models.DateField(blank=True, null=True)),
+                ("date_content2", models.DateField(blank=True, null=True)),
+                (
+                    "map_base",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="base",
+                        to="maps.Map",
+                    ),
+                ),
+                (
+                    "map_copy",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="copy",
+                        to="maps.Map",
+                    ),
+                ),
+                (
+                    "map_institute",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="publisher",
+                        to="maps.Institute",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Person',
+            name="Person",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('modified_date', models.DateTimeField(auto_now=True)),
-                ('name', models.CharField(max_length=255)),
-                ('info', models.TextField(blank=True)),
-                ('person_institutes', models.ManyToManyField(blank=True, related_name='person_institutes', to='maps.Institute')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("modified_date", models.DateTimeField(auto_now=True)),
+                ("name", models.CharField(max_length=255)),
+                ("info", models.TextField(blank=True)),
+                (
+                    "person_institutes",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="person_institutes",
+                        to="maps.Institute",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Place',
+            name="Place",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('modified_date', models.DateTimeField(auto_now=True)),
-                ('name', models.CharField(max_length=255)),
-                ('info', models.TextField(blank=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("modified_date", models.DateTimeField(auto_now=True)),
+                ("name", models.CharField(max_length=255)),
+                ("info", models.TextField(blank=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Reference',
+            name="Reference",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('modified_date', models.DateTimeField(auto_now=True)),
-                ('name', models.CharField(max_length=255)),
-                ('info', models.TextField(blank=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("modified_date", models.DateTimeField(auto_now=True)),
+                ("name", models.CharField(max_length=255)),
+                ("info", models.TextField(blank=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.AddField(
-            model_name='person',
-            name='person_location',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='person_location', to='maps.Place'),
+            model_name="person",
+            name="person_location",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="person_location",
+                to="maps.Place",
+            ),
         ),
         migrations.AddField(
-            model_name='map',
-            name='map_issued',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='issued', to='maps.Place'),
+            model_name="map",
+            name="map_issued",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="issued",
+                to="maps.Place",
+            ),
         ),
         migrations.AddField(
-            model_name='map',
-            name='map_location',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='map_location', to='maps.Place'),
+            model_name="map",
+            name="map_location",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="map_location",
+                to="maps.Place",
+            ),
         ),
         migrations.AddField(
-            model_name='map',
-            name='map_persons',
-            field=models.ManyToManyField(blank=True, related_name='author', to='maps.Person'),
+            model_name="map",
+            name="map_persons",
+            field=models.ManyToManyField(
+                blank=True, related_name="author", to="maps.Person"
+            ),
         ),
         migrations.AddField(
-            model_name='map',
-            name='map_places',
-            field=models.ManyToManyField(blank=True, to='maps.Place'),
+            model_name="map",
+            name="map_places",
+            field=models.ManyToManyField(blank=True, to="maps.Place"),
         ),
         migrations.AddField(
-            model_name='map',
-            name='map_references',
-            field=models.ManyToManyField(blank=True, related_name='reference', to='maps.Reference'),
+            model_name="map",
+            name="map_references",
+            field=models.ManyToManyField(
+                blank=True, related_name="reference", to="maps.Reference"
+            ),
         ),
         migrations.AddField(
-            model_name='institute',
-            name='institute_location',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='institute_location', to='maps.Place'),
+            model_name="institute",
+            name="institute_location",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="institute_location",
+                to="maps.Place",
+            ),
         ),
         migrations.CreateModel(
-            name='Type',
+            name="Type",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=250)),
-                ('lft', models.PositiveIntegerField(db_index=True, editable=False)),
-                ('rght', models.PositiveIntegerField(db_index=True, editable=False)),
-                ('tree_id', models.PositiveIntegerField(db_index=True, editable=False)),
-                ('level', models.PositiveIntegerField(db_index=True, editable=False)),
-                ('parent', mptt.fields.TreeForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='children', to='maps.Type')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=250)),
+                ("lft", models.PositiveIntegerField(db_index=True, editable=False)),
+                ("rght", models.PositiveIntegerField(db_index=True, editable=False)),
+                ("tree_id", models.PositiveIntegerField(db_index=True, editable=False)),
+                ("level", models.PositiveIntegerField(db_index=True, editable=False)),
+                (
+                    "parent",
+                    mptt.fields.TreeForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="children",
+                        to="maps.Type",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.AddField(
-            model_name='map',
-            name='map_id',
+            model_name="map",
+            name="map_id",
             field=models.CharField(blank=True, max_length=255, null=True),
         ),
         migrations.AddField(
-            model_name='institute',
-            name='institute_type',
-            field=models.ManyToManyField(blank=True, related_name='institute_type', to='maps.Type'),
+            model_name="institute",
+            name="institute_type",
+            field=models.ManyToManyField(
+                blank=True, related_name="institute_type", to="maps.Type"
+            ),
         ),
         migrations.AddField(
-            model_name='map',
-            name='map_type',
-            field=models.ManyToManyField(blank=True, related_name='map_type', to='maps.Type'),
+            model_name="map",
+            name="map_type",
+            field=models.ManyToManyField(
+                blank=True, related_name="map_type", to="maps.Type"
+            ),
         ),
         migrations.AddField(
-            model_name='person',
-            name='person_type',
-            field=models.ManyToManyField(blank=True, related_name='person_type', to='maps.Type'),
+            model_name="person",
+            name="person_type",
+            field=models.ManyToManyField(
+                blank=True, related_name="person_type", to="maps.Type"
+            ),
         ),
         migrations.AddField(
-            model_name='place',
-            name='place_type',
-            field=models.ManyToManyField(blank=True, related_name='place_type', to='maps.Type'),
+            model_name="place",
+            name="place_type",
+            field=models.ManyToManyField(
+                blank=True, related_name="place_type", to="maps.Type"
+            ),
         ),
         migrations.AddField(
-            model_name='reference',
-            name='reference_type',
-            field=models.ManyToManyField(blank=True, related_name='reference_type', to='maps.Type'),
+            model_name="reference",
+            name="reference_type",
+            field=models.ManyToManyField(
+                blank=True, related_name="reference_type", to="maps.Type"
+            ),
         ),
         migrations.RemoveField(
-            model_name='map',
-            name='map_institute',
+            model_name="map",
+            name="map_institute",
         ),
         migrations.AddField(
-            model_name='map',
-            name='map_institute',
-            field=models.ManyToManyField(blank=True, related_name='publisher', to='maps.Institute'),
+            model_name="map",
+            name="map_institute",
+            field=models.ManyToManyField(
+                blank=True, related_name="publisher", to="maps.Institute"
+            ),
         ),
         migrations.AlterModelOptions(
-            name='institute',
-            options={'ordering': ['name']},
+            name="institute",
+            options={"ordering": ["name"]},
         ),
         migrations.AlterModelOptions(
-            name='map',
-            options={'ordering': ['name']},
+            name="map",
+            options={"ordering": ["name"]},
         ),
         migrations.AlterModelOptions(
-            name='person',
-            options={'ordering': ['name']},
+            name="person",
+            options={"ordering": ["name"]},
         ),
         migrations.AlterModelOptions(
-            name='place',
-            options={'ordering': ['name']},
+            name="place",
+            options={"ordering": ["name"]},
         ),
         migrations.AlterModelOptions(
-            name='reference',
-            options={'ordering': ['name']},
+            name="reference",
+            options={"ordering": ["name"]},
         ),
         migrations.AddField(
-            model_name='person',
-            name='date_begin',
+            model_name="person",
+            name="date_begin",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='person',
-            name='date_end',
+            model_name="person",
+            name="date_end",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='place',
-            name='modern_name',
+            model_name="place",
+            name="modern_name",
             field=models.CharField(blank=True, max_length=255),
         ),
-#        migrations.AddField(
-#            model_name='map',
-#            name='map_file',
-#            field=models.ManyToManyField(blank=True, related_name='map_file', to='files.File'),
-#        ),
-#        migrations.AddField(
-#            model_name='map',
-#            name='map_scan',
-#            field=models.ManyToManyField(blank=True, related_name='map_scan', to='files.Scan'),
-#        ),
+        #        migrations.AddField(
+        #            model_name='map',
+        #            name='map_file',
+        #            field=models.ManyToManyField(blank=True, related_name='map_file', to='files.File'),
+        #        ),
+        #        migrations.AddField(
+        #            model_name='map',
+        #            name='map_scan',
+        #            field=models.ManyToManyField(blank=True, related_name='map_scan', to='files.Scan'),
+        #        ),
     ]

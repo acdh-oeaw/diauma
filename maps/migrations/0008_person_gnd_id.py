@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('maps', '0007_auto_20180508_1032'),
+        ("maps", "0007_auto_20180508_1032"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='person',
-            name='gnd_id',
-            field=models.IntegerField(blank=True, null=True, verbose_name='GND-Id'),
+            model_name="person",
+            name="gnd_id",
+            field=models.IntegerField(blank=True, null=True, verbose_name="GND-Id"),
         ),
     ]

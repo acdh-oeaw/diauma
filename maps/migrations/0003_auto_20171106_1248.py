@@ -5,89 +5,142 @@ from __future__ import unicode_literals
 import django.core.validators
 from django.db import migrations, models
 import django.db.models.deletion
-#import maps.models
+
+# import maps.models
 from maps.model.scan import scan_size
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('maps', '0002_file_scan'),
+        ("maps", "0002_file_scan"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='map',
-            name='date_content2',
-            field=models.DateField(blank=True, null=True, verbose_name='**'),
+            model_name="map",
+            name="date_content2",
+            field=models.DateField(blank=True, null=True, verbose_name="**"),
         ),
         migrations.AlterField(
-            model_name='map',
-            name='date_created2',
-            field=models.DateField(blank=True, null=True, verbose_name='**'),
+            model_name="map",
+            name="date_created2",
+            field=models.DateField(blank=True, null=True, verbose_name="**"),
         ),
         migrations.AlterField(
-            model_name='map',
-            name='height',
-            field=models.FloatField(blank=True, null=True, verbose_name='Height (cm)'),
+            model_name="map",
+            name="height",
+            field=models.FloatField(blank=True, null=True, verbose_name="Height (cm)"),
         ),
         migrations.AlterField(
-            model_name='map',
-            name='map_base',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='base', to='maps.Map', verbose_name='Has base map'),
+            model_name="map",
+            name="map_base",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="base",
+                to="maps.Map",
+                verbose_name="Has base map",
+            ),
         ),
         migrations.AlterField(
-            model_name='map',
-            name='map_copy',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='copy', to='maps.Map', verbose_name='Is copy of'),
+            model_name="map",
+            name="map_copy",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="copy",
+                to="maps.Map",
+                verbose_name="Is copy of",
+            ),
         ),
         migrations.AlterField(
-            model_name='map',
-            name='map_institute',
-            field=models.ManyToManyField(blank=True, related_name='publisher', to='maps.Institute', verbose_name='Published by'),
+            model_name="map",
+            name="map_institute",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="publisher",
+                to="maps.Institute",
+                verbose_name="Published by",
+            ),
         ),
         migrations.AlterField(
-            model_name='map',
-            name='map_issued',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='issued', to='maps.Place', verbose_name='Issued at'),
+            model_name="map",
+            name="map_issued",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="issued",
+                to="maps.Place",
+                verbose_name="Issued at",
+            ),
         ),
         migrations.AlterField(
-            model_name='map',
-            name='map_location',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='map_location', to='maps.Place', verbose_name='Has current location'),
+            model_name="map",
+            name="map_location",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="map_location",
+                to="maps.Place",
+                verbose_name="Has current location",
+            ),
         ),
         migrations.AlterField(
-            model_name='map',
-            name='map_persons',
-            field=models.ManyToManyField(blank=True, related_name='author', to='maps.Person', verbose_name='Created by'),
+            model_name="map",
+            name="map_persons",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="author",
+                to="maps.Person",
+                verbose_name="Created by",
+            ),
         ),
         migrations.AlterField(
-            model_name='map',
-            name='map_references',
-            field=models.ManyToManyField(blank=True, related_name='reference', to='maps.Reference', verbose_name='Referenced by'),
+            model_name="map",
+            name="map_references",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="reference",
+                to="maps.Reference",
+                verbose_name="Referenced by",
+            ),
         ),
         migrations.AlterField(
-            model_name='map',
-            name='scale',
-            field=models.IntegerField(blank=True, null=True, verbose_name='Scale (1:)'),
+            model_name="map",
+            name="scale",
+            field=models.IntegerField(blank=True, null=True, verbose_name="Scale (1:)"),
         ),
         migrations.AlterField(
-            model_name='map',
-            name='width',
-            field=models.FloatField(blank=True, null=True, verbose_name='Width (cm)'),
+            model_name="map",
+            name="width",
+            field=models.FloatField(blank=True, null=True, verbose_name="Width (cm)"),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='date_begin',
-            field=models.DateField(blank=True, null=True, verbose_name='Begin'),
+            model_name="person",
+            name="date_begin",
+            field=models.DateField(blank=True, null=True, verbose_name="Begin"),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='date_end',
-            field=models.DateField(blank=True, null=True, verbose_name='End'),
+            model_name="person",
+            name="date_end",
+            field=models.DateField(blank=True, null=True, verbose_name="End"),
         ),
         migrations.AlterField(
-            model_name='scan',
-            name='file',
-            field=models.ImageField(upload_to='scan/', validators=[scan_size, django.core.validators.FileExtensionValidator(allowed_extensions=['jp2', 'tif', 'tiff'])]),
+            model_name="scan",
+            name="file",
+            field=models.ImageField(
+                upload_to="scan/",
+                validators=[
+                    scan_size,
+                    django.core.validators.FileExtensionValidator(
+                        allowed_extensions=["jp2", "tif", "tiff"]
+                    ),
+                ],
+            ),
         ),
     ]

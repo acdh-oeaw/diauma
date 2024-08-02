@@ -49,40 +49,8 @@
                         {% endif %}
                     </div>
                 </div>
-                {% if user.is_authenticated %}
-                    <div id="login-logout" style="float:right;">
-                        <span style="float:left;margin-right:2em;">
-                            {% trans "hello"|capfirst %} {{ user.get_username }},
-                            <a href="{% url 'webpage:logout' %}">{% trans "logout"|capfirst %}</a>
-                        </span>
-                        <form id="search-form" action="{% url 'maps:search' %}" method="post">
-                            {% csrf_token %}
-                            <input id="search-term" name="search-term" type="text" placeholder="{% trans 'search term'|capfirst %}" />
-                            <button class="search-button" type="submit">{% trans "search"|capfirst %}</button>
-                        </form>
-                    </div>
-                {% endif %}
+                
                 <div class="navbar-collapse">
-                    {% if user.is_authenticated %}
-                        <ul class="nav navbar-nav">
-                            <li class="{% if 'index' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:index' %}">{% trans "latest"|capfirst %}</a>
-                            </li>
-                            {% with 'map reference person institute place' as list %}
-                                {% for item in list.split %}
-                                    <li class="{% if item in request.resolver_match.url_name %}active{% endif %}">
-                                        <a href="{% url 'maps:'|add:item %}">{% trans item|capfirst %}</a>
-                                    </li>
-                                {% endfor %}
-                            {% endwith %}
-                            <li class="{% if 'file' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:files-index' %}">{% trans "files"|capfirst %}</a>
-                            </li>
-                            <li class="{% if 'type' in request.resolver_match.url_name %}active{% endif %}">
-                                <a href="{% url 'maps:type' %}">{% trans "types"|capfirst %}</a>
-                            </li>
-                        </ul>
-                    {% endif %}
                     <ul class="nav navbar-nav" style="width:600px;">
                         <li class="{% if 'index' in request.resolver_match.url_name %}active{% endif %}">
                             <a href="{% url 'webpage:index' %}">{% trans 'about'|capfirst %}</a>
@@ -112,9 +80,6 @@
                                 <span class=" {% if language.code == LANGUAGE_CODE %}selected{% endif %}" onclick="select_language('{{ language.code }}')">{{ language.code|upper }}</span>
                             {% endfor %}
                         </form>
-                        {% if not user.is_authenticated %}
-                            <p style="margin-top:1em;font-weight:bold;float:right;"><a href="{% url 'webpage:login' %}">{% trans "login"|capfirst %}</a></p>
-                        {% endif %}
                     </div>
                 </div>
             </div>

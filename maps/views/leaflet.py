@@ -148,7 +148,6 @@ def base_map_info(request):
 
 
 def detail(request, id_):
-    print(overlay_maps[int(id_)]["map_view"])
     return render(
         request, "maps/leaflet/detail.html", {"overlay_map": overlay_maps[int(id_)]}
     )
