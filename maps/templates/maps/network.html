@@ -54,8 +54,6 @@
     <form method="post">
         {% csrf_token %}
         <a class="button" onclick="saveSvgAsPng(d3.select('svg').node(), 'network.png')">{% trans 'download'|capfirst %}</a>
-        {{ form }}
-        <input type="submit" value="{% trans 'apply'|capfirst %}">
     </form>
 
     <script>

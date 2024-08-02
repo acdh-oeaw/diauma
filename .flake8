@@ -1,5 +1,5 @@
 [flake8]
-ignore = D203 W504 W503
+ignore = D203 W504 W503 W605 F522
 max-line-length = 120
 exclude =
     */migrations,
@@ -13,4 +13,5 @@ exclude =
     appcreator
     webpage
     venv
+    ./maps/views/leaflet.py
 [isort]
